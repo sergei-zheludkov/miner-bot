@@ -156,6 +156,13 @@
               "en"
             ]
           },
+          "country": {
+            "type": "string",
+            "enum": [
+              "RU",
+              "US"
+            ]
+          },
           "role": {
             "type": "string",
             "enum": [
@@ -172,15 +179,6 @@
               "female"
             ],
             "nullable": true
-          },
-          "timezone": {
-            "type": "number",
-            "example": 600,
-            "nullable": true
-          },
-          "reminder_time": {
-            "type": "number",
-            "example": 600
           },
           "created": {
             "format": "date-time",
@@ -201,10 +199,9 @@
           "who_invited",
           "referral_counter",
           "lang",
+          "country",
           "role",
           "gender",
-          "timezone",
-          "reminder_time",
           "created",
           "updated"
         ]
@@ -248,14 +245,18 @@
               "female"
             ]
           },
-          "timezone": {
-            "type": "number",
-            "example": 600
+          "country": {
+            "type": "string",
+            "enum": [
+              "RU",
+              "US"
+            ]
           }
         },
         "required": [
           "id",
-          "lang"
+          "lang",
+          "country"
         ]
       },
       "UserUpdateDto": {
@@ -288,13 +289,12 @@
               "en"
             ]
           },
-          "reminder_time": {
-            "type": "number",
-            "example": 600
-          },
-          "timezone": {
-            "type": "number",
-            "example": 600
+          "country": {
+            "type": "string",
+            "enum": [
+              "RU",
+              "US"
+            ]
           }
         },
         "required": [

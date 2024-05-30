@@ -26,13 +26,6 @@ export const SceneSwitcher = () => {
         </SceneWrapper>
       );
 
-    case T.SceneEnum.SETTINGS_REMINDERS:
-      return (
-        <SceneWrapper type="remove-keyboard">
-          <Scene.SettingsReminder />
-        </SceneWrapper>
-      );
-
     // ----------------------------------------------------------------------------------------
     case T.MenuEnum.MAIN:
       return <Menu.Main />;

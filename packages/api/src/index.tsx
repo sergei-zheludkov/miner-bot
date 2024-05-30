@@ -8,9 +8,4 @@ export type {
   UserCreateDto,
   UserUpdateDto,
 
-  FeedbackEntity,
-  FeedbackFilesEntity,
-  FeedbackCreateDto,
-  FeedbackUpdateDto,
-  FeedbackFilesCreateDto,
 } from './generated';

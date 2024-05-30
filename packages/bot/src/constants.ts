@@ -1,11 +1,10 @@
-import { BotLanguageEnum } from '@common_bot/shared';
+import { BotLanguageEnum, CountriesEnum } from '@common_bot/shared';
 
 export enum SceneEnum {
   GREETING = 'scene_greeting',
   RULES = 'scene_rules',
 
   SETTINGS_LANGUAGE = 'scene_settings_language',
-  SETTINGS_REMINDERS = 'scene_settings_reminders',
 
   RESET = 'scene_reset',
 }
@@ -18,4 +17,12 @@ export enum MenuEnum {
   SETTINGS = 'settings_menu',
 }
 
-export const LANGUAGES = ['ru', 'en'] as Array<BotLanguageEnum>;
+export const LANGUAGES = [
+  BotLanguageEnum.RUSSIAN,
+  BotLanguageEnum.ENGLISH,
+];
+
+export const COUNTRIES = [
+  CountriesEnum.RUSSIA,
+  CountriesEnum.USA,
+];

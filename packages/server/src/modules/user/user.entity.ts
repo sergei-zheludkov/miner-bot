@@ -8,7 +8,9 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { GenderEnum, RoleEnum, BotLanguageEnum } from '@common_bot/shared';
+import {
+  GenderEnum, RoleEnum, BotLanguageEnum, CountriesEnum,
+} from '@common_bot/shared';
 
 @Entity('users')
 export class UserEntity {
@@ -82,6 +84,15 @@ export class UserEntity {
   lang: BotLanguageEnum;
 
   @ApiProperty({
+    enum: CountriesEnum,
+  })
+  @Column({
+    type: 'enum',
+    enum: CountriesEnum,
+  })
+  country: CountriesEnum;
+
+  @ApiProperty({
     enum: RoleEnum,
   })
   @Column({
@@ -101,15 +112,6 @@ export class UserEntity {
     enum: GenderEnum,
   })
   gender?: GenderEnum;
-
-  @ApiProperty({
-    example: 600,
-  })
-  @Column({
-    type: 'int',
-    default: 600,
-  })
-  reminder_time: number;
 
   @ApiProperty({
     example: '2022-10-21T19:48:59.726Z',

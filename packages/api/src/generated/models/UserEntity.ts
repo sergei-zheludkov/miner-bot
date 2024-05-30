@@ -10,10 +10,9 @@ export type UserEntity = {
     who_invited: UserEntity | null;
     referral_counter: number;
     lang: UserEntity.lang;
+    country: UserEntity.country;
     role: UserEntity.role;
     gender: UserEntity.gender | null;
-    timezone: number | null;
-    reminder_time: number;
     created: string;
     updated: string;
 };
@@ -23,6 +22,11 @@ export namespace UserEntity {
     export enum lang {
         RU = 'ru',
         EN = 'en',
+    }
+
+    export enum country {
+        RU = 'RU',
+        US = 'US',
     }
 
     export enum role {

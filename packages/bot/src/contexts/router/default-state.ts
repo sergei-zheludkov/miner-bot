@@ -16,5 +16,4 @@ export const defaultState: ContextState = {
   switchToSceneGreeting: empty,
   switchToSceneRules: empty,
   switchToSceneSettingsLanguage: empty,
-  switchToSceneSettingsReminders: empty,
 };

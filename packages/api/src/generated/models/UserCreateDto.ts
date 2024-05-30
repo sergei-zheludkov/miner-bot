@@ -10,7 +10,7 @@ export type UserCreateDto = {
     who_invited_id?: string | null;
     lang: UserCreateDto.lang;
     gender?: UserCreateDto.gender | null;
-    timezone?: number;
+    country: UserCreateDto.country;
 };
 
 export namespace UserCreateDto {
@@ -23,6 +23,11 @@ export namespace UserCreateDto {
     export enum gender {
         MALE = 'male',
         FEMALE = 'female',
+    }
+
+    export enum country {
+        RU = 'RU',
+        US = 'US',
     }
 
 

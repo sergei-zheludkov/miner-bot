@@ -1,4 +1,4 @@
-const en = {
+export const en = {
   common: {
     loading: 'Loading',
     balance: 'Balance:',
@@ -86,17 +86,16 @@ const en = {
 
     questions: {
       language: {
-        message: 'Choose language / Выберите язык',
+        message: 'Choose language/nВыберите язык',
         error_description: 'Unsupported language. Select available on keyboard',
+      },
+      country: {
+        message: 'Choose country where you are/nВыберите страну где вы находитесь',
+        error_description: 'Unsupported country. Select available on keyboard',
       },
       gender: {
         message: 'Choose your gender',
         error_description: 'Make a selection using keyboard buttons',
-      },
-      timezone: {
-        message: 'Enter your time zone',
-        description: "It's necessary for sending notifications correctly",
-        error_description: 'Invalid time zone. Select on keyboard',
       },
     },
   },
@@ -125,41 +124,6 @@ const en = {
   //   message: 'Yo, hello!\nMessage with a referral link:',
   //   // bonus: 'При переходе по ссылке получишь +10% на первое пополнение баланса.',
   // },
-  feedback: {
-    message: 'At the moment, any sent message will be forwarded to support',
-    describe: 'You can describe the problem in text, send a photo, video, audio or circle video',
-    error: 'Unfortunately, the request limit has already been reached',
-
-    request_list: 'Request list',
-    last_request_list: 'Last requests list',
-    empty_request_list: 'Request list is empty',
-    your_request: 'Your request from {{date}}',
-    user_request: 'Request {{user_name}} from {{date}}',
-    sent_success: 'Your request has been successfully sent',
-    request_has_been_taken: 'The request has been taken into work',
-    request_has_been_done: 'The request has been successfully processed',
-
-    // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    limit_zero: "Requests aren't available, try tomorrow",
-    limit_one: '{{count}} request is available',
-    limit_other: '{{count}} requests are available',
-    // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    total_in_waiting_zero: 'There are no requests waiting',
-    total_in_waiting_one: 'There is {{count}} request awaiting processing',
-    total_in_waiting_other: 'There are {{count}} requests awaiting processing',
-    // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    today_in_waiting_zero: '',
-    today_in_waiting_one: '',
-    today_in_waiting_other: '',
-    // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    today_in_processing_zero: '',
-    today_in_processing_one: '',
-    today_in_processing_other: '',
-    // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-    today_in_done_zero: '',
-    today_in_done_one: '',
-    today_in_done_other: '',
-  },
   rules: {
     message: 'Rules\n\n-Paragraph 1"\n-Paragraph 2\n-Paragraph 3',
   },
@@ -182,5 +146,3 @@ const en = {
     },
   },
 };
-
-export { en };

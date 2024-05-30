@@ -1,2 +1,2 @@
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-export const empty = () => { return };
+export const empty = () => {};
