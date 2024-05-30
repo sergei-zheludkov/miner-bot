@@ -1,0 +1,306 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/v1/users/{id}": {
+      "get": {
+        "operationId": "getOneUser",
+        "summary": "Returning information about user",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User has been found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found."
+          }
+        }
+      }
+    },
+    "/api/v1/users": {
+      "post": {
+        "operationId": "postUser",
+        "summary": "Creating new user in db",
+        "tags": [
+          "User"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User has been successfully created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserEntity"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "patchUser",
+        "summary": "Updating user data",
+        "tags": [
+          "User"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User has been updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found."
+          }
+        }
+      }
+    }
+  },
+  "info": {
+    "title": "Bot Server",
+    "description": "The Bot Server API description",
+    "version": "3.0.1",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "UserEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "266006070"
+          },
+          "firstname": {
+            "type": "string",
+            "example": "Ivan",
+            "nullable": true
+          },
+          "lastname": {
+            "type": "string",
+            "example": "Ivanov",
+            "nullable": true
+          },
+          "username": {
+            "type": "string",
+            "example": "sergei_zheludkov",
+            "nullable": true
+          },
+          "who_invited": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserEntity"
+              }
+            ]
+          },
+          "referral_counter": {
+            "type": "number",
+            "example": 5
+          },
+          "lang": {
+            "type": "string",
+            "enum": [
+              "ru",
+              "en"
+            ]
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "admin",
+              "support",
+              "affiliate",
+              "user"
+            ]
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female"
+            ],
+            "nullable": true
+          },
+          "timezone": {
+            "type": "number",
+            "example": 600,
+            "nullable": true
+          },
+          "reminder_time": {
+            "type": "number",
+            "example": 600
+          },
+          "created": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          },
+          "updated": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          }
+        },
+        "required": [
+          "id",
+          "firstname",
+          "lastname",
+          "username",
+          "who_invited",
+          "referral_counter",
+          "lang",
+          "role",
+          "gender",
+          "timezone",
+          "reminder_time",
+          "created",
+          "updated"
+        ]
+      },
+      "UserCreateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "266006070"
+          },
+          "firstname": {
+            "type": "string",
+            "example": "Ivan"
+          },
+          "lastname": {
+            "type": "string",
+            "example": "Ivanov"
+          },
+          "username": {
+            "type": "string",
+            "example": "sergei_zheludkov"
+          },
+          "who_invited_id": {
+            "type": "string",
+            "nullable": true,
+            "example": "1269959930"
+          },
+          "lang": {
+            "type": "string",
+            "enum": [
+              "ru",
+              "en"
+            ]
+          },
+          "gender": {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              "male",
+              "female"
+            ]
+          },
+          "timezone": {
+            "type": "number",
+            "example": 600
+          }
+        },
+        "required": [
+          "id",
+          "lang"
+        ]
+      },
+      "UserUpdateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "266006070"
+          },
+          "firstname": {
+            "type": "string",
+            "example": "Ivan"
+          },
+          "lastname": {
+            "type": "string",
+            "example": "Ivanov"
+          },
+          "username": {
+            "type": "string",
+            "example": "sergei_zheludkov"
+          },
+          "referral_counter": {
+            "type": "number",
+            "example": 5
+          },
+          "lang": {
+            "type": "string",
+            "enum": [
+              "ru",
+              "en"
+            ]
+          },
+          "reminder_time": {
+            "type": "number",
+            "example": 600
+          },
+          "timezone": {
+            "type": "number",
+            "example": 600
+          }
+        },
+        "required": [
+          "id"
+        ]
+      }
+    }
+  }
+}

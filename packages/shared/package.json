@@ -1,0 +1,26 @@
+{
+  "name": "@common_bot/shared",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist/**/*"],
+  "dependencies": {
+    "dayjs": "^1.11.6"
+  },
+  "devDependencies": {},
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch --preserveWatchOutput",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "npm run lint --fix"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}

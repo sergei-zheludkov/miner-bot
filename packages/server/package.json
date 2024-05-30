@@ -1,0 +1,42 @@
+{
+  "name": "@common_bot/server",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Sergo Zheludkov",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "nest build",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/main",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "npm run lint --fix"
+  },
+  "dependencies": {
+    "@common_bot/shared": "^1.0.0",
+    "@nestjs/common": "^10.2.8",
+    "@nestjs/core": "^10.2.8",
+    "@nestjs/platform-express": "^10.2.8",
+    "@nestjs/typeorm": "^10.0.0",
+    "@nestjs/axios": "^3.0.1",
+    "@nestjs/config": "^3.1.1",
+    "@nestjs/swagger": "^7.1.15",
+    "@nestjs/schedule": "^4.0.0",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "rxjs": "^7.2.0",
+    "typeorm": "^0.3.17",
+    "pg": "^8.11.3",
+    "class-validator": "^0.14.0",
+    "class-transformer": "^0.5.1",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^10.2.1",
+    "@nestjs/schematics": "^10.0.3"
+  }
+}
