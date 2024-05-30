@@ -1,2 +1,1 @@
-export { ShortRegistration } from './short';
-export { FullRegistration } from './full';
+export { Registration } from './registration';

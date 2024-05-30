@@ -1,4 +1,4 @@
-enum DayKindEnum {
+export enum DayKindEnum {
   MONDAY = 'monday',
   TUESDAY = 'tuesday',
   WEDNESDAY = 'wednesday',
@@ -7,5 +7,3 @@ enum DayKindEnum {
   SATURDAY = 'saturday',
   SUNDAY = 'sunday',
 }
-
-export { DayKindEnum };

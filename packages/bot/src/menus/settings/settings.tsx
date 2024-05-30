@@ -7,7 +7,6 @@ export const Settings = () => {
   const { t } = useTranslation(['buttons', 'common']);
   const {
     switchToSceneSettingsLanguage,
-    switchToSceneSettingsTimezone,
     // switchToSceneSettingsReminders,
     switchToMenuMain,
   } = useRouter();
@@ -15,9 +14,6 @@ export const Settings = () => {
   /* ---------- BUTTON HOOKS ---------- */
   const language = t('language');
   useText(switchToSceneSettingsLanguage, language);
-
-  const timezone = t('timezone');
-  useText(switchToSceneSettingsTimezone, timezone);
 
   // const reminders = t('reminders');
   // useText(switchToSceneSettingsReminders, reminders);
@@ -34,7 +30,6 @@ export const Settings = () => {
       title={t('common:settings_menu')}
     >
       <Button>{language}</Button>
-      <Button>{timezone}</Button>
       {/* <Button>{reminders}</Button> */}
       <Button>{back}</Button>
     </ButtonGroup>

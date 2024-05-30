@@ -1,6 +1,6 @@
 import { useApi, useQuery } from '@common_bot/api';
 
-const useSettingsPatchUser = () => {
+export const useSettingsPatchUser = () => {
   const { patchUser: patchUserApi } = useApi().user;
   const {
     isCalled: isPatchCalled,
@@ -20,5 +20,3 @@ const useSettingsPatchUser = () => {
     patchUser,
   };
 };
-
-export { useSettingsPatchUser };

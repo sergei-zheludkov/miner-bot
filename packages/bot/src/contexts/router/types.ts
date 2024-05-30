@@ -15,7 +15,6 @@ export type ContextState = {
   switchToSceneGreeting: () => void;
   switchToSceneRules: () => void;
   switchToSceneSettingsLanguage: () => void;
-  switchToSceneSettingsTimezone: () => void;
   switchToSceneSettingsReminders: () => void;
 }
 

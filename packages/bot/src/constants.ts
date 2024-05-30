@@ -5,7 +5,6 @@ export enum SceneEnum {
   RULES = 'scene_rules',
 
   SETTINGS_LANGUAGE = 'scene_settings_language',
-  SETTINGS_TIMEZONE = 'scene_settings_timezone',
   SETTINGS_REMINDERS = 'scene_settings_reminders',
 
   RESET = 'scene_reset',

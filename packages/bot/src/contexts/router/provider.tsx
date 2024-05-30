@@ -18,7 +18,6 @@ export const RouterProvider = ({ children }: ProviderProps) => {
   const switchToSceneGreeting = () => setScene(T.SceneEnum.GREETING);
   const switchToSceneRules = () => setScene(T.SceneEnum.RULES);
   const switchToSceneSettingsLanguage = () => setScene(T.SceneEnum.SETTINGS_LANGUAGE);
-  const switchToSceneSettingsTimezone = () => setScene(T.SceneEnum.SETTINGS_TIMEZONE);
   const switchToSceneSettingsReminders = () => setScene(T.SceneEnum.SETTINGS_REMINDERS);
 
   const data = useMemo(() => ({
@@ -33,7 +32,6 @@ export const RouterProvider = ({ children }: ProviderProps) => {
     switchToSceneGreeting,
     switchToSceneRules,
     switchToSceneSettingsLanguage,
-    switchToSceneSettingsTimezone,
     switchToSceneSettingsReminders,
   }), [scene]);
 

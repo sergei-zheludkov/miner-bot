@@ -7,7 +7,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { BotLanguageEnum, GenderEnum } from '@common_bot/shared';
 
-class UserCreateDto {
+export class UserCreateDto {
   @ApiProperty({
     required: true,
     example: '266006070',
@@ -65,14 +65,4 @@ class UserCreateDto {
   @IsOptional()
   @IsEnum(GenderEnum)
   gender?: GenderEnum;
-
-  @ApiProperty({
-    required: false,
-    example: 600,
-  })
-  @IsOptional()
-  @IsNumber()
-  timezone?: number;
 }
-
-export { UserCreateDto };

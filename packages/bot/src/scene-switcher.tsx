@@ -26,13 +26,6 @@ export const SceneSwitcher = () => {
         </SceneWrapper>
       );
 
-    case T.SceneEnum.SETTINGS_TIMEZONE:
-      return (
-        <SceneWrapper type="remove-keyboard">
-          <Scene.SettingsTimezone />
-        </SceneWrapper>
-      );
-
     case T.SceneEnum.SETTINGS_REMINDERS:
       return (
         <SceneWrapper type="remove-keyboard">
