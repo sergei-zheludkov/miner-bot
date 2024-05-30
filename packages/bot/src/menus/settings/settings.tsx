@@ -7,16 +7,12 @@ export const Settings = () => {
   const { t } = useTranslation(['buttons', 'common']);
   const {
     switchToSceneSettingsLanguage,
-    // switchToSceneSettingsReminders,
     switchToMenuMain,
   } = useRouter();
 
   /* ---------- BUTTON HOOKS ---------- */
   const language = t('language');
   useText(switchToSceneSettingsLanguage, language);
-
-  // const reminders = t('reminders');
-  // useText(switchToSceneSettingsReminders, reminders);
 
   const back = t('back');
   useText(switchToMenuMain, back);
@@ -26,11 +22,10 @@ export const Settings = () => {
     <ButtonGroup
       isReplyButtons
       isResizedKeyboard
-      maxColumns={2}
+      maxColumns={1}
       title={t('common:settings_menu')}
     >
       <Button>{language}</Button>
-      {/* <Button>{reminders}</Button> */}
       <Button>{back}</Button>
     </ButtonGroup>
   );

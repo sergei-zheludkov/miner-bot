@@ -2,10 +2,10 @@ import {
   IsOptional,
   IsString,
   IsNotEmpty,
-  IsEnum, IsNumber,
+  IsEnum,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { BotLanguageEnum, GenderEnum } from '@common_bot/shared';
+import { BotLanguageEnum, CountriesEnum, GenderEnum } from '@common_bot/shared';
 
 export class UserCreateDto {
   @ApiProperty({
@@ -65,4 +65,12 @@ export class UserCreateDto {
   @IsOptional()
   @IsEnum(GenderEnum)
   gender?: GenderEnum;
+
+  @ApiProperty({
+    required: true,
+    enum: CountriesEnum,
+  })
+  @IsNotEmpty()
+  @IsEnum(CountriesEnum)
+  country: CountriesEnum;
 }

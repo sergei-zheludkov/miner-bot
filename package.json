@@ -31,6 +31,7 @@
     "ts-node": "^10.9.1"
   },
   "scripts": {
+    "generate:api": "cd packages/api && yarn generate",
     "start_server:dev": "cd packages/server && yarn start:dev",
     "start_bot:dev": "cd packages/bot && yarn dev",
     "build:packages": "lerna run build --scope=@common_bot/{shared,api,i18n}",

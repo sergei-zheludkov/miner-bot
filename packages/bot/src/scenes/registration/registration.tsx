@@ -7,11 +7,9 @@ import {
   DialogStep,
 } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
-import { BotLanguageEnum } from '@common_bot/shared';
+import { CountriesEnum, BotLanguageEnum } from '@common_bot/shared';
 import { useRegistration } from './use-registration';
-import {
-  GENDER_KEY, LANG_KEY, GENDERS,
-} from './constants';
+import { QUESTION_KEYS, GENDERS } from './constants';
 
 const { MALE, FEMALE } = GENDERS;
 
@@ -25,6 +23,7 @@ export const Registration = ({ refId, getUser }: Props) => {
   const {
     isValidGender,
     isValidLanguage,
+    isValidCountry,
 
     isRegistered,
     isSentData,
@@ -57,6 +56,17 @@ export const Registration = ({ refId, getUser }: Props) => {
       </ButtonGroup>
     );
 
+    const countryContent = (
+      <ButtonGroup title={t('questions.country.message')}>
+        <Button id={CountriesEnum.RUSSIA}>
+          {t(`buttons:${CountriesEnum.RUSSIA}`)}
+        </Button>
+        <Button id={CountriesEnum.USA}>
+          {t(`buttons:${CountriesEnum.USA}`)}
+        </Button>
+      </ButtonGroup>
+    );
+
     const genderContent = (
       <ButtonGroup title={t('questions.gender.message')}>
         <Button id={MALE}>{t(`buttons:${MALE}`)}</Button>
@@ -67,16 +77,22 @@ export const Registration = ({ refId, getUser }: Props) => {
     return (
       <Dialog onFinish={createUser}>
         <DialogStep
-          id={LANG_KEY}
+          id={QUESTION_KEYS.LANG}
           validation={isValidLanguage}
           content={languageContent}
           onNext={handleSelectLanguage}
         >
           <DialogStep
-            id={GENDER_KEY}
-            validation={isValidGender}
-            content={genderContent}
-          />
+            id={QUESTION_KEYS.COUNTRY}
+            validation={isValidCountry}
+            content={countryContent}
+          >
+            <DialogStep
+              id={QUESTION_KEYS.GENDER}
+              validation={isValidGender}
+              content={genderContent}
+            />
+          </DialogStep>
         </DialogStep>
       </Dialog>
     );

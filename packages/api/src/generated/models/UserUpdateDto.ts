@@ -9,8 +9,7 @@ export type UserUpdateDto = {
     username?: string;
     referral_counter?: number;
     lang?: UserUpdateDto.lang;
-    reminder_time?: number;
-    timezone?: number;
+    country?: UserUpdateDto.country;
 };
 
 export namespace UserUpdateDto {
@@ -18,6 +17,11 @@ export namespace UserUpdateDto {
     export enum lang {
         RU = 'ru',
         EN = 'en',
+    }
+
+    export enum country {
+        RU = 'RU',
+        US = 'US',
     }
 
 

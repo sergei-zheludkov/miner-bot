@@ -6,7 +6,7 @@ import {
   IsNotEmpty,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { BotLanguageEnum } from '@common_bot/shared';
+import { BotLanguageEnum, CountriesEnum } from '@common_bot/shared';
 
 export class UserUpdateDto {
   @ApiProperty({
@@ -59,9 +59,9 @@ export class UserUpdateDto {
 
   @ApiProperty({
     required: false,
-    example: 600,
+    enum: CountriesEnum,
   })
   @IsOptional()
-  @IsNumber()
-  reminder_time?: number;
+  @IsEnum(CountriesEnum)
+  country?: CountriesEnum;
 }

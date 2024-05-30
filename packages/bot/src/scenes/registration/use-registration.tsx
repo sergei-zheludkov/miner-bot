@@ -5,10 +5,8 @@ import { useApi, useQuery } from '@common_bot/api';
 import type { UserCreateDto } from '@common_bot/api';
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter } from '../../contexts';
-import { LANGUAGES } from '../../constants';
-import {
-  LANG_KEY, GENDERS, GENDER_KEY,
-} from './constants';
+import { COUNTRIES, LANGUAGES } from '../../constants';
+import { QUESTION_KEYS, GENDERS } from './constants';
 
 type Props = {
   refId: string | null;
@@ -33,9 +31,11 @@ export const useRegistration = ({ refId, getUser }: Props) => {
 
   const createUser = async (answers: DialogAnswers) => {
     // Такой финт из-за кривой генерации enum в @common_bot/api
-    const lang = answers[LANG_KEY] as unknown as UserCreateDto['lang'];
+    const lang = answers[QUESTION_KEYS.LANG] as unknown as UserCreateDto['lang'];
     // Такой финт из-за кривой генерации enum в @common_bot/api
-    const gender = answers[GENDER_KEY] as unknown as UserCreateDto['gender'];
+    const country = answers[QUESTION_KEYS.COUNTRY] as unknown as UserCreateDto['country'];
+    // Такой финт из-за кривой генерации enum в @common_bot/api
+    const gender = answers[QUESTION_KEYS.GENDER] as unknown as UserCreateDto['gender'];
 
     const newUser = await fetch({
       id: chat.id,
@@ -44,6 +44,7 @@ export const useRegistration = ({ refId, getUser }: Props) => {
       username: chat.username,
       who_invited_id: refId,
       lang,
+      country,
       gender,
     });
 
@@ -51,7 +52,6 @@ export const useRegistration = ({ refId, getUser }: Props) => {
       return;
     }
 
-    // setRegistered(true);
     await getUser();
     switchToSceneGreeting();
   };
@@ -65,6 +65,19 @@ export const useRegistration = ({ refId, getUser }: Props) => {
 
     const title = t('error_title');
     const description = t('questions.language.error_description');
+
+    return `${title}\n${description}`;
+  };
+
+  const isValidCountry = (country: string) => {
+    const isValid = (COUNTRIES as Array<string>).includes(country);
+
+    if (isValid) {
+      return undefined;
+    }
+
+    const title = t('error_title');
+    const description = t('questions.country.error_description');
 
     return `${title}\n${description}`;
   };
@@ -85,6 +98,7 @@ export const useRegistration = ({ refId, getUser }: Props) => {
   return {
     isValidGender,
     isValidLanguage,
+    isValidCountry,
 
     isRegistered: isSuccess,
     isSentData: isCalled,

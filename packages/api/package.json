@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch --preserveWatchOutput",
-    "generate:api": "openapi --input ../server/openapi.json --output ./src/generated --client axios",
+    "generate": "openapi --input ../server/openapi.json --output ./src/generated --client axios",
     "typecheck": "tsc --noEmit",
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint --fix"
