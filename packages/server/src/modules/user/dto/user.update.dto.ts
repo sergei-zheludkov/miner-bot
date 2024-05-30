@@ -8,7 +8,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { BotLanguageEnum } from '@common_bot/shared';
 
-class UserUpdateDto {
+export class UserUpdateDto {
   @ApiProperty({
     required: true,
     example: '266006070',
@@ -64,14 +64,4 @@ class UserUpdateDto {
   @IsOptional()
   @IsNumber()
   reminder_time?: number;
-
-  @ApiProperty({
-    required: false,
-    example: 600,
-  })
-  @IsOptional()
-  @IsNumber()
-  timezone: number;
 }
-
-export { UserUpdateDto };

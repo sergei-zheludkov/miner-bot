@@ -4,7 +4,7 @@ import { useBotContext, useCommand } from '@urban-bot/core';
 import { useApi, useQuery, predicates } from '@common_bot/api';
 import { useTranslation } from '@common_bot/i18n';
 import { saveChat, getChatsMap } from '../../local-storage';
-import { /* ShortRegistration, */ FullRegistration } from '../../scenes';
+import { /* ShortRegistration, */ Registration } from '../../scenes';
 import { useRouter } from '../router';
 import { Context } from './context';
 import type { ProviderProps, ContextState } from './types';
@@ -68,7 +68,7 @@ export const UserProvider = ({ children }: ProviderProps) => {
   if (isUserNotFound) {
     // TODO add feature-toggle for changing scenarios
     // return <ShortRegistration refId={referralId} getUser={getUser} />;
-    return <FullRegistration refId={referralId} getUser={getUser} />;
+    return <Registration refId={referralId} getUser={getUser} />;
   }
 
   if (isUserLoaded) {

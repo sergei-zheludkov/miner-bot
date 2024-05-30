@@ -11,7 +11,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { GenderEnum, RoleEnum, BotLanguageEnum } from '@common_bot/shared';
 
 @Entity('users')
-class UserEntity {
+export class UserEntity {
   @ApiProperty({
     example: '266006070',
   })
@@ -104,16 +104,6 @@ class UserEntity {
 
   @ApiProperty({
     example: 600,
-    nullable: true,
-  })
-  @Column({
-    type: 'int',
-    nullable: true,
-  })
-  timezone?: number;
-
-  @ApiProperty({
-    example: 600,
   })
   @Column({
     type: 'int',
@@ -133,5 +123,3 @@ class UserEntity {
   @UpdateDateColumn()
   updated: Date;
 }
-
-export { UserEntity };

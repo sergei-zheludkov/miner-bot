@@ -1,6 +1,4 @@
-enum BotLanguageEnum {
+export enum BotLanguageEnum {
   RUSSIAN = 'ru',
   ENGLISH = 'en',
 }
-
-export { BotLanguageEnum };

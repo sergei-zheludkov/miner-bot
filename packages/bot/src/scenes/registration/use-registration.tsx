@@ -1,24 +1,21 @@
 import { useBotContext } from '@urban-bot/core';
 // TODO настроить eslint на проставку type вниз импортов
 import type { DialogAnswers, DialogValidation } from '@urban-bot/core';
-import { CONSTANTS } from '@common_bot/shared';
 import { useApi, useQuery } from '@common_bot/api';
 import type { UserCreateDto } from '@common_bot/api';
 import { useTranslation } from '@common_bot/i18n';
-import { useRouter } from '../../../contexts';
-import { LANGUAGES } from '../../../constants';
+import { useRouter } from '../../contexts';
+import { LANGUAGES } from '../../constants';
 import {
-  LANG_KEY, GENDERS, GENDER_KEY, TIMEZONE_KEY,
+  LANG_KEY, GENDERS, GENDER_KEY,
 } from './constants';
-
-const { TIMEZONES } = CONSTANTS;
 
 type Props = {
   refId: string | null;
   getUser: () => void;
 }
 
-const useFullRegistration = ({ refId, getUser }: Props) => {
+export const useRegistration = ({ refId, getUser }: Props) => {
   const { t } = useTranslation('registration');
   const { switchToSceneGreeting } = useRouter();
   const { i18n } = useTranslation('lang');
@@ -39,7 +36,6 @@ const useFullRegistration = ({ refId, getUser }: Props) => {
     const lang = answers[LANG_KEY] as unknown as UserCreateDto['lang'];
     // Такой финт из-за кривой генерации enum в @common_bot/api
     const gender = answers[GENDER_KEY] as unknown as UserCreateDto['gender'];
-    const timezone = Number(answers[TIMEZONE_KEY]);
 
     const newUser = await fetch({
       id: chat.id,
@@ -48,7 +44,6 @@ const useFullRegistration = ({ refId, getUser }: Props) => {
       username: chat.username,
       who_invited_id: refId,
       lang,
-      timezone,
       gender,
     });
 
@@ -87,23 +82,9 @@ const useFullRegistration = ({ refId, getUser }: Props) => {
     return `${title}\n${description}`;
   };
 
-  const isValidTimezone = (timezone: string) => {
-    const isValid = TIMEZONES.includes(Number(timezone));
-
-    if (isValid) {
-      return undefined;
-    }
-
-    const title = t('error_title');
-    const description = t('questions.timezone.error_description');
-
-    return `${title}\n${description}`;
-  };
-
   return {
     isValidGender,
     isValidLanguage,
-    isValidTimezone,
 
     isRegistered: isSuccess,
     isSentData: isCalled,
@@ -112,5 +93,3 @@ const useFullRegistration = ({ refId, getUser }: Props) => {
     createUser,
   };
 };
-
-export { useFullRegistration };

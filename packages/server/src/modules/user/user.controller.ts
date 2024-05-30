@@ -19,7 +19,7 @@ import { UserEntity } from './user.entity';
 import { UserCreateDto, UserUpdateDto } from './dto';
 
 @Controller(`${API_VERSION_ROUTES.v1}/users`)
-class UserController {
+export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @ApiOkResponse({
@@ -87,5 +87,3 @@ class UserController {
     return user;
   }
 }
-
-export { UserController };

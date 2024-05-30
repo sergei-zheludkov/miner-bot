@@ -16,7 +16,7 @@ const logger_message = 'UserCronService(startReminder)[POST]:';
 const error_message = 'Error with http req in User Cron';
 
 @Injectable()
-class UserCronService {
+export class UserCronService {
   constructor(
     @InjectRepository(User)
     private readonly user: Repository<User>,
@@ -44,5 +44,3 @@ class UserCronService {
     }
   }
 }
-
-export { UserCronService };

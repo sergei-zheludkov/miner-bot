@@ -13,7 +13,7 @@ const findOne = (users_repository: Repository<User>, id: string) => users_reposi
   });
 
 @Injectable()
-class UserService {
+export class UserService {
   constructor(
     // private readonly httpService: HttpService,
     @InjectDataSource()
@@ -112,5 +112,3 @@ class UserService {
     }
   }
 }
-
-export { UserService };

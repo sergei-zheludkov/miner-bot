@@ -1,1 +1,0 @@
-export { TIMEZONES } from './timezones';

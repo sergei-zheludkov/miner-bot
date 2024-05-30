@@ -7,14 +7,12 @@ import {
   DialogStep,
 } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
-import { BotLanguageEnum, CONSTANTS, DATE } from '@common_bot/shared';
-import { useFullRegistration } from './use-full-registration';
+import { BotLanguageEnum } from '@common_bot/shared';
+import { useRegistration } from './use-registration';
 import {
-  GENDER_KEY, LANG_KEY, TIMEZONE_KEY, GENDERS,
+  GENDER_KEY, LANG_KEY, GENDERS,
 } from './constants';
 
-const { TIMEZONES } = CONSTANTS;
-const { getTimeZoneFromNumber } = DATE;
 const { MALE, FEMALE } = GENDERS;
 
 interface Props {
@@ -22,19 +20,18 @@ interface Props {
   getUser: () => void;
 }
 
-const FullRegistration = ({ refId, getUser }: Props) => {
+export const Registration = ({ refId, getUser }: Props) => {
   const { t } = useTranslation('registration');
   const {
     isValidGender,
     isValidLanguage,
-    isValidTimezone,
 
     isRegistered,
     isSentData,
 
     handleSelectLanguage,
     createUser,
-  } = useFullRegistration({
+  } = useRegistration({
     refId,
     getUser,
   });
@@ -67,16 +64,6 @@ const FullRegistration = ({ refId, getUser }: Props) => {
       </ButtonGroup>
     );
 
-    const timezoneContent = (
-      <ButtonGroup title={t('questions.timezone.message')} maxColumns={4}>
-        {TIMEZONES.map((timezone) => {
-          const displayTimezone = getTimeZoneFromNumber(timezone);
-
-          return <Button id={String(timezone)} key={timezone}>{displayTimezone}</Button>;
-        })}
-      </ButtonGroup>
-    );
-
     return (
       <Dialog onFinish={createUser}>
         <DialogStep
@@ -89,13 +76,7 @@ const FullRegistration = ({ refId, getUser }: Props) => {
             id={GENDER_KEY}
             validation={isValidGender}
             content={genderContent}
-          >
-            <DialogStep
-              id={TIMEZONE_KEY}
-              validation={isValidTimezone}
-              content={timezoneContent}
-            />
-          </DialogStep>
+          />
         </DialogStep>
       </Dialog>
     );
@@ -103,5 +84,3 @@ const FullRegistration = ({ refId, getUser }: Props) => {
 
   return null;
 };
-
-export { FullRegistration };
