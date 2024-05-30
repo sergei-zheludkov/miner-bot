@@ -1,0 +1,25 @@
+{
+  "name": "@common_bot/api",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist/**/*"],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch --preserveWatchOutput",
+    "generate:api": "openapi --input ../server/openapi.json --output ./src/generated --client axios",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "npm run lint --fix"
+  },
+  "dependencies": {
+    "openapi-typescript-codegen": "^0.23.0",
+    "axios": "^1.1.3",
+    "form-data": "^4.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.14.0"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@common_bot/i18n",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist/**/*"],
+  "dependencies": {
+    "@common_bot/shared": "^1.0.0",
+    "i18next": "22.4.9",
+    "react-i18next": "12.1.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch --preserveWatchOutput",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "npm run lint --fix"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.14.0"
+  }
+}
