@@ -52,28 +52,6 @@ export class UserEntity {
   username?: string;
 
   @ApiProperty({
-    // eslint-disable-next-line no-use-before-define
-    type: UserEntity,
-    nullable: true,
-  })
-  @ManyToOne(() => UserEntity, {
-    nullable: true,
-  })
-  @JoinColumn({
-    name: 'who_invited_id',
-  })
-  who_invited?: string;
-
-  @ApiProperty({
-    example: 5,
-  })
-  @Column({
-    type: 'int',
-    default: 0,
-  })
-  referral_counter: number;
-
-  @ApiProperty({
     enum: BotLanguageEnum,
   })
   @Column({
@@ -112,6 +90,65 @@ export class UserEntity {
     enum: GenderEnum,
   })
   gender?: GenderEnum;
+
+  @ApiProperty({
+    // eslint-disable-next-line no-use-before-define
+    type: UserEntity,
+    nullable: true,
+  })
+  @ManyToOne(() => UserEntity, {
+    nullable: true,
+  })
+  @JoinColumn({
+    name: 'who_invited_id',
+  })
+  who_invited?: string;
+
+  @ApiProperty({
+    example: 5,
+  })
+  @Column({
+    type: 'int',
+    default: 0,
+  })
+  referral_counter: number;
+
+  @ApiProperty({
+    example: 5,
+  })
+  @Column({
+    type: 'int',
+    default: 0,
+  })
+  finished_tasks_count: number;
+
+  @ApiProperty({
+    example: 5,
+  })
+  @Column({
+    type: 'decimal',
+    default: 0.0,
+  })
+  mining_rate: number;
+
+  @ApiProperty({
+    example: 5,
+  })
+  @Column({
+    type: 'decimal',
+    default: 0.0,
+  })
+  withdrawn_tons: number;
+
+  @ApiProperty({
+    example: '2022-10-21T19:48:59.726Z',
+    nullable: true,
+  })
+  @Column({
+    type: 'timestamptz',
+    nullable: true,
+  })
+  mining_started: Date;
 
   @ApiProperty({
     example: '2022-10-21T19:48:59.726Z',

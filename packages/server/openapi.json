@@ -137,18 +137,6 @@
             "example": "sergei_zheludkov",
             "nullable": true
           },
-          "who_invited": {
-            "nullable": true,
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/UserEntity"
-              }
-            ]
-          },
-          "referral_counter": {
-            "type": "number",
-            "example": 5
-          },
           "lang": {
             "type": "string",
             "enum": [
@@ -180,6 +168,36 @@
             ],
             "nullable": true
           },
+          "who_invited": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserEntity"
+              }
+            ]
+          },
+          "referral_counter": {
+            "type": "number",
+            "example": 5
+          },
+          "finished_tasks_count": {
+            "type": "number",
+            "example": 5
+          },
+          "mining_rate": {
+            "type": "number",
+            "example": 5
+          },
+          "withdrawn_tons": {
+            "type": "number",
+            "example": 5
+          },
+          "mining_started": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z",
+            "nullable": true
+          },
           "created": {
             "format": "date-time",
             "type": "string",
@@ -196,12 +214,16 @@
           "firstname",
           "lastname",
           "username",
-          "who_invited",
-          "referral_counter",
           "lang",
           "country",
           "role",
           "gender",
+          "who_invited",
+          "referral_counter",
+          "finished_tasks_count",
+          "mining_rate",
+          "withdrawn_tons",
+          "mining_started",
           "created",
           "updated"
         ]
