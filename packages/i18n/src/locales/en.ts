@@ -18,7 +18,7 @@ export const en = {
     language: '🌎 Language',
     timezone: '🌐 Timezone',
     reminders: '🔈 Reminders',
-    rules: '📚 Rules',
+    information: '📚 Information',
     invite: '🤝 Invite',
     link_generator: '🔗 Link Generator',
     // statistics: '📈 Statistics',
@@ -124,25 +124,13 @@ export const en = {
   //   message: 'Yo, hello!\nMessage with a referral link:',
   //   // bonus: 'При переходе по ссылке получишь +10% на первое пополнение баланса.',
   // },
-  rules: {
-    message: 'Rules\n\n-Paragraph 1"\n-Paragraph 2\n-Paragraph 3',
+  information: {
+    message: 'Information block, you can add text and a link',
   },
   settings: {
-    reminder: {
-      message: 'Setting the reminders time',
-      about: 'Choose the day',
-
-      day_reminder_message: 'Setting on ',
-      selected: 'Selected: ',
-    },
     language: {
       used: 'Used: ',
       choose: 'Choose a language',
-    },
-    timezone: {
-      selected: 'Selected timezone: ',
-      not_selected: 'Timezone not selected',
-      choose: 'Choose a new timezone',
     },
   },
 };

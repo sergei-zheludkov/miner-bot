@@ -12,10 +12,11 @@ export const SceneSwitcher = () => {
   switch (scene) {
     case T.SceneEnum.GREETING:
       return <Scene.Greeting />;
-      // ----------------------------------------MAIN MENU---------------------------------------
-      //
-      // case T.Scene.RULES:
-      //   return <Scene.Rules />;
+
+    // ----------------------------------------MAIN MENU---------------------------------------
+    case T.SceneEnum.INFORMATION:
+      return <Scene.Information />;
+
       // ----------------------------------------ADMIN MENU--------------------------------------
 
     // ----------------------------------------SETTINGS----------------------------------------

@@ -13,7 +13,7 @@ export type ContextState = {
   switchToMenuSettings: () => void;
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
   switchToSceneGreeting: () => void;
-  switchToSceneRules: () => void;
+  switchToSceneInformation: () => void;
   switchToSceneSettingsLanguage: () => void;
 }
 
