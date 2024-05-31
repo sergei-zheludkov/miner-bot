@@ -15,7 +15,7 @@ export const Main = () => {
     switchToMenuSupport,
     switchToMenuReferral,
     switchToMenuSettings,
-    switchToSceneRules,
+    switchToSceneInformation,
   } = useRouter();
   const { t } = useTranslation('buttons');
   // const { message } = useCommonMainMenu();
@@ -30,15 +30,15 @@ export const Main = () => {
   const settings = t('settings');
   useText(switchToMenuSettings, settings);
 
-  const rules = t('rules');
-  useText(switchToSceneRules, rules);
+  const information = t('information');
+  useText(switchToSceneInformation, information);
   /* --------------------------------- */
 
   return (
     <ButtonGroup isReplyButtons isResizedKeyboard maxColumns={2} title={t('common:main_menu')}>
       <Button>{referral}</Button>
       <Button>{settings}</Button>
-      <Button>{rules}</Button>
+      <Button>{information}</Button>
     </ButtonGroup>
   );
 };

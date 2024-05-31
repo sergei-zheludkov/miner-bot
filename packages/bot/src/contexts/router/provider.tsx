@@ -16,7 +16,7 @@ export const RouterProvider = ({ children }: ProviderProps) => {
   const switchToMenuSettings = () => setScene(T.MenuEnum.SETTINGS);
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
   const switchToSceneGreeting = () => setScene(T.SceneEnum.GREETING);
-  const switchToSceneRules = () => setScene(T.SceneEnum.RULES);
+  const switchToSceneInformation = () => setScene(T.SceneEnum.INFORMATION);
   const switchToSceneSettingsLanguage = () => setScene(T.SceneEnum.SETTINGS_LANGUAGE);
 
   const data = useMemo(() => ({
@@ -29,7 +29,7 @@ export const RouterProvider = ({ children }: ProviderProps) => {
     switchToMenuSettings,
     // -- -- -- -- -- -- -- -- --
     switchToSceneGreeting,
-    switchToSceneRules,
+    switchToSceneInformation,
     switchToSceneSettingsLanguage,
   }), [scene]);
 

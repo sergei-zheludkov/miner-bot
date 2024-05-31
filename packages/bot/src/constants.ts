@@ -2,7 +2,7 @@ import { BotLanguageEnum, CountriesEnum } from '@common_bot/shared';
 
 export enum SceneEnum {
   GREETING = 'scene_greeting',
-  RULES = 'scene_rules',
+  INFORMATION = 'scene_information',
 
   SETTINGS_LANGUAGE = 'scene_settings_language',
 
