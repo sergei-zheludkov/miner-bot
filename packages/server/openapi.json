@@ -312,6 +312,10 @@
               "en"
             ]
           },
+          "increase_mining_rate": {
+            "type": "number",
+            "example": 1e-7
+          },
           "mining_rate_started": {
             "format": "date-time",
             "type": "string",

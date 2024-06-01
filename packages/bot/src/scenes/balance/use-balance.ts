@@ -8,24 +8,6 @@ export const useBalance = () => {
   const { bot } = useBotContext<UrbanBotTelegram>();
   const { user } = useUser();
 
-  // const now = new Date().valueOf();
-  // const mining_date = new Date(user.mining_rate_started || '').valueOf()
-  // const seconds = (now - mining_date) / 1000;
-
-  // console.log(
-  //   '\n MINING_STARTED:',
-  //   user.mining_rate_started,
-  //
-  //   '\n NOW:',
-  //   now,
-  //
-  //   '\n MINING_DATE:',
-  //   mining_date,
-  //
-  //   '\n SECONDS:',
-  //   seconds,
-  // );
-
   const { balance, withdrawn_tons: withdrawn } = user;
 
   // TODO добавить описание параметров коллбека в библиотеке urban-bot

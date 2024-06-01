@@ -1,8 +1,11 @@
 import React from 'react';
 import { Button, ButtonGroup } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
+import { MATH } from '@common_bot/shared';
 import { useRouter } from '../../contexts';
 import { useBalance } from './use-balance';
+
+const { getMinedRate } = MATH;
 
 export const Balance = () => {
   const { t } = useTranslation('balance');
@@ -13,12 +16,14 @@ export const Balance = () => {
   const title = (
     <>
       {t('message')}
-      <b>{balance}</b>
+      &#32;
+      <b>{getMinedRate(balance)}</b>
       &#32;
       TON
       <br />
       {t('withdrawn')}
-      <b>{withdrawn}</b>
+      &#32;
+      <b>{getMinedRate(withdrawn)}</b>
       &#32;
       TON
     </>

@@ -1,6 +1,7 @@
 import {
   IsOptional,
   IsString,
+  IsDecimal,
   IsEnum,
   IsDateString,
   IsNotEmpty,
@@ -48,6 +49,14 @@ export class UserUpdateDto {
   @IsOptional()
   @IsEnum(BotLanguageEnum)
   lang?: BotLanguageEnum;
+
+  @ApiProperty({
+    required: false,
+    example: 0.000_000_1,
+  })
+  @IsOptional()
+  @IsDecimal()
+  increase_mining_rate: number;
 
   @ApiProperty({
     required: false,
