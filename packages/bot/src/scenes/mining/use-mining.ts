@@ -3,6 +3,7 @@ import { useBotContext } from '@urban-bot/core';
 import type { UrbanBotTelegram } from '@urban-bot/telegram';
 import { useTranslation } from '@common_bot/i18n';
 import { useUser, usePatchUser, useRouter } from '../../contexts';
+import { isActiveState, isTransferredState } from './predicates';
 import { MINING_STATES } from './constants';
 import { getStartedState } from './helpers';
 
@@ -21,7 +22,7 @@ export const useMining = () => {
   const { bot } = useBotContext<UrbanBotTelegram>();
   const { switchToMenuMain } = useRouter();
   const { user, getUser } = useUser();
-  const { patchUser } = usePatchUser();
+  const { patchUser, isPatchLoading } = usePatchUser();
 
   const [state, setState] = useState<MINING_STATES>(getStartedState(user));
 
@@ -43,9 +44,18 @@ export const useMining = () => {
     }
   };
 
+  const handleClickGet = async () => {
+    const data = { id: user.id, mining_rate_started: new Date().toISOString() };
+
+    if (!isPatchLoading) {
+      await patchUser(data);
+    }
+
+    setState(MINING_STATES.TRANSFERRED);
+  };
+
   const handleClickBack = () => {
-    // TODO предикаты
-    if (state === MINING_STATES.ACTIVE) {
+    if (isActiveState(state) || isTransferredState(state)) {
       getUser();
     }
 
@@ -53,6 +63,10 @@ export const useMining = () => {
   };
 
   return {
-    state, channels, handleClickReady, handleClickBack,
+    state,
+    channels,
+    handleClickReady,
+    handleClickGet,
+    handleClickBack,
   };
 };

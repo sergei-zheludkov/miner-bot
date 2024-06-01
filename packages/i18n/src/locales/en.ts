@@ -106,11 +106,15 @@ export const en = {
   mining: {
     message: 'To access the bot features, you need to subscribe to the following channels:',
     error: 'Does not meet the conditions',
-    done: 'Mining has been activated',
+    done: '✅ Mining is active',
+    rate: '⛏️ Every 5 seconds you get: ',
+    mined: 'Mined:',
+    get: '🎁 Get',
+    transferred: "🥳 You've got",
   },
   balance: {
-    message: 'Your balance: ',
-    withdrawn: 'Withdrawn: ',
+    message: 'Your balance:',
+    withdrawn: 'Withdrawn:',
   },
   admin: {
     message: 'What do you want to do?',

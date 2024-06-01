@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common';
 // import { HttpService } from '@nestjs/axios';
 import { InjectDataSource } from '@nestjs/typeorm';
+import { MATH } from '@common_bot/shared';
 import { DataSource, Repository } from 'typeorm';
 import { logger } from '../../libs/logger/logger.instance';
 import { UserEntity as User } from './user.entity';
 import { UserCreateDto, UserUpdateDto } from './dto';
+
+const { getMinedTokenAmount } = MATH;
 
 const findOne = (users_repository: Repository<User>, id: string) => users_repository
   .findOne({
@@ -100,6 +103,24 @@ export class UserService {
 
         if (!user_in_db) {
           return user_in_db;
+        }
+
+        /*
+          Перегнать намайненное в баланс,
+          если пришла обновленная дата начала майнига по данному рейту
+        */
+        if (data.mining_rate_started) {
+          const earned = getMinedTokenAmount(
+            user_in_db.mining_rate,
+            user_in_db.mining_rate_started,
+          );
+
+          await users_repository.increment({ id }, 'balance', earned);
+        }
+
+        if (data.increase_mining_rate) {
+          // TODO: Протестировать
+          await users_repository.increment({ id }, 'mining_rate', data.increase_mining_rate);
         }
 
         await users_repository.update({ id }, data);
