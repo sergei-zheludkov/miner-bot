@@ -1,12 +1,12 @@
 import {
   IsOptional,
-  IsNumber,
   IsString,
   IsEnum,
+  IsDateString,
   IsNotEmpty,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { BotLanguageEnum, CountriesEnum } from '@common_bot/shared';
+import { BotLanguageEnum } from '@common_bot/shared';
 
 export class UserUpdateDto {
   @ApiProperty({
@@ -43,14 +43,6 @@ export class UserUpdateDto {
 
   @ApiProperty({
     required: false,
-    example: 5,
-  })
-  @IsOptional()
-  @IsNumber()
-  referral_counter?: number;
-
-  @ApiProperty({
-    required: false,
     enum: BotLanguageEnum,
   })
   @IsOptional()
@@ -59,9 +51,9 @@ export class UserUpdateDto {
 
   @ApiProperty({
     required: false,
-    enum: CountriesEnum,
+    example: '2022-10-21T19:48:59.726Z',
   })
   @IsOptional()
-  @IsEnum(CountriesEnum)
-  country?: CountriesEnum;
+  @IsDateString()
+  mining_started?: Date;
 }

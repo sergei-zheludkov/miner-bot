@@ -1,2 +1,2 @@
 export { UserProvider as User } from './provider';
-export { useUser } from './hook';
+export { useUser, usePatchUser } from './hook';

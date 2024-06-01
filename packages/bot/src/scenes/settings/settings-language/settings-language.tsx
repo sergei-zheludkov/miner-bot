@@ -4,7 +4,7 @@ import { useTranslation } from '@common_bot/i18n';
 import { useRouter } from '../../../contexts';
 import { useSettingsLanguage } from './use-settings-language';
 
-const SettingsLanguage = () => {
+export const SettingsLanguage = () => {
   const { switchToMenuSettings } = useRouter();
   const { t } = useTranslation('settings');
   const {
@@ -59,5 +59,3 @@ const SettingsLanguage = () => {
     </ButtonGroup>
   );
 };
-
-export { SettingsLanguage };

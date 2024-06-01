@@ -7,9 +7,8 @@ export type UserUpdateDto = {
     firstname?: string;
     lastname?: string;
     username?: string;
-    referral_counter?: number;
     lang?: UserUpdateDto.lang;
-    country?: UserUpdateDto.country;
+    mining_started?: string;
 };
 
 export namespace UserUpdateDto {
@@ -17,11 +16,6 @@ export namespace UserUpdateDto {
     export enum lang {
         RU = 'ru',
         EN = 'en',
-    }
-
-    export enum country {
-        RU = 'RU',
-        US = 'US',
     }
 
 

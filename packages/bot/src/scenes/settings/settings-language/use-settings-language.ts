@@ -1,15 +1,14 @@
 import { useEffect } from 'react';
 import { BotLanguageEnum, HOOK } from '@common_bot/shared';
 import { UserCreateDto } from '@common_bot/api';
-import { useUser } from '../../../contexts';
+import { useUser, usePatchUser } from '../../../contexts';
 import { LANGUAGES } from '../../../constants';
-import { useSettingsPatchUser } from '../use-settings-patch-user';
 
 const { useToggleState } = HOOK;
 
-const useSettingsLanguage = () => {
+export const useSettingsLanguage = () => {
   const { user, getUser } = useUser();
-  const { patchUser, isPatchSuccess: isSaved } = useSettingsPatchUser();
+  const { patchUser, isPatchSuccess: isSaved } = usePatchUser();
   const {
     toggle: isChangingMode,
     turnOn: turnOnChangingMode,
@@ -49,5 +48,3 @@ const useSettingsLanguage = () => {
     turnOffChangingMode,
   };
 };
-
-export { useSettingsLanguage };

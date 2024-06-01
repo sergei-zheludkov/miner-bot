@@ -15,6 +15,7 @@ export const Main = () => {
     switchToMenuSupport,
     switchToMenuReferral,
     switchToMenuSettings,
+    switchToSceneMining,
     switchToSceneInformation,
   } = useRouter();
   const { t } = useTranslation('buttons');
@@ -23,6 +24,9 @@ export const Main = () => {
   /* ---------- BUTTON HOOKS ---------- */
   useCommand(switchToMenuAdmin, '/admin');
   useCommand(switchToMenuSupport, '/support');
+
+  const mining = t('mining');
+  useText(switchToSceneMining, mining);
 
   const referral = t('referral');
   useText(switchToMenuReferral, referral);
@@ -36,6 +40,7 @@ export const Main = () => {
 
   return (
     <ButtonGroup isReplyButtons isResizedKeyboard maxColumns={2} title={t('common:main_menu')}>
+      <Button>{mining}</Button>
       <Button>{referral}</Button>
       <Button>{settings}</Button>
       <Button>{information}</Button>
