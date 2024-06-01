@@ -123,7 +123,7 @@ export class UserEntity {
   finished_tasks_count: number;
 
   @ApiProperty({
-    example: 5,
+    example: 0.000_000_1,
   })
   @Column({
     type: 'decimal',
@@ -132,13 +132,22 @@ export class UserEntity {
   mining_rate: number;
 
   @ApiProperty({
-    example: 5,
+    example: 0.5,
   })
   @Column({
     type: 'decimal',
     default: 0.0,
   })
   withdrawn_tons: number;
+
+  @ApiProperty({
+    example: 0.5,
+  })
+  @Column({
+    type: 'decimal',
+    default: 0.0,
+  })
+  balance: number;
 
   @ApiProperty({
     example: '2022-10-21T19:48:59.726Z',
@@ -148,7 +157,7 @@ export class UserEntity {
     type: 'timestamptz',
     nullable: true,
   })
-  mining_started: Date;
+  mining_rate_started: Date;
 
   @ApiProperty({
     example: '2022-10-21T19:48:59.726Z',

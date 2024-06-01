@@ -186,13 +186,17 @@
           },
           "mining_rate": {
             "type": "number",
-            "example": 5
+            "example": 1e-7
           },
           "withdrawn_tons": {
             "type": "number",
-            "example": 5
+            "example": 0.5
           },
-          "mining_started": {
+          "balance": {
+            "type": "number",
+            "example": 0.5
+          },
+          "mining_rate_started": {
             "format": "date-time",
             "type": "string",
             "example": "2022-10-21T19:48:59.726Z",
@@ -223,7 +227,8 @@
           "finished_tasks_count",
           "mining_rate",
           "withdrawn_tons",
-          "mining_started",
+          "balance",
+          "mining_rate_started",
           "created",
           "updated"
         ]
@@ -307,7 +312,7 @@
               "en"
             ]
           },
-          "mining_started": {
+          "mining_rate_started": {
             "format": "date-time",
             "type": "string",
             "example": "2022-10-21T19:48:59.726Z"

@@ -17,11 +17,11 @@ const channels = [
 ];
 
 export const useMining = () => {
+  const { t } = useTranslation('mining');
+  const { bot } = useBotContext<UrbanBotTelegram>();
   const { switchToMenuMain } = useRouter();
   const { user, getUser } = useUser();
   const { patchUser } = usePatchUser();
-  const { t } = useTranslation('mining');
-  const { bot /* , chat */ } = useBotContext<UrbanBotTelegram>();
 
   const [state, setState] = useState<MINING_STATES>(getStartedState(user));
 
@@ -35,7 +35,7 @@ export const useMining = () => {
       const options = { text: t('error'), show_alert: true };
       await bot.client.answerCallbackQuery(message.nativeEvent.payload.id, options);
     } else {
-      const data = { id: user.id, mining_started: new Date().toISOString() };
+      const data = { id: user.id, mining_rate_started: new Date().toISOString() };
 
       await patchUser(data);
 

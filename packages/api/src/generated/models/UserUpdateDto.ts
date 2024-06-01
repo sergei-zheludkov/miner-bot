@@ -8,7 +8,7 @@ export type UserUpdateDto = {
     lastname?: string;
     username?: string;
     lang?: UserUpdateDto.lang;
-    mining_started?: string;
+    mining_rate_started?: string;
 };
 
 export namespace UserUpdateDto {

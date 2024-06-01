@@ -13,7 +13,9 @@ export const ru = {
   },
   buttons: {
     mining: '🚀 Майнинг',
-    referral: '💎 Партнерка',
+    tasks: '📂 Задания',
+    referral: '💎 Партнеры',
+    balance: '💰 Баланс',
     feedback: '📲 Обратная связь',
     settings: '⚙️ Настройки',
     language: '🌎 Язык',
@@ -22,6 +24,7 @@ export const ru = {
     information: '📚 Информация',
     invite: '🤝 Пригласить друга',
     link_generator: '🔗 Генератор ссылок',
+    withdrawn: '📤 Вывести',
     // statistics: '📈 Статистика',
     back: '🔙 Назад',
     exit: '🔚 Выход',
@@ -105,6 +108,10 @@ export const ru = {
     message: 'Чтобы получить доступ к функциям бота, нужно подписаться на след каналы:',
     error: 'Условия не выполнены',
     done: 'Майнинг активирован',
+  },
+  balance: {
+    message: 'Ваш баланс: ',
+    withdrawn: 'Выведено: ',
   },
   admin: {
     message: 'Что хочешь сделать?',
