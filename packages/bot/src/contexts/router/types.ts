@@ -12,6 +12,7 @@ export type ContextState = {
   switchToMenuReferral: () => void;
   switchToMenuSettings: () => void;
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  switchToSceneMining: () => void;
   switchToSceneGreeting: () => void;
   switchToSceneInformation: () => void;
   switchToSceneSettingsLanguage: () => void;

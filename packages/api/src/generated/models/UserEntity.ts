@@ -7,12 +7,16 @@ export type UserEntity = {
     firstname: string | null;
     lastname: string | null;
     username: string | null;
-    who_invited: UserEntity | null;
-    referral_counter: number;
     lang: UserEntity.lang;
     country: UserEntity.country;
     role: UserEntity.role;
     gender: UserEntity.gender | null;
+    who_invited: UserEntity | null;
+    referral_counter: number;
+    finished_tasks_count: number;
+    mining_rate: number;
+    withdrawn_tons: number;
+    mining_started: string | null;
     created: string;
     updated: string;
 };

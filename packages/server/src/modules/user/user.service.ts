@@ -91,6 +91,7 @@ export class UserService {
 
   async updateUser(user_data: UserUpdateDto) {
     const { id, ...data } = user_data;
+
     try {
       return await this.dataSource.transaction(async (manager) => {
         const users_repository = manager.getRepository(User);

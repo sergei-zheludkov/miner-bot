@@ -17,6 +17,9 @@ export const SceneSwitcher = () => {
     case T.SceneEnum.INFORMATION:
       return <Scene.Information />;
 
+    case T.SceneEnum.MINING:
+      return <Scene.Mining />;
+
       // ----------------------------------------ADMIN MENU--------------------------------------
 
     // ----------------------------------------SETTINGS----------------------------------------

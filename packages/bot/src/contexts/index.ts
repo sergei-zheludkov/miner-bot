@@ -1,5 +1,5 @@
 import { Router, useRouter } from './router';
-import { User, useUser } from './user';
+import { User, useUser, usePatchUser } from './user';
 
 const Provider = {
   Router,
@@ -10,4 +10,5 @@ export {
   Provider,
   useUser,
   useRouter,
+  usePatchUser,
 };

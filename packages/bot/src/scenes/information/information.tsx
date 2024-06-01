@@ -10,7 +10,7 @@ export const Information = () => {
   // TODO info message
   const title = t('message');
 
-  const back = t('back');
+  const back = t('buttons:back');
   useText(switchToMenuMain, back);
 
   return (

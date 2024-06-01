@@ -12,6 +12,7 @@ export const en = {
     max: 'Maximum: ',
   },
   buttons: {
+    mining: '🚀 Mining',
     referral: '💎 Affiliate',
     feedback: '📲 Support',
     settings: '⚙️ Settings',
@@ -98,6 +99,11 @@ export const en = {
         error_description: 'Make a selection using keyboard buttons',
       },
     },
+  },
+  mining: {
+    message: 'To access the bot features, you need to subscribe to the following channels:',
+    error: 'Does not meet the conditions',
+    done: 'Mining has been activated',
   },
   admin: {
     message: 'What do you want to do?',
