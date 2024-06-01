@@ -1,4 +1,5 @@
 export { Mining } from './mining';
+export { Balance } from './balance';
 export { Greeting } from './greeting';
 export { Information } from './information';
 export { Registration } from './registration';

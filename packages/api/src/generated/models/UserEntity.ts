@@ -16,7 +16,8 @@ export type UserEntity = {
     finished_tasks_count: number;
     mining_rate: number;
     withdrawn_tons: number;
-    mining_started: string | null;
+    balance: number;
+    mining_rate_started: string | null;
     created: string;
     updated: string;
 };

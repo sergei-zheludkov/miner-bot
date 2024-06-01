@@ -18,7 +18,18 @@ export const SceneSwitcher = () => {
       return <Scene.Information />;
 
     case T.SceneEnum.MINING:
-      return <Scene.Mining />;
+      return (
+        <SceneWrapper type="remove-keyboard">
+          <Scene.Mining />
+        </SceneWrapper>
+      );
+
+    case T.SceneEnum.BALANCE:
+      return (
+        <SceneWrapper type="remove-keyboard">
+          <Scene.Balance />
+        </SceneWrapper>
+      );
 
       // ----------------------------------------ADMIN MENU--------------------------------------
 

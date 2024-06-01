@@ -6,7 +6,7 @@ type Props = {
   children: ReactNode;
 };
 
-const RemoveKeyboard = ({ children }: Props) => {
+export const RemoveKeyboard = ({ children }: Props) => {
   const { shouldShown, title } = useSceneWrapper();
 
   if (shouldShown) {
@@ -20,5 +20,3 @@ const RemoveKeyboard = ({ children }: Props) => {
   // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{children}</>;
 };
-
-export { RemoveKeyboard };

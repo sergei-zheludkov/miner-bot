@@ -13,7 +13,9 @@ export const en = {
   },
   buttons: {
     mining: '🚀 Mining',
-    referral: '💎 Affiliate',
+    tasks: '📂 Tasks',
+    referral: '💎 Partners',
+    balance: '💰 Balance',
     feedback: '📲 Support',
     settings: '⚙️ Settings',
     language: '🌎 Language',
@@ -22,6 +24,7 @@ export const en = {
     information: '📚 Information',
     invite: '🤝 Invite',
     link_generator: '🔗 Link Generator',
+    withdrawn: '📤 Withdrawn',
     // statistics: '📈 Statistics',
     back: '🔙 Back',
     exit: '🔚 Exit',
@@ -104,6 +107,10 @@ export const en = {
     message: 'To access the bot features, you need to subscribe to the following channels:',
     error: 'Does not meet the conditions',
     done: 'Mining has been activated',
+  },
+  balance: {
+    message: 'Your balance: ',
+    withdrawn: 'Withdrawn: ',
   },
   admin: {
     message: 'What do you want to do?',

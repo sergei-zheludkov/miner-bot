@@ -16,6 +16,7 @@ export const Main = () => {
     switchToMenuReferral,
     switchToMenuSettings,
     switchToSceneMining,
+    switchToSceneBalance,
     switchToSceneInformation,
   } = useRouter();
   const { t } = useTranslation('buttons');
@@ -28,8 +29,14 @@ export const Main = () => {
   const mining = t('mining');
   useText(switchToSceneMining, mining);
 
+  const tasks = t('tasks');
+  useText(() => '', tasks);
+
   const referral = t('referral');
   useText(switchToMenuReferral, referral);
+
+  const balance = t('balance');
+  useText(switchToSceneBalance, balance);
 
   const settings = t('settings');
   useText(switchToMenuSettings, settings);
@@ -39,11 +46,11 @@ export const Main = () => {
   /* --------------------------------- */
 
   return (
-    <ButtonGroup isReplyButtons isResizedKeyboard maxColumns={2} title={t('common:main_menu')}>
-      <Button>{mining}</Button>
-      <Button>{referral}</Button>
-      <Button>{settings}</Button>
-      <Button>{information}</Button>
+    <ButtonGroup isReplyButtons isResizedKeyboard title={t('common:main_menu')}>
+      {[<Button key="mining">{mining}</Button>]}
+      {[<Button key="tasks">{tasks}</Button>, <Button key="referral">{referral}</Button>]}
+      {[<Button key="balance">{balance}</Button>, <Button key="settings">{settings}</Button>]}
+      {[<Button key="information">{information}</Button>]}
     </ButtonGroup>
   );
 };

@@ -7,13 +7,13 @@ type Props = {
   children: ReactNode;
 };
 
-const BackKeyboard = ({ children }: Props) => {
+export const BackKeyboard = ({ children }: Props) => {
   const { t } = useTranslation('buttons');
   const { shouldShown, title } = useSceneWrapper();
 
   if (shouldShown) {
     return (
-      <ButtonGroup isNewMessageEveryRender={false} isReplyButtons isResizedKeyboard title={title}>
+      <ButtonGroup isReplyButtons isResizedKeyboard title={title}>
         <Button>{t('back')}</Button>
       </ButtonGroup>
     );
@@ -22,5 +22,3 @@ const BackKeyboard = ({ children }: Props) => {
   // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{children}</>;
 };
-
-export { BackKeyboard };

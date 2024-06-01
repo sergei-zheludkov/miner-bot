@@ -55,5 +55,5 @@ export class UserUpdateDto {
   })
   @IsOptional()
   @IsDateString()
-  mining_started?: Date;
+  mining_rate_started?: Date;
 }
