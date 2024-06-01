@@ -45,17 +45,6 @@ export const Registration = ({ refId, getUser }: Props) => {
   }
 
   if (!isRegistered && !isSentData) {
-    const languageContent = (
-      <ButtonGroup title={t('questions.language.message')}>
-        <Button id={BotLanguageEnum.RUSSIAN}>
-          {t(`buttons:${BotLanguageEnum.RUSSIAN}`)}
-        </Button>
-        <Button id={BotLanguageEnum.ENGLISH}>
-          {t(`buttons:${BotLanguageEnum.ENGLISH}`)}
-        </Button>
-      </ButtonGroup>
-    );
-
     const countryContent = (
       <ButtonGroup title={t('questions.country.message')}>
         <Button id={CountriesEnum.RUSSIA}>
@@ -63,6 +52,17 @@ export const Registration = ({ refId, getUser }: Props) => {
         </Button>
         <Button id={CountriesEnum.USA}>
           {t(`buttons:${CountriesEnum.USA}`)}
+        </Button>
+      </ButtonGroup>
+    );
+
+    const languageContent = (
+      <ButtonGroup title={t('questions.language.message')}>
+        <Button id={BotLanguageEnum.RUSSIAN}>
+          {t(`buttons:${BotLanguageEnum.RUSSIAN}`)}
+        </Button>
+        <Button id={BotLanguageEnum.ENGLISH}>
+          {t(`buttons:${BotLanguageEnum.ENGLISH}`)}
         </Button>
       </ButtonGroup>
     );
@@ -77,15 +77,15 @@ export const Registration = ({ refId, getUser }: Props) => {
     return (
       <Dialog onFinish={createUser}>
         <DialogStep
-          id={QUESTION_KEYS.LANG}
-          validation={isValidLanguage}
-          content={languageContent}
-          onNext={handleSelectLanguage}
+          id={QUESTION_KEYS.COUNTRY}
+          validation={isValidCountry}
+          content={countryContent}
         >
           <DialogStep
-            id={QUESTION_KEYS.COUNTRY}
-            validation={isValidCountry}
-            content={countryContent}
+            id={QUESTION_KEYS.LANG}
+            validation={isValidLanguage}
+            content={languageContent}
+            onNext={handleSelectLanguage}
           >
             <DialogStep
               id={QUESTION_KEYS.GENDER}
