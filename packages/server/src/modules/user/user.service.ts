@@ -93,7 +93,7 @@ export class UserService {
   }
 
   async updateUser(user_data: UserUpdateDto) {
-    const { id, ...data } = user_data;
+    const { id, increase_mining_rate, ...data } = user_data;
 
     try {
       return await this.dataSource.transaction(async (manager) => {
@@ -118,9 +118,9 @@ export class UserService {
           await users_repository.increment({ id }, 'balance', earned);
         }
 
-        if (data.increase_mining_rate) {
+        if (increase_mining_rate) {
           // TODO: Протестировать
-          await users_repository.increment({ id }, 'mining_rate', data.increase_mining_rate);
+          await users_repository.increment({ id }, 'mining_rate', increase_mining_rate);
         }
 
         await users_repository.update({ id }, data);

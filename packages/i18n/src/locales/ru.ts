@@ -91,11 +91,11 @@ export const ru = {
 
     questions: {
       language: {
-        message: 'Choose language/nВыбери язык',
+        message: 'Choose language\n\nВыбери язык',
         error_description: 'Неподдерживаемый язык. Выберите доступный на клавиатуре',
       },
       country: {
-        message: 'Choose country where you are/nВыберите страну где вы находитесь',
+        message: 'Choose country where you are\n\nВыберите страну где вы проживаете',
         error_description: 'Неподдерживаемая страна. Выберите доступную на клавиатуре',
       },
       gender: {
@@ -116,6 +116,7 @@ export const ru = {
   balance: {
     message: 'Ваш баланс:',
     withdrawn: 'Выведено:',
+    limit: 'Минимальная сумма вывода 0.5 TON!',
   },
   admin: {
     message: 'Что хочешь сделать?',

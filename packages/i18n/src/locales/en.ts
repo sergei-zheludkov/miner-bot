@@ -90,11 +90,11 @@ export const en = {
 
     questions: {
       language: {
-        message: 'Choose language/nВыберите язык',
+        message: 'Choose language\n\nВыберите язык',
         error_description: 'Unsupported language. Select available on keyboard',
       },
       country: {
-        message: 'Choose country where you are/nВыберите страну где вы находитесь',
+        message: 'Choose country where you are\n\nВыберите страну где вы проживаете',
         error_description: 'Unsupported country. Select available on keyboard',
       },
       gender: {
@@ -115,6 +115,7 @@ export const en = {
   balance: {
     message: 'Your balance:',
     withdrawn: 'Withdrawn:',
+    limit: 'Minimum withdrawal amount 0.5 TON!',
   },
   admin: {
     message: 'What do you want to do?',
