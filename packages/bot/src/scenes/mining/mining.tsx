@@ -21,6 +21,12 @@ export const Mining = () => {
 
   const balance = getMinedTokenAmount(mining_rate, mining_rate_started || '');
 
+  const backButton = [
+    <Button key="back-to-main-menu" onClick={handleClickBack}>
+      {t('buttons:back')}
+    </Button>,
+  ];
+
   const registrationButtons = channels.map((channel) => (
     <Button key={channel.name} url={channel.url}>
       {channel.name}
@@ -29,24 +35,14 @@ export const Mining = () => {
     <Button key="ready" onClick={handleClickReady}>
       {t('buttons:ready')}
     </Button>,
-    <Button key="back-to-main-menu" onClick={handleClickBack}>
-      {t('buttons:back')}
-    </Button>,
+    ...backButton,
   ]);
 
   const activeButton = [
     <Button key="get-mined" onClick={handleClickGet}>
       {`${t('get')} ${balance} TON`}
     </Button>,
-    <Button key="back-to-main-menu" onClick={handleClickBack}>
-      {t('buttons:back')}
-    </Button>,
-  ];
-
-  const backButton = [
-    <Button key="back-to-main-menu" onClick={handleClickBack}>
-      {t('buttons:back')}
-    </Button>,
+    ...backButton,
   ];
 
   const getDisplayedText = () => {

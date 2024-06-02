@@ -498,6 +498,10 @@
             "type": "string",
             "example": 1
           },
+          "name": {
+            "type": "string",
+            "example": "Crypto Sigma"
+          },
           "type": {
             "type": "string",
             "enum": [
@@ -571,6 +575,7 @@
         },
         "required": [
           "id",
+          "name",
           "type",
           "country",
           "placement",
@@ -589,6 +594,10 @@
       "TaskCreateDto": {
         "type": "object",
         "properties": {
+          "name": {
+            "type": "string",
+            "example": "Crypto Sigma"
+          },
           "type": {
             "type": "string",
             "enum": [
@@ -640,6 +649,7 @@
           }
         },
         "required": [
+          "name",
           "type",
           "country",
           "placement",
@@ -654,6 +664,10 @@
           "id": {
             "type": "string",
             "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Crypto Sigma"
           },
           "description": {
             "type": "string",
@@ -673,7 +687,8 @@
           }
         },
         "required": [
-          "id"
+          "id",
+          "name"
         ]
       }
     }

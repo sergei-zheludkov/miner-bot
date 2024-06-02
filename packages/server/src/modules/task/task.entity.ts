@@ -18,6 +18,14 @@ export class TaskEntity {
   id: string;
 
   @ApiProperty({
+    example: 'Crypto Sigma',
+  })
+  @Column({
+    type: 'varchar',
+  })
+  name: string;
+
+  @ApiProperty({
     enum: TasksEnum,
   })
   @Column({

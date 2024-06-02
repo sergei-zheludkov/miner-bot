@@ -16,6 +16,14 @@ export class TaskUpdateDto {
   id: string;
 
   @ApiProperty({
+    required: true,
+    example: 'Crypto Sigma',
+  })
+  @IsOptional()
+  @IsString()
+  name: string;
+
+  @ApiProperty({
     required: false,
     example: '1️⃣ Переходи на канал 👇🏻 подпиcывайся и листай ленту вверх🔝👁 (5-7 постов)\n\n2️⃣ Возвращайся сюда, чтобы получить вознаграждение',
   })

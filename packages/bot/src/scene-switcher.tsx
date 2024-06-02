@@ -35,6 +35,10 @@ export const SceneSwitcher = () => {
     case T.MenuEnum.TASKS_CONTROL:
       return <Menu.TasksControl />;
 
+    // ------------------------------------TASKS CONTROL MENU----------------------------------
+    case T.SceneEnum.CREATE_TASK:
+      return <Scene.CreateTask />;
+
     // ----------------------------------------SETTINGS----------------------------------------
     case T.SceneEnum.SETTINGS_LANGUAGE:
       return (

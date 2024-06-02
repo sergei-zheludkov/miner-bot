@@ -1,4 +1,4 @@
-import { CountriesEnum } from '@common_bot/shared';
+import {CountriesEnum, PlacementEnum, TasksEnum} from '@common_bot/shared';
 
 export const en = {
   common: {
@@ -127,6 +127,67 @@ export const en = {
     message: 'Your balance:',
     withdrawn: 'Withdrawn:',
     limit: 'Minimum withdrawal amount 0.5 TON!',
+  },
+  tasks: {
+    create: {
+      buttons: {
+        [TasksEnum.TG_PUBLIC]: 'Паблик ТГ',
+        [PlacementEnum.TASK_LIST]: 'В список задач',
+        [PlacementEnum.MINING_ACTIVATION]: 'В регистрацию',
+      },
+      questions: {
+        type: {
+          message: 'Выберите тип задания',
+          error: '',
+        },
+        country: {
+          message: 'Выберите страну для отображения задания',
+          error: '',
+        },
+        placement: {
+          message: 'Выберите место для размещения задания',
+          error: '',
+        },
+        increase_mining_rate: {
+          message: 'Наберите майнинг рейт за выполнение задания',
+          error: '',
+        },
+
+        rest_data: {
+          message: 'Введите через ;\n\navailable_limit;name;description;check_key;contact;url\n\nНапример: https://t.me/crypto_sigma_1\n'
+            + '\n'
+            + '1000;Crypto Sigma;1️⃣ Переходи на канал 👇🏻 подпиcывайся и листай ленту вверх🔝👁 (5-7 постов)\n'
+            + '\n'
+            + '2️⃣ Возвращайся сюда, чтобы получить вознаграждение;-1002219211474;tg_id:258000010;https://t.me/crypto_sigma_1',
+          error: '',
+        },
+
+        available_limit: {
+          message: 'Введите лимит на выполнение задания',
+          error: '',
+        },
+        name: {
+          message: 'Введите название задания',
+          error: '',
+        },
+        description: {
+          message: 'Введите описание задания',
+          error: '',
+        },
+        check_key: {
+          message: 'Введите ключ/токен/id использующиеся для проверки',
+          error: '',
+        },
+        contact: {
+          message: 'Введите контактное лицо',
+          error: '',
+        },
+        url: {
+          message: 'Введите URL',
+          error: '',
+        },
+      },
+    },
   },
   admin: {
     message: 'What do you want to do?',

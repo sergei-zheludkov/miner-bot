@@ -1,7 +1,6 @@
 import {
   IsString,
   IsNumber,
-  IsDecimal,
   IsEnum,
   IsUrl,
   IsNotEmpty,
@@ -11,6 +10,14 @@ import { ApiProperty } from '@nestjs/swagger';
 import { CountriesEnum, PlacementEnum, TasksEnum } from '@common_bot/shared';
 
 export class TaskCreateDto {
+  @ApiProperty({
+    required: true,
+    example: 'Crypto Sigma',
+  })
+  @IsNotEmpty()
+  @IsString()
+  name: string;
+
   @ApiProperty({
     required: true,
     enum: TasksEnum,
@@ -56,7 +63,7 @@ export class TaskCreateDto {
     example: 0.000_000_1,
   })
   @IsOptional()
-  @IsDecimal()
+  @IsNumber({ maxDecimalPlaces: 10 })
   increase_mining_rate?: number;
 
   @ApiProperty({

@@ -4,6 +4,7 @@
 
 export type TaskEntity = {
     id: string;
+    name: string;
     type: TaskEntity.type;
     country: TaskEntity.country;
     placement: TaskEntity.placement;

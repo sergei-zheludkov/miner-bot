@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 export type TaskCreateDto = {
+    name: string;
     type: TaskCreateDto.type;
     country: TaskCreateDto.country;
     placement: TaskCreateDto.placement;
