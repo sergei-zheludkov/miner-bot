@@ -120,7 +120,7 @@ export class UserEntity {
     type: 'int',
     default: 0,
   })
-  finished_tasks_count: number;
+  complete_tasks_count: number;
 
   @ApiProperty({
     example: 0.000_000_1,

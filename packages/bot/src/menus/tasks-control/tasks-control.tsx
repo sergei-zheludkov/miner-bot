@@ -3,25 +3,22 @@ import { ButtonGroup, Button, useText } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter } from '../../contexts';
 // import { Loading } from '../../components';
-import { useAdminMenu } from './use-admin-menu';
+import { useTasksControlMenu } from './use-tasks-control-menu';
 
-export const Admin = () => {
-  const { /* switchToMenuAdminStatistics, */ switchToMenuMain, switchToMenuSupport } = useRouter();
+export const TasksControl = () => {
+  const { switchToMenuAdmin, switchToSceneCreateTask, switchToSceneAddTaskLimit } = useRouter();
   const { t } = useTranslation('buttons');
-  const { isUserAdmin } = useAdminMenu();
+  const { isUserAdmin } = useTasksControlMenu();
 
   /* ---------- BUTTON HOOKS ---------- */
   const back = t('back');
-  useText(switchToMenuMain, back);
+  useText(switchToMenuAdmin, back);
 
-  const tasks_control_menu = t('tasks');
-  useText(switchToMenuSupport, tasks_control_menu);
-  // TODO connect scene callback
-  /* --------------------------------- */
+  const create_task = t('create_task');
+  useText(switchToSceneCreateTask, create_task);
 
-  // if (isMenuLoading) {
-  //   return <Loading />;
-  // }
+  const add_task_limit = t('add_task_limit');
+  useText(switchToSceneAddTaskLimit, add_task_limit);
 
   const title = t(isUserAdmin ? 'admin:message' : 'admin:error');
   // const errorText = t();
@@ -33,7 +30,8 @@ export const Admin = () => {
       maxColumns={2}
       title={title}
     >
-      {isUserAdmin && <Button>{tasks_control_menu}</Button>}
+      <Button>{create_task}</Button>
+      <Button>{add_task_limit}</Button>
       <Button>{back}</Button>
     </ButtonGroup>
   );

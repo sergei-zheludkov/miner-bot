@@ -31,7 +31,9 @@ export const SceneSwitcher = () => {
         </SceneWrapper>
       );
 
-      // ----------------------------------------ADMIN MENU--------------------------------------
+    // ----------------------------------------ADMIN MENU--------------------------------------
+    case T.MenuEnum.TASKS_CONTROL:
+      return <Menu.TasksControl />;
 
     // ----------------------------------------SETTINGS----------------------------------------
     case T.SceneEnum.SETTINGS_LANGUAGE:

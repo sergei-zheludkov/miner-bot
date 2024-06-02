@@ -14,12 +14,15 @@ export const RouterProvider = ({ children }: ProviderProps) => {
   const switchToMenuSupport = () => setScene(T.MenuEnum.SUPPORT);
   const switchToMenuReferral = () => setScene(T.MenuEnum.REFERRAL);
   const switchToMenuSettings = () => setScene(T.MenuEnum.SETTINGS);
+  const switchToMenuTasksControl = () => setScene(T.MenuEnum.TASKS_CONTROL);
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
   const switchToSceneMining = () => setScene(T.SceneEnum.MINING);
   const switchToSceneBalance = () => setScene(T.SceneEnum.BALANCE);
   const switchToSceneGreeting = () => setScene(T.SceneEnum.GREETING);
   const switchToSceneInformation = () => setScene(T.SceneEnum.INFORMATION);
   const switchToSceneSettingsLanguage = () => setScene(T.SceneEnum.SETTINGS_LANGUAGE);
+  const switchToSceneCreateTask = () => setScene(T.SceneEnum.CREATE_TASK);
+  const switchToSceneAddTaskLimit = () => setScene(T.SceneEnum.ADD_TASK_LIMIT);
 
   const data = useMemo(() => ({
     scene,
@@ -29,12 +32,15 @@ export const RouterProvider = ({ children }: ProviderProps) => {
     switchToMenuSupport,
     switchToMenuReferral,
     switchToMenuSettings,
+    switchToMenuTasksControl,
     // -- -- -- -- -- -- -- -- --
     switchToSceneMining,
     switchToSceneBalance,
     switchToSceneGreeting,
     switchToSceneInformation,
     switchToSceneSettingsLanguage,
+    switchToSceneCreateTask,
+    switchToSceneAddTaskLimit,
   }), [scene]);
 
   return (

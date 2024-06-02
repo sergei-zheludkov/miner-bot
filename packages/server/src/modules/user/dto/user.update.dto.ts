@@ -56,7 +56,7 @@ export class UserUpdateDto {
   })
   @IsOptional()
   @IsDecimal()
-  increase_mining_rate: number;
+  increase_mining_rate?: number;
 
   @ApiProperty({
     required: false,

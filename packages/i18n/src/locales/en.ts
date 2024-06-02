@@ -1,3 +1,5 @@
+import { CountriesEnum } from '@common_bot/shared';
+
 export const en = {
   common: {
     loading: 'Loading',
@@ -10,6 +12,11 @@ export const en = {
     update_message: "I'm update!\n\nWhat's new?\n-Paragraph 1\n-Paragraph 2\n-Paragraph 3",
     default_notification_message: 'Default notification message',
     max: 'Maximum: ',
+  },
+  countries: {
+    [CountriesEnum.RUSSIA]: '🇷🇺',
+    [CountriesEnum.BELARUS]: '🇧🇾',
+    [CountriesEnum.KAZAKHSTAN]: '🇰🇿',
   },
   buttons: {
     mining: '🚀 Mining',
@@ -44,6 +51,10 @@ export const en = {
 
     // ---------Admin Menu---------
     support_menu: '📟 Support menu',
+
+    // ----- Tasks Control Menu -----
+    create_task: '📝 Create task',
+    add_task_limit: '🗃️ Add limit',
 
     // --------Support Menu--------
     support_requests: '📥 Support Requests',

@@ -1,3 +1,5 @@
+import { CountriesEnum } from '@common_bot/shared';
+
 export const ru = {
   common: {
     loading: 'Загрузка',
@@ -10,6 +12,11 @@ export const ru = {
     update_message: 'Я обновился!\n\nЧто нового?\n-Пункт 1"\n-Пункт 2\n-Пункт 3',
     default_notification_message: 'Стандартное сообщение напоминаний',
     max: 'Максимально: ',
+  },
+  countries: {
+    [CountriesEnum.RUSSIA]: '🇷🇺',
+    [CountriesEnum.BELARUS]: '🇧🇾',
+    [CountriesEnum.KAZAKHSTAN]: '🇰🇿',
   },
   buttons: {
     mining: '🚀 Майнинг',
@@ -44,6 +51,10 @@ export const ru = {
 
     // ---------Admin Menu---------
     support_menu: '📟 Меню поддержки',
+
+    // ----- Tasks Control Menu -----
+    create_task: '📝 Создать задание',
+    add_task_limit: '🗃️ Добавить лимит',
 
     // --------Support Menu--------
     support_requests: '📥 Обращения в поддержку',

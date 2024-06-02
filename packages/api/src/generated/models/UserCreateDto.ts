@@ -26,8 +26,9 @@ export namespace UserCreateDto {
     }
 
     export enum country {
+        BY = 'BY',
+        KZ = 'KZ',
         RU = 'RU',
-        US = 'US',
     }
 
 

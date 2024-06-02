@@ -8,6 +8,9 @@ export enum SceneEnum {
 
   SETTINGS_LANGUAGE = 'scene_settings_language',
 
+  CREATE_TASK = 'scene_create_task',
+  ADD_TASK_LIMIT = 'scene_add_task_limit',
+
   RESET = 'scene_reset',
 }
 
@@ -17,6 +20,7 @@ export enum MenuEnum {
   SUPPORT = 'support_menu',
   REFERRAL = 'referral_menu',
   SETTINGS = 'settings_menu',
+  TASKS_CONTROL = 'tasks_control_menu'
 }
 
 export const LANGUAGES = [
@@ -26,5 +30,6 @@ export const LANGUAGES = [
 
 export const COUNTRIES = [
   CountriesEnum.RUSSIA,
-  CountriesEnum.USA,
+  CountriesEnum.BELARUS,
+  CountriesEnum.KAZAKHSTAN,
 ];

@@ -12,6 +12,11 @@ import { useRegistration } from './use-registration';
 import { QUESTION_KEYS, GENDERS } from './constants';
 
 const { MALE, FEMALE } = GENDERS;
+const {
+  RUSSIA,
+  KAZAKHSTAN,
+  BELARUS,
+} = CountriesEnum;
 
 interface Props {
   refId: string | null;
@@ -47,11 +52,14 @@ export const Registration = ({ refId, getUser }: Props) => {
   if (!isRegistered && !isSentData) {
     const countryContent = (
       <ButtonGroup title={t('questions.country.message')}>
-        <Button id={CountriesEnum.RUSSIA}>
-          {t(`buttons:${CountriesEnum.RUSSIA}`)}
+        <Button id={RUSSIA}>
+          {t(`countries:${RUSSIA}`)}
         </Button>
-        <Button id={CountriesEnum.USA}>
-          {t(`buttons:${CountriesEnum.USA}`)}
+        <Button id={KAZAKHSTAN}>
+          {t(`countries:${KAZAKHSTAN}`)}
+        </Button>
+        <Button id={BELARUS}>
+          {t(`countries:${BELARUS}`)}
         </Button>
       </ButtonGroup>
     );

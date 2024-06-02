@@ -3,7 +3,7 @@ import { useUser } from '../../contexts';
 
 const { ROLES: { isAdmin } } = PREDICATES;
 
-export const useAdminMenu = () => {
+export const useTasksControlMenu = () => {
   const { user } = useUser();
   const role = user.role as unknown as RoleEnum;
   const isUserAdmin = isAdmin(role);

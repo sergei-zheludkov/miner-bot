@@ -12,10 +12,13 @@ export const defaultState: ContextState = {
   switchToMenuSupport: empty,
   switchToMenuReferral: empty,
   switchToMenuSettings: empty,
+  switchToMenuTasksControl: empty,
   // -- -- -- -- -- -- -- -- -- -- -- -- --
   switchToSceneMining: empty,
   switchToSceneBalance: empty,
   switchToSceneGreeting: empty,
   switchToSceneInformation: empty,
   switchToSceneSettingsLanguage: empty,
+  switchToSceneCreateTask: empty,
+  switchToSceneAddTaskLimit: empty,
 };
