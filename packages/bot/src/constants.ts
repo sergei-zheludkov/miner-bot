@@ -11,6 +11,7 @@ export enum SceneEnum {
 
   CREATE_TASK = 'scene_create_task',
   ADD_TASK_LIMIT = 'scene_add_task_limit',
+  TASK_CONTROLLER = 'scene_task_controller',
 
   RESET = 'scene_reset',
 }

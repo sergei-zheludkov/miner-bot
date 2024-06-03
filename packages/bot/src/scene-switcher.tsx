@@ -31,6 +31,13 @@ export const SceneSwitcher = () => {
         </SceneWrapper>
       );
 
+    case T.SceneEnum.TASK_CONTROLLER:
+      return (
+        <SceneWrapper type="remove-keyboard">
+          <Scene.TaskController />
+        </SceneWrapper>
+      );
+
     // ----------------------------------------ADMIN MENU--------------------------------------
     case T.MenuEnum.TASKS_CONTROL:
       return <Menu.TasksControl />;

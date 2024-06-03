@@ -37,6 +37,7 @@ export const en = {
     exit: '🔚 Exit',
     change: '🖊 Change',
     confirm: '✔️ Confirm',
+    go_to: '🔗 Go to',
     great: '✅ Great!',
     ready: '✅ Ready',
     saved: '✅ Saved',
@@ -129,6 +130,14 @@ export const en = {
     limit: 'Minimum withdrawal amount 0.5 TON!',
   },
   tasks: {
+    list: {
+      empty: 'The list of tasks for you is currently empty.\n\nYou have completed all tasks. Keep it up!\n\nJoin our group to stay updated.',
+      mining_disabled: 'To perform tasks, you need to activate mining',
+      task_title: 'Task: #',
+      task_name: 'Name:',
+      task_description: 'Description:',
+      task_reward: 'Task will increase your mining speed by',
+    },
     create: {
       buttons: {
         [TasksEnum.TG_PUBLIC]: 'Паблик ТГ',

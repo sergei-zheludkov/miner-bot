@@ -23,6 +23,7 @@ export namespace UserCreateDto {
     export enum gender {
         MALE = 'male',
         FEMALE = 'female',
+        ALL = 'all',
     }
 
     export enum country {

@@ -36,6 +36,7 @@ export namespace TaskCreateDto {
     export enum gender {
         MALE = 'male',
         FEMALE = 'female',
+        ALL = 'all',
     }
 
 

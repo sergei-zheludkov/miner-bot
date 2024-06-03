@@ -32,12 +32,12 @@ export class TaskService {
   }
 
   getTasks({
-    limit, offset, country, placement, status,
+    limit, offset, country, placement, status, gender,
   }: GetQuery) {
     return this.dataSource.transaction(async (manager) => {
       const tasks_repository = manager.getRepository(Task);
 
-      const where: FindOptionsWhere<Task> = { country, placement };
+      const where: FindOptionsWhere<Task> = { country, placement, gender };
 
       if (status === 'active') {
         where.available_limit = MoreThan(0);

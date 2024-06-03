@@ -15,7 +15,7 @@ import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
 } from '@nestjs/swagger';
-import { CountriesEnum, PlacementEnum } from '@common_bot/shared';
+import { CountriesEnum, GenderEnum, PlacementEnum } from '@common_bot/shared';
 import { API_VERSION_ROUTES, TAGS } from '../../constants';
 import { TaskService } from './task.service';
 import { TaskEntity } from './task.entity';
@@ -63,6 +63,7 @@ export class TaskController {
   @ApiQuery({ name: 'country', required: false, type: String })
   @ApiQuery({ name: 'placement', required: false, type: String })
   @ApiQuery({ name: 'status', required: false, type: String })
+  @ApiQuery({ name: 'gender', required: false, type: String })
   @Get()
   getFeedbackNotes(
     @Query('country') country?: CountriesEnum,
@@ -70,9 +71,10 @@ export class TaskController {
     @Query('limit') limit = 10,
     @Query('offset') offset = 0,
     @Query('status') status: GetQuery['status'] = 'all',
+    @Query('gender') gender: GenderEnum = GenderEnum.ALL,
   ) {
     const query = {
-      limit, offset, country, placement, status,
+      limit, offset, country, placement, status, gender,
     };
 
     return this.tasksService.getTasks(query);

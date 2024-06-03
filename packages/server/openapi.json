@@ -159,6 +159,14 @@
             }
           },
           {
+            "name": "gender",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "status",
             "required": false,
             "in": "query",

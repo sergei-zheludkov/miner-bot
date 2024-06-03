@@ -36,6 +36,7 @@ export class TasksService {
      * Returning information about available for user tasks
      * @param country
      * @param placement
+     * @param gender
      * @param status
      * @param offset
      * @param limit
@@ -45,6 +46,7 @@ export class TasksService {
     public static getTasks(
         country?: string,
         placement?: string,
+        gender?: string,
         status?: string,
         offset?: number,
         limit?: number,
@@ -55,6 +57,7 @@ export class TasksService {
             query: {
                 'country': country,
                 'placement': placement,
+                'gender': gender,
                 'status': status,
                 'offset': offset,
                 'limit': limit,

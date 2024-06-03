@@ -41,6 +41,7 @@ export namespace TaskEntity {
     export enum gender {
         MALE = 'male',
         FEMALE = 'female',
+        ALL = 'all',
     }
 
 
