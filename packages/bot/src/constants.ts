@@ -1,4 +1,5 @@
 import { BotLanguageEnum, CountriesEnum } from '@common_bot/shared';
+import { i18n } from './i18n';
 
 export enum SceneEnum {
   MINING = 'scene_mining',
@@ -23,13 +24,19 @@ export enum MenuEnum {
   TASKS_CONTROL = 'tasks_control_menu'
 }
 
-export const LANGUAGES = [
-  BotLanguageEnum.RUSSIAN,
-  BotLanguageEnum.ENGLISH,
-];
+export const COUNTRIES = {
+  [i18n.t(`countries:${CountriesEnum.RUSSIA}`)]: CountriesEnum.RUSSIA,
+  [i18n.t(`countries:${CountriesEnum.BELARUS}`)]: CountriesEnum.BELARUS,
+  [i18n.t(`countries:${CountriesEnum.KAZAKHSTAN}`)]: CountriesEnum.KAZAKHSTAN,
+};
 
-export const COUNTRIES = [
-  CountriesEnum.RUSSIA,
-  CountriesEnum.BELARUS,
-  CountriesEnum.KAZAKHSTAN,
-];
+export const LANGUAGES = {
+  [i18n.t(`buttons:${BotLanguageEnum.RUSSIAN}`)]: BotLanguageEnum.RUSSIAN,
+  [i18n.t(`buttons:${BotLanguageEnum.ENGLISH}`)]: BotLanguageEnum.ENGLISH,
+};
+
+// = /^(👨|👩)\s[A-Za-zА-Яа-я]{4,7}$/gm;
+export const GENDERS = {
+  [i18n.t('buttons:male')]: 'male',
+  [i18n.t('buttons:female')]: 'female',
+};

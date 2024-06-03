@@ -1,4 +1,4 @@
-import {CountriesEnum, PlacementEnum, TasksEnum} from '@common_bot/shared';
+import { CountriesEnum, PlacementEnum, TasksEnum } from '@common_bot/shared';
 
 export const en = {
   common: {
