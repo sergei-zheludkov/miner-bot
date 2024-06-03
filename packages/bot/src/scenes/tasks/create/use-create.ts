@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import { useApi, useQuery, type TaskCreateDto } from '@common_bot/api';
 import type { DialogAnswers } from '@urban-bot/core';
 import { QUESTION_KEYS } from './constants';
-// import { useRouter } from '../../../contexts';
 
 export const useCreate = () => {
   const { postTask: postTaskApi } = useApi().task;
@@ -23,6 +21,8 @@ export const useCreate = () => {
     const country = answers[QUESTION_KEYS.COUNTRY] as unknown as TaskCreateDto['country'];
     // Такой финт из-за кривой генерации enum в @common_bot/api
     const placement = answers[QUESTION_KEYS.PLACEMENT] as unknown as TaskCreateDto['placement'];
+    // Такой финт из-за кривой генерации enum в @common_bot/api
+    const gender = answers[QUESTION_KEYS.GENDER] as unknown as TaskCreateDto['gender'];
 
     const args = {
       // increase_mining_rate: Number.parseFloat(answers.increase_mining_rate) * 1,
@@ -35,6 +35,7 @@ export const useCreate = () => {
       type,
       country,
       placement,
+      gender,
     };
 
     await postTask(args);

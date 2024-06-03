@@ -82,14 +82,12 @@ export class UserEntity {
 
   @ApiProperty({
     enum: GenderEnum,
-    nullable: true,
   })
   @Column({
     type: 'enum',
-    nullable: true,
     enum: GenderEnum,
   })
-  gender?: GenderEnum;
+  gender: GenderEnum;
 
   @ApiProperty({
     // eslint-disable-next-line no-use-before-define

@@ -58,13 +58,12 @@ export class UserCreateDto {
   lang: BotLanguageEnum;
 
   @ApiProperty({
-    required: false,
-    nullable: true,
+    required: true,
     enum: GenderEnum,
   })
-  @IsOptional()
+  @IsNotEmpty()
   @IsEnum(GenderEnum)
-  gender?: GenderEnum;
+  gender: GenderEnum;
 
   @ApiProperty({
     required: true,

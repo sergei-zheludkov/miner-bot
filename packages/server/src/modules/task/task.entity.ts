@@ -7,7 +7,9 @@ import {
   DeleteDateColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { CountriesEnum, PlacementEnum, TasksEnum } from '@common_bot/shared';
+import {
+  CountriesEnum, GenderEnum, PlacementEnum, TasksEnum,
+} from '@common_bot/shared';
 
 @Entity('tasks')
 export class TaskEntity {
@@ -51,6 +53,15 @@ export class TaskEntity {
     enum: PlacementEnum,
   })
   placement: PlacementEnum;
+
+  @ApiProperty({
+    enum: GenderEnum,
+  })
+  @Column({
+    type: 'enum',
+    enum: GenderEnum,
+  })
+  gender: GenderEnum;
 
   @ApiProperty({
     example: '1️⃣ Переходи на канал 👇🏻 подпиcывайся и листай ленту вверх🔝👁 (5-7 постов)\n\n2️⃣ Возвращайся сюда, чтобы получить вознаграждение',

@@ -9,7 +9,7 @@ export type UserCreateDto = {
     username?: string;
     who_invited_id?: string | null;
     lang: UserCreateDto.lang;
-    gender?: UserCreateDto.gender | null;
+    gender: UserCreateDto.gender;
     country: UserCreateDto.country;
 };
 

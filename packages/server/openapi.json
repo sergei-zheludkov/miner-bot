@@ -328,9 +328,9 @@
             "type": "string",
             "enum": [
               "male",
-              "female"
-            ],
-            "nullable": true
+              "female",
+              "all"
+            ]
           },
           "who_invited": {
             "nullable": true,
@@ -430,10 +430,10 @@
           },
           "gender": {
             "type": "string",
-            "nullable": true,
             "enum": [
               "male",
-              "female"
+              "female",
+              "all"
             ]
           },
           "country": {
@@ -448,6 +448,7 @@
         "required": [
           "id",
           "lang",
+          "gender",
           "country"
         ]
       },
@@ -523,6 +524,14 @@
               "mining_activation"
             ]
           },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female",
+              "all"
+            ]
+          },
           "description": {
             "type": "string",
             "example": "1️⃣ Переходи на канал 👇🏻 подпиcывайся и листай ленту вверх🔝👁 (5-7 постов)\n\n2️⃣ Возвращайся сюда, чтобы получить вознаграждение"
@@ -579,6 +588,7 @@
           "type",
           "country",
           "placement",
+          "gender",
           "description",
           "url",
           "increase_mining_rate",
@@ -619,6 +629,14 @@
               "mining_activation"
             ]
           },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female",
+              "all"
+            ]
+          },
           "description": {
             "type": "string",
             "example": "1️⃣ Переходи на канал 👇🏻 подпиcывайся и листай ленту вверх🔝👁 (5-7 постов)\n\n2️⃣ Возвращайся сюда, чтобы получить вознаграждение"
@@ -653,6 +671,7 @@
           "type",
           "country",
           "placement",
+          "gender",
           "description",
           "url",
           "available_limit"

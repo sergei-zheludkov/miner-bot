@@ -10,7 +10,7 @@ export type UserEntity = {
     lang: UserEntity.lang;
     country: UserEntity.country;
     role: UserEntity.role;
-    gender: UserEntity.gender | null;
+    gender: UserEntity.gender;
     who_invited: UserEntity | null;
     referral_counter: number;
     complete_tasks_count: number;

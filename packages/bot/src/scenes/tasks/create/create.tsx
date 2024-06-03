@@ -2,7 +2,9 @@ import React from 'react';
 import {
   Button, ButtonGroup, Dialog, DialogStep, Text, useText,
 } from '@urban-bot/core';
-import { TasksEnum, CountriesEnum, PlacementEnum } from '@common_bot/shared';
+import {
+  TasksEnum, CountriesEnum, PlacementEnum, GenderEnum,
+} from '@common_bot/shared';
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter } from '../../../contexts';
 import { QUESTION_KEYS } from './constants';
@@ -79,6 +81,21 @@ export const Create = () => {
       </Button>
       <Button id={PlacementEnum.MINING_ACTIVATION}>
         {PlacementEnum.MINING_ACTIVATION}
+      </Button>
+      {exitButton}
+    </ButtonGroup>
+  );
+
+  const genderContent = (
+    <ButtonGroup isReplyButtons isResizedKeyboard maxColumns={1} title={t('create.questions.placement.message')}>
+      <Button id={GenderEnum.MALE}>
+        {GenderEnum.MALE}
+      </Button>
+      <Button id={GenderEnum.FEMALE}>
+        {GenderEnum.FEMALE}
+      </Button>
+      <Button id={GenderEnum.ALL}>
+        {GenderEnum.ALL}
       </Button>
       {exitButton}
     </ButtonGroup>
@@ -161,41 +178,44 @@ export const Create = () => {
               id={QUESTION_KEYS.PLACEMENT}
               content={placementContent}
             >
-              {/* <DialogStep */}
-              {/*  id={QUESTION_KEYS.INCREASE_MINING_RATE} */}
-              {/*  content={increaseMiningRateContent} */}
-              {/*  onNext={(answer: string) => console.log('INCREASE_MINING_RATE:', answer)} */}
-              {/* > */}
               <DialogStep
-                id={QUESTION_KEYS.AVAILABLE_LIMIT}
-                content={availableLimitContent}
+                id={QUESTION_KEYS.GENDER}
+                content={genderContent}
               >
+                {/* <DialogStep */}
+                {/*  id={QUESTION_KEYS.INCREASE_MINING_RATE} */}
+                {/*  content={increaseMiningRateContent} */}
+                {/* > */}
                 <DialogStep
-                  id={QUESTION_KEYS.NAME}
-                  content={nameContent}
+                  id={QUESTION_KEYS.AVAILABLE_LIMIT}
+                  content={availableLimitContent}
                 >
                   <DialogStep
-                    id={QUESTION_KEYS.DESCRIPTION}
-                    content={descriptionContent}
+                    id={QUESTION_KEYS.NAME}
+                    content={nameContent}
                   >
                     <DialogStep
-                      id={QUESTION_KEYS.CHECK_KEY}
-                      content={checkKeyContent}
+                      id={QUESTION_KEYS.DESCRIPTION}
+                      content={descriptionContent}
                     >
                       <DialogStep
-                        id={QUESTION_KEYS.CONTACT}
-                        content={contactContent}
+                        id={QUESTION_KEYS.CHECK_KEY}
+                        content={checkKeyContent}
                       >
                         <DialogStep
-                          id={QUESTION_KEYS.URL}
-                          content={urlContent}
-                        />
+                          id={QUESTION_KEYS.CONTACT}
+                          content={contactContent}
+                        >
+                          <DialogStep
+                            id={QUESTION_KEYS.URL}
+                            content={urlContent}
+                          />
+                        </DialogStep>
                       </DialogStep>
                     </DialogStep>
                   </DialogStep>
                 </DialogStep>
               </DialogStep>
-              {/* </DialogStep> */}
             </DialogStep>
           </DialogStep>
         </DialogStep>

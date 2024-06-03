@@ -8,6 +8,7 @@ export type TaskEntity = {
     type: TaskEntity.type;
     country: TaskEntity.country;
     placement: TaskEntity.placement;
+    gender: TaskEntity.gender;
     description: string;
     url: string;
     increase_mining_rate: number;
@@ -35,6 +36,11 @@ export namespace TaskEntity {
     export enum placement {
         TASK_LIST = 'task_list',
         MINING_ACTIVATION = 'mining_activation',
+    }
+
+    export enum gender {
+        MALE = 'male',
+        FEMALE = 'female',
     }
 
 

@@ -7,7 +7,9 @@ import {
   IsOptional,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { CountriesEnum, PlacementEnum, TasksEnum } from '@common_bot/shared';
+import {
+  CountriesEnum, GenderEnum, PlacementEnum, TasksEnum,
+} from '@common_bot/shared';
 
 export class TaskCreateDto {
   @ApiProperty({
@@ -41,6 +43,14 @@ export class TaskCreateDto {
   @IsNotEmpty()
   @IsEnum(PlacementEnum)
   placement: PlacementEnum;
+
+  @ApiProperty({
+    required: true,
+    enum: GenderEnum,
+  })
+  @IsNotEmpty()
+  @IsEnum(GenderEnum)
+  gender: GenderEnum;
 
   @ApiProperty({
     required: true,
