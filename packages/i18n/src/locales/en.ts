@@ -12,6 +12,7 @@ export const en = {
     update_message: "I'm update!\n\nWhat's new?\n-Paragraph 1\n-Paragraph 2\n-Paragraph 3",
     default_notification_message: 'Default notification message',
     max: 'Maximum: ',
+    conditions_not_met: "Doesn't meet the conditions",
   },
   countries: {
     [CountriesEnum.RUSSIA]: '🇷🇺',
@@ -117,7 +118,6 @@ export const en = {
   },
   mining: {
     message: 'To access the bot features, you need to subscribe to the following channels:',
-    error: 'Does not meet the conditions',
     done: '✅ Mining is active',
     rate: '⛏️ Every 5 seconds you get: ',
     mined: 'Mined:',

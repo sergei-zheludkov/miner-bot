@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 export type TaskUpdateDto = {
-    id: string;
+    id: number;
     name: string;
     description?: string;
     available_limit?: number;

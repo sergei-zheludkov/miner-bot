@@ -100,6 +100,44 @@
         }
       }
     },
+    "/api/v1/tasks/complete/{id}": {
+      "post": {
+        "operationId": "postCompleteTasks",
+        "summary": "Creating new completed tasks in db",
+        "tags": [
+          "Tasks"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CompletedTaskCreateDto"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Completed tasks has been successfully created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CompletedTaskEntity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/tasks/{id}": {
       "get": {
         "operationId": "getOneTask",
@@ -113,7 +151,7 @@
             "required": true,
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "number"
             }
           }
         ],
@@ -490,6 +528,10 @@
             "type": "number",
             "example": 1e-7
           },
+          "increase_complete_tasks_count": {
+            "type": "number",
+            "example": 1
+          },
           "mining_rate_started": {
             "format": "date-time",
             "type": "string",
@@ -500,11 +542,28 @@
           "id"
         ]
       },
+      "CompletedTaskCreateDto": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "example": "266006070"
+          },
+          "task_id": {
+            "type": "number",
+            "example": 1
+          }
+        },
+        "required": [
+          "user_id",
+          "task_id"
+        ]
+      },
       "TaskEntity": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
+            "type": "number",
             "example": 1
           },
           "name": {
@@ -609,6 +668,32 @@
           "deleted"
         ]
       },
+      "CompletedTaskEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserEntity"
+          },
+          "task": {
+            "$ref": "#/components/schemas/TaskEntity"
+          },
+          "created": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          }
+        },
+        "required": [
+          "id",
+          "user",
+          "task",
+          "created"
+        ]
+      },
       "TaskCreateDto": {
         "type": "object",
         "properties": {
@@ -689,7 +774,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
+            "type": "number",
             "example": 1
           },
           "name": {

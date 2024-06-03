@@ -1,2 +1,2 @@
-export { empty } from './empty';
+export { empty, asyncEmpty } from './empty';
 export { getRandomHash } from './get-random-hash';

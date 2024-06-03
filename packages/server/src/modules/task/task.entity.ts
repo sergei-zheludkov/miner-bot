@@ -16,8 +16,8 @@ export class TaskEntity {
   @ApiProperty({
     example: 1,
   })
-  @PrimaryGeneratedColumn()
-  id: string;
+  @PrimaryGeneratedColumn({ type: 'int' })
+  id: number;
 
   @ApiProperty({
     example: 'Crypto Sigma',

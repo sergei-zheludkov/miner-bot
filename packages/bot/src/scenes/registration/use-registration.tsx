@@ -79,6 +79,15 @@ export const useRegistration = ({ refId, getUser }: Props) => {
   };
 
   const isValidGender: DialogValidation = (gender) => {
+    console.log(
+      '\nMAP:',
+      GENDERS,
+      '\nANSWER:',
+      gender,
+      '\nMAP_VALUE:',
+      GENDERS[gender],
+    );
+
     if (GENDERS[gender]) {
       return undefined;
     }

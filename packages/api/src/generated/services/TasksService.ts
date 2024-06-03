@@ -1,6 +1,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CompletedTaskCreateDto } from '../models/CompletedTaskCreateDto';
+import type { CompletedTaskEntity } from '../models/CompletedTaskEntity';
 import type { TaskCreateDto } from '../models/TaskCreateDto';
 import type { TaskEntity } from '../models/TaskEntity';
 import type { TaskUpdateDto } from '../models/TaskUpdateDto';
@@ -12,13 +14,30 @@ import { request as __request } from '../core/request';
 export class TasksService {
 
     /**
+     * Creating new completed tasks in db
+     * @param requestBody
+     * @returns CompletedTaskEntity Completed tasks has been successfully created.
+     * @throws ApiError
+     */
+    public static postCompleteTasks(
+        requestBody: Array<CompletedTaskCreateDto>,
+    ): CancelablePromise<Array<CompletedTaskEntity>> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/tasks/complete/{id}',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
      * Returning information about user
      * @param id
      * @returns TaskEntity User has been found.
      * @throws ApiError
      */
     public static getOneTask(
-        id: string,
+        id: number,
     ): CancelablePromise<TaskEntity> {
         return __request(OpenAPI, {
             method: 'GET',

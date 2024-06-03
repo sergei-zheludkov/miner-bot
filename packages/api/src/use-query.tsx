@@ -19,9 +19,10 @@ type QueryState<T, E = ApiError> = {
 
 export type Query<T, E = ApiError, A = any> = QueryState<T, E> & {
   fetch: (...arg: A[]) => Promise<QueryState<T, E>>;
+  reset: () => void;
 }
 
-function useQuery<T, A, E extends ApiError = ApiError>(
+export function useQuery<T, A, E extends ApiError = ApiError>(
   id: string,
   callback: (...arg: A[]) => CancelablePromise<T>,
   { isLazy = false }: QueryOptions = {},
@@ -95,6 +96,14 @@ function useQuery<T, A, E extends ApiError = ApiError>(
     [callback],
   );
 
+  const reset = () => setQuery((prev) => ({
+    ...prev,
+    isCalled: !isLazy,
+    isLoading: !isLazy,
+    isError: false,
+    isSuccess: false,
+  }));
+
   useEffect(() => {
     if (isLazy) {
       return;
@@ -103,7 +112,5 @@ function useQuery<T, A, E extends ApiError = ApiError>(
     fetch();
   }, [id]);
 
-  return useMemo(() => ({ ...query, fetch }), [fetch, query]);
+  return useMemo(() => ({ ...query, fetch, reset }), [fetch, query]);
 }
-
-export { useQuery };

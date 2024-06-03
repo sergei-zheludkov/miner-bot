@@ -125,7 +125,7 @@ export class UserEntity {
   })
   @Column({
     type: 'decimal',
-    default: 0.000_000_1,
+    default: 0.0,
   })
   mining_rate: number;
 

@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 export type TaskEntity = {
-    id: string;
+    id: number;
     name: string;
     type: TaskEntity.type;
     country: TaskEntity.country;

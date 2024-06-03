@@ -2,45 +2,69 @@ import { useState } from 'react';
 import { useBotContext } from '@urban-bot/core';
 import type { UrbanBotTelegram } from '@urban-bot/telegram';
 import { useTranslation } from '@common_bot/i18n';
+import { useApi, useQuery } from '@common_bot/api';
+import { PlacementEnum } from '@common_bot/shared';
 import { useUser, usePatchUser, useRouter } from '../../contexts';
 import { isActiveState, isTransferredState } from './predicates';
 import { MINING_STATES } from './constants';
 import { getStartedState } from './helpers';
 
-// TODO заменить после создания раздела заданий
-const channels = [
-  {
-    id: '-1002238903830', name: 'Development', url: 'https://t.me/bro_development',
-  },
-  {
-    id: '-1002219211474', name: 'Crypto Sigma', url: 'https://t.me/crypto_sigma_1',
-  },
-];
-
 export const useMining = () => {
-  const { t } = useTranslation('mining');
+  const { t } = useTranslation('common');
   const { bot } = useBotContext<UrbanBotTelegram>();
   const { switchToMenuMain } = useRouter();
   const { user, getUser } = useUser();
+  const { getTasks: getTasksApi, postCompleteTasks: postCompleteTasksApi } = useApi().task;
   const { patchUser, isPatchLoading } = usePatchUser();
+
+  const {
+    data: tasks = [],
+    isCalled: isGetCalled,
+    isLoading: isGetLoading,
+    isSuccess: isGetSuccess,
+    isError: isGetError,
+    statusCode: getStatusCode,
+  } = useQuery('get_tasks', () => getTasksApi(
+    user.country,
+    PlacementEnum.MINING_ACTIVATION,
+    user.gender,
+    'active',
+    0,
+    3,
+  ));
+
+  const {
+    data: completedTask,
+    isCalled: isPostCalled,
+    isLoading: isPostLoading,
+    isSuccess: isPostSuccess,
+    isError: isPostError,
+    statusCode: postStatusCode,
+    fetch: postCompleteTask,
+  } = useQuery('post_complete_task', postCompleteTasksApi, { isLazy: true });
 
   const [state, setState] = useState<MINING_STATES>(getStartedState(user));
 
   // TODO добавить описание параметров коллбека в библиотеке urban-bot
   const handleClickReady = async (message: any) => {
-    const checkRequests = await Promise.all(channels
-      .map((channel) => bot.client.getChatMember(Number(channel.id), user.id)));
+    const checkRequests = await Promise.all(tasks
+      .map((task) => bot.client.getChatMember(Number(task.check_key), user.id)));
 
     if (checkRequests.some(({ status }) => status === 'left')) {
       // TODO метод answerCallbackQuery в библиотеку urban-bot
-      const options = { text: t('error'), show_alert: true };
+      const options = { text: t('conditions_not_met'), show_alert: true };
+
       await bot.client.answerCallbackQuery(message.nativeEvent.payload.id, options);
-    } else {
-      const data = { id: user.id, mining_rate_started: new Date().toISOString() };
 
-      await patchUser(data);
+      return;
+    }
 
-      setState(MINING_STATES.ACTIVE);
+    if (!isPostCalled) {
+      const data = tasks.map((task) => ({ user_id: user.id, task_id: task.id }));
+
+      await postCompleteTask(data);
+
+      setState(MINING_STATES.REGISTERED);
     }
   };
 
@@ -55,16 +79,17 @@ export const useMining = () => {
   };
 
   const handleClickBack = () => {
-    if (isActiveState(state) || isTransferredState(state)) {
-      getUser();
-    }
+    getUser();
 
     switchToMenuMain();
   };
 
   return {
     state,
-    channels,
+    tasks,
+    isGetCalled,
+    isGetSuccess,
+    isPostSuccess,
     handleClickReady,
     handleClickGet,
     handleClickBack,

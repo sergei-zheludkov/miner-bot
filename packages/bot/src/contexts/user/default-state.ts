@@ -2,13 +2,13 @@ import { UTILITIES } from '@common_bot/shared';
 import type { UserEntity } from '@common_bot/api';
 import type { ContextState } from './types';
 
-const { empty } = UTILITIES;
+const { asyncEmpty } = UTILITIES;
 
 export const defaultState: ContextState = {
   referralId: null,
   user: {} as UserEntity,
 
-  getUser: empty,
+  getUser: asyncEmpty,
   isGetCalled: false,
   isGetLoading: false,
   isGetSuccess: false,

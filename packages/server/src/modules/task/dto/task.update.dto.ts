@@ -13,7 +13,7 @@ export class TaskUpdateDto {
   })
   @IsNotEmpty()
   @IsNumber()
-  id: string;
+  id: number;
 
   @ApiProperty({
     required: true,

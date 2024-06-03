@@ -6,9 +6,10 @@ import {
   Param,
   Body,
   Query,
-  NotFoundException,
+  NotFoundException, ParseArrayPipe,
 } from '@nestjs/common';
 import {
+  ApiBody,
   ApiQuery,
   ApiOperation,
   ApiOkResponse,
@@ -19,12 +20,30 @@ import { CountriesEnum, GenderEnum, PlacementEnum } from '@common_bot/shared';
 import { API_VERSION_ROUTES, TAGS } from '../../constants';
 import { TaskService } from './task.service';
 import { TaskEntity } from './task.entity';
-import { TaskCreateDto, TaskUpdateDto } from './dto';
+import { CompletedTaskEntity } from './completed-task.entity';
+import { CompletedTaskCreateDto, TaskCreateDto, TaskUpdateDto } from './dto';
 import type { GetQuery } from './types';
 
 @Controller(`${API_VERSION_ROUTES.v1}/tasks`)
 export class TaskController {
   constructor(private readonly tasksService: TaskService) {}
+
+  @ApiCreatedResponse({
+    description: 'Completed tasks has been successfully created.',
+    type: [CompletedTaskEntity],
+  })
+  @ApiOperation({
+    tags: [TAGS.TASKS],
+    operationId: 'postCompleteTasks',
+    summary: 'Creating new completed tasks in db',
+  })
+  @ApiBody({ type: CompletedTaskCreateDto, isArray: true })
+  @Post('complete/:id')
+  async postCompleteTask(
+    @Body(new ParseArrayPipe({ items: CompletedTaskCreateDto })) data: CompletedTaskCreateDto[],
+  ) {
+    return this.tasksService.completeTasks(data);
+  }
 
   @ApiOkResponse({
     description: 'User has been found.',
@@ -39,7 +58,7 @@ export class TaskController {
     summary: 'Returning information about user',
   })
   @Get(':id')
-  async getOneUser(@Param('id') id: string) {
+  async getOneTask(@Param('id') id: number) {
     const user = await this.tasksService.getOneTask(id);
 
     if (!user) {
@@ -65,7 +84,7 @@ export class TaskController {
   @ApiQuery({ name: 'status', required: false, type: String })
   @ApiQuery({ name: 'gender', required: false, type: String })
   @Get()
-  getFeedbackNotes(
+  getTasks(
     @Query('country') country?: CountriesEnum,
     @Query('placement') placement?: PlacementEnum,
     @Query('limit') limit = 10,
@@ -90,7 +109,7 @@ export class TaskController {
     summary: 'Creating new task in db',
   })
   @Post()
-  async postUser(@Body() data: TaskCreateDto) {
+  async postTask(@Body() data: TaskCreateDto) {
     return this.tasksService.createTask(data);
   }
 
@@ -107,7 +126,7 @@ export class TaskController {
     summary: 'Updating task data',
   })
   @Patch()
-  async patchUser(@Body() data: TaskUpdateDto) {
+  async patchTask(@Body() data: TaskUpdateDto) {
     const user = await this.tasksService.updateTask(data);
 
     if (!user) {

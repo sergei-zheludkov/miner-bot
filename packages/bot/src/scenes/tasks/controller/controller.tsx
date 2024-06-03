@@ -13,9 +13,10 @@ export const Controller = () => {
     taskNumber,
     isEmptyList,
     // isLoading,
-    isSuccess,
+    isGetSuccess,
     handleClickPrev,
     handleClickNext,
+    handleClickReady,
   } = useController();
 
   const backButton = [
@@ -41,7 +42,7 @@ export const Controller = () => {
     );
   }
 
-  if (isSuccess && isEmptyList) {
+  if (isGetSuccess && isEmptyList) {
     const title = t('list.empty');
 
     const groupButton = [
@@ -58,7 +59,7 @@ export const Controller = () => {
     );
   }
 
-  if (isSuccess && !isEmptyList) {
+  if (isGetSuccess && !isEmptyList) {
     const task = tasks[taskNumber];
 
     const title = (
@@ -102,7 +103,7 @@ export const Controller = () => {
     ];
 
     const readyButton = [
-      <Button key="ready" onClick={undefined}>
+      <Button key="ready" onClick={handleClickReady}>
         {t('buttons:ready')}
       </Button>,
     ];

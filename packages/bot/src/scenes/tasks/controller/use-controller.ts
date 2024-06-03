@@ -1,36 +1,24 @@
+import { useState } from 'react';
+import type { UrbanBotTelegram } from '@urban-bot/telegram';
+import { PlacementEnum } from '@common_bot/shared';
 import { useApi, useQuery } from '@common_bot/api';
-import { GenderEnum, PlacementEnum } from '@common_bot/shared';
-import { useEffect, useState } from 'react';
+import { useBotContext } from '@urban-bot/core';
+import { useTranslation } from '@common_bot/i18n';
 import { useUser } from '../../../contexts';
 
 export const useController = () => {
+  const { t } = useTranslation('common');
   const { user } = useUser();
-  const { getTasks: getTasksApi } = useApi().task;
-  const {
-    data: tasksForAllGenders = [],
-    isCalled: isGetAllGendersCalled,
-    isLoading: isGetAllGendersLoading,
-    isSuccess: isGetAllGendersSuccess,
-    isError: isGetAllGendersError,
-    statusCode: getAllGendersStatusCode,
-    fetch: getAllGendersTasks,
-  } = useQuery('get_tasks', () => getTasksApi(
-    user.country,
-    PlacementEnum.TASK_LIST,
-    GenderEnum.ALL,
-    'active',
-    0,
-    100,
-  ), { isLazy: true });
+  const { bot } = useBotContext<UrbanBotTelegram>();
+  const { getTasks: getTasksApi, postCompleteTasks: postCompleteTasksApi } = useApi().task;
 
   const {
-    data: tasksForUseGender = [],
-    isCalled: isGetUserGenderCalled,
-    isLoading: isGetUserGenderLoading,
-    isSuccess: isGetUserGenderSuccess,
-    isError: isGetUserGenderError,
-    statusCode: getUserGenderStatusCode,
-    fetch: getUserGenderTasks,
+    data: tasks = [],
+    isCalled: isGetCalled,
+    isLoading: isGetLoading,
+    isSuccess: isGetSuccess,
+    isError: isGetError,
+    statusCode: getStatusCode,
   } = useQuery('get_tasks', () => getTasksApi(
     user.country,
     PlacementEnum.TASK_LIST,
@@ -38,40 +26,69 @@ export const useController = () => {
     'active',
     0,
     100,
-  ), { isLazy: true });
+  ));
+
+  const {
+    data: completedTask,
+    isCalled: isPostCalled,
+    isLoading: isPostLoading,
+    isSuccess: isPostSuccess,
+    isError: isPostError,
+    statusCode: postStatusCode,
+    fetch: postCompleteTask,
+    reset,
+  } = useQuery('post_complete_task', postCompleteTasksApi, { isLazy: true });
 
   const [taskNumber, setTaskNumber] = useState(0);
 
-  const tasks = [...tasksForAllGenders, ...tasksForUseGender]
-    .sort(({ id: a }, { id: b }) => Number(a) - Number(b));
-
-  const isLoading = isGetAllGendersLoading || isGetUserGenderLoading;
-  const isSuccess = isGetAllGendersSuccess || isGetUserGenderSuccess;
   const isEmptyList = !tasks.length;
 
   const handleClickPrev = () => {
     setTaskNumber((prev) => (prev - 1 < 0 - 1 ? tasks.length - 1 : prev - 1));
+
+    if (isPostSuccess) {
+      reset();
+    }
   };
 
   const handleClickNext = () => {
     setTaskNumber((prev) => (prev + 1 > tasks.length - 1 ? 0 : prev + 1));
+
+    if (isPostSuccess) {
+      reset();
+    }
   };
 
-  useEffect(() => {
-    if (user.mining_rate_started) {
-      // TODO оптимизировать через дополнительный стейт
-      getAllGendersTasks();
-      getUserGenderTasks();
+  // TODO добавить описание параметров коллбека в библиотеке urban-bot
+  const handleClickReady = async (message: any) => {
+    const channel_id = Number(tasks[taskNumber].check_key);
+    const checkRequests = await bot.client.getChatMember(channel_id, user.id);
+
+    if (checkRequests.status === 'left') {
+      // TODO метод answerCallbackQuery в библиотеку urban-bot
+      const options = { text: t('conditions_not_met'), show_alert: true };
+
+      await bot.client.answerCallbackQuery(message.nativeEvent.payload.id, options);
+
+      return;
     }
-  }, []);
+
+    if (!isPostCalled) {
+      const data = { user_id: user.id, task_id: tasks[taskNumber].id };
+
+      await postCompleteTask([data]);
+    }
+  };
 
   return {
     tasks,
     taskNumber,
     isEmptyList,
-    isLoading,
-    isSuccess,
+    isGetLoading,
+    isGetSuccess,
+    isPostSuccess,
     handleClickPrev,
     handleClickNext,
+    handleClickReady,
   };
 };
