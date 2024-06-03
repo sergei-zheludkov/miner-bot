@@ -1,12 +1,12 @@
+import { useState } from 'react';
 import { useApi, useQuery, type TaskCreateDto } from '@common_bot/api';
-import type { DialogAnswers, DialogValidation } from '@urban-bot/core';
-import { GENDERS, QUESTION_KEYS } from './constants';
-import { COUNTRIES, LANGUAGES } from '../../../constants';
-import { useRouter } from '../../../contexts';
+import type { DialogAnswers } from '@urban-bot/core';
+import { QUESTION_KEYS } from './constants';
+// import { useRouter } from '../../../contexts';
 
 export const useCreate = () => {
   const { postTask: postTaskApi } = useApi().task;
-  const { switchToMenuTasksControl } = useRouter();
+  // const { switchToMenuTasksControl } = useRouter();
   const {
     isCalled: isPostCalled,
     isLoading: isPostLoading,
@@ -37,18 +37,7 @@ export const useCreate = () => {
       placement,
     };
 
-    const newTask = await postTask(args);
-
-    console.log(
-      'increase_mining_rate:',
-      answers.increase_mining_rate,
-      '\nARGS:',
-      args,
-      '\nNEW_TASK error body message:',
-      newTask?.error?.body.message,
-    );
-
-    switchToMenuTasksControl();
+    await postTask(args);
   };
 
   // const isValidLanguage = (lang: string) => {
@@ -92,7 +81,9 @@ export const useCreate = () => {
 
   return {
     createTask,
-    isSentData: isPostCalled,
+    isPostCalled,
+    isPostSuccess,
+    isPostError,
     // isPostLoading,
     // isPostSuccess,
     // isPostError,

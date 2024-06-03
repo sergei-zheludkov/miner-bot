@@ -37,12 +37,6 @@ export const useRegistration = ({ refId, getUser }: Props) => {
     // Такой финт из-за кривой генерации enum в @common_bot/api
     const gender = GENDERS[answers[QUESTION_KEYS.GENDER]] as unknown as UserCreateDto['gender'];
 
-    console.log(
-      lang,
-      country,
-      gender,
-    );
-
     const newUser = await fetch({
       id: chat.id,
       firstname: chat.firstName,
