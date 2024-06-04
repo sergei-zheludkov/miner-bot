@@ -162,6 +162,7 @@ export const Controller = () => {
     );
   }
 
+  // TODO в отдельный компонент
   return (
     <Text isNewMessageEveryRender={false}>
       🤖

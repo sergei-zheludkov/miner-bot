@@ -42,11 +42,15 @@ export const SceneSwitcher = () => {
     case T.MenuEnum.TASKS_CONTROL:
       return <Menu.TasksControl />;
 
+    // ----------------------------------------REFERRAL MENU--------------------------------------
+    case T.SceneEnum.REFERRAL_INVITATION:
+      return <Scene.ReferralInvitation />;
+
     // ------------------------------------TASKS CONTROL MENU----------------------------------
     case T.SceneEnum.CREATE_TASK:
       return <Scene.CreateTask />;
 
-    // ----------------------------------------SETTINGS----------------------------------------
+    // -------------------------------------SETTINGS MENU-------------------------------------
     case T.SceneEnum.SETTINGS_LANGUAGE:
       return (
         <SceneWrapper type="remove-keyboard">

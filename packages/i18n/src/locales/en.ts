@@ -2,6 +2,7 @@ import { CountriesEnum, PlacementEnum, TasksEnum } from '@common_bot/shared';
 
 export const en = {
   common: {
+    and: 'and',
     loading: 'Loading',
     balance: 'Balance:',
     greeting: 'Start message',
@@ -61,6 +62,7 @@ export const en = {
     // --------Support Menu--------
     support_requests: '📥 Support Requests',
     take_into_work: '🔧 Take into work',
+    processed: '✔️ Processed',
 
     // --------Feedback Menu--------
     write: '✍️ Write',
@@ -204,21 +206,20 @@ export const en = {
   },
   referral: {
     title: '🙋‍♂️ Affiliate program',
-    message: '🎁 Invite friends and get bonuses', // 10% of each balance top-up by a friend',
-    // balance: '💰 Your partner balance: ',
+    message: '🎁 Invite friends and get bonuses', // 10% от каждого пополнения баланса другом.',
+    invitation_bonus: 'For each invited friend, you will receive',
+    output_bonus: 'from each of their TON withdrawals from the balance',
+    invitation: {
+      title: 'Just send the following message to a friend ⤵️',
+      message: 'Hi!\n\nJoin the largest TON-Coin mining community on Telegram.\n\nClick the link below and start earning TON right away.\n',
+      link_title: 'Telegram bot link',
+      bonus: "When you click the link, you'll receive 0.005 TON to your balance.",
+    },
     notification: {
       registration_success: 'You have registered with your link by ',
       // bonus: 'Now you will receive 10% from each of his balance replenishment',
-
-      // money_part1: 'Your account was replenished by ',
-      // money_part2: ' for replenishment by a referral ',
     },
   },
-  // invite: {
-  //   title: 'Just send a friend the next message⤵️',
-  //   message: 'Yo, hello!\nMessage with a referral link:',
-  //   // bonus: 'При переходе по ссылке получишь +10% на первое пополнение баланса.',
-  // },
   information: {
     message: 'Information block, you can add text and a link',
   },
