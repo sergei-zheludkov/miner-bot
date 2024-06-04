@@ -17,7 +17,7 @@ export const useSettingsLanguage = () => {
 
   // TODO зарефакторить as unknown as BotLanguageEnum через Хелперы
   const currentLang = user.lang as unknown as BotLanguageEnum;
-  const availableLanguages = LANGUAGES.filter((lang) => lang !== currentLang);
+  const availableLanguages = Object.values(LANGUAGES).filter((lang) => lang !== currentLang);
 
   const handleSave = (lang: BotLanguageEnum) => async () => {
     await patchUser({

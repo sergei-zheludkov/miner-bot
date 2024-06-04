@@ -9,7 +9,7 @@ export type UserCreateDto = {
     username?: string;
     who_invited_id?: string | null;
     lang: UserCreateDto.lang;
-    gender?: UserCreateDto.gender | null;
+    gender: UserCreateDto.gender;
     country: UserCreateDto.country;
 };
 
@@ -23,11 +23,13 @@ export namespace UserCreateDto {
     export enum gender {
         MALE = 'male',
         FEMALE = 'female',
+        ALL = 'all',
     }
 
     export enum country {
+        BY = 'BY',
+        KZ = 'KZ',
         RU = 'RU',
-        US = 'US',
     }
 
 

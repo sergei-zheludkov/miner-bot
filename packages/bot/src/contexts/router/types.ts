@@ -11,12 +11,16 @@ export type ContextState = {
   switchToMenuSupport: () => void;
   switchToMenuReferral: () => void;
   switchToMenuSettings: () => void;
+  switchToMenuTasksControl: () => void;
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
   switchToSceneMining: () => void;
   switchToSceneBalance: () => void;
   switchToSceneGreeting: () => void;
   switchToSceneInformation: () => void;
+  switchToSceneTaskController: () => void;
   switchToSceneSettingsLanguage: () => void;
+  switchToSceneCreateTask: () => void;
+  switchToSceneAddTaskLimit: () => void;
 }
 
 export type ProviderProps = {

@@ -82,14 +82,12 @@ export class UserEntity {
 
   @ApiProperty({
     enum: GenderEnum,
-    nullable: true,
   })
   @Column({
     type: 'enum',
-    nullable: true,
     enum: GenderEnum,
   })
-  gender?: GenderEnum;
+  gender: GenderEnum;
 
   @ApiProperty({
     // eslint-disable-next-line no-use-before-define
@@ -120,14 +118,14 @@ export class UserEntity {
     type: 'int',
     default: 0,
   })
-  finished_tasks_count: number;
+  complete_tasks_count: number;
 
   @ApiProperty({
     example: 0.000_000_1,
   })
   @Column({
     type: 'decimal',
-    default: 0.000_000_1,
+    default: 0.0,
   })
   mining_rate: number;
 

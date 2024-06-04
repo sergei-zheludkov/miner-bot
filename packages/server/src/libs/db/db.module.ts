@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 import { UserEntity } from '../../modules/user/user.entity';
+import { TaskEntity } from '../../modules/task/task.entity';
+import { CompletedTaskEntity } from '../../modules/task/completed-task.entity';
 
 @Module({
   imports: [
@@ -14,7 +16,7 @@ import { UserEntity } from '../../modules/user/user.entity';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('PG_DATABASE'),
-        entities: [UserEntity],
+        entities: [UserEntity, TaskEntity, CompletedTaskEntity],
         autoLoadEntities: true,
         synchronize: true,
         logging: true,
@@ -24,5 +26,4 @@ import { UserEntity } from '../../modules/user/user.entity';
     }),
   ],
 })
-
 export class DatabaseModule {}

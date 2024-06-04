@@ -4,7 +4,7 @@ import {
   IsDecimal,
   IsEnum,
   IsDateString,
-  IsNotEmpty,
+  IsNotEmpty, IsNumber,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { BotLanguageEnum } from '@common_bot/shared';
@@ -56,7 +56,15 @@ export class UserUpdateDto {
   })
   @IsOptional()
   @IsDecimal()
-  increase_mining_rate: number;
+  increase_mining_rate?: number;
+
+  @ApiProperty({
+    required: false,
+    example: 1,
+  })
+  @IsOptional()
+  @IsNumber()
+  increase_complete_tasks_count?: number;
 
   @ApiProperty({
     required: false,

@@ -14,7 +14,7 @@ export enum CountriesEnum {
   // Bahrain BH
   // Bangladesh BD
   // Barbados BB
-  // Belarus BY
+  BELARUS = 'BY',
   // Belgium BE
   // Belize BZ
   // Benin BJ
@@ -86,7 +86,7 @@ export enum CountriesEnum {
   // Jamaica JM
   // Japan JP
   // Jordan JO
-  // Kazakhstan KZ
+  KAZAKHSTAN = 'KZ',
   // Kenya KE
   // Kiribati KI
   // Korea, Democratic People's Republic KP
@@ -185,6 +185,6 @@ export enum CountriesEnum {
   // Ukraine UA
   // United Arab Emirates AE
   // United Kingdom GB
-  USA = 'US',
+  // USA = 'US',
   // Uruguay UY
 }

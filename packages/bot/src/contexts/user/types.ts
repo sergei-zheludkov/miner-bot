@@ -5,7 +5,7 @@ export type ContextState = {
   referralId: string | null;
   user: UserEntity;
 
-  getUser: () => void;
+  getUser: () => Promise<unknown>;
   isGetCalled: boolean;
   isGetLoading: boolean;
   isGetSuccess: boolean;

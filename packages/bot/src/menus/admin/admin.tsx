@@ -5,8 +5,8 @@ import { useRouter } from '../../contexts';
 // import { Loading } from '../../components';
 import { useAdminMenu } from './use-admin-menu';
 
-const Admin = () => {
-  const { /* switchToMenuAdminStatistics, */ switchToMenuMain, switchToMenuSupport } = useRouter();
+export const Admin = () => {
+  const { switchToMenuMain, switchToMenuTasksControl } = useRouter();
   const { t } = useTranslation('buttons');
   const { isUserAdmin } = useAdminMenu();
 
@@ -14,30 +14,20 @@ const Admin = () => {
   const back = t('back');
   useText(switchToMenuMain, back);
 
-  const support_menu = t('support_menu');
-  useText(switchToMenuSupport, support_menu);
-  // TODO connect scene callback
-  /* --------------------------------- */
-
-  // if (isMenuLoading) {
-  //   return <Loading />;
-  // }
+  const tasks_control_menu = t('tasks');
+  useText(switchToMenuTasksControl, tasks_control_menu);
 
   const title = t(isUserAdmin ? 'admin:message' : 'admin:error');
-  // const errorText = t();
 
   return (
     <ButtonGroup
       isReplyButtons
       isResizedKeyboard
-      maxColumns={2}
+      maxColumns={1}
       title={title}
     >
-      {/* {isUserAdmin && <Button>{t('')}</Button>} */}
-      {isUserAdmin && <Button>{support_menu}</Button>}
+      {isUserAdmin && <Button>{tasks_control_menu}</Button>}
       <Button>{back}</Button>
     </ButtonGroup>
   );
 };
-
-export { Admin };

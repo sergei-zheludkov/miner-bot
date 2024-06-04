@@ -12,25 +12,26 @@ import { useRouter } from '../../contexts';
 export const Main = () => {
   const {
     switchToMenuAdmin,
-    switchToMenuSupport,
+    // switchToMenuSupport,
     switchToMenuReferral,
     switchToMenuSettings,
     switchToSceneMining,
     switchToSceneBalance,
     switchToSceneInformation,
+    switchToSceneTaskController,
   } = useRouter();
   const { t } = useTranslation('buttons');
   // const { message } = useCommonMainMenu();
 
   /* ---------- BUTTON HOOKS ---------- */
   useCommand(switchToMenuAdmin, '/admin');
-  useCommand(switchToMenuSupport, '/support');
+  // useCommand(switchToMenuSupport, '/support');
 
   const mining = t('mining');
   useText(switchToSceneMining, mining);
 
   const tasks = t('tasks');
-  useText(() => '', tasks);
+  useText(switchToSceneTaskController, tasks);
 
   const referral = t('referral');
   useText(switchToMenuReferral, referral);

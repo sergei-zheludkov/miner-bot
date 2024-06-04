@@ -5,8 +5,8 @@ import { useApi, useQuery } from '@common_bot/api';
 import type { UserCreateDto } from '@common_bot/api';
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter } from '../../contexts';
-import { COUNTRIES, LANGUAGES } from '../../constants';
-import { QUESTION_KEYS, GENDERS } from './constants';
+import { COUNTRIES, LANGUAGES, GENDERS } from '../../constants';
+import { QUESTION_KEYS } from './constants';
 
 type Props = {
   refId: string | null;
@@ -31,11 +31,11 @@ export const useRegistration = ({ refId, getUser }: Props) => {
 
   const createUser = async (answers: DialogAnswers) => {
     // Такой финт из-за кривой генерации enum в @common_bot/api
-    const lang = answers[QUESTION_KEYS.LANG] as unknown as UserCreateDto['lang'];
+    const lang = LANGUAGES[answers[QUESTION_KEYS.LANG]] as unknown as UserCreateDto['lang'];
     // Такой финт из-за кривой генерации enum в @common_bot/api
-    const country = answers[QUESTION_KEYS.COUNTRY] as unknown as UserCreateDto['country'];
+    const country = COUNTRIES[answers[QUESTION_KEYS.COUNTRY]] as unknown as UserCreateDto['country'];
     // Такой финт из-за кривой генерации enum в @common_bot/api
-    const gender = answers[QUESTION_KEYS.GENDER] as unknown as UserCreateDto['gender'];
+    const gender = GENDERS[answers[QUESTION_KEYS.GENDER]] as unknown as UserCreateDto['gender'];
 
     const newUser = await fetch({
       id: chat.id,
@@ -56,23 +56,8 @@ export const useRegistration = ({ refId, getUser }: Props) => {
     switchToSceneGreeting();
   };
 
-  const isValidLanguage = (lang: string) => {
-    const isValid = (LANGUAGES as Array<string>).includes(lang);
-
-    if (isValid) {
-      return undefined;
-    }
-
-    const title = t('error_title');
-    const description = t('questions.language.error_description');
-
-    return `${title}\n${description}`;
-  };
-
   const isValidCountry = (country: string) => {
-    const isValid = (COUNTRIES as Array<string>).includes(country);
-
-    if (isValid) {
+    if (COUNTRIES[country]) {
       return undefined;
     }
 
@@ -82,10 +67,20 @@ export const useRegistration = ({ refId, getUser }: Props) => {
     return `${title}\n${description}`;
   };
 
-  const isValidGender: DialogValidation = (gender) => {
-    const isValid = gender === GENDERS.MALE || gender === GENDERS.FEMALE;
+  const isValidLanguage = (lang: string) => {
+    if (LANGUAGES[lang]) {
+      return undefined;
+    }
 
-    if (isValid) {
+    const title = t('error_title');
+    const description = t('questions.language.error_description');
+
+    return `${title}\n${description}`;
+  };
+
+  const isValidGender: DialogValidation = (gender) => {
+    // TODO пофиксить баг связанный с маппингом
+    if (GENDERS[gender]) {
       return undefined;
     }
 

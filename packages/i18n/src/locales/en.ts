@@ -1,3 +1,5 @@
+import { CountriesEnum, PlacementEnum, TasksEnum } from '@common_bot/shared';
+
 export const en = {
   common: {
     loading: 'Loading',
@@ -10,6 +12,12 @@ export const en = {
     update_message: "I'm update!\n\nWhat's new?\n-Paragraph 1\n-Paragraph 2\n-Paragraph 3",
     default_notification_message: 'Default notification message',
     max: 'Maximum: ',
+    conditions_not_met: "Doesn't meet the conditions",
+  },
+  countries: {
+    [CountriesEnum.RUSSIA]: '🇷🇺',
+    [CountriesEnum.BELARUS]: '🇧🇾',
+    [CountriesEnum.KAZAKHSTAN]: '🇰🇿',
   },
   buttons: {
     mining: '🚀 Mining',
@@ -30,6 +38,7 @@ export const en = {
     exit: '🔚 Exit',
     change: '🖊 Change',
     confirm: '✔️ Confirm',
+    go_to: '🔗 Go to',
     great: '✅ Great!',
     ready: '✅ Ready',
     saved: '✅ Saved',
@@ -44,6 +53,10 @@ export const en = {
 
     // ---------Admin Menu---------
     support_menu: '📟 Support menu',
+
+    // ----- Tasks Control Menu -----
+    create_task: '📝 Create task',
+    add_task_limit: '🗃️ Add limit',
 
     // --------Support Menu--------
     support_requests: '📥 Support Requests',
@@ -105,7 +118,6 @@ export const en = {
   },
   mining: {
     message: 'To access the bot features, you need to subscribe to the following channels:',
-    error: 'Does not meet the conditions',
     done: '✅ Mining is active',
     rate: '⛏️ Every 5 seconds you get: ',
     mined: 'Mined:',
@@ -116,6 +128,71 @@ export const en = {
     message: 'Your balance:',
     withdrawn: 'Withdrawn:',
     limit: 'Minimum withdrawal amount 0.5 TON!',
+  },
+  tasks: {
+    list: {
+      empty: 'The list of tasks for you is currently empty.\n\nYou have completed all tasks. Keep it up!\n\nJoin our group to stay updated.',
+      mining_disabled: 'To perform tasks, you need to activate mining',
+      task_title: 'Task: #',
+      task_name: 'Name:',
+      task_description: 'Description:',
+      task_reward: 'Task will increase your mining speed by',
+      task_completed: 'Task completed, your mining speed has been increased by',
+      task_error: 'An error occurred on the server. The task was not completed, please try again later.',
+    },
+    create: {
+      buttons: {
+        [TasksEnum.TG_PUBLIC]: 'Паблик ТГ',
+        [PlacementEnum.TASK_LIST]: 'В список задач',
+        [PlacementEnum.MINING_ACTIVATION]: 'В регистрацию',
+      },
+      questions: {
+        type: {
+          message: 'Выберите тип задания',
+          error: '',
+        },
+        country: {
+          message: 'Выберите страну для отображения задания',
+          error: '',
+        },
+        placement: {
+          message: 'Выберите место для размещения задания',
+          error: '',
+        },
+        gender: {
+          message: 'Укажи гендер на который нужно отображать задания',
+          error: '',
+        },
+        increase_mining_rate: {
+          message: 'Наберите майнинг рейт за выполнение задания',
+          error: '',
+        },
+        available_limit: {
+          message: 'Введите лимит на выполнение задания',
+          error: '',
+        },
+        name: {
+          message: 'Введите название задания',
+          error: '',
+        },
+        description: {
+          message: 'Введите описание задания',
+          error: '',
+        },
+        check_key: {
+          message: 'Введите ключ/токен/id использующиеся для проверки',
+          error: '',
+        },
+        contact: {
+          message: 'Введите контактное лицо',
+          error: '',
+        },
+        url: {
+          message: 'Введите URL',
+          error: '',
+        },
+      },
+    },
   },
   admin: {
     message: 'What do you want to do?',

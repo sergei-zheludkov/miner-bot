@@ -10,10 +10,10 @@ export type UserEntity = {
     lang: UserEntity.lang;
     country: UserEntity.country;
     role: UserEntity.role;
-    gender: UserEntity.gender | null;
+    gender: UserEntity.gender;
     who_invited: UserEntity | null;
     referral_counter: number;
-    finished_tasks_count: number;
+    complete_tasks_count: number;
     mining_rate: number;
     withdrawn_tons: number;
     balance: number;
@@ -30,8 +30,9 @@ export namespace UserEntity {
     }
 
     export enum country {
+        BY = 'BY',
+        KZ = 'KZ',
         RU = 'RU',
-        US = 'US',
     }
 
     export enum role {
@@ -44,6 +45,7 @@ export namespace UserEntity {
     export enum gender {
         MALE = 'male',
         FEMALE = 'female',
+        ALL = 'all',
     }
 
 

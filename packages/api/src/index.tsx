@@ -8,4 +8,7 @@ export type {
   UserCreateDto,
   UserUpdateDto,
 
+  TaskEntity,
+  TaskCreateDto,
+  TaskUpdateDto,
 } from './generated';

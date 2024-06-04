@@ -9,6 +9,7 @@ export type UserUpdateDto = {
     username?: string;
     lang?: UserUpdateDto.lang;
     increase_mining_rate?: number;
+    increase_complete_tasks_count?: number;
     mining_rate_started?: string;
 };
 

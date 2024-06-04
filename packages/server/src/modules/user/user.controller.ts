@@ -13,7 +13,7 @@ import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
 } from '@nestjs/swagger';
-import { API_VERSION_ROUTES } from '../../constants';
+import { API_VERSION_ROUTES, TAGS } from '../../constants';
 import { UserService } from './user.service';
 import { UserEntity } from './user.entity';
 import { UserCreateDto, UserUpdateDto } from './dto';
@@ -30,7 +30,7 @@ export class UserController {
     description: 'User not found.',
   })
   @ApiOperation({
-    tags: ['User'],
+    tags: [TAGS.USERS],
     operationId: 'getOneUser',
     summary: 'Returning information about user',
   })
@@ -50,18 +50,18 @@ export class UserController {
     type: UserEntity,
   })
   @ApiOperation({
-    tags: ['User'],
+    tags: [TAGS.USERS],
     operationId: 'postUser',
     summary: 'Creating new user in db',
   })
   @Post()
   async postUser(
     @Body('who_invited_id') who_invited_id: string,
-    @Body() body: UserCreateDto,
+    @Body() data: UserCreateDto,
   ) {
     return who_invited_id
-      ? this.userService.createUserWithReferral(body)
-      : this.userService.createUser(body);
+      ? this.userService.createUserWithReferral(data)
+      : this.userService.createUser(data);
   }
 
   @ApiOkResponse({
@@ -72,7 +72,7 @@ export class UserController {
     description: 'User not found.',
   })
   @ApiOperation({
-    tags: ['User'],
+    tags: [TAGS.USERS],
     operationId: 'patchUser',
     summary: 'Updating user data',
   })

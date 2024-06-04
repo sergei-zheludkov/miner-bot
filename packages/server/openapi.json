@@ -6,7 +6,7 @@
         "operationId": "getOneUser",
         "summary": "Returning information about user",
         "tags": [
-          "User"
+          "Users"
         ],
         "parameters": [
           {
@@ -40,7 +40,7 @@
         "operationId": "postUser",
         "summary": "Creating new user in db",
         "tags": [
-          "User"
+          "Users"
         ],
         "parameters": [],
         "requestBody": {
@@ -70,7 +70,7 @@
         "operationId": "patchUser",
         "summary": "Updating user data",
         "tags": [
-          "User"
+          "Users"
         ],
         "parameters": [],
         "requestBody": {
@@ -96,6 +96,223 @@
           },
           "404": {
             "description": "User not found."
+          }
+        }
+      }
+    },
+    "/api/v1/tasks/complete/{id}": {
+      "post": {
+        "operationId": "postCompleteTasks",
+        "summary": "Creating new completed tasks in db",
+        "tags": [
+          "Tasks"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CompletedTaskCreateDto"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Completed tasks has been successfully created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CompletedTaskEntity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tasks/{id}": {
+      "get": {
+        "operationId": "getOneTask",
+        "summary": "Returning information about user",
+        "tags": [
+          "Tasks"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User has been found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found."
+          }
+        }
+      }
+    },
+    "/api/v1/tasks": {
+      "get": {
+        "operationId": "getTasks",
+        "summary": "Returning information about available for user tasks",
+        "tags": [
+          "Tasks"
+        ],
+        "parameters": [
+          {
+            "name": "country",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "placement",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "gender",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Feedback notes has been found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskEntity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "postTask",
+        "summary": "Creating new task in db",
+        "tags": [
+          "Tasks"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Task has been successfully created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskEntity"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "patchTask",
+        "summary": "Updating task data",
+        "tags": [
+          "Tasks"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Task has been updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Task not found."
           }
         }
       }
@@ -147,8 +364,9 @@
           "country": {
             "type": "string",
             "enum": [
-              "RU",
-              "US"
+              "BY",
+              "KZ",
+              "RU"
             ]
           },
           "role": {
@@ -164,9 +382,9 @@
             "type": "string",
             "enum": [
               "male",
-              "female"
-            ],
-            "nullable": true
+              "female",
+              "all"
+            ]
           },
           "who_invited": {
             "nullable": true,
@@ -180,7 +398,7 @@
             "type": "number",
             "example": 5
           },
-          "finished_tasks_count": {
+          "complete_tasks_count": {
             "type": "number",
             "example": 5
           },
@@ -224,7 +442,7 @@
           "gender",
           "who_invited",
           "referral_counter",
-          "finished_tasks_count",
+          "complete_tasks_count",
           "mining_rate",
           "withdrawn_tons",
           "balance",
@@ -266,23 +484,25 @@
           },
           "gender": {
             "type": "string",
-            "nullable": true,
             "enum": [
               "male",
-              "female"
+              "female",
+              "all"
             ]
           },
           "country": {
             "type": "string",
             "enum": [
-              "RU",
-              "US"
+              "BY",
+              "KZ",
+              "RU"
             ]
           }
         },
         "required": [
           "id",
           "lang",
+          "gender",
           "country"
         ]
       },
@@ -316,6 +536,10 @@
             "type": "number",
             "example": 1e-7
           },
+          "increase_complete_tasks_count": {
+            "type": "number",
+            "example": 1
+          },
           "mining_rate_started": {
             "format": "date-time",
             "type": "string",
@@ -324,6 +548,267 @@
         },
         "required": [
           "id"
+        ]
+      },
+      "CompletedTaskCreateDto": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "example": "266006070"
+          },
+          "task_id": {
+            "type": "number",
+            "example": 1
+          }
+        },
+        "required": [
+          "user_id",
+          "task_id"
+        ]
+      },
+      "TaskEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Crypto Sigma"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "tg_public"
+            ]
+          },
+          "country": {
+            "type": "string",
+            "enum": [
+              "BY",
+              "KZ",
+              "RU"
+            ]
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "task_list",
+              "mining_activation"
+            ]
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female",
+              "all"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "example": "1️⃣ Переходи на канал 👇🏻 подпиcывайся и листай ленту вверх🔝👁 (5-7 постов)\n\n2️⃣ Возвращайся сюда, чтобы получить вознаграждение"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://t.me/bro_development"
+          },
+          "increase_mining_rate": {
+            "type": "number",
+            "example": 1e-7
+          },
+          "available_limit": {
+            "type": "number",
+            "example": 5
+          },
+          "check_key": {
+            "type": "string",
+            "example": "-1002238903830",
+            "nullable": true
+          },
+          "complete_count": {
+            "type": "number",
+            "example": 5
+          },
+          "contact": {
+            "type": "string",
+            "example": [
+              "tg:266006070",
+              "email:kykarek@yandex.ru",
+              "phone:+79238849922"
+            ],
+            "nullable": true
+          },
+          "created": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          },
+          "updated": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          },
+          "deleted": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "country",
+          "placement",
+          "gender",
+          "description",
+          "url",
+          "increase_mining_rate",
+          "available_limit",
+          "check_key",
+          "complete_count",
+          "contact",
+          "created",
+          "updated",
+          "deleted"
+        ]
+      },
+      "CompletedTaskEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserEntity"
+          },
+          "task": {
+            "$ref": "#/components/schemas/TaskEntity"
+          },
+          "created": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          }
+        },
+        "required": [
+          "id",
+          "user",
+          "task",
+          "created"
+        ]
+      },
+      "TaskCreateDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Crypto Sigma"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "tg_public"
+            ]
+          },
+          "country": {
+            "type": "string",
+            "enum": [
+              "BY",
+              "KZ",
+              "RU"
+            ]
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "task_list",
+              "mining_activation"
+            ]
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female",
+              "all"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "example": "1️⃣ Переходи на канал 👇🏻 подпиcывайся и листай ленту вверх🔝👁 (5-7 постов)\n\n2️⃣ Возвращайся сюда, чтобы получить вознаграждение"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://t.me/bro_development"
+          },
+          "increase_mining_rate": {
+            "type": "number",
+            "example": 1e-7
+          },
+          "available_limit": {
+            "type": "number",
+            "example": 1000
+          },
+          "check_key": {
+            "type": "string",
+            "example": "-1002238903830"
+          },
+          "contact": {
+            "type": "string",
+            "example": [
+              "tg:266006070",
+              "email:kykarek@yandex.ru",
+              "phone:+79238849922"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "country",
+          "placement",
+          "gender",
+          "description",
+          "url",
+          "available_limit"
+        ]
+      },
+      "TaskUpdateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Crypto Sigma"
+          },
+          "description": {
+            "type": "string",
+            "example": "1️⃣ Переходи на канал 👇🏻 подпиcывайся и листай ленту вверх🔝👁 (5-7 постов)\n\n2️⃣ Возвращайся сюда, чтобы получить вознаграждение"
+          },
+          "available_limit": {
+            "type": "number",
+            "example": 1000
+          },
+          "contact": {
+            "type": "string",
+            "example": [
+              "tg:266006070",
+              "email:kykarek@yandex.ru",
+              "phone:+79238849922"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name"
         ]
       }
     }
