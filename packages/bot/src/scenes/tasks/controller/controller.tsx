@@ -82,7 +82,7 @@ export const Controller = () => {
     );
   }
 
-  if (isGetSuccess && (isEmptyList || true)) {
+  if (isGetSuccess && isEmptyList) {
     const title = t('list.empty');
 
     const referralButton = [

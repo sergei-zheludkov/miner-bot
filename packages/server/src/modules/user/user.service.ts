@@ -124,12 +124,10 @@ export class UserService {
         }
 
         if (increase_mining_rate) {
-          // TODO: Протестировать
           await users_repository.increment({ id }, 'mining_rate', increase_mining_rate);
         }
 
         if (increase_complete_tasks_count) {
-          // TODO: Протестировать
           await users_repository.increment({ id }, 'complete_tasks_count', increase_complete_tasks_count);
         }
 

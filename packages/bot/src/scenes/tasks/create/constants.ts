@@ -10,7 +10,7 @@ export const GENDERS = { MALE: 'male', FEMALE: 'female' };
 // available_limit
 // increase_mining_rate?
 // check_key?
-// contact?xf
+// contact?
 
 export enum QUESTION_KEYS {
   TYPE = 'type',

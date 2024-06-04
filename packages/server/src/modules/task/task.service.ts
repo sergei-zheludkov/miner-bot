@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
 // import { HttpService } from '@nestjs/axios';
 import { InjectDataSource } from '@nestjs/typeorm';
-import {
-  DataSource, FindOptionsWhere, Repository, MoreThan, Or, Equal, Not,
-} from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { GenderEnum } from '@common_bot/shared';
 import { logger } from '../../libs/logger/logger.instance';
 import { UserService } from '../user/user.service';
@@ -38,19 +36,43 @@ export class TaskService {
     user_id, limit, offset, country, placement, status, gender,
   }: GetQuery) {
     return this.dataSource.transaction(async (manager) => {
-      const where: FindOptionsWhere<Task> = {
-        country,
-        placement,
-        gender: Or(Equal(gender), Equal(GenderEnum.ALL)),
+      // const where: FindOptionsWhere<Task> = {
+      //   country,
+      //   placement,
+      //   gender: Or(Equal(gender), Equal(GenderEnum.ALL)),
+      // };
+
+      // if (status === 'active') {
+      //   where.available_limit = MoreThan(0);
+      // }
+      //
+      // if (status === 'finished') {
+      //   where.available_limit = 0;
+      // }
+
+      const getAvailableLimitQuery = () => {
+        if (status === 'active') {
+          return 'available_limit > 0 AND';
+        }
+
+        if (status === 'finished') {
+          return 'available_limit = 0 AND';
+        }
+
+        return '';
       };
 
-      if (status === 'active') {
-        where.available_limit = MoreThan(0);
-      }
-
-      if (status === 'finished') {
-        where.available_limit = 0;
-      }
+      // TODO переписать, созвонившись с Серегой Мазаевым или Сашей Махориным
+      return manager.query(`
+        SELECT * FROM tasks WHERE
+        country = '${country}' AND
+        placement = '${placement}' AND
+        (gender = '${GenderEnum.ALL}' OR gender = '${gender}') AND
+        ${getAvailableLimitQuery()}
+        id NOT IN (SELECT task_id FROM completed_tasks WHERE user_id = '${user_id}')
+        LIMIT ${limit}
+        OFFSET ${offset}
+      `);
 
       // return manager.getRepository(Task).find({
       //   where,
@@ -58,26 +80,18 @@ export class TaskService {
       //   skip: offset,
       // });
 
-      const tasks = manager.getRepository(Task)
-        .createQueryBuilder('task')
-        .leftJoinAndMapMany(
-          'task.completed_by',
-          CompletedTask,
-          'completed_task',
-          'completed_task.task_id = task.id',
-        )
-        .leftJoinAndSelect('completed_task.user', 'user')
-        .where(where)
-        .take(limit)
-        .skip(offset)
-        .getMany();
+      // .getRepository(Task)
+      // .createQueryBuilder('task')
+      // .leftJoinAndSelect('completed_task.user', 'user')
+      // .where(where)
+      // .take(limit)
+      // .skip(offset)
+      // .getMany();
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      // console.log('TASKS:', (await tasks)[0]?.completed_by);
+      // console.log('TASKS:', (await tasks));
       // console.log('-- --- -- --- --- -- - - - -- - -- - - -- - - -- - - -- - -- - -- - - -');
-
-      return tasks;
     });
   }
 
@@ -150,28 +164,4 @@ export class TaskService {
       return completed_tasks_repository.save(completed_tasks);
     });
   }
-
-  // completeTask({ user_id, task_id }: CompletedTaskCreateDto) {
-  //   return this.dataSource.transaction(async (manager) => {
-  //     const tasks_repository = manager.getRepository(Task);
-  //     const completed_tasks_repository = manager.getRepository(CompletedTask);
-  //
-  //     const { increase_mining_rate } = await findOne(tasks_repository, task_id);
-  //
-  //     await tasks_repository.increment({ id: task_id }, 'complete_count', 1);
-  //     await tasks_repository.decrement({ id: task_id }, 'available_limit', 1);
-  //
-  //     const user_data = {
-  //       id: user_id,
-  //       increase_mining_rate,
-  //       increase_complete_tasks_count: 1,
-  //     };
-  //
-  //     await this.userService.updateUser(user_data);
-  //
-  //     const completed_task = completed_tasks_repository.create({ user: user_id, task: task_id });
-  //
-  //     return completed_tasks_repository.save(completed_task);
-  //   });
-  // }
 }
