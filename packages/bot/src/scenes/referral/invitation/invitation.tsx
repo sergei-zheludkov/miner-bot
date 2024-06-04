@@ -34,7 +34,7 @@ export const Invitation = () => {
     );
   }
 
-  const inviteLink = `https://t.me/${name}?start=${user.id}`;
+  const inviteLink = `https://t.me/${name}?start=ref_${user.id}`;
 
   const invitationTitle = (
     <>

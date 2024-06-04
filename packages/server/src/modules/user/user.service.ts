@@ -32,6 +32,7 @@ export class UserService {
   }
 
   async createUser(data: UserCreateDto) {
+    console.log('SERVICE CREATE_USER:', data);
     try {
       return await this.dataSource.transaction(async (manager) => {
         const users_repository = manager.getRepository(User);
@@ -56,6 +57,8 @@ export class UserService {
   }
 
   async createUserWithReferral(data: UserCreateDto) {
+    console.log('SERVICE CREATE_USER_WITH_REFERRAL:', data);
+
     try {
       return await this.dataSource.transaction(async (manager) => {
         const users_repository = manager.getRepository(User);
@@ -72,7 +75,8 @@ export class UserService {
         const referral_user = await findOne(users_repository, who_invited);
         if (referral_user) {
           await users_repository.increment({ id: who_invited }, 'referral_counter', 1);
-          await users_repository.save({ ...other_data, who_invited });
+          await users_repository.increment({ id: who_invited }, 'balance', 0.005);
+          await users_repository.save({ ...other_data, who_invited, balance: 0.005 });
           // TODO обращение к API бота, для оповещения реферрала о новом подписчике
           // const { firstname, lastname } = user;
           // this.httpService.post();
