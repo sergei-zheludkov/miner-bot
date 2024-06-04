@@ -39,7 +39,7 @@ export const LANGUAGES = {
 };
 
 // = /^(👨|👩)\s[A-Za-zА-Яа-я]{4,7}$/gm;
-export const GENDERS = {
+export const getGendersMap = () => ({
   [i18n.t('buttons:male')]: 'male',
   [i18n.t('buttons:female')]: 'female',
-};
+});

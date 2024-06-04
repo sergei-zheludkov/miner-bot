@@ -4,7 +4,7 @@ import {
   Button,
   Text,
   Dialog,
-  DialogStep,
+  DialogStep, useBotContext,
 } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { CountriesEnum, BotLanguageEnum } from '@common_bot/shared';
@@ -23,6 +23,7 @@ interface Props {
 }
 
 export const Registration = ({ refId, getUser }: Props) => {
+  const { chat } = useBotContext();
   const { t } = useTranslation('registration');
   const {
     isValidGender,
@@ -40,6 +41,7 @@ export const Registration = ({ refId, getUser }: Props) => {
   });
 
   if (isRegistered) {
+    console.info(chat.id, 'Bot scene:', 'scene_registration_success');
     return <Text>{t('success')}</Text>;
   }
 
@@ -49,6 +51,8 @@ export const Registration = ({ refId, getUser }: Props) => {
   }
 
   if (!isRegistered && !isSentData) {
+    console.info(chat.id, 'Bot scene:', 'scene_registration');
+
     const countryContent = (
       <ButtonGroup isReplyButtons isResizedKeyboard title={t('questions.country.message')}>
         <Button id={RUSSIA}>

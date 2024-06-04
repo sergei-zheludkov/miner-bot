@@ -56,18 +56,18 @@ export const UserProvider = ({ children }: ProviderProps) => {
   }, '/start');
 
   useEffect(() => {
-    const userInStore = getChatsMap()[chat.id];
-    if (userInStore) {
+    // const userInStore = getChatsMap()[chat.id];
+    if (user) {
       switchToSceneGreeting();
     }
-    if (!isUserLoaded) {
-      getUser();
-    }
-  }, []);
+    // if (!isUserLoaded) {
+    //   getUser();
+    // }
+  }, [user]);
 
-  useEffect(() => {
-    saveChat(chat);
-  }, [chat]);
+  // useEffect(() => {
+  //   saveChat(chat);
+  // }, [chat]);
 
   useEffect(() => {
     if (user) {

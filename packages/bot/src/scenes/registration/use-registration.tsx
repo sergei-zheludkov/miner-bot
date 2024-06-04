@@ -5,8 +5,9 @@ import { useApi, useQuery } from '@common_bot/api';
 import type { UserCreateDto } from '@common_bot/api';
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter } from '../../contexts';
-import { COUNTRIES, LANGUAGES, GENDERS } from '../../constants';
+import { COUNTRIES, LANGUAGES, getGendersMap } from '../../constants';
 import { QUESTION_KEYS } from './constants';
+import {useState} from "react";
 
 type Props = {
   refId: string | null;
@@ -20,6 +21,7 @@ export const useRegistration = ({ refId, getUser }: Props) => {
   const { chat } = useBotContext();
   const { postUser } = useApi().user;
   const { fetch, isCalled, isSuccess } = useQuery('user', postUser, { isLazy: true });
+  const [{ }] = useState()
 
   const handleSelectLanguage = async (lang: string) => {
     // Такой финт из-за кривой генерации enum в @common_bot/api
@@ -27,6 +29,8 @@ export const useRegistration = ({ refId, getUser }: Props) => {
 
     // TODO разобраться, почему не работает установка языка через onNext в процессе диалога
     await i18n.changeLanguage(selectedLang);
+
+    console.log('i18n installed');
   };
 
   const createUser = async (answers: DialogAnswers) => {
@@ -35,7 +39,7 @@ export const useRegistration = ({ refId, getUser }: Props) => {
     // Такой финт из-за кривой генерации enum в @common_bot/api
     const country = COUNTRIES[answers[QUESTION_KEYS.COUNTRY]] as unknown as UserCreateDto['country'];
     // Такой финт из-за кривой генерации enum в @common_bot/api
-    const gender = GENDERS[answers[QUESTION_KEYS.GENDER]] as unknown as UserCreateDto['gender'];
+    const gender = getGendersMap()[answers[QUESTION_KEYS.GENDER]] as unknown as UserCreateDto['gender'];
 
     const newUser = await fetch({
       id: chat.id,
@@ -80,7 +84,8 @@ export const useRegistration = ({ refId, getUser }: Props) => {
 
   const isValidGender: DialogValidation = (gender) => {
     // TODO пофиксить баг связанный с маппингом
-    if (GENDERS[gender]) {
+    console.log(getGendersMap());
+    if (getGendersMap()[gender]) {
       return undefined;
     }
 

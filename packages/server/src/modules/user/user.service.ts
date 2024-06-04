@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
-// import { HttpService } from '@nestjs/axios';
 import { InjectDataSource } from '@nestjs/typeorm';
+import { HttpService } from '@nestjs/axios';
+import { ConfigService } from '@nestjs/config';
 import { MATH } from '@common_bot/shared';
 import { DataSource, Repository } from 'typeorm';
+import { toPromise } from '../../helpers';
 import { logger } from '../../libs/logger/logger.instance';
 import { UserEntity as User } from './user.entity';
 import { UserCreateDto, UserUpdateDto } from './dto';
@@ -18,10 +20,33 @@ const findOne = (users_repository: Repository<User>, id: string) => users_reposi
 @Injectable()
 export class UserService {
   constructor(
-    // private readonly httpService: HttpService,
+    private readonly httpService: HttpService,
+    private readonly configService: ConfigService,
     @InjectDataSource()
     private readonly dataSource: DataSource,
   ) {}
+
+  // TODO сделать отдельный сервис который будет посылать уведомления на сервер бота
+  private async postNewReferralNotification(userid: string, username: string) {
+    const url = `${this.configService.get('WEBHOOK_HOST_BASE')}/referrals/new/${userid}`;
+
+    const request = this.httpService.post(url, { username });
+
+    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+    console.log(url);
+    console.log(request);
+    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+
+    const data = {
+      request,
+      logger_message: 'USER SERVICE [post new referral notification]',
+      error_message: 'Something goes wrong',
+    };
+
+    const resp = await toPromise(data);
+
+    console.log('RESP:', resp)
+  }
 
   getOneUser(id: string) {
     return this.dataSource.transaction(async (manager) => {
@@ -73,13 +98,13 @@ export class UserService {
 
         const { who_invited_id: who_invited, ...other_data } = data;
         const referral_user = await findOne(users_repository, who_invited);
+
         if (referral_user) {
           await users_repository.increment({ id: who_invited }, 'referral_counter', 1);
           await users_repository.increment({ id: who_invited }, 'balance', 0.005);
           await users_repository.save({ ...other_data, who_invited, balance: 0.005 });
-          // TODO обращение к API бота, для оповещения реферрала о новом подписчике
-          // const { firstname, lastname } = user;
-          // this.httpService.post();
+
+          this.postNewReferralNotification(who_invited, data.username);
         } else {
           await users_repository.save({ ...other_data, who_invited: null });
           // TODO обращение к API бота, для оповещения юзера что такого рефералла нет

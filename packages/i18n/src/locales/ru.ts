@@ -216,10 +216,6 @@ export const ru = {
       bonus_prefix: 'При переходе по моей ссылке получи',
       bonus_postfix: 'на баланс',
     },
-    notification: {
-      registration_success: 'По твоей ссылке зарегистрировался ',
-      // bonus: 'Теперь ты будешь получать 10% с каждого его пополнения баланса',
-    },
   },
   information: {
     message: 'Блок информации, можно добавить текст и ссылку',
@@ -228,6 +224,13 @@ export const ru = {
     language: {
       used: 'Используется: ',
       choose: 'Выбери язык',
+    },
+  },
+  notification: {
+    new_referral: {
+      title: 'По вашей ссылке зарегистрировался юзер @',
+      invitation_bonus_prefix: 'Вы получили',
+      invitation_bonus_postfix: 'на баланс',
     },
   },
 };

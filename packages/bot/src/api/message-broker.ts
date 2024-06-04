@@ -1,19 +1,25 @@
 import { expressApp } from '../express-app';
-
-import type {
-  NotificationData,
-  NewReferralData,
-  // ReferralMoneyData,
-  // StatisticsTypes,
-  // PaymentStatistics,
-} from './types';
+import { getNewReferralData } from './providers';
+import type { NewReferralData } from './types';
 
 export class MessageBroker {
-  NOTIFICATION_BASE = '/bot/notification';
+  NOTIFICATION_BASE = '/bot/notifications';
 
-  MESSAGE = `${this.NOTIFICATION_BASE}/message`;
+  REFERRALS = {
+    NEW: `${this.NOTIFICATION_BASE}/referrals/new/`,
+  };
 
-  NEW_REFERRAL = `${this.NOTIFICATION_BASE}/new_referral`;
+  newReferral(chatId: string, callback: (params: NewReferralData) => void) {
+    expressApp.post(`${this.REFERRALS.NEW}${chatId}`, (req, res) => {
+      const { body: { data } } = req;
+
+      const referralData = getNewReferralData(data);
+
+      callback(referralData);
+
+      res.sendStatus(200);
+    });
+  }
 
   // REFERRAL_MONEY = `${this.NOTIFICATION_BASE}/referral_money`;
   //
@@ -26,28 +32,14 @@ export class MessageBroker {
   //   });
   // }
 
-  notification(chatId: string, callback: (params: NotificationData) => void) {
-    expressApp.post(`${this.MESSAGE}/${chatId}`, (req, res) => {
-      const { body } = req;
-      const message = (body?.message as string) || '';
-      callback({ message });
-      res.sendStatus(200);
-    });
-  }
-
-  newReferral(chatId: string, callback: (params: NewReferralData) => void) {
-    expressApp.post(`${this.NEW_REFERRAL}/${chatId}`, (req, res) => {
-      const {
-        body: { data },
-      } = req;
-
-      const firstname = (data.firstname as string) || '';
-      const lastname = (data.lastname as string) || '';
-
-      callback({ firstname, lastname });
-      res.sendStatus(200);
-    });
-  }
+  // notification(chatId: string, callback: (params: NotificationData) => void) {
+  //   expressApp.post(`${this.MESSAGE}/${chatId}`, (req, res) => {
+  //     const { body } = req;
+  //     const message = (body?.message as string) || '';
+  //     callback({ message });
+  //     res.sendStatus(200);
+  //   });
+  // }
   //
   // referralMoney(chatId: string, callback: (params: ReferralMoneyData) => void) {
   //   expressApp.post(`${this.REFERRAL_MONEY}/${chatId}`, (req, res) => {

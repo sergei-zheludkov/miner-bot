@@ -215,10 +215,6 @@ export const en = {
       link_title: 'Telegram bot link',
       bonus: "When you click the link, you'll receive 0.005 TON to your balance.",
     },
-    notification: {
-      registration_success: 'You have registered with your link by ',
-      // bonus: 'Now you will receive 10% from each of his balance replenishment',
-    },
   },
   information: {
     message: 'Information block, you can add text and a link',
@@ -227,6 +223,13 @@ export const en = {
     language: {
       used: 'Used: ',
       choose: 'Choose a language',
+    },
+  },
+  notification: {
+    new_referral: {
+      title: 'По вашей ссылке зарегистрировался юзер @',
+      invitation_bonus_prefix: 'Вы получили',
+      invitation_bonus_postfix: 'на баланс',
     },
   },
 };
