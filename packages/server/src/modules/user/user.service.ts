@@ -32,20 +32,13 @@ export class UserService {
 
     const request = this.httpService.post(url, { username });
 
-    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
-    console.log(url);
-    console.log(request);
-    console.log('////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
-
     const data = {
       request,
       logger_message: 'USER SERVICE [post new referral notification]',
       error_message: 'Something goes wrong',
     };
 
-    const resp = await toPromise(data);
-
-    console.log('RESP:', resp)
+    await toPromise(data);
   }
 
   getOneUser(id: string) {

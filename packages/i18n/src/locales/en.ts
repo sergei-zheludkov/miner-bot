@@ -105,11 +105,11 @@ export const en = {
 
     questions: {
       language: {
-        message: 'Choose language\n\nВыберите язык',
+        message: 'Language / Язык',
         error_description: 'Unsupported language. Select available on keyboard',
       },
       country: {
-        message: 'Choose country where you are\n\nВыберите страну где вы проживаете',
+        message: 'Choose country where you are living',
         error_description: 'Unsupported country. Select available on keyboard',
       },
       gender: {

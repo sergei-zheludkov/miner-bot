@@ -21,9 +21,6 @@ export const Registration = ({ refId, getUser }: Props) => {
 
     isRegistered,
     isSentData,
-
-    // handleSelectLanguage,
-    // createUser,
   } = useRegistration({
     refId,
     getUser,

@@ -105,15 +105,15 @@ export const ru = {
 
     questions: {
       language: {
-        message: 'Choose language\n\nВыбери язык',
+        message: 'Language / Язык',
         error_description: 'Неподдерживаемый язык. Выберите доступный на клавиатуре',
       },
       country: {
-        message: 'Choose country where you are\n\nВыберите страну где вы проживаете',
+        message: 'Выберите страну где вы проживаете',
         error_description: 'Неподдерживаемая страна. Выберите доступную на клавиатуре',
       },
       gender: {
-        message: 'Укажи твой пол',
+        message: 'Укажи ваш пол',
         error_description: 'Сделайте выбор кнопками клавиатуры',
       },
     },
