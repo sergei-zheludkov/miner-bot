@@ -6,21 +6,24 @@ import { useController } from './use-controller';
 
 export const Controller = () => {
   const { t } = useTranslation('tasks');
-  const { switchToMenuMain, switchToSceneMining } = useRouter();
+  const { switchToSceneMining, switchToMenuReferral } = useRouter();
   const { user } = useUser();
   const {
     tasks,
     taskNumber,
     isEmptyList,
-    // isLoading,
     isGetSuccess,
+    isPostSuccess,
+    isPostError,
     handleClickPrev,
     handleClickNext,
     handleClickReady,
+    handleClickGreat,
+    handleClickBack,
   } = useController();
 
   const backButton = [
-    <Button key="back-to-main-menu" onClick={switchToMenuMain}>
+    <Button key="back-to-main-menu" onClick={handleClickBack}>
       {t('buttons:back')}
     </Button>,
   ];
@@ -42,8 +45,51 @@ export const Controller = () => {
     );
   }
 
-  if (isGetSuccess && isEmptyList) {
+  if (isPostError) {
+    const title = t('list.task_error');
+
+    return (
+      <ButtonGroup isNewMessageEveryRender={false} title={title}>
+        {backButton}
+      </ButtonGroup>
+    );
+  }
+
+  const task = tasks[taskNumber];
+
+  if (isPostSuccess) {
+    const title = (
+      <>
+        {t('list.task_completed')}
+        &#32;
+        <b>{task?.increase_mining_rate}</b>
+        &#32;
+        TON
+      </>
+    );
+
+    const greatButton = [
+      <Button key="great" onClick={handleClickGreat}>
+        {t('buttons:great')}
+      </Button>,
+    ];
+
+    return (
+      <ButtonGroup isNewMessageEveryRender={false} title={title}>
+        {greatButton}
+        {backButton}
+      </ButtonGroup>
+    );
+  }
+
+  if (isGetSuccess && (isEmptyList || true)) {
     const title = t('list.empty');
+
+    const referralButton = [
+      <Button key="referral" onClick={switchToMenuReferral}>
+        {t('buttons:referral')}
+      </Button>,
+    ];
 
     const groupButton = [
       <Button key="group" url="https://t.me/tg_ton_mining">
@@ -54,14 +100,13 @@ export const Controller = () => {
     return (
       <ButtonGroup isNewMessageEveryRender={false} title={title}>
         {groupButton}
+        {referralButton}
         {backButton}
       </ButtonGroup>
     );
   }
 
   if (isGetSuccess && !isEmptyList) {
-    const task = tasks[taskNumber];
-
     const title = (
       <>
         <b>{t('list.task_title')}</b>

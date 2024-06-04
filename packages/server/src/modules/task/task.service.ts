@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 // import { HttpService } from '@nestjs/axios';
 import { InjectDataSource } from '@nestjs/typeorm';
 import {
-  DataSource, FindOptionsWhere, Repository, MoreThan, Or, Equal,
+  DataSource, FindOptionsWhere, Repository, MoreThan, Or, Equal, Not,
 } from 'typeorm';
 import { GenderEnum } from '@common_bot/shared';
 import { logger } from '../../libs/logger/logger.instance';
@@ -35,11 +35,9 @@ export class TaskService {
   }
 
   getTasks({
-    limit, offset, country, placement, status, gender,
+    user_id, limit, offset, country, placement, status, gender,
   }: GetQuery) {
     return this.dataSource.transaction(async (manager) => {
-      const tasks_repository = manager.getRepository(Task);
-
       const where: FindOptionsWhere<Task> = {
         country,
         placement,
@@ -54,11 +52,32 @@ export class TaskService {
         where.available_limit = 0;
       }
 
-      return tasks_repository.find({
-        where,
-        take: limit,
-        skip: offset,
-      });
+      // return manager.getRepository(Task).find({
+      //   where,
+      //   take: limit,
+      //   skip: offset,
+      // });
+
+      const tasks = manager.getRepository(Task)
+        .createQueryBuilder('task')
+        .leftJoinAndMapMany(
+          'task.completed_by',
+          CompletedTask,
+          'completed_task',
+          'completed_task.task_id = task.id',
+        )
+        .leftJoinAndSelect('completed_task.user', 'user')
+        .where(where)
+        .take(limit)
+        .skip(offset)
+        .getMany();
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // console.log('TASKS:', (await tasks)[0]?.completed_by);
+      // console.log('-- --- -- --- --- -- - - - -- - -- - - -- - - -- - - -- - -- - -- - - -');
+
+      return tasks;
     });
   }
 

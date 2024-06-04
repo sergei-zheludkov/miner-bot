@@ -53,6 +53,7 @@ export class TasksService {
 
     /**
      * Returning information about available for user tasks
+     * @param userId
      * @param country
      * @param placement
      * @param gender
@@ -63,6 +64,7 @@ export class TasksService {
      * @throws ApiError
      */
     public static getTasks(
+        userId: string,
         country?: string,
         placement?: string,
         gender?: string,
@@ -76,6 +78,7 @@ export class TasksService {
             query: {
                 'country': country,
                 'placement': placement,
+                'user_id': userId,
                 'gender': gender,
                 'status': status,
                 'offset': offset,

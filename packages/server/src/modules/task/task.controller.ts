@@ -77,6 +77,7 @@ export class TaskController {
     operationId: 'getTasks',
     summary: 'Returning information about available for user tasks',
   })
+  @ApiQuery({ name: 'user_id', required: true, type: String })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   @ApiQuery({ name: 'offset', required: false, type: Number })
   @ApiQuery({ name: 'country', required: false, type: String })
@@ -87,13 +88,14 @@ export class TaskController {
   getTasks(
     @Query('country') country?: CountriesEnum,
     @Query('placement') placement?: PlacementEnum,
+    @Query('user_id') user_id?: string,
     @Query('limit') limit = 10,
     @Query('offset') offset = 0,
     @Query('status') status: GetQuery['status'] = 'all',
     @Query('gender') gender: GenderEnum = GenderEnum.ALL,
   ) {
     const query = {
-      limit, offset, country, placement, status, gender,
+      user_id, limit, offset, country, placement, status, gender,
     };
 
     return this.tasksService.getTasks(query);

@@ -4,11 +4,12 @@ import { PlacementEnum } from '@common_bot/shared';
 import { useApi, useQuery } from '@common_bot/api';
 import { useBotContext } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
-import { useUser } from '../../../contexts';
+import { useRouter, useUser } from '../../../contexts';
 
 export const useController = () => {
   const { t } = useTranslation('common');
-  const { user } = useUser();
+  const { switchToMenuMain } = useRouter();
+  const { user, getUser } = useUser();
   const { bot } = useBotContext<UrbanBotTelegram>();
   const { getTasks: getTasksApi, postCompleteTasks: postCompleteTasksApi } = useApi().task;
 
@@ -19,7 +20,9 @@ export const useController = () => {
     isSuccess: isGetSuccess,
     isError: isGetError,
     statusCode: getStatusCode,
+    fetch: getTasks,
   } = useQuery('get_tasks', () => getTasksApi(
+    user.id,
     user.country,
     PlacementEnum.TASK_LIST,
     user.gender,
@@ -36,7 +39,7 @@ export const useController = () => {
     isError: isPostError,
     statusCode: postStatusCode,
     fetch: postCompleteTask,
-    reset,
+    reset: postReset,
   } = useQuery('post_complete_task', postCompleteTasksApi, { isLazy: true });
 
   const [taskNumber, setTaskNumber] = useState(0);
@@ -45,18 +48,10 @@ export const useController = () => {
 
   const handleClickPrev = () => {
     setTaskNumber((prev) => (prev - 1 < 0 - 1 ? tasks.length - 1 : prev - 1));
-
-    if (isPostSuccess) {
-      reset();
-    }
   };
 
   const handleClickNext = () => {
     setTaskNumber((prev) => (prev + 1 > tasks.length - 1 ? 0 : prev + 1));
-
-    if (isPostSuccess) {
-      reset();
-    }
   };
 
   // TODO добавить описание параметров коллбека в библиотеке urban-bot
@@ -80,15 +75,33 @@ export const useController = () => {
     }
   };
 
+  const handleClickGreat = async () => {
+    if (isPostSuccess) {
+      await getTasks();
+      postReset();
+      setTaskNumber(0);
+    }
+  };
+
+  const handleClickBack = () => {
+    getUser();
+
+    switchToMenuMain();
+  };
+
   return {
     tasks,
     taskNumber,
     isEmptyList,
     isGetLoading,
+    isGetError,
     isGetSuccess,
     isPostSuccess,
+    isPostError,
     handleClickPrev,
     handleClickNext,
     handleClickReady,
+    handleClickGreat,
+    handleClickBack,
   };
 };

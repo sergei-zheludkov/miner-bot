@@ -5,7 +5,6 @@ import { useTranslation } from '@common_bot/i18n';
 import { useApi, useQuery } from '@common_bot/api';
 import { PlacementEnum } from '@common_bot/shared';
 import { useUser, usePatchUser, useRouter } from '../../contexts';
-import { isActiveState, isTransferredState } from './predicates';
 import { MINING_STATES } from './constants';
 import { getStartedState } from './helpers';
 
@@ -25,6 +24,7 @@ export const useMining = () => {
     isError: isGetError,
     statusCode: getStatusCode,
   } = useQuery('get_tasks', () => getTasksApi(
+    user.id,
     user.country,
     PlacementEnum.MINING_ACTIVATION,
     user.gender,
@@ -43,6 +43,7 @@ export const useMining = () => {
     fetch: postCompleteTask,
   } = useQuery('post_complete_task', postCompleteTasksApi, { isLazy: true });
 
+  // TODO постараться избавиться от стейта и завязаться на статусы ручек
   const [state, setState] = useState<MINING_STATES>(getStartedState(user));
 
   // TODO добавить описание параметров коллбека в библиотеке urban-bot

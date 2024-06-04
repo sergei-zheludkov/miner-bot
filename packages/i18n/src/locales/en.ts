@@ -137,6 +137,8 @@ export const en = {
       task_name: 'Name:',
       task_description: 'Description:',
       task_reward: 'Task will increase your mining speed by',
+      task_completed: 'Task completed, your mining speed has been increased by',
+      task_error: 'An error occurred on the server. The task was not completed, please try again later.',
     },
     create: {
       buttons: {
