@@ -4,7 +4,7 @@ import { useTranslation } from '@common_bot/i18n';
 import { useRouter } from '../../contexts';
 
 export const Settings = () => {
-  const { t } = useTranslation(['buttons', 'common']);
+  const { t } = useTranslation(['buttons']);
   const {
     switchToSceneSettingsLanguage,
     switchToMenuMain,

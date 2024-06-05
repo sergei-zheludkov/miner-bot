@@ -2,25 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { useBotContext, Text } from '@urban-bot/core';
 import { UrbanBotTelegram } from '@urban-bot/telegram';
 import { useTranslation } from '@common_bot/i18n';
-import { messageBroker, NewReferralData } from '../api';
+import { messageBroker } from '../api';
+import type { NewReferralData } from '../api';
 
-interface NewReferralState extends NewReferralData {
-  isShow: boolean;
-}
+type NewReferralState = NewReferralData & { isShow: boolean };
 
-const defaultState = {
+const defaultState: NewReferralState = {
   isShow: false,
-  firstname: '',
-  lastname: '',
+  username: '',
 };
 
-const NewReferral: React.FC = () => {
-  const { t } = useTranslation('referral');
+export const NewReferral: React.FC = () => {
+  const { t } = useTranslation('notification');
   const { chat, bot } = useBotContext<UrbanBotTelegram>();
-  const [{ isShow, firstname, lastname }, setState] = useState<NewReferralState>(defaultState);
+  const [{
+    isShow,
+    username,
+  }, setState] = useState<NewReferralState>(defaultState);
 
   const callback = (data: NewReferralData) => setState({ ...data, isShow: true });
-  const setDefaultState = () => setState(defaultState);
 
   useEffect(
     () => messageBroker.newReferral(chat.id, callback),
@@ -31,7 +31,7 @@ const NewReferral: React.FC = () => {
     let timeoutId: NodeJS.Timeout;
 
     if (isShow) {
-      timeoutId = setTimeout(setDefaultState, 500);
+      timeoutId = setTimeout(() => setState(defaultState), 500);
     }
 
     return () => clearTimeout(timeoutId);
@@ -40,16 +40,16 @@ const NewReferral: React.FC = () => {
   if (isShow) {
     return (
       <Text>
-        {t('notification.registration_success')}
+        {t('new_referral.title')}
+        {username}
         <br />
-        {`${firstname} ${lastname}`}
         <br />
-        {t('notification.bonus')}
+        {t('new_referral.invitation_bonus_prefix')}
+        <b>&#32;0.005 TON&#32;</b>
+        {t('new_referral.invitation_bonus_postfix')}
       </Text>
     );
   }
 
   return null;
 };
-
-export { NewReferral };

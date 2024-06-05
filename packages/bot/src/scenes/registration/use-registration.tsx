@@ -1,41 +1,43 @@
+import { useState } from 'react';
 import { useBotContext } from '@urban-bot/core';
-// TODO настроить eslint на проставку type вниз импортов
-import type { DialogAnswers, DialogValidation } from '@urban-bot/core';
 import { useApi, useQuery } from '@common_bot/api';
 import type { UserCreateDto } from '@common_bot/api';
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter } from '../../contexts';
-import { COUNTRIES, LANGUAGES, GENDERS } from '../../constants';
-import { QUESTION_KEYS } from './constants';
+
+export const DEFAULT_STATE = {
+  lang: '',
+  country: '',
+  gender: '',
+};
+
+type Answers = {
+  lang: string;
+  country: string;
+  gender: string;
+};
 
 type Props = {
   refId: string | null;
   getUser: () => void;
-}
+};
 
 export const useRegistration = ({ refId, getUser }: Props) => {
-  const { t } = useTranslation('registration');
+  // const { t } = useTranslation('registration');
   const { switchToSceneGreeting } = useRouter();
   const { i18n } = useTranslation('lang');
   const { chat } = useBotContext();
   const { postUser } = useApi().user;
   const { fetch, isCalled, isSuccess } = useQuery('user', postUser, { isLazy: true });
+  const [state, setRegistrationState] = useState(DEFAULT_STATE);
 
-  const handleSelectLanguage = async (lang: string) => {
+  const createUser = async (answers: Answers) => {
     // Такой финт из-за кривой генерации enum в @common_bot/api
-    const selectedLang = lang as UserCreateDto['lang'];
-
-    // TODO разобраться, почему не работает установка языка через onNext в процессе диалога
-    await i18n.changeLanguage(selectedLang);
-  };
-
-  const createUser = async (answers: DialogAnswers) => {
+    const lang = answers.lang as unknown as UserCreateDto['lang'];
     // Такой финт из-за кривой генерации enum в @common_bot/api
-    const lang = LANGUAGES[answers[QUESTION_KEYS.LANG]] as unknown as UserCreateDto['lang'];
+    const country = answers.country as unknown as UserCreateDto['country'];
     // Такой финт из-за кривой генерации enum в @common_bot/api
-    const country = COUNTRIES[answers[QUESTION_KEYS.COUNTRY]] as unknown as UserCreateDto['country'];
-    // Такой финт из-за кривой генерации enum в @common_bot/api
-    const gender = GENDERS[answers[QUESTION_KEYS.GENDER]] as unknown as UserCreateDto['gender'];
+    const gender = answers.gender as unknown as UserCreateDto['gender'];
 
     const newUser = await fetch({
       id: chat.id,
@@ -56,49 +58,29 @@ export const useRegistration = ({ refId, getUser }: Props) => {
     switchToSceneGreeting();
   };
 
-  const isValidCountry = (country: string) => {
-    if (COUNTRIES[country]) {
-      return undefined;
-    }
+  const handleChangeLanguage = async (lang: string) => {
+    await i18n.changeLanguage(state.lang);
 
-    const title = t('error_title');
-    const description = t('questions.country.error_description');
-
-    return `${title}\n${description}`;
+    setRegistrationState(
+      (prevState) => ({ ...prevState, lang }),
+    );
   };
 
-  const isValidLanguage = (lang: string) => {
-    if (LANGUAGES[lang]) {
-      return undefined;
-    }
+  const handleChangeCountry = async (country: string) => setRegistrationState(
+    (prevState) => ({ ...prevState, country }),
+  );
 
-    const title = t('error_title');
-    const description = t('questions.language.error_description');
-
-    return `${title}\n${description}`;
-  };
-
-  const isValidGender: DialogValidation = (gender) => {
-    // TODO пофиксить баг связанный с маппингом
-    if (GENDERS[gender]) {
-      return undefined;
-    }
-
-    const title = t('error_title');
-    const description = t('questions.gender.error_description');
-
-    return `${title}\n${description}`;
+  const handleChangeGender = async (gender: string) => {
+    await createUser({ gender, country: state.country, lang: state.lang });
   };
 
   return {
-    isValidGender,
-    isValidLanguage,
-    isValidCountry,
+    state,
+    handleChangeLanguage,
+    handleChangeCountry,
+    handleChangeGender,
 
     isRegistered: isSuccess,
     isSentData: isCalled,
-
-    handleSelectLanguage,
-    createUser,
   };
 };

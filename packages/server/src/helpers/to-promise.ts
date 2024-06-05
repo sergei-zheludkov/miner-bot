@@ -9,9 +9,9 @@ interface WrapperParams {
 }
 
 const DEFAULT_LOGGER_MESSAGE = 'HTTP request wrapper error';
-const DEFAULT_ERROR_MESSAGE = 'Error with http req in User Cron';
+const DEFAULT_ERROR_MESSAGE = 'Error with http data';
 
-const toPromise = async ({
+export const toPromise = async ({
   request,
   logger_message,
   error_message,
@@ -25,5 +25,3 @@ const toPromise = async ({
 
   return data;
 };
-
-export { toPromise };

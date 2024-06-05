@@ -59,6 +59,8 @@ export class UserController {
     @Body('who_invited_id') who_invited_id: string,
     @Body() data: UserCreateDto,
   ) {
+    console.log('CONTROLLER POST_USER:', data);
+
     return who_invited_id
       ? this.userService.createUserWithReferral(data)
       : this.userService.createUser(data);

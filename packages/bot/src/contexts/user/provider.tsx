@@ -34,9 +34,19 @@ export const UserProvider = ({ children }: ProviderProps) => {
   const isUserNotFound = isGetCalled && isGetError && isNotFoundError(getStatusCode);
   const isUserLoaded = isGetCalled && !isGetLoading && isGetSuccess && !!user;
 
-  useCommand(({ argument }) => {
-    if (argument) {
-      setReferralId(argument);
+  useCommand(({ argument = '' }) => {
+    const { ref } = argument
+      .split(':')
+      .reduce<Record<string, string>>((acc, arg) => {
+        const [key, value] = arg.split('_');
+
+        acc[key] = value;
+
+        return acc;
+      }, {});
+
+    if (ref) {
+      setReferralId(ref);
     }
     if (isUserLoaded) {
       switchToSceneGreeting();
@@ -46,18 +56,18 @@ export const UserProvider = ({ children }: ProviderProps) => {
   }, '/start');
 
   useEffect(() => {
-    const userInStore = getChatsMap()[chat.id];
-    if (userInStore) {
+    // const userInStore = getChatsMap()[chat.id];
+    if (user) {
       switchToSceneGreeting();
     }
-    if (!isUserLoaded) {
-      getUser();
-    }
-  }, []);
+    // if (!isUserLoaded) {
+    //   getUser();
+    // }
+  }, [user]);
 
-  useEffect(() => {
-    saveChat(chat);
-  }, [chat]);
+  // useEffect(() => {
+  //   saveChat(chat);
+  // }, [chat]);
 
   useEffect(() => {
     if (user) {
@@ -66,8 +76,6 @@ export const UserProvider = ({ children }: ProviderProps) => {
   }, [user]);
 
   if (isUserNotFound) {
-    // TODO add feature-toggle for changing scenarios
-    // return <ShortRegistration refId={referralId} getUser={getUser} />;
     return <Registration refId={referralId} getUser={getUser} />;
   }
 
