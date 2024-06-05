@@ -3,7 +3,7 @@ import { Text } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter } from '../../contexts';
 
-const Greeting = () => {
+export const Greeting = () => {
   const { switchToMenuMain } = useRouter();
   const { t } = useTranslation();
 
@@ -11,5 +11,3 @@ const Greeting = () => {
 
   return <Text>{t('greeting')}</Text>;
 };
-
-export { Greeting };

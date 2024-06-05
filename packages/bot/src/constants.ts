@@ -16,6 +16,7 @@ export enum SceneEnum {
   REFERRAL_INVITATION = 'scene_referral_invitation',
 
   RESET = 'scene_reset',
+  DISABLE = 'scene_disable'
 }
 
 export enum MenuEnum {
