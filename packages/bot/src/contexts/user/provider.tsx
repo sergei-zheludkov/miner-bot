@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { useBotContext, useCommand } from '@urban-bot/core';
 import { useApi, useQuery, predicates } from '@common_bot/api';
-// import { useTranslation } from '@common_bot/i18n';
-// import { saveChat, getChatsMap } from '../../local-storage';
+import { saveChat, getChatsMap } from '../../local-storage';
 import { /* ShortRegistration, */ Registration } from '../../scenes';
 import { useRouter } from '../router';
 import { Context } from './context';
+import { getStartQueryParams } from './helpers';
 import type { ProviderProps, ContextState } from './types';
 
 const { isNotFoundError } = predicates;
@@ -14,7 +14,7 @@ const { isNotFoundError } = predicates;
 export const UserProvider = ({ children }: ProviderProps) => {
   const [referralId, setReferralId] = useState<ContextState['referralId']>(null);
   // const { i18n } = useTranslation('common');
-  const { switchToSceneGreeting } = useRouter();
+  const { switchToSceneReset, switchToSceneGreeting } = useRouter();
   const { chat } = useBotContext();
   const { getOneUser: getOneUserApi } = useApi().user;
   const {
@@ -34,40 +34,31 @@ export const UserProvider = ({ children }: ProviderProps) => {
   const isUserNotFound = isGetCalled && isGetError && isNotFoundError(getStatusCode);
   const isUserLoaded = isGetCalled && !isGetLoading && isGetSuccess && !!user;
 
-  useCommand(({ argument = '' }) => {
-    const { ref } = argument
-      .split(':')
-      .reduce<Record<string, string>>((acc, arg) => {
-        const [key, value] = arg.split('_');
-
-        acc[key] = value;
-
-        return acc;
-      }, {});
+  useCommand(async ({ argument = '' }) => {
+    const { ref } = getStartQueryParams(argument);
 
     if (ref) {
       setReferralId(ref);
     }
+
     if (isUserLoaded) {
       switchToSceneGreeting();
+    } else {
+      await getUser();
     }
-
-    getUser();
   }, '/start');
 
   useEffect(() => {
-    // const userInStore = getChatsMap()[chat.id];
-    if (user) {
-      switchToSceneGreeting();
-    }
-    // if (!isUserLoaded) {
-    //   getUser();
-    // }
-  }, [user]);
+    const userInStore = getChatsMap()[chat.id];
 
-  // useEffect(() => {
-  //   saveChat(chat);
-  // }, [chat]);
+    if (userInStore && !isUserLoaded) {
+      getUser().then(switchToSceneReset);
+    }
+  }, [user?.id]);
+
+  useEffect(() => {
+    saveChat(chat);
+  }, [chat.id]);
 
   // useEffect(() => {
   //   if (user) {

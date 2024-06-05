@@ -1,3 +1,4 @@
+export { Reset } from './reset';
 export { Mining } from './mining';
 export { Balance } from './balance';
 export { Greeting } from './greeting';

@@ -24,7 +24,7 @@ export const saveChat = (chat: UrbanChat) => {
 
   const newChatsMap = {
     ...chatsMap,
-    [String(chat.id)]: chat,
+    [chat.id]: chat,
   };
 
   localStorage.setItem(CHAT_MAP_KEY, JSON.stringify(newChatsMap));

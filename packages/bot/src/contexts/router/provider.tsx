@@ -6,7 +6,7 @@ import type { ProviderProps, Scenes } from './types';
 
 export const RouterProvider = ({ children }: ProviderProps) => {
   const { chat } = useBotContext();
-  const [scene, setScene] = useState<Scenes>(T.SceneEnum.RESET);
+  const [scene, setScene] = useState<Scenes>(T.SceneEnum.DISABLE);
   console.info(chat.id, 'Bot scene:', scene);
 
   const switchToMenuMain = () => setScene(T.MenuEnum.MAIN);
@@ -16,6 +16,7 @@ export const RouterProvider = ({ children }: ProviderProps) => {
   const switchToMenuSettings = () => setScene(T.MenuEnum.SETTINGS);
   const switchToMenuTasksControl = () => setScene(T.MenuEnum.TASKS_CONTROL);
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  const switchToSceneReset = () => setScene(T.SceneEnum.RESET);
   const switchToSceneMining = () => setScene(T.SceneEnum.MINING);
   const switchToSceneBalance = () => setScene(T.SceneEnum.BALANCE);
   const switchToSceneGreeting = () => setScene(T.SceneEnum.GREETING);
@@ -38,6 +39,7 @@ export const RouterProvider = ({ children }: ProviderProps) => {
     switchToMenuSettings,
     switchToMenuTasksControl,
     // -- -- -- -- -- -- -- -- --
+    switchToSceneReset,
     switchToSceneMining,
     switchToSceneBalance,
     switchToSceneGreeting,
