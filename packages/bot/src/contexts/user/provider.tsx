@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useBotContext, useCommand } from '@urban-bot/core';
 import { useApi, useQuery, predicates } from '@common_bot/api';
-import { useTranslation } from '@common_bot/i18n';
-import { saveChat, getChatsMap } from '../../local-storage';
+// import { useTranslation } from '@common_bot/i18n';
+// import { saveChat, getChatsMap } from '../../local-storage';
 import { /* ShortRegistration, */ Registration } from '../../scenes';
 import { useRouter } from '../router';
 import { Context } from './context';
@@ -13,7 +13,7 @@ const { isNotFoundError } = predicates;
 
 export const UserProvider = ({ children }: ProviderProps) => {
   const [referralId, setReferralId] = useState<ContextState['referralId']>(null);
-  const { i18n } = useTranslation('common');
+  // const { i18n } = useTranslation('common');
   const { switchToSceneGreeting } = useRouter();
   const { chat } = useBotContext();
   const { getOneUser: getOneUserApi } = useApi().user;
@@ -69,11 +69,11 @@ export const UserProvider = ({ children }: ProviderProps) => {
   //   saveChat(chat);
   // }, [chat]);
 
-  useEffect(() => {
-    if (user) {
-      i18n.changeLanguage(user?.lang);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     i18n.changeLanguage(user?.lang);
+  //   }
+  // }, [user]);
 
   if (isUserNotFound) {
     return <Registration refId={referralId} getUser={getUser} />;

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useBotContext } from '@urban-bot/core';
+import { BotLanguageEnum } from '@common_bot/shared';
 import { useApi, useQuery } from '@common_bot/api';
 import type { UserCreateDto } from '@common_bot/api';
 import { useTranslation } from '@common_bot/i18n';
@@ -33,7 +34,7 @@ export const useRegistration = ({ refId, getUser }: Props) => {
 
   const createUser = async (answers: Answers) => {
     // Такой финт из-за кривой генерации enum в @common_bot/api
-    const lang = answers.lang as unknown as UserCreateDto['lang'];
+    const lang = /* answers.lang */ BotLanguageEnum.RUSSIAN as unknown as UserCreateDto['lang'];
     // Такой финт из-за кривой генерации enum в @common_bot/api
     const country = answers.country as unknown as UserCreateDto['country'];
     // Такой финт из-за кривой генерации enum в @common_bot/api

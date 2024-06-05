@@ -15,7 +15,7 @@ export const Registration = ({ refId, getUser }: Props) => {
   const {
     state,
 
-    handleChangeLanguage,
+    // handleChangeLanguage,
     handleChangeCountry,
     handleChangeGender,
 
@@ -36,11 +36,11 @@ export const Registration = ({ refId, getUser }: Props) => {
     return null;
   }
 
-  if (!isRegistered && !isSentData && !state.lang) {
-    console.info(chat.id, 'Bot scene:', 'scene_registration: question_lang');
-
-    return <Question.Language handleChange={handleChangeLanguage} />;
-  }
+  // if (!isRegistered && !isSentData && !state.lang) {
+  //   console.info(chat.id, 'Bot scene:', 'scene_registration: question_lang');
+  //
+  //   return <Question.Language handleChange={handleChangeLanguage} />;
+  // }
 
   if (!isRegistered && !isSentData && !state.country) {
     console.info(chat.id, 'Bot scene:', 'scene_registration: question_country');
