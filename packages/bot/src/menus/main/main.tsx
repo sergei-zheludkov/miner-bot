@@ -14,7 +14,7 @@ export const Main = () => {
     switchToMenuAdmin,
     // switchToMenuSupport,
     switchToMenuReferral,
-    switchToMenuSettings,
+    // switchToMenuSettings,
     switchToSceneMining,
     switchToSceneBalance,
     switchToSceneInformation,
@@ -39,8 +39,8 @@ export const Main = () => {
   const balance = t('balance');
   useText(switchToSceneBalance, balance);
 
-  const settings = t('settings');
-  useText(switchToMenuSettings, settings);
+  // const settings = t('settings');
+  // useText(switchToMenuSettings, settings);
 
   const information = t('information');
   useText(switchToSceneInformation, information);
@@ -50,8 +50,8 @@ export const Main = () => {
     <ButtonGroup isReplyButtons isResizedKeyboard title={t('common:main_menu')}>
       {[<Button key="mining">{mining}</Button>]}
       {[<Button key="tasks">{tasks}</Button>, <Button key="referral">{referral}</Button>]}
-      {[<Button key="balance">{balance}</Button>, <Button key="settings">{settings}</Button>]}
-      {[<Button key="information">{information}</Button>]}
+      {[<Button key="balance">{balance}</Button>, <Button key="information">{information}</Button>]}
+      {/* {[<Button key="settings">{settings}</Button>]} */}
     </ButtonGroup>
   );
 };

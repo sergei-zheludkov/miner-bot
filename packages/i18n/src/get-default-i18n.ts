@@ -7,7 +7,7 @@ const getDefaultI18n = (config?: Partial<InitOptions>) => {
   i18n
     .use(initReactI18next)
     .init({
-      lng: BotLanguageEnum.ENGLISH,
+      lng: BotLanguageEnum.RUSSIAN,
       fallbackLng: [BotLanguageEnum.ENGLISH, BotLanguageEnum.RUSSIAN],
       resources,
       ns: ['common'],
