@@ -366,7 +366,8 @@
             "enum": [
               "BY",
               "KZ",
-              "RU"
+              "RU",
+              "UA"
             ]
           },
           "role": {
@@ -495,7 +496,8 @@
             "enum": [
               "BY",
               "KZ",
-              "RU"
+              "RU",
+              "UA"
             ]
           }
         },
@@ -589,7 +591,8 @@
             "enum": [
               "BY",
               "KZ",
-              "RU"
+              "RU",
+              "UA"
             ]
           },
           "placement": {
@@ -720,7 +723,8 @@
             "enum": [
               "BY",
               "KZ",
-              "RU"
+              "RU",
+              "UA"
             ]
           },
           "placement": {

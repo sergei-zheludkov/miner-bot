@@ -57,6 +57,9 @@ export const Create = () => {
       <Button id={CountriesEnum.RUSSIA}>
         {CountriesEnum.RUSSIA}
       </Button>
+      <Button id={CountriesEnum.UKRAINE}>
+        {CountriesEnum.UKRAINE}
+      </Button>
       <Button id={CountriesEnum.BELARUS}>
         {CountriesEnum.BELARUS}
       </Button>
