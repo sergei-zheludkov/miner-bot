@@ -43,7 +43,9 @@ export const UserProvider = ({ children }: ProviderProps) => {
 
     if (isUserLoaded) {
       switchToSceneGreeting();
-    } else {
+    }
+
+    if (!isGetCalled) {
       await getUser();
     }
   }, '/start');
@@ -51,10 +53,10 @@ export const UserProvider = ({ children }: ProviderProps) => {
   useEffect(() => {
     const userInStore = getChatsMap()[chat.id];
 
-    if (userInStore && !isUserLoaded) {
+    if (userInStore && !isGetCalled) {
       getUser().then(switchToSceneReset);
     }
-  }, [user?.id]);
+  }, []);
 
   useEffect(() => {
     saveChat(chat);
