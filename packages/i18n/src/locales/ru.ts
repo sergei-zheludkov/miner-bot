@@ -17,6 +17,7 @@ export const ru = {
   },
   countries: {
     [CountriesEnum.RUSSIA]: '🇷🇺',
+    [CountriesEnum.UKRAINE]: '🇺🇦',
     [CountriesEnum.BELARUS]: '🇧🇾',
     [CountriesEnum.KAZAKHSTAN]: '🇰🇿',
   },

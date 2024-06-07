@@ -182,7 +182,7 @@ export enum CountriesEnum {
   // Turkmenistan TM
   // Tuvalu TV
   // Uganda UG
-  // Ukraine UA
+  UKRAINE = 'UA',
   // United Arab Emirates AE
   // United Kingdom GB
   // USA = 'US',

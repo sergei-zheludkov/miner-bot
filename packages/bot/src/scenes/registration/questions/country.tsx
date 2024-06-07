@@ -5,6 +5,7 @@ import { CountriesEnum } from '@common_bot/shared';
 
 const {
   RUSSIA,
+  UKRAINE,
   KAZAKHSTAN,
   BELARUS,
 } = CountriesEnum;
@@ -17,6 +18,7 @@ export const Country = ({ handleChange }: Props) => {
   const { t } = useTranslation('registration');
 
   const handleClickRussia = () => handleChange(RUSSIA);
+  const handleClickUkraine = () => handleChange(UKRAINE);
   const handleClickKazakhstan = () => handleChange(KAZAKHSTAN);
   const handleClickBelarus = () => handleChange(BELARUS);
 
@@ -24,6 +26,9 @@ export const Country = ({ handleChange }: Props) => {
     <ButtonGroup isNewMessageEveryRender={false} title={t('questions.country.message')}>
       <Button id={RUSSIA} onClick={handleClickRussia}>
         {t(`countries:${RUSSIA}`)}
+      </Button>
+      <Button id={UKRAINE} onClick={handleClickUkraine}>
+        {t(`countries:${UKRAINE}`)}
       </Button>
       <Button id={KAZAKHSTAN} onClick={handleClickKazakhstan}>
         {t(`countries:${KAZAKHSTAN}`)}
