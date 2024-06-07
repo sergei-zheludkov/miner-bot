@@ -26,6 +26,7 @@ export namespace TaskCreateDto {
         BY = 'BY',
         KZ = 'KZ',
         RU = 'RU',
+        UA = 'UA',
     }
 
     export enum placement {

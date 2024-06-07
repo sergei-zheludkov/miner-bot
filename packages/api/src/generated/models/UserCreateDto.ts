@@ -30,6 +30,7 @@ export namespace UserCreateDto {
         BY = 'BY',
         KZ = 'KZ',
         RU = 'RU',
+        UA = 'UA',
     }
 
 
