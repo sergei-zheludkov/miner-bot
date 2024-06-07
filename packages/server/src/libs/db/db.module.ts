@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
@@ -18,10 +19,10 @@ import { CompletedTaskEntity } from '../../modules/task/completed-task.entity';
         database: configService.get('PG_DATABASE'),
         entities: [UserEntity, TaskEntity, CompletedTaskEntity],
         autoLoadEntities: true,
-        synchronize: true,
-        logging: true,
-        // migrationsRun: true,
-        // migrations: [join(__dirname, '../migration/**/*.ts')],
+        synchronize: configService.get('DB_SYNC') === 'true',
+        logging: configService.get('DB_LOG') === 'true',
+        migrationsRun: configService.get('DB_MIGRATIONS') === 'true',
+        migrations: [join(__dirname, '../../migrations/**/*.js')],
       }),
     }),
   ],
