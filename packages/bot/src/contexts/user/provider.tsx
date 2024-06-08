@@ -50,11 +50,12 @@ export const UserProvider = ({ children }: ProviderProps) => {
     }
   }, '/start');
 
+  // AFTER RESTART SERVICE
   useEffect(() => {
     const userInStore = getChatsMap()[chat.id];
 
     if (userInStore && !isGetCalled) {
-      getUser().then(switchToSceneReset);
+      setTimeout(() => getUser().then(switchToSceneReset), 1000);
     }
   }, []);
 

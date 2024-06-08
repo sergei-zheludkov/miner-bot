@@ -32,5 +32,5 @@ render(
   >
     <App />
   </Root>,
-  () => console.log('telegram bot has started'),
+  () => console.log('telegram bot has started\n', { NODE_ENV, TELEGRAM_TOKEN, PORT }, '\n---------------------'),
 );
