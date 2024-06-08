@@ -47,7 +47,7 @@ export const useController = () => {
   const isEmptyList = !tasks.length;
 
   const handleClickPrev = () => {
-    setTaskNumber((prev) => (prev - 1 < 0 - 1 ? tasks.length - 1 : prev - 1));
+    setTaskNumber((prev) => (prev - 1 < 0 ? tasks.length - 1 : prev - 1));
   };
 
   const handleClickNext = () => {
@@ -77,9 +77,8 @@ export const useController = () => {
 
   const handleClickGreat = async () => {
     if (isPostSuccess) {
-      await getTasks();
-      postReset();
       setTaskNumber(0);
+      getTasks().then(postReset);
     }
   };
 
