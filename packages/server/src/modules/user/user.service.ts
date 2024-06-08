@@ -28,7 +28,7 @@ export class UserService {
 
   // TODO сделать отдельный сервис который будет посылать уведомления на сервер бота
   private async postNewReferralNotification(userid: string, username: string) {
-    const url = `${this.configService.get('WEBHOOK_HOST_BASE')}/referrals/new/${userid}`;
+    const url = `${this.configService.get('WEBHOOK_HOST_BASE')}notifications/referrals/new/${userid}`;
 
     const request = this.httpService.post(url, { username });
 

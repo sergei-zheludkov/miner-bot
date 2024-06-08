@@ -3,7 +3,7 @@ import { getNewReferralData } from './providers';
 import type { NewReferralData } from './types';
 
 export class MessageBroker {
-  NOTIFICATION_BASE = '/bot/notifications';
+  NOTIFICATION_BASE = '/notifications';
 
   REFERRALS = {
     NEW: `${this.NOTIFICATION_BASE}/referrals/new/`,

@@ -55,7 +55,10 @@ export const UserProvider = ({ children }: ProviderProps) => {
     const userInStore = getChatsMap()[chat.id];
 
     if (userInStore && !isGetCalled) {
-      setTimeout(() => getUser().then(switchToSceneReset), 1000);
+      // Сервак долго загружается, нужно подождать пока он стартанет,
+      // чтобы запускать обновленный бот
+      // TODO убрать после успешного внедрения перепоставки через контейнеры докер
+      setTimeout(() => getUser().then(switchToSceneReset), 10000);
     }
   }, []);
 
