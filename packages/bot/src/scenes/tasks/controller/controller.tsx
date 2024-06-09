@@ -1,8 +1,11 @@
 import React from 'react';
 import { Button, ButtonGroup, Text } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
+import { MATH } from '@common_bot/shared';
 import { useRouter, useUser } from '../../../contexts';
 import { useController } from './use-controller';
+
+const { getMinedRate } = MATH;
 
 export const Controller = () => {
   const { t } = useTranslation('tasks');
@@ -62,7 +65,7 @@ export const Controller = () => {
       <>
         {t('list.task_completed')}
         &#32;
-        <b>{task?.increase_mining_rate}</b>
+        <b>{getMinedRate(task?.increase_mining_rate)}</b>
         &#32;
         TON
       </>
@@ -125,7 +128,7 @@ export const Controller = () => {
         <br />
         {t('list.task_reward')}
         &#32;
-        <b>{task.increase_mining_rate}</b>
+        <b>{getMinedRate(task?.increase_mining_rate)}</b>
         &#32;
         TON
       </>
