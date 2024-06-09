@@ -55,10 +55,7 @@ export const UserProvider = ({ children }: ProviderProps) => {
     const userInStore = getChatsMap()[chat.id];
 
     if (userInStore && !isGetCalled) {
-      // Сервак долго загружается, нужно подождать пока он стартанет,
-      // чтобы запускать обновленный бот
-      // TODO убрать после успешного внедрения перепоставки через контейнеры докер
-      setTimeout(() => getUser().then(switchToSceneReset), 10000);
+      getUser().then(switchToSceneReset);
     }
   }, []);
 

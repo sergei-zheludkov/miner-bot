@@ -12,7 +12,7 @@ async function bootstrap() {
     .setTitle('Bot Server')
     .setDescription('The Bot Server API description')
     .setVersion('3.0.1')
-    .addServer('http://localhost:3000')
+    .addServer('http://server:3000')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
