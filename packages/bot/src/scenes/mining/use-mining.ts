@@ -55,8 +55,7 @@ export const useMining = () => {
     if (!isPostCalled) {
       const data = {
         tasks: tasks.map((task) => task.id),
-        // TODO Разобраться почему сервер не принимает decimal
-        increase_mining_rate: 0.000_000_1.toString(),
+        increase_mining_rate: 0.000_000_1.toFixed(10),
       };
 
       await postCompleteTask(user.id, data);

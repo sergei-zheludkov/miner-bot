@@ -10,7 +10,7 @@ export type TaskCreateDto = {
     gender: TaskCreateDto.gender;
     description: string;
     url: string;
-    increase_mining_rate?: number;
+    increase_mining_rate?: string;
     available_limit: number;
     check_key?: string;
     contact?: string;

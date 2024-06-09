@@ -99,7 +99,15 @@ export class TaskService {
       return await this.dataSource.transaction(async (manager) => {
         const tasks_repository = manager.getRepository(Task);
 
-        const new_task = tasks_repository.create(data);
+        // Нюансы передачи decimal по api
+        const new_task_data = { ...data, increase_mining_rate: 0 };
+
+        if (!Number.isNaN(data.increase_mining_rate)) {
+          new_task_data.increase_mining_rate = Number(data.increase_mining_rate);
+        }
+        // --- --- --- --- --- --- --- ---
+
+        const new_task = tasks_repository.create(new_task_data);
 
         return tasks_repository.save(new_task);
       });

@@ -94,7 +94,7 @@ export class UserService {
           await users_repository.increment({ id: who_invited }, 'balance', 0.005);
           await users_repository.save({ ...other_data, who_invited, balance: 0.005 });
 
-          await this.postNewReferralNotification(who_invited, data.username);
+          this.postNewReferralNotification(who_invited, data.username);
         } else {
           await users_repository.save({ ...other_data, who_invited: null });
           // TODO обращение к API бота, для оповещения юзера что такого рефералла нет

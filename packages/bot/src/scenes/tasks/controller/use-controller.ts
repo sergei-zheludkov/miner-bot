@@ -69,13 +69,11 @@ export const useController = () => {
       const task = tasks[taskNumber];
 
       const data = {
-        user_id: user.id,
         tasks: [task.id],
-        // TODO Разобраться почему сервер не принимает decimal
         increase_mining_rate: task.increase_mining_rate.toString(),
       };
 
-      await postCompleteTask(data);
+      await postCompleteTask(user.id, data);
     }
   };
 
