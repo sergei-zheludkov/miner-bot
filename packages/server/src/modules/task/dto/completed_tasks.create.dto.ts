@@ -18,7 +18,7 @@ export class CompletedTasksCreateDto {
 
   @ApiProperty({
     required: false,
-    example: '1e-7',
+    example: '0.000_000_1',
   })
   @IsOptional()
   @IsString()

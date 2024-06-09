@@ -574,7 +574,7 @@
           },
           "increase_mining_rate": {
             "type": "string",
-            "example": "1e-7"
+            "example": "0.000_000_1"
           }
         },
         "required": [
@@ -763,8 +763,8 @@
             "example": "https://t.me/bro_development"
           },
           "increase_mining_rate": {
-            "type": "number",
-            "example": 1e-7
+            "type": "string",
+            "example": "0.000_000_1"
           },
           "available_limit": {
             "type": "number",
