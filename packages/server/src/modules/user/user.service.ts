@@ -50,7 +50,6 @@ export class UserService {
   }
 
   async createUser(data: UserCreateDto) {
-    console.log('SERVICE CREATE_USER:', data);
     try {
       return await this.dataSource.transaction(async (manager) => {
         const users_repository = manager.getRepository(User);
@@ -75,8 +74,6 @@ export class UserService {
   }
 
   async createUserWithReferral(data: UserCreateDto) {
-    console.log('SERVICE CREATE_USER_WITH_REFERRAL:', data);
-
     try {
       return await this.dataSource.transaction(async (manager) => {
         const users_repository = manager.getRepository(User);
@@ -97,7 +94,7 @@ export class UserService {
           await users_repository.increment({ id: who_invited }, 'balance', 0.005);
           await users_repository.save({ ...other_data, who_invited, balance: 0.005 });
 
-          this.postNewReferralNotification(who_invited, data.username);
+          await this.postNewReferralNotification(who_invited, data.username);
         } else {
           await users_repository.save({ ...other_data, who_invited: null });
           // TODO обращение к API бота, для оповещения юзера что такого рефералла нет

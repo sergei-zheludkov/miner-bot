@@ -5,7 +5,7 @@ import { DataSource, Repository } from 'typeorm';
 import { GenderEnum } from '@common_bot/shared';
 import { logger } from '../../libs/logger/logger.instance';
 import { UserService } from '../user/user.service';
-import { CompletedTaskCreateDto, TaskCreateDto, TaskUpdateDto } from './dto';
+import { CompletedTasksCreateDto, TaskCreateDto, TaskUpdateDto } from './dto';
 import { CompletedTaskEntity as CompletedTask } from './completed-task.entity';
 import { TaskEntity as Task } from './task.entity';
 import { GetQuery } from './types';
@@ -13,7 +13,6 @@ import { GetQuery } from './types';
 const findOne = (tasks_repository: Repository<Task>, id: number) => tasks_repository
   .findOne({
     where: { id },
-    // relations: ['who_invited'],
   });
 
 @Injectable()
@@ -135,29 +134,32 @@ export class TaskService {
     }
   }
 
-  completeTasks(tasks: CompletedTaskCreateDto[]) {
+  completeTasks(user_id: string, { tasks, increase_mining_rate }: CompletedTasksCreateDto) {
     return this.dataSource.transaction(async (manager) => {
       const tasks_repository = manager.getRepository(Task);
       const completed_tasks_repository = manager.getRepository(CompletedTask);
 
       Promise.all(
-        tasks.map(async ({ task_id }) => {
-          await tasks_repository.increment({ id: task_id }, 'complete_count', 1);
-          await tasks_repository.decrement({ id: task_id }, 'available_limit', 1);
+        tasks.map(async (id) => {
+          await tasks_repository.increment({ id }, 'complete_count', 1);
+          await tasks_repository.decrement({ id }, 'available_limit', 1);
         }),
       );
 
       const user_data = {
-        id: tasks[0].user_id,
-        increase_mining_rate: 0.000_000_1,
+        id: user_id,
+        increase_mining_rate: 0,
         increase_complete_tasks_count: tasks.length,
         mining_rate_started: new Date(),
       };
 
+      if (!Number.isNaN(increase_mining_rate)) {
+        user_data.increase_mining_rate = Number(increase_mining_rate);
+      }
+
       await this.userService.updateUser(user_data);
 
-      const completed_tasks_data = tasks
-        .map(({ user_id, task_id }) => ({ user: user_id, task: task_id }));
+      const completed_tasks_data = tasks.map((id) => ({ user: user_id, task: id }));
 
       const completed_tasks = completed_tasks_repository.create(completed_tasks_data);
 
