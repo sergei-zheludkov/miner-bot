@@ -11,4 +11,5 @@ export type {
   TaskEntity,
   TaskCreateDto,
   TaskUpdateDto,
+  CompletedTasksCreateDto,
 } from './generated';

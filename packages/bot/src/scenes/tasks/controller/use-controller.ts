@@ -5,21 +5,29 @@ import { useApi, useQuery } from '@common_bot/api';
 import { useBotContext } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter, useUser } from '../../../contexts';
+import { usePostCompleteTask } from '../use-post-complete-task';
 
 export const useController = () => {
   const { t } = useTranslation('common');
   const { switchToMenuMain } = useRouter();
   const { user, getUser } = useUser();
   const { bot } = useBotContext<UrbanBotTelegram>();
-  const { getTasks: getTasksApi, postCompleteTasks: postCompleteTasksApi } = useApi().task;
+  const { getTasks: getTasksApi } = useApi().task;
+  const {
+    isPostCalled,
+    isPostSuccess,
+    isPostError,
+    postCompleteTask,
+    postReset,
+  } = usePostCompleteTask();
 
   const {
     data: tasks = [],
-    isCalled: isGetCalled,
+    // isCalled: isGetCalled,
     isLoading: isGetLoading,
     isSuccess: isGetSuccess,
     isError: isGetError,
-    statusCode: getStatusCode,
+    // statusCode: getStatusCode,
     fetch: getTasks,
   } = useQuery('get_tasks', () => getTasksApi(
     user.id,
@@ -30,17 +38,6 @@ export const useController = () => {
     0,
     100,
   ));
-
-  const {
-    data: completedTask,
-    isCalled: isPostCalled,
-    isLoading: isPostLoading,
-    isSuccess: isPostSuccess,
-    isError: isPostError,
-    statusCode: postStatusCode,
-    fetch: postCompleteTask,
-    reset: postReset,
-  } = useQuery('post_complete_task', postCompleteTasksApi, { isLazy: true });
 
   const [taskNumber, setTaskNumber] = useState(0);
 
@@ -69,9 +66,16 @@ export const useController = () => {
     }
 
     if (!isPostCalled) {
-      const data = { user_id: user.id, task_id: tasks[taskNumber].id };
+      const task = tasks[taskNumber];
 
-      await postCompleteTask([data]);
+      const data = {
+        user_id: user.id,
+        tasks: [task.id],
+        // TODO Разобраться почему сервер не принимает decimal
+        increase_mining_rate: task.increase_mining_rate.toString(),
+      };
+
+      await postCompleteTask(data);
     }
   };
 
