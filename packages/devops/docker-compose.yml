@@ -2,7 +2,7 @@ name: ton-miner-bot
 
 services:
   postgres:
-    container_name: "postgres.dev"
+    container_name: "postgres.prod"
     build:
       context: ../../
       dockerfile: ./packages/devops/services/db/Dockerfile
@@ -14,7 +14,7 @@ services:
 
   server:
     image: "ton_miner_server:${SERVER_VERSION}"
-    container_name: "server.dev"
+    container_name: "server.prod"
     build:
       context: ../../
       dockerfile: ./packages/devops/services/server/Dockerfile
@@ -30,7 +30,7 @@ services:
 
   bot:
     image: "ton_miner_bot:${BOT_VERSION}"
-    container_name: "bot.dev"
+    container_name: "bot.prod"
     build:
       context: ../../
       dockerfile: ./packages/devops/services/bot/Dockerfile

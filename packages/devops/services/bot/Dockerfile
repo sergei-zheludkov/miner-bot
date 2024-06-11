@@ -16,5 +16,6 @@ RUN apk add g++ make py3-pip
 RUN yarn cache clean
 RUN yarn install --update-checksums
 RUN yarn build:packages
+RUN yarn build:services
 
-CMD ["yarn", "start_bot:dev"]
+CMD ["yarn", "start_bot:prod"]

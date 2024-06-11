@@ -1,0 +1,2 @@
+CREATE USER {{name}} WITH PASSWORD '{{pass}}';
+CREATE DATABASE miner_bot;

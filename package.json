@@ -34,16 +34,14 @@
   "scripts": {
     "generate:api": "cd packages/api && yarn generate",
     "start_server:dev": "cd packages/server && yarn start:dev",
-    "start_bot:dev": "cd packages/bot && yarn dev",
+    "start_server:prod": "cd packages/server && yarn start:prod",
+    "start_bot:dev": "cd packages/bot && yarn start:dev",
+    "start_bot:prod": "cd packages/bot && yarn start:prod",
     "build:packages": "lerna run build --scope=@common_bot/{shared,api,i18n}",
     "build:services": "lerna run build --parallel --scope=@common_bot/{server,bot}",
     "lint:project": "lerna run lint --parallel --scope=@common_bot/{shared,api,i18n,server,bot}",
     "typecheck:project": "lerna run typecheck --parallel --scope=@common_bot/{shared,api,i18n,server,bot}",
-    "test:project": "jest",
-    "start_pm2:dev": "pm2 start ecosystem.config.js --env development",
-    "stop_pm2:dev": "pm2 stop ecosystem.config.js && pm2 delete ecosystem.config.js",
-    "start_pm2:prod": "pm2 start ecosystem.config.js --env production",
-    "stop_pm2:prod": "pm2 stop ecosystem.config.js && pm2 delete ecosystem.config.js"
+    "test:project": "jest"
   },
   "husky": {
     "hooks": {
