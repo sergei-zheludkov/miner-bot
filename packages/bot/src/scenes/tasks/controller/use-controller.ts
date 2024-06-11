@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { UrbanBotTelegram } from '@urban-bot/telegram';
-import { PlacementEnum } from '@common_bot/shared';
-import { useApi, useQuery } from '@common_bot/api';
+import { HOOK, PlacementEnum } from '@common_bot/shared';
+import { TaskEntity, useApi, useQuery } from '@common_bot/api';
 import { useBotContext } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter, useUser } from '../../../contexts';
 import { usePostCompleteTask } from '../use-post-complete-task';
+
+const { useToggleState } = HOOK;
 
 export const useController = () => {
   const { t } = useTranslation('common');
@@ -23,7 +25,7 @@ export const useController = () => {
 
   const {
     data: tasks = [],
-    // isCalled: isGetCalled,
+    isCalled: isGetCalled,
     isLoading: isGetLoading,
     isSuccess: isGetSuccess,
     isError: isGetError,
@@ -39,9 +41,33 @@ export const useController = () => {
     100,
   ));
 
+  const { toggle: isChecked, turnOn: setChecked } = useToggleState();
+
   const [taskNumber, setTaskNumber] = useState(0);
 
   const isEmptyList = !tasks.length;
+
+  const checkTasksForCompletion = async (tasksForCheck: TaskEntity[]) => {
+    if (!tasks.length) {
+      setChecked();
+      return;
+    }
+
+    const checkedTasksForCompletion = tasksForCheck.map(async (task) => {
+      const channel_id = Number(task.check_key);
+      const checkRequests = await bot.client.getChatMember(channel_id, user.id);
+      return checkRequests.status !== 'left' ? task.id : NaN;
+    });
+
+    const completedTaskIds = (await Promise.all(checkedTasksForCompletion)).filter(Boolean);
+
+    if (completedTaskIds.length) {
+      await postCompleteTask(user.id, { tasks: completedTaskIds });
+      await getTasks().then(postReset);
+    }
+
+    setChecked();
+  };
 
   const handleClickPrev = () => {
     setTaskNumber((prev) => (prev - 1 < 0 ? tasks.length - 1 : prev - 1));
@@ -90,10 +116,16 @@ export const useController = () => {
     switchToMenuMain();
   };
 
+  useEffect(() => {
+    checkTasksForCompletion(tasks);
+  }, [tasks.length]);
+
   return {
     tasks,
     taskNumber,
     isEmptyList,
+    isChecked,
+    isGetCalled,
     isGetLoading,
     isGetError,
     isGetSuccess,
