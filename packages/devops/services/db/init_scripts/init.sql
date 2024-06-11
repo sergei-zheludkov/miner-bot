@@ -1,1 +1,0 @@
-CREATE DATABASE miner_bot;
