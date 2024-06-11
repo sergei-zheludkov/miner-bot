@@ -6,5 +6,5 @@ install-deps:
 build-containers:
 	cd packages/devops && docker-compose build
 
-start-dev:
+start-prod:
 	cd packages/devops && docker-compose up -d bot
