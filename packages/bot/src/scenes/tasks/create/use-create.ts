@@ -25,7 +25,7 @@ export const useCreate = () => {
     const gender = answers[QUESTION_KEYS.GENDER] as unknown as TaskCreateDto['gender'];
 
     const args = {
-      // increase_mining_rate: Number.parseFloat(answers.increase_mining_rate) * 1,
+      increase_mining_rate: Number(answers.increase_mining_rate).toFixed(10),
       available_limit: Number(answers.available_limit),
       name: answers.name,
       description: answers.description,

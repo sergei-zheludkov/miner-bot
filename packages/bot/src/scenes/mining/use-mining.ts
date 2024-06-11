@@ -5,6 +5,7 @@ import { useTranslation } from '@common_bot/i18n';
 import { useApi, useQuery } from '@common_bot/api';
 import { PlacementEnum } from '@common_bot/shared';
 import { useUser, usePatchUser, useRouter } from '../../contexts';
+import { usePostCompleteTask } from '../tasks';
 import { MINING_STATES } from './constants';
 import { getStartedState } from './helpers';
 
@@ -13,16 +14,17 @@ export const useMining = () => {
   const { bot } = useBotContext<UrbanBotTelegram>();
   const { switchToMenuMain } = useRouter();
   const { user, getUser } = useUser();
-  const { getTasks: getTasksApi, postCompleteTasks: postCompleteTasksApi } = useApi().task;
+  const { getTasks: getTasksApi } = useApi().task;
   const { patchUser, isPatchLoading } = usePatchUser();
+  const { isPostCalled, isPostSuccess, postCompleteTask } = usePostCompleteTask();
 
   const {
     data: tasks = [],
     isCalled: isGetCalled,
-    isLoading: isGetLoading,
+    // isLoading: isGetLoading,
     isSuccess: isGetSuccess,
-    isError: isGetError,
-    statusCode: getStatusCode,
+    // isError: isGetError,
+    // statusCode: getStatusCode,
   } = useQuery('get_tasks', () => getTasksApi(
     user.id,
     user.country,
@@ -32,16 +34,6 @@ export const useMining = () => {
     0,
     3,
   ));
-
-  const {
-    data: completedTask,
-    isCalled: isPostCalled,
-    isLoading: isPostLoading,
-    isSuccess: isPostSuccess,
-    isError: isPostError,
-    statusCode: postStatusCode,
-    fetch: postCompleteTask,
-  } = useQuery('post_complete_task', postCompleteTasksApi, { isLazy: true });
 
   // TODO постараться избавиться от стейта и завязаться на статусы ручек
   const [state, setState] = useState<MINING_STATES>(getStartedState(user));
@@ -61,9 +53,12 @@ export const useMining = () => {
     }
 
     if (!isPostCalled) {
-      const data = tasks.map((task) => ({ user_id: user.id, task_id: task.id }));
+      const data = {
+        tasks: tasks.map((task) => task.id),
+        increase_mining_rate: 0.000_000_1.toFixed(10),
+      };
 
-      await postCompleteTask(data);
+      await postCompleteTask(user.id, data);
 
       setState(MINING_STATES.REGISTERED);
     }

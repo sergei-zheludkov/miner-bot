@@ -107,16 +107,22 @@
         "tags": [
           "Tasks"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/CompletedTaskCreateDto"
-                }
+                "$ref": "#/components/schemas/CompletedTasksCreateDto"
               }
             }
           }
@@ -552,21 +558,27 @@
           "id"
         ]
       },
-      "CompletedTaskCreateDto": {
+      "CompletedTasksCreateDto": {
         "type": "object",
         "properties": {
-          "user_id": {
-            "type": "string",
-            "example": "266006070"
+          "tasks": {
+            "example": [
+              1,
+              2,
+              3
+            ],
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
           },
-          "task_id": {
-            "type": "number",
-            "example": 1
+          "increase_mining_rate": {
+            "type": "string",
+            "example": "0.000_000_1"
           }
         },
         "required": [
-          "user_id",
-          "task_id"
+          "tasks"
         ]
       },
       "TaskEntity": {
@@ -751,8 +763,8 @@
             "example": "https://t.me/bro_development"
           },
           "increase_mining_rate": {
-            "type": "number",
-            "example": 1e-7
+            "type": "string",
+            "example": "0.000_000_1"
           },
           "available_limit": {
             "type": "number",

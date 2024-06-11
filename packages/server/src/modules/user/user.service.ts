@@ -50,7 +50,6 @@ export class UserService {
   }
 
   async createUser(data: UserCreateDto) {
-    console.log('SERVICE CREATE_USER:', data);
     try {
       return await this.dataSource.transaction(async (manager) => {
         const users_repository = manager.getRepository(User);
@@ -75,8 +74,6 @@ export class UserService {
   }
 
   async createUserWithReferral(data: UserCreateDto) {
-    console.log('SERVICE CREATE_USER_WITH_REFERRAL:', data);
-
     try {
       return await this.dataSource.transaction(async (manager) => {
         const users_repository = manager.getRepository(User);

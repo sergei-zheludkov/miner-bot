@@ -6,7 +6,7 @@ import {
   Param,
   Body,
   Query,
-  NotFoundException, ParseArrayPipe,
+  NotFoundException,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -21,7 +21,7 @@ import { API_VERSION_ROUTES, TAGS } from '../../constants';
 import { TaskService } from './task.service';
 import { TaskEntity } from './task.entity';
 import { CompletedTaskEntity } from './completed-task.entity';
-import { CompletedTaskCreateDto, TaskCreateDto, TaskUpdateDto } from './dto';
+import { CompletedTasksCreateDto, TaskCreateDto, TaskUpdateDto } from './dto';
 import type { GetQuery } from './types';
 
 @Controller(`${API_VERSION_ROUTES.v1}/tasks`)
@@ -37,12 +37,13 @@ export class TaskController {
     operationId: 'postCompleteTasks',
     summary: 'Creating new completed tasks in db',
   })
-  @ApiBody({ type: CompletedTaskCreateDto, isArray: true })
+  @ApiBody({ type: CompletedTasksCreateDto })
   @Post('complete/:id')
   async postCompleteTask(
-    @Body(new ParseArrayPipe({ items: CompletedTaskCreateDto })) data: CompletedTaskCreateDto[],
+    @Body() data: CompletedTasksCreateDto,
+    @Param('id') user_id: string,
   ) {
-    return this.tasksService.completeTasks(data);
+    return this.tasksService.completeTasks(user_id, data);
   }
 
   @ApiOkResponse({

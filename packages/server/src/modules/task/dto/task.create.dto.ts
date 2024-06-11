@@ -70,11 +70,11 @@ export class TaskCreateDto {
 
   @ApiProperty({
     required: false,
-    example: 0.000_000_1,
+    example: '0.000_000_1',
   })
   @IsOptional()
-  @IsNumber({ maxDecimalPlaces: 10 })
-  increase_mining_rate?: number;
+  @IsString()
+  increase_mining_rate?: string;
 
   @ApiProperty({
     required: true,

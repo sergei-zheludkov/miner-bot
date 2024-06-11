@@ -15,6 +15,9 @@ export const Controller = () => {
     tasks,
     taskNumber,
     isEmptyList,
+    isChecked,
+    isGetCalled,
+    isGetLoading,
     isGetSuccess,
     isPostSuccess,
     isPostError,
@@ -30,6 +33,17 @@ export const Controller = () => {
       {t('buttons:back')}
     </Button>,
   ];
+
+  if (!isChecked || !isGetCalled || isGetLoading) {
+    // TODO в отдельный компонент
+    return (
+      <Text isNewMessageEveryRender={false}>
+        🤖
+        &#32;
+        {t('common:loading')}
+      </Text>
+    );
+  }
 
   if (!user.mining_rate_started) {
     const title = t('list.mining_disabled');
@@ -165,12 +179,5 @@ export const Controller = () => {
     );
   }
 
-  // TODO в отдельный компонент
-  return (
-    <Text isNewMessageEveryRender={false}>
-      🤖
-      &#32;
-      {t('common:loading')}
-    </Text>
-  );
+  return null;
 };
