@@ -1,6 +1,6 @@
 FROM node:16.14.2-alpine3.15
 
-WORKDIR /bot-packages
+WORKDIR /bot
 
 COPY lerna.json lerna.json
 COPY yarn.lock yarn.lock
