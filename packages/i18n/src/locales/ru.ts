@@ -130,7 +130,7 @@ export const ru = {
   balance: {
     message: 'Ваш баланс:',
     withdrawn: 'Выведено:',
-    limit: 'Минимальная сумма вывода 0.5 TON!',
+    limit: 'Минимальная сумма вывода 1 TON!',
   },
   tasks: {
     list: {
