@@ -14,7 +14,7 @@ COPY packages/bot packages/bot
 RUN apk add g++ make py3-pip
 
 RUN yarn cache clean
-RUN yarn install --update-checksums
+RUN yarn install --update-checksums --non-interactive
 RUN yarn build:packages
 RUN yarn build:services
 

@@ -12,7 +12,7 @@ COPY packages/server packages/server
 RUN apk add g++ make py3-pip
 
 RUN yarn cache clean
-RUN yarn install --update-checksums --ignore-engines
+RUN yarn install --update-checksums --ignore-engines --non-interactive
 RUN yarn build:packages
 RUN yarn build:services
 

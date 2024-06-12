@@ -88,7 +88,7 @@ Promocode: 6481073677
 `docker compose up -d`
 
 #### open container terminal
-`docker exec -it {{container_id}} bash`
+`docker exec -it {{container_id}} bash/sh`
 
 #### close container terminal
 `Ctrl+D`
@@ -108,7 +108,6 @@ Promocode: 6481073677
 
 #### table list
 `\dt`
-
 
 ---
 
@@ -132,17 +131,18 @@ Promocode: 6481073677
 1. `cd ../var/www/www-root/data/ton-miner-bot/miner-bot`
 2. `git pull`
 3. `cd packages/devops`
-4. `docker cp {{bot_container_id}}:/bot/packages/bot/storage /var/www/www-root/data/ton-miner-bot/miner-bot/packages/bot`
-5. `docker exec {{postgres_container_id}} pg_dump -U root -F t miner_bot > miner_bot.tar`
-6. `docker cp {{postgres_container_id}}:/miner_bot.tar /var/www/www-root/data/ton-miner-bot/miner-bot/packages/bot`
-7. `docker cp miner_bot.tar {{postgres_container_id}}:/`
-8. `docker exec -it {{container_id}} bash`
-9. `pg_restore -U sergei_zheludkov -C -d miner_bot miner_bot.tar`
-10. `docker compose down bot`
-11. `docker compose down server`
-12. `docker rmi {{image_id: bot}}`
-13. `docker rmi {{image_id: server}}`
-14. `docker compose up -d bot`
+4. `docker exec -it {{postgres_container_id}} bash`
+5. `pg_dump -U root -F t miner_bot > miner_bot.tar`
+6. `docker cp {{postgres_container_id}}:/miner_bot.tar /var/www/www-root/data/ton-miner-bot/miner-bot/packages/devops`
+7. `docker cp {{bot_container_id}}:/bot/packages/bot/storage /var/www/www-root/data/ton-miner-bot/miner-bot/packages/bot`
+8. `docker cp miner_bot.tar {{postgres_container_id}}:/`
+9. `docker exec -it {{container_id}} bash`
+10. `pg_restore -U sergei_zheludkov -C -d miner_bot miner_bot.tar`
+11. `docker compose down bot`
+12. `docker compose down server`
+13. `docker rmi {{image_id: bot}}`
+14. `docker rmi {{image_id: server}}`
+15. `docker compose up -d bot`
 
 [DB_RESTORE GUIDE 1](https://stackoverflow.com/questions/24718706/backup-restore-a-dockerized-postgresql-database)
 [DB_RESTORE GUIDE 2](https://medium.com/@burakkocakeu/get-pg-dump-from-a-docker-container-and-pg-restore-into-another-in-5-steps-74ca5bf0589c)
