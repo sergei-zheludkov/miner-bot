@@ -38,9 +38,11 @@ export class UserService {
       error_message: 'Something goes wrong',
     };
 
-    const result = await toPromise(data);
-
-    console.log('POST_NEW_REFERRAL_NOTIFICATION:', { userid, username, url }, result);
+    try {
+      await toPromise(data);
+    } catch (error) {
+      console.log('POST_NEW_REFERRAL_NOTIFICATION: Error', error);
+    }
   }
 
   getOneUser(id: string) {
