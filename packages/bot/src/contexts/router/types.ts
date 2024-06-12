@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
-import * as T from '../../constants';
-
-export type Scenes = T.MenuEnum | T.SceneEnum;
+import type { Scenes } from '../../constants';
 
 export type ContextState = {
   scene: Scenes;

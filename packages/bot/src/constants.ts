@@ -33,3 +33,5 @@ export const LANGUAGES = {
   [i18n.t(`buttons:${BotLanguageEnum.RUSSIAN}`)]: BotLanguageEnum.RUSSIAN,
   [i18n.t(`buttons:${BotLanguageEnum.ENGLISH}`)]: BotLanguageEnum.ENGLISH,
 };
+
+export type Scenes = MenuEnum | SceneEnum;
