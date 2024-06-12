@@ -1,5 +1,3 @@
 import dayjs from 'dayjs';
 
-const getTodayStart = () => dayjs().startOf('day');
-
-export { getTodayStart };
+export const getTodayStart = () => dayjs().startOf('day');

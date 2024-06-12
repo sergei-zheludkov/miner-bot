@@ -27,8 +27,6 @@ export const NewReferral: React.FC = () => {
     [bot.client, chat.id],
   );
 
-  console.log('NEW REFERRAL COMPONENT:', { isShow, username });
-
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
 

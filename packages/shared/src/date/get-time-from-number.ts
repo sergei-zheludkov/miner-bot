@@ -1,6 +1,6 @@
 const MAX_DAY_TIME = 1440;
 
-const getTimeFromNumber = (time: number, defaultValue = '00:00') => {
+export const getTimeFromNumber = (time: number, defaultValue = '00:00') => {
   if (time > MAX_DAY_TIME) {
     return defaultValue;
   }
@@ -11,5 +11,3 @@ const getTimeFromNumber = (time: number, defaultValue = '00:00') => {
 
   return `${hours}:${minutes}`;
 };
-
-export { getTimeFromNumber };

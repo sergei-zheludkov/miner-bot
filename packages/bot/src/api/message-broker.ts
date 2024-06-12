@@ -13,8 +13,6 @@ export class MessageBroker {
     expressApp.post(`${this.REFERRALS.NEW}${chatId}`, (req, res) => {
       const { body } = req;
 
-      console.log({ body });
-
       const referralData = getNewReferralData(body);
 
       callback(referralData);
