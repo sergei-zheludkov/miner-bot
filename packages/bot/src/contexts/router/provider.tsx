@@ -1,24 +1,16 @@
 import React, { useMemo, useState } from 'react';
 import { useBotContext, useCommand } from '@urban-bot/core';
-import { DATE } from '@common_bot/shared';
 import * as T from '../../constants';
+import { logScene } from '../../logs';
 import { Context } from './context';
-import type { ProviderProps, Scenes } from './types';
-
-const { getFormattedDate } = DATE;
-
-const DATE_TEMPLATE = 'DD/MM/YYYY, HH:mm:ss';
+import type { Scenes } from '../../constants';
+import type { ProviderProps } from './types';
 
 export const RouterProvider = ({ children }: ProviderProps) => {
   const { chat } = useBotContext();
   const [scene, setScene] = useState<Scenes>(T.SceneEnum.DISABLE);
 
-  console.info(
-    getFormattedDate(DATE_TEMPLATE),
-    `| User ID: ${chat.id}`,
-    `| Username: ${chat.username}`,
-    `| Scene: ${scene}`,
-  );
+  logScene(chat.id, scene, chat.username);
 
   const switchToMenuMain = () => setScene(T.MenuEnum.MAIN);
   const switchToMenuAdmin = () => setScene(T.MenuEnum.ADMIN);

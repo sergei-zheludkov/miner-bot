@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, useBotContext } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
+import { logScene } from '../../logs';
 import { useRegistration } from './use-registration';
 import { Question } from './questions';
 
@@ -27,7 +28,8 @@ export const Registration = ({ refId, getUser }: Props) => {
   });
 
   if (isRegistered) {
-    console.info(chat.id, 'Bot scene:', 'scene_registration_success');
+    logScene(chat.id, 'scene_registration_success', chat.username);
+
     return <Text>{t('success')}</Text>;
   }
 
@@ -43,13 +45,13 @@ export const Registration = ({ refId, getUser }: Props) => {
   // }
 
   if (!isRegistered && !isSentData && !state.country) {
-    console.info(chat.id, 'Bot scene:', 'scene_registration: question_country');
+    logScene(chat.id, 'scene_registration: question_country', chat.username);
 
     return <Question.Country handleChange={handleChangeCountry} />;
   }
 
   if (!isRegistered && !isSentData && !state.gender) {
-    console.info(chat.id, 'Bot scene:', 'scene_registration: question_gender');
+    logScene(chat.id, 'scene_registration: question_gender', chat.username);
 
     return <Question.Gender handleChange={handleChangeGender} />;
   }
