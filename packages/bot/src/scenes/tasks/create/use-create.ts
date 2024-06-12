@@ -25,13 +25,13 @@ export const useCreate = () => {
     const gender = answers[QUESTION_KEYS.GENDER] as unknown as TaskCreateDto['gender'];
 
     const args = {
-      increase_mining_rate: Number(answers.increase_mining_rate).toFixed(10),
-      available_limit: Number(answers.available_limit),
-      name: answers.name,
-      description: answers.description,
-      check_key: answers.check_key,
-      contact: answers.contact,
-      url: answers.url,
+      increase_mining_rate: Number(answers[QUESTION_KEYS.INCREASE_MINING_RATE]).toFixed(10),
+      available_limit: Number(answers[QUESTION_KEYS.AVAILABLE_LIMIT]),
+      description: answers[QUESTION_KEYS.DESCRIPTION],
+      check_key: answers[QUESTION_KEYS.CHECK_KEY],
+      contact: answers[QUESTION_KEYS.CONTACT],
+      name: answers[QUESTION_KEYS.NAME],
+      url: answers[QUESTION_KEYS.URL],
       type,
       country,
       placement,

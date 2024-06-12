@@ -9,9 +9,10 @@ export enum SceneEnum {
 
   SETTINGS_LANGUAGE = 'scene_settings_language',
 
-  CREATE_TASK = 'scene_create_task',
-  ADD_TASK_LIMIT = 'scene_add_task_limit',
+  TASK_NOTIFICATION = 'scene_task_notification',
   TASK_CONTROLLER = 'scene_task_controller',
+  ADD_TASK_LIMIT = 'scene_add_task_limit',
+  CREATE_TASK = 'scene_create_task',
 
   REFERRAL_INVITATION = 'scene_referral_invitation',
 
