@@ -6,4 +6,4 @@ export { Information } from './information';
 export { Registration } from './registration';
 export { SettingsLanguage } from './settings';
 export { ReferralInvitation } from './referral';
-export { CreateTask, TaskController } from './tasks';
+export { CreateTask, TaskController, TaskNotification } from './tasks';

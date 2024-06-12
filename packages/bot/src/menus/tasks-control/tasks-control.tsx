@@ -6,9 +6,14 @@ import { useRouter } from '../../contexts';
 import { useTasksControlMenu } from './use-tasks-control-menu';
 
 export const TasksControl = () => {
-  const { switchToMenuAdmin, switchToSceneCreateTask, switchToSceneAddTaskLimit } = useRouter();
   const { t } = useTranslation('buttons');
   const { isUserAdmin } = useTasksControlMenu();
+  const {
+    switchToMenuAdmin,
+    switchToSceneCreateTask,
+    switchToSceneAddTaskLimit,
+    switchToSceneTaskNotification,
+  } = useRouter();
 
   /* ---------- BUTTON HOOKS ---------- */
   const back = t('back');
@@ -19,6 +24,9 @@ export const TasksControl = () => {
 
   const add_task_limit = t('add_task_limit');
   useText(switchToSceneAddTaskLimit, add_task_limit);
+
+  const task_notification = t('task_notification');
+  useText(switchToSceneTaskNotification, task_notification);
 
   const title = t(isUserAdmin ? 'admin:message' : 'admin:error');
   // const errorText = t();
@@ -32,6 +40,7 @@ export const TasksControl = () => {
     >
       <Button>{create_task}</Button>
       <Button>{add_task_limit}</Button>
+      <Button>{task_notification}</Button>
       <Button>{back}</Button>
     </ButtonGroup>
   );

@@ -104,23 +104,23 @@ export const Create = () => {
     </ButtonGroup>
   );
 
-  // const increaseMiningRateContent = (
-  //   <ButtonGroup maxColumns={1} title={t('create.questions.increase_mining_rate.message')}>
-  //     <Button id="0.000_000_1">
-  //       0.000_000_1
-  //     </Button>
-  //     <Button id="0.000_000_2">
-  //       0.000_000_2
-  //     </Button>
-  //     <Button id="0.000_000_3">
-  //       0.000_000_3
-  //     </Button>
-  //     <Button id="0.000_000_5">
-  //       0.000_000_5
-  //     </Button>
-  //     {exitButton}
-  //   </ButtonGroup>
-  // );
+  const increaseMiningRateContent = (
+    <ButtonGroup maxColumns={1} title={t('create.questions.increase_mining_rate.message')}>
+      <Button id="0.000_000_1">
+        0.000_000_1
+      </Button>
+      <Button id="0.000_000_2">
+        0.000_000_2
+      </Button>
+      <Button id="0.000_000_3">
+        0.000_000_3
+      </Button>
+      <Button id="0.000_000_5">
+        0.000_000_5
+      </Button>
+      {exitButton}
+    </ButtonGroup>
+  );
 
   const availableLimitContent = (
     <ButtonGroup isReplyButtons isResizedKeyboard maxColumns={1} title={t('create.questions.available_limit.message')}>
@@ -185,34 +185,35 @@ export const Create = () => {
                 id={QUESTION_KEYS.GENDER}
                 content={genderContent}
               >
-                {/* <DialogStep */}
-                {/*  id={QUESTION_KEYS.INCREASE_MINING_RATE} */}
-                {/*  content={increaseMiningRateContent} */}
-                {/* > */}
                 <DialogStep
-                  id={QUESTION_KEYS.AVAILABLE_LIMIT}
-                  content={availableLimitContent}
+                  id={QUESTION_KEYS.INCREASE_MINING_RATE}
+                  content={increaseMiningRateContent}
                 >
                   <DialogStep
-                    id={QUESTION_KEYS.NAME}
-                    content={nameContent}
+                    id={QUESTION_KEYS.AVAILABLE_LIMIT}
+                    content={availableLimitContent}
                   >
                     <DialogStep
-                      id={QUESTION_KEYS.DESCRIPTION}
-                      content={descriptionContent}
+                      id={QUESTION_KEYS.NAME}
+                      content={nameContent}
                     >
                       <DialogStep
-                        id={QUESTION_KEYS.CHECK_KEY}
-                        content={checkKeyContent}
+                        id={QUESTION_KEYS.DESCRIPTION}
+                        content={descriptionContent}
                       >
                         <DialogStep
-                          id={QUESTION_KEYS.CONTACT}
-                          content={contactContent}
+                          id={QUESTION_KEYS.CHECK_KEY}
+                          content={checkKeyContent}
                         >
                           <DialogStep
-                            id={QUESTION_KEYS.URL}
-                            content={urlContent}
-                          />
+                            id={QUESTION_KEYS.CONTACT}
+                            content={contactContent}
+                          >
+                            <DialogStep
+                              id={QUESTION_KEYS.URL}
+                              content={urlContent}
+                            />
+                          </DialogStep>
                         </DialogStep>
                       </DialogStep>
                     </DialogStep>
