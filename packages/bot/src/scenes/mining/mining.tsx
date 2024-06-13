@@ -100,6 +100,7 @@ export const Mining = () => {
       return (
         <>
           {t('transferred')}
+          &#32;
           <b>{getMinedTokenAmount(mining_rate, mining_rate_started || '')}</b>
           &#32;
           TON
