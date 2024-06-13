@@ -3,15 +3,15 @@ import type { Scenes } from './constants';
 
 const { getFormattedDate } = DATE;
 
-const DATE_TEMPLATE = 'DD/MM/YYYY, HH:mm:ss';
-
 export const logScene = (
   chat_id: string,
   scene: Scenes | string,
   chat_username?: string,
+  ...args: unknown[]
 ) => console.info(
-  getFormattedDate(DATE_TEMPLATE),
+  getFormattedDate(),
   `| User ID: ${chat_id}`,
   `| Username: ${chat_username}`,
   `| Scene: ${scene}`,
+  ...args,
 );

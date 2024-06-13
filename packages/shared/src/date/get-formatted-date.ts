@@ -1,3 +1,6 @@
 import dayjs from 'dayjs';
 
-export const getFormattedDate = (template: string, date?: string) => dayjs(date).format(template);
+const DATE_TEMPLATE = 'DD/MM/YYYY, HH:mm:ss';
+
+// eslint-disable-next-line max-len
+export const getFormattedDate = (date?: string, template = DATE_TEMPLATE) => dayjs(date).format(template);
