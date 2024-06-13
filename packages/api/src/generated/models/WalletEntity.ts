@@ -4,7 +4,8 @@
 
 export type WalletEntity = {
     id: string;
-    ton: number;
+    ton_amount: number;
+    ton_address: string | null;
     created: string;
     updated: string;
 };

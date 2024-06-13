@@ -16,9 +16,9 @@ export class WalletUpdateDto {
     required: true,
     example: 'decrease',
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  operation: 'increase' | 'decrease';
+  operation?: 'increase' | 'decrease';
 
   @ApiProperty({
     required: false,
@@ -26,5 +26,13 @@ export class WalletUpdateDto {
   })
   @IsOptional()
   @IsString()
-  ton?: string | number;
+  ton_amount?: string | number;
+
+  @ApiProperty({
+    required: false,
+    example: 'UQD2WTp9z4qlXhYpiuI7WygQR59MC8dVxRCztvUtJrhLtRRE',
+  })
+  @IsOptional()
+  @IsString()
+  ton_address?: string;
 }

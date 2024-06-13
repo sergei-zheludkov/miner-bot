@@ -17,7 +17,7 @@ export const Balance = () => {
     <>
       {t('message')}
       &#32;
-      <b>{getCryptoAmount(wallet.ton)}</b>
+      <b>{getCryptoAmount(wallet.ton_amount)}</b>
       &#32;
       TON
     </>

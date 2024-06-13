@@ -39,19 +39,23 @@ export class WalletService {
     }
   }
 
-  async updateWallet(data: WalletUpdateDto) {
+  async updateWallet({
+    id, operation, ton_amount, ton_address,
+  }: WalletUpdateDto) {
     try {
       return await this.dataSource.transaction(async (manager) => {
         const wallet_repository = manager.getRepository(Wallet);
 
-        const { id, ton, operation } = data;
-
-        if (ton && operation === 'increase') {
-          await wallet_repository.increment({ id }, 'ton', ton);
+        if (ton_address) {
+          await wallet_repository.update({ id }, { ton_address });
         }
 
-        if (ton && operation === 'decrease') {
-          await wallet_repository.decrement({ id }, 'ton', ton);
+        if (ton_amount && operation === 'increase') {
+          await wallet_repository.increment({ id }, 'ton_amount', ton_amount);
+        }
+
+        if (ton_amount && operation === 'decrease') {
+          await wallet_repository.decrement({ id }, 'ton_amount', ton_amount);
         }
 
         return findOne(wallet_repository, id);

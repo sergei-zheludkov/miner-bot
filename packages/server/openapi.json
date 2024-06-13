@@ -345,9 +345,14 @@
             "type": "string",
             "example": "266006070"
           },
-          "ton": {
+          "ton_amount": {
             "type": "number",
             "example": 0.5
+          },
+          "ton_address": {
+            "type": "string",
+            "example": "UQD2WTp9z4qlXhYpiuI7WygQR59MC8dVxRCztvUtJrhLtRRE",
+            "nullable": true
           },
           "created": {
             "format": "date-time",
@@ -362,7 +367,8 @@
         },
         "required": [
           "id",
-          "ton",
+          "ton_amount",
+          "ton_address",
           "created",
           "updated"
         ]

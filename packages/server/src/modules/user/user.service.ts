@@ -82,7 +82,7 @@ export class UserService {
           return user_in_db;
         }
 
-        await this.walletService.createWallet({ id, ton: 0 });
+        await this.walletService.createWallet({ id, ton_amount: 0 });
 
         return users_repository.save({ ...data, wallet: id });
       });
@@ -113,10 +113,10 @@ export class UserService {
           await users_repository.increment({ id: who_invited }, 'referral_counter', 1);
 
           // Начисляем бонус тому кто пригласил
-          await this.walletService.updateWallet({ id: who_invited, operation: 'increase', ton: 0.005 });
+          await this.walletService.updateWallet({ id: who_invited, operation: 'increase', ton_amount: 0.005 });
 
           // Создаем кошелек с бонусом для нового юзера
-          await this.walletService.createWallet({ id, ton: 0.005 });
+          await this.walletService.createWallet({ id, ton_amount: 0.005 });
 
           await users_repository.save({ ...other_data, who_invited, wallet: id });
 
@@ -166,7 +166,7 @@ export class UserService {
             user_in_db.mining_rate_started,
           );
 
-          await this.walletService.updateWallet({ id, operation: 'increase', ton: earned });
+          await this.walletService.updateWallet({ id, operation: 'increase', ton_amount: earned });
         }
 
         if (increase_mining_rate) {

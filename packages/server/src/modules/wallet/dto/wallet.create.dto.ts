@@ -16,5 +16,5 @@ export class WalletCreateDto {
   })
   @IsNotEmpty()
   @IsDecimal()
-  ton: number;
+  ton_amount: number;
 }
