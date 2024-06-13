@@ -14,6 +14,7 @@ export type { TaskUpdateDto } from './models/TaskUpdateDto';
 export { UserCreateDto } from './models/UserCreateDto';
 export { UserEntity } from './models/UserEntity';
 export { UserUpdateDto } from './models/UserUpdateDto';
+export type { WalletEntity } from './models/WalletEntity';
 
 export { TasksService } from './services/TasksService';
 export { UsersService } from './services/UsersService';

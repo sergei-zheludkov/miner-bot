@@ -6,6 +6,7 @@ import { MATH, DATE } from '@common_bot/shared';
 import { DataSource, Repository } from 'typeorm';
 import { toPromise } from '../../helpers';
 import { logger } from '../../libs/logger/logger.instance';
+import { WalletService } from '../wallet/wallet.service';
 import { UserEntity as User } from './user.entity';
 import { UserCreateDto, UserUpdateDto } from './dto';
 
@@ -15,12 +16,13 @@ const { getFormattedDate } = DATE;
 const findOne = (users_repository: Repository<User>, id: string) => users_repository
   .findOne({
     where: { id },
-    relations: ['who_invited'],
+    relations: ['wallet', 'who_invited'],
   });
 
 @Injectable()
 export class UserService {
   constructor(
+    private readonly walletService: WalletService,
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
     @InjectDataSource()
@@ -80,9 +82,9 @@ export class UserService {
           return user_in_db;
         }
 
-        const new_user = users_repository.create(data);
+        await this.walletService.createWallet({ id, ton: 0 });
 
-        return users_repository.save(new_user);
+        return users_repository.save({ ...data, wallet: id });
       });
     } catch (error) {
       logger.error('UserService(createUser):', error);
@@ -109,8 +111,14 @@ export class UserService {
 
         if (referral_user) {
           await users_repository.increment({ id: who_invited }, 'referral_counter', 1);
-          await users_repository.increment({ id: who_invited }, 'balance', 0.005);
-          await users_repository.save({ ...other_data, who_invited, balance: 0.005 });
+
+          // Начисляем бонус тому кто пригласил
+          await this.walletService.updateWallet({ id: who_invited, operation: 'increase', ton: 0.005 });
+
+          // Создаем кошелек с бонусом для нового юзера
+          await this.walletService.createWallet({ id, ton: 0.005 });
+
+          await users_repository.save({ ...other_data, who_invited, wallet: id });
 
           this.postNewReferralNotification(who_invited, data.username);
         } else {
@@ -147,6 +155,7 @@ export class UserService {
           return user_in_db;
         }
 
+        // TODO перенести в модуль Mining
         /*
           Перегнать намайненное в баланс,
           если пришла обновленная дата начала майнига по данному рейту
@@ -157,7 +166,7 @@ export class UserService {
             user_in_db.mining_rate_started,
           );
 
-          await users_repository.increment({ id }, 'balance', earned);
+          await this.walletService.updateWallet({ id, operation: 'increase', ton: earned });
         }
 
         if (increase_mining_rate) {

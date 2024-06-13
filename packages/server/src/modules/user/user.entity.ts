@@ -6,11 +6,13 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  OneToOne,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   GenderEnum, RoleEnum, BotLanguageEnum, CountriesEnum,
 } from '@common_bot/shared';
+import { WalletEntity as Wallet } from '../wallet/wallet.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -130,22 +132,16 @@ export class UserEntity {
   mining_rate: number;
 
   @ApiProperty({
-    example: 0.5,
+    type: Wallet,
+    nullable: false,
   })
-  @Column({
-    type: 'decimal',
-    default: 0.0,
+  @OneToOne(() => Wallet, {
+    nullable: false,
   })
-  withdrawn_tons: number;
-
-  @ApiProperty({
-    example: 0.5,
+  @JoinColumn({
+    name: 'wallet_id',
   })
-  @Column({
-    type: 'decimal',
-    default: 0.0,
-  })
-  balance: number;
+  wallet: string;
 
   @ApiProperty({
     example: '2022-10-21T19:48:59.726Z',

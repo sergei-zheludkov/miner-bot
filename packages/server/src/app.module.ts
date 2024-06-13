@@ -5,6 +5,7 @@ import { DatabaseModule } from './libs/db/db.module';
 import { GlobalHttpModule } from './libs/http/http.module';
 import { UserModule } from './modules/user/user.module';
 import { TaskModule } from './modules/task/task.module';
+import { WalletModule } from './modules/wallet/wallet.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { TaskModule } from './modules/task/task.module';
     DatabaseModule,
     UserModule,
     TaskModule,
+    WalletModule,
   ],
 })
 export class AppModule {}

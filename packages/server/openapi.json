@@ -338,6 +338,35 @@
   ],
   "components": {
     "schemas": {
+      "WalletEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "266006070"
+          },
+          "ton": {
+            "type": "number",
+            "example": 0.5
+          },
+          "created": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          },
+          "updated": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          }
+        },
+        "required": [
+          "id",
+          "ton",
+          "created",
+          "updated"
+        ]
+      },
       "UserEntity": {
         "type": "object",
         "properties": {
@@ -413,13 +442,13 @@
             "type": "number",
             "example": 1e-7
           },
-          "withdrawn_tons": {
-            "type": "number",
-            "example": 0.5
-          },
-          "balance": {
-            "type": "number",
-            "example": 0.5
+          "wallet": {
+            "nullable": false,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WalletEntity"
+              }
+            ]
           },
           "mining_rate_started": {
             "format": "date-time",
@@ -451,8 +480,7 @@
           "referral_counter",
           "complete_tasks_count",
           "mining_rate",
-          "withdrawn_tons",
-          "balance",
+          "wallet",
           "mining_rate_started",
           "created",
           "updated"

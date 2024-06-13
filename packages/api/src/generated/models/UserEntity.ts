@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { WalletEntity } from './WalletEntity';
+
 export type UserEntity = {
     id: string;
     firstname: string | null;
@@ -15,8 +17,7 @@ export type UserEntity = {
     referral_counter: number;
     complete_tasks_count: number;
     mining_rate: number;
-    withdrawn_tons: number;
-    balance: number;
+    wallet: WalletEntity;
     mining_rate_started: string | null;
     created: string;
     updated: string;

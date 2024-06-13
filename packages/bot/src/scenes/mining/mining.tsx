@@ -8,7 +8,7 @@ import {
   isActiveState, isRegisteredState, isRegistrationState, isTransferredState,
 } from './predicates';
 
-const { getMinedRate, getMinedTokenAmount } = MATH;
+const { getCryptoAmount, getMinedTokenAmount } = MATH;
 
 export const Mining = () => {
   const { t } = useTranslation('mining');
@@ -89,7 +89,7 @@ export const Mining = () => {
           <br />
           {t('rate')}
           &#32;
-          <b>{getMinedRate(mining_rate)}</b>
+          <b>{getCryptoAmount(mining_rate)}</b>
           &#32;
           TON
         </>
