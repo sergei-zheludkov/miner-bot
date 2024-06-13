@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
-import { MATH } from '@common_bot/shared';
+import { MATH, DATE } from '@common_bot/shared';
 import { DataSource, Repository } from 'typeorm';
 import { toPromise } from '../../helpers';
 import { logger } from '../../libs/logger/logger.instance';
@@ -10,6 +10,7 @@ import { UserEntity as User } from './user.entity';
 import { UserCreateDto, UserUpdateDto } from './dto';
 
 const { getMinedTokenAmount } = MATH;
+const { getFormattedDate } = DATE;
 
 const findOne = (users_repository: Repository<User>, id: string) => users_repository
   .findOne({
@@ -38,7 +39,24 @@ export class UserService {
       error_message: 'Something goes wrong',
     };
 
-    toPromise(data);
+    try {
+      /* const resp = */ await toPromise(data);
+      // console.info(
+      //   getFormattedDate(),
+      //   `| User ID: ${userid}`,
+      //   `| Username: ${username}`,
+      //   `| URL: ${url}`,
+      //   `| Resp: ${resp}`,
+      // );
+    } catch (error) {
+      console.info(
+        getFormattedDate(),
+        `| User ID: ${userid}`,
+        `| Username: ${username}`,
+        `| URL: ${url}`,
+        `| Error: ${error}`,
+      );
+    }
   }
 
   getOneUser(id: string) {

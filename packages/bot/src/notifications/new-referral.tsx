@@ -3,6 +3,7 @@ import { useBotContext, Text } from '@urban-bot/core';
 import { UrbanBotTelegram } from '@urban-bot/telegram';
 import { useTranslation } from '@common_bot/i18n';
 import { messageBroker } from '../api';
+import { logScene } from '../logs';
 import type { NewReferralData } from '../api';
 
 type NewReferralState = NewReferralData & { isShow: boolean };
@@ -27,11 +28,13 @@ export const NewReferral: React.FC = () => {
     [bot.client, chat.id],
   );
 
+  logScene(chat.id, 'notification_new_referral', chat.username, { isShow, username });
+
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
 
     if (isShow) {
-      timeoutId = setTimeout(() => setState(defaultState), 500);
+      timeoutId = setTimeout(() => setState(defaultState), 1000);
     }
 
     return () => clearTimeout(timeoutId);
