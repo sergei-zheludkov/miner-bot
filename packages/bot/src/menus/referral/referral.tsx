@@ -2,9 +2,10 @@ import React from 'react';
 import { ButtonGroup, Button, useText } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 // import { predicates, RoleEnum } from '@common_bot/shared';
-import { useRouter } from '../../contexts';
+import { useRouter, useUser } from '../../contexts';
 
 export const Referral = () => {
+  const { user } = useUser();
   const { t } = useTranslation(['buttons']);
   const { switchToSceneReferralInvitation, switchToMenuMain } = useRouter();
 
@@ -18,22 +19,34 @@ export const Referral = () => {
 
   const title = (
     <>
-      {t('referral:title')}
+      <b>{t('referral:title')}</b>
+      <br />
+      <br />
+      <i>{t('referral:statistic.prefix')}</i>
+      &#32;
+      <b>{user.referral_counter}</b>
+      &#32;
+      <i>{t('referral:statistic.people', { count: user.referral_counter })}</i>
+      <br />
+      <br />
+      ------------------------------
       <br />
       <br />
       {t('referral:message')}
       <br />
       <br />
       🤝&#32;
-      {t('referral:invitation_bonus')}
+      <i>{t('referral:invitation_bonus')}</i>
       &#32;
       <b>0.005 TON</b>
       &#32;
-      {t('common:and')}
+      <i>{t('common:and')}</i>
       &#32;
-      <b>5%</b>
-      &#32;
-      {t('referral:output_bonus')}
+      <b>3%*</b>
+      <br />
+      <br />
+      *&#32;
+      <i>{t('referral:output_bonus')}</i>
     </>
   );
 
