@@ -5,25 +5,19 @@ import { MATH } from '@common_bot/shared';
 import { useRouter } from '../../contexts';
 import { useBalance } from './use-balance';
 
-const { getMinedRate } = MATH;
+const { getCryptoAmount } = MATH;
 
 export const Balance = () => {
   const { t } = useTranslation('balance');
   const { switchToMenuMain } = useRouter();
-  const { balance, withdrawn, handleClickWithdrawn } = useBalance();
+  const { wallet, handleClickWithdrawn } = useBalance();
 
   // TODO info message
   const title = (
     <>
       {t('message')}
       &#32;
-      <b>{getMinedRate(balance)}</b>
-      &#32;
-      TON
-      <br />
-      {t('withdrawn')}
-      &#32;
-      <b>{getMinedRate(withdrawn)}</b>
+      <b>{getCryptoAmount(wallet.ton_amount)}</b>
       &#32;
       TON
     </>

@@ -2,8 +2,9 @@ import { join } from 'path';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
-import { UserEntity } from '../../modules/user/user.entity';
 import { TaskEntity } from '../../modules/task/task.entity';
+import { UserEntity } from '../../modules/user/user.entity';
+import { WalletEntity } from '../../modules/wallet/wallet.entity';
 import { CompletedTaskEntity } from '../../modules/task/completed-task.entity';
 
 @Module({
@@ -17,7 +18,7 @@ import { CompletedTaskEntity } from '../../modules/task/completed-task.entity';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('PG_DATABASE'),
-        entities: [UserEntity, TaskEntity, CompletedTaskEntity],
+        entities: [UserEntity, WalletEntity, TaskEntity, CompletedTaskEntity],
         autoLoadEntities: true,
         synchronize: configService.get('DB_SYNC') === 'true',
         logging: configService.get('DB_LOG') === 'true',

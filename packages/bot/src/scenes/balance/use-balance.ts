@@ -8,7 +8,7 @@ export const useBalance = () => {
   const { bot } = useBotContext<UrbanBotTelegram>();
   const { user } = useUser();
 
-  const { balance, withdrawn_tons: withdrawn } = user;
+  const { wallet } = user;
 
   // TODO добавить описание параметров коллбека в библиотеке urban-bot
   const handleClickWithdrawn = async (message: any) => {
@@ -17,5 +17,5 @@ export const useBalance = () => {
     await bot.client.answerCallbackQuery(message.nativeEvent.payload.id, options);
   };
 
-  return { balance, withdrawn, handleClickWithdrawn };
+  return { wallet, handleClickWithdrawn };
 };
