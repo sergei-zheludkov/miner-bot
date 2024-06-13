@@ -15,7 +15,7 @@ export const Controller = () => {
     tasks,
     taskNumber,
     isEmptyList,
-    isChecked,
+    // isChecked,
     isGetCalled,
     isGetLoading,
     isGetSuccess,
@@ -34,7 +34,7 @@ export const Controller = () => {
     </Button>,
   ];
 
-  if (!isChecked || !isGetCalled || isGetLoading) {
+  if (/* !isChecked || */ !isGetCalled || isGetLoading) {
     // TODO в отдельный компонент
     return (
       <Text isNewMessageEveryRender={false}>
