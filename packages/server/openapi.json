@@ -357,6 +357,153 @@
           }
         }
       }
+    },
+    "/api/v1/withdrawals/{id}": {
+      "get": {
+        "operationId": "getOneWithdrawal",
+        "summary": "Returning information about withdrawal",
+        "tags": [
+          "Withdrawal"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Withdrawal has been found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WithdrawalEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Withdrawal not found."
+          }
+        }
+      }
+    },
+    "/api/v1/withdrawals": {
+      "get": {
+        "operationId": "getWithdrawals",
+        "summary": "Returning information about withdrawals",
+        "tags": [
+          "Withdrawal"
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Withdrawals has been found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WithdrawalEntity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createWithdrawal",
+        "summary": "Creating new withdrawal in db",
+        "tags": [
+          "Withdrawal"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WithdrawalCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Withdrawals has been successfully created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WithdrawalEntity"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateWithdrawal",
+        "summary": "Updating withdrawal data",
+        "tags": [
+          "Withdrawal"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WithdrawalUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Withdrawals has been updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WithdrawalEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Withdrawals not found."
+          }
+        }
+      }
     }
   },
   "info": {
@@ -959,6 +1106,113 @@
         "required": [
           "id",
           "currency"
+        ]
+      },
+      "WithdrawalEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 3
+          },
+          "user": {
+            "nullable": false,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserEntity"
+              }
+            ]
+          },
+          "wallet": {
+            "nullable": false,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WalletEntity"
+              }
+            ]
+          },
+          "currency": {
+            "type": "string",
+            "example": "TON",
+            "nullable": false
+          },
+          "amount": {
+            "type": "number",
+            "example": 0.5
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "consideration",
+              "confirmed",
+              "rejected",
+              "paid"
+            ]
+          },
+          "created": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          },
+          "updated": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          }
+        },
+        "required": [
+          "id",
+          "user",
+          "wallet",
+          "currency",
+          "amount",
+          "status",
+          "created",
+          "updated"
+        ]
+      },
+      "WithdrawalCreateDto": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "example": "266006070"
+          },
+          "currency": {
+            "type": "string",
+            "example": "TON"
+          },
+          "amount": {
+            "type": "number",
+            "example": 1e-7
+          }
+        },
+        "required": [
+          "user_id",
+          "currency",
+          "amount"
+        ]
+      },
+      "WithdrawalUpdateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 3
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "consideration",
+              "confirmed",
+              "rejected",
+              "paid"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "status"
         ]
       }
     }
