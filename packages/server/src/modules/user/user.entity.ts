@@ -13,6 +13,7 @@ import {
   GenderEnum, RoleEnum, BotLanguageEnum, CountriesEnum,
 } from '@common_bot/shared';
 import { WalletEntity as Wallet } from '../wallet/wallet.entity';
+import { MiningEntity as Mining } from '../mining/mining.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -120,16 +121,7 @@ export class UserEntity {
     type: 'int',
     default: 0,
   })
-  complete_tasks_count: number;
-
-  @ApiProperty({
-    example: 0.000_000_1,
-  })
-  @Column({
-    type: 'decimal',
-    default: 0.0,
-  })
-  mining_rate: number;
+  completed_tasks_count: number;
 
   @ApiProperty({
     type: Wallet,
@@ -144,14 +136,16 @@ export class UserEntity {
   wallet: string;
 
   @ApiProperty({
-    example: '2022-10-21T19:48:59.726Z',
-    nullable: true,
+    type: Mining,
+    nullable: false,
   })
-  @Column({
-    type: 'timestamptz',
-    nullable: true,
+  @OneToOne(() => Mining, {
+    nullable: false,
   })
-  mining_rate_started: Date;
+  @JoinColumn({
+    name: 'mining_id',
+  })
+  mining: string;
 
   @ApiProperty({
     example: '2022-10-21T19:48:59.726Z',

@@ -216,7 +216,10 @@ export const ru = {
     invitation_bonus: 'За каждого приглашенного друга ты получишь',
     output_bonus: 'от каждого его вывода TON с баланса',
     statistic: {
-      prefix: 'По вашей ссылке подключилось',
+      connected_zero: 'По вашей ссылке подключилось',
+      connected_one: 'По вашей ссылке подключился',
+      connected_few: 'По вашей ссылке подключилось',
+      connected_many: 'По вашей ссылке подключилось',
       people_zero: 'человек',
       people_one: 'человек',
       people_few: 'человека',

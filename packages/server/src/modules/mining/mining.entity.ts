@@ -7,8 +7,8 @@ import {
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 
-@Entity('wallets')
-export class WalletEntity {
+@Entity('mining')
+export class MiningEntity {
   @ApiProperty({
     example: '266006070',
   })
@@ -16,23 +16,23 @@ export class WalletEntity {
   id: string;
 
   @ApiProperty({
-    example: 0.5,
+    example: 0.000_000_1,
   })
   @Column({
     type: 'decimal',
     default: 0.0,
   })
-  ton_amount: number;
+  ton_rate: number;
 
   @ApiProperty({
-    example: 'UQD2WTp9z4qlXhYpiuI7WygQR59MC8dVxRCztvUtJrhLtRRE',
+    example: '2022-10-21T19:48:59.726Z',
     nullable: true,
   })
   @Column({
-    type: 'varchar',
+    type: 'timestamptz',
     nullable: true,
   })
-  ton_address?: string;
+  ton_started: Date;
 
   @ApiProperty({
     example: '2022-10-21T19:48:59.726Z',

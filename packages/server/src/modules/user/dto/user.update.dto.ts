@@ -1,10 +1,9 @@
 import {
   IsOptional,
   IsString,
-  IsDecimal,
+  IsNumber,
   IsEnum,
-  IsDateString,
-  IsNotEmpty, IsNumber,
+  IsNotEmpty,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { BotLanguageEnum } from '@common_bot/shared';
@@ -52,25 +51,9 @@ export class UserUpdateDto {
 
   @ApiProperty({
     required: false,
-    example: 0.000_000_1,
-  })
-  @IsOptional()
-  @IsDecimal()
-  increase_mining_rate?: number;
-
-  @ApiProperty({
-    required: false,
     example: 1,
   })
   @IsOptional()
   @IsNumber()
-  increase_complete_tasks_count?: number;
-
-  @ApiProperty({
-    required: false,
-    example: '2022-10-21T19:48:59.726Z',
-  })
-  @IsOptional()
-  @IsDateString()
-  mining_rate_started?: Date;
+  increase_completed_tasks_count?: number;
 }

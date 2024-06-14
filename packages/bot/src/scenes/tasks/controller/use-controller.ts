@@ -94,12 +94,10 @@ export const useController = () => {
     if (!isPostCalled) {
       const task = tasks[taskNumber];
 
-      const data = {
+      await postCompleteTask(user.id, {
         tasks: [task.id],
-        increase_mining_rate: task.increase_mining_rate.toString(),
-      };
-
-      await postCompleteTask(user.id, data);
+        increase_ton_rate: task.increase_mining_rate.toString(),
+      });
     }
   };
 

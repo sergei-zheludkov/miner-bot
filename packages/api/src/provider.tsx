@@ -1,11 +1,12 @@
 import React, { createContext, useContext } from 'react';
-import { UsersService, TasksService } from './generated';
+import { UsersService, TasksService, MiningService } from './generated';
 
 type ApiProviderProps = { children: React.ReactNode };
 
 const ApiService = {
   user: UsersService,
   task: TasksService,
+  mining: MiningService,
 };
 
 const ApiContext = createContext(ApiService);

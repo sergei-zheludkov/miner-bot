@@ -4,7 +4,7 @@ import type { UrbanBotTelegram } from '@urban-bot/telegram';
 import { useTranslation } from '@common_bot/i18n';
 import { useApi, useQuery } from '@common_bot/api';
 import { PlacementEnum } from '@common_bot/shared';
-import { useUser, usePatchUser, useRouter } from '../../contexts';
+import { useUser, useRouter } from '../../contexts';
 import { usePostCompleteTask } from '../tasks';
 import { MINING_STATES } from './constants';
 import { getStartedState } from './helpers';
@@ -15,7 +15,7 @@ export const useMining = () => {
   const { switchToMenuMain } = useRouter();
   const { user, getUser } = useUser();
   const { getTasks: getTasksApi } = useApi().task;
-  const { patchUser, isPatchLoading } = usePatchUser();
+  const { patchMining: patchMiningApi } = useApi().mining;
   const { isPostCalled, isPostSuccess, postCompleteTask } = usePostCompleteTask();
 
   const {
@@ -35,6 +35,16 @@ export const useMining = () => {
     3,
   ));
 
+  const {
+    // data: mining ,
+    // isCalled: isPatchCalled,
+    isLoading: isPatchLoading,
+    // isSuccess: isPatchSuccess,
+    // isError: isGetError,
+    // statusCode: getStatusCode,
+    fetch: patchMining,
+  } = useQuery('get_tasks', patchMiningApi, { isLazy: true });
+
   // TODO постараться избавиться от стейта и завязаться на статусы ручек
   const [state, setState] = useState<MINING_STATES>(getStartedState(user));
 
@@ -53,22 +63,20 @@ export const useMining = () => {
     }
 
     if (!isPostCalled) {
-      const data = {
+      await postCompleteTask(user.id, {
         tasks: tasks.map((task) => task.id),
-        increase_mining_rate: 0.000_000_1.toFixed(10),
-      };
-
-      await postCompleteTask(user.id, data);
+        increase_ton_rate: 0.000_000_1.toFixed(10),
+      });
 
       setState(MINING_STATES.REGISTERED);
     }
   };
 
   const handleClickGet = async () => {
-    const data = { id: user.id, mining_rate_started: new Date().toISOString() };
+    const data = { id: user.id, ton_started: new Date().toISOString() };
 
     if (!isPatchLoading) {
-      await patchUser(data);
+      await patchMining(data);
     }
 
     setState(MINING_STATES.TRANSFERRED);

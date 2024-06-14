@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-// import { HttpService } from '@nestjs/axios';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { GenderEnum } from '@common_bot/shared';
 import { logger } from '../../libs/logger/logger.instance';
 import { UserService } from '../user/user.service';
+import { MiningService } from '../mining/mining.service';
 import { CompletedTasksCreateDto, TaskCreateDto, TaskUpdateDto } from './dto';
 import { CompletedTaskEntity as CompletedTask } from './completed-task.entity';
 import { TaskEntity as Task } from './task.entity';
@@ -19,6 +19,7 @@ const findOne = (tasks_repository: Repository<Task>, id: number) => tasks_reposi
 export class TaskService {
   constructor(
     private readonly userService: UserService,
+    private readonly miningService: MiningService,
     @InjectDataSource()
     private readonly dataSource: DataSource,
   ) {}
@@ -142,36 +143,42 @@ export class TaskService {
     }
   }
 
-  completeTasks(user_id: string, { tasks, increase_mining_rate }: CompletedTasksCreateDto) {
-    return this.dataSource.transaction(async (manager) => {
-      const tasks_repository = manager.getRepository(Task);
-      const completed_tasks_repository = manager.getRepository(CompletedTask);
+  completeTasks(user_id: string, { tasks, increase_ton_rate }: CompletedTasksCreateDto) {
+    try {
+      return this.dataSource.transaction(async (manager) => {
+        const tasks_repository = manager.getRepository(Task);
+        const completed_tasks_repository = manager.getRepository(CompletedTask);
 
-      Promise.all(
-        tasks.map(async (id) => {
-          await tasks_repository.increment({ id }, 'complete_count', 1);
-          await tasks_repository.decrement({ id }, 'available_limit', 1);
-        }),
-      );
+        Promise.all(
+          tasks.map(async (id) => {
+            await tasks_repository.increment({ id }, 'complete_count', 1);
+            await tasks_repository.decrement({ id }, 'available_limit', 1);
+          }),
+        );
 
-      const user_data = {
-        id: user_id,
-        increase_mining_rate: 0,
-        increase_complete_tasks_count: tasks.length,
-        mining_rate_started: new Date(),
-      };
+        const user_data = {
+          id: user_id,
+          increase_completed_tasks_count: tasks.length,
+        };
 
-      if (!Number.isNaN(increase_mining_rate)) {
-        user_data.increase_mining_rate = Number(increase_mining_rate);
-      }
+        if (!Number.isNaN(increase_ton_rate)) {
+          const mining_data = { id: user_id, increase_ton_rate, ton_started: new Date() };
 
-      await this.userService.updateUser(user_data);
+          await this.miningService.updateMining(mining_data);
+        }
 
-      const completed_tasks_data = tasks.map((id) => ({ user: user_id, task: id }));
+        await this.userService.updateUser(user_data);
 
-      const completed_tasks = completed_tasks_repository.create(completed_tasks_data);
+        const completed_tasks_data = tasks.map((id) => ({ user: user_id, task: id }));
 
-      return completed_tasks_repository.save(completed_tasks);
-    });
+        const completed_tasks = completed_tasks_repository.create(completed_tasks_data);
+
+        return completed_tasks_repository.save(completed_tasks);
+      });
+    } catch (error) {
+      logger.error('TaskService(completeTasks):', error);
+
+      throw new Error();
+    }
   }
 }
