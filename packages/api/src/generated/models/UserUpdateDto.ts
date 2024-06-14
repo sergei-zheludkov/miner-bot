@@ -8,9 +8,7 @@ export type UserUpdateDto = {
     lastname?: string;
     username?: string;
     lang?: UserUpdateDto.lang;
-    increase_mining_rate?: number;
-    increase_complete_tasks_count?: number;
-    mining_rate_started?: string;
+    increase_completed_tasks_count?: number;
 };
 
 export namespace UserUpdateDto {

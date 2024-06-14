@@ -12,9 +12,9 @@ export const App = () => (
       <Provider.Router>
         <Provider.User>
           <SceneSwitcher />
-          <Notifications />
         </Provider.User>
       </Provider.Router>
+      <Notifications />
     </I18nProvider>
   </ApiProvider>
 );

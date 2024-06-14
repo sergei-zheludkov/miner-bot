@@ -12,7 +12,7 @@ const { getCryptoAmount, getMinedTokenAmount } = MATH;
 
 export const Mining = () => {
   const { t } = useTranslation('mining');
-  const { user: { mining_rate, mining_rate_started } } = useUser();
+  const { user: { mining } } = useUser();
   const {
     state,
     tasks,
@@ -21,7 +21,7 @@ export const Mining = () => {
     handleClickBack,
   } = useMining();
 
-  const balance = getMinedTokenAmount(mining_rate, mining_rate_started || '');
+  const balance = getMinedTokenAmount(mining.ton_rate, mining.ton_started || '');
 
   const backButton = [
     <Button key="back-to-main-menu" onClick={handleClickBack}>
@@ -89,7 +89,7 @@ export const Mining = () => {
           <br />
           {t('rate')}
           &#32;
-          <b>{getCryptoAmount(mining_rate)}</b>
+          <b>{getCryptoAmount(mining.ton_rate)}</b>
           &#32;
           TON
         </>
@@ -101,7 +101,7 @@ export const Mining = () => {
         <>
           {t('transferred')}
           &#32;
-          <b>{getMinedTokenAmount(mining_rate, mining_rate_started || '')}</b>
+          <b>{getMinedTokenAmount(mining.ton_rate, mining.ton_started || '')}</b>
           &#32;
           TON
         </>

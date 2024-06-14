@@ -322,6 +322,71 @@
           }
         }
       }
+    },
+    "/api/v1/mining": {
+      "post": {
+        "operationId": "postMining",
+        "summary": "Creating new mining in db",
+        "tags": [
+          "Mining"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MiningCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Mining has been successfully created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MiningEntity"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "patchMining",
+        "summary": "Updating mining data",
+        "tags": [
+          "Mining"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MiningUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Mining has been updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MiningEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Mining not found."
+          }
+        }
+      }
     }
   },
   "info": {
@@ -369,6 +434,42 @@
           "id",
           "ton_amount",
           "ton_address",
+          "created",
+          "updated"
+        ]
+      },
+      "MiningEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "266006070"
+          },
+          "ton_rate": {
+            "type": "number",
+            "example": 1e-7
+          },
+          "ton_started": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z",
+            "nullable": true
+          },
+          "created": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          },
+          "updated": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          }
+        },
+        "required": [
+          "id",
+          "ton_rate",
+          "ton_started",
           "created",
           "updated"
         ]
@@ -440,13 +541,9 @@
             "type": "number",
             "example": 5
           },
-          "complete_tasks_count": {
+          "completed_tasks_count": {
             "type": "number",
             "example": 5
-          },
-          "mining_rate": {
-            "type": "number",
-            "example": 1e-7
           },
           "wallet": {
             "nullable": false,
@@ -456,11 +553,13 @@
               }
             ]
           },
-          "mining_rate_started": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2022-10-21T19:48:59.726Z",
-            "nullable": true
+          "mining": {
+            "nullable": false,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MiningEntity"
+              }
+            ]
           },
           "created": {
             "format": "date-time",
@@ -484,10 +583,9 @@
           "gender",
           "who_invited",
           "referral_counter",
-          "complete_tasks_count",
-          "mining_rate",
+          "completed_tasks_count",
           "wallet",
-          "mining_rate_started",
+          "mining",
           "created",
           "updated"
         ]
@@ -574,18 +672,9 @@
               "en"
             ]
           },
-          "increase_mining_rate": {
-            "type": "number",
-            "example": 1e-7
-          },
-          "increase_complete_tasks_count": {
+          "increase_completed_tasks_count": {
             "type": "number",
             "example": 1
-          },
-          "mining_rate_started": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2022-10-21T19:48:59.726Z"
           }
         },
         "required": [
@@ -606,7 +695,7 @@
               "type": "number"
             }
           },
-          "increase_mining_rate": {
+          "increase_ton_rate": {
             "type": "string",
             "example": "0.000_000_1"
           }
@@ -859,6 +948,44 @@
         "required": [
           "id",
           "name"
+        ]
+      },
+      "MiningCreateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "266006070"
+          },
+          "ton_started": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "MiningUpdateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "266006070"
+          },
+          "ton_started": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          },
+          "increase_ton_rate": {
+            "type": "string",
+            "example": "0.000_000_1"
+          }
+        },
+        "required": [
+          "id"
         ]
       }
     }

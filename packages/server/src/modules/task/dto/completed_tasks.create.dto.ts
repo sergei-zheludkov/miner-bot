@@ -22,5 +22,5 @@ export class CompletedTasksCreateDto {
   })
   @IsOptional()
   @IsString()
-  increase_mining_rate?: string;
+  increase_ton_rate?: string;
 }

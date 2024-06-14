@@ -6,6 +6,12 @@ export class Admins1717737864524 implements MigrationInterface {
     await queryRunner.query(`
       INSERT INTO users (id, firstname, lastname, username, lang, country, role, gender) 
         VALUES ('258000010', 'Sergei', 'Zheludkov', 'sergeizheludkov', 'ru', 'RU', 'admin', 'male');
+      
+      INSERT INTO wallets (id, ton_amount)
+        VALUES ('258000010', 0);
+        
+      INSERT INTO mining (id, ton_rate)
+        VALUES ('258000010', 0);
     `);
 
     console.log('::MIGRATION USER ADDED');

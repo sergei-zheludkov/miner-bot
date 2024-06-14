@@ -22,7 +22,7 @@ export const Referral = () => {
       <b>{t('referral:title')}</b>
       <br />
       <br />
-      <i>{t('referral:statistic.prefix')}</i>
+      <i>{t('referral:statistic.connected', { count: user.referral_counter })}</i>
       &#32;
       <b>{user.referral_counter}</b>
       &#32;

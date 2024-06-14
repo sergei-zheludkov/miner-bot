@@ -45,7 +45,7 @@ export const Controller = () => {
     );
   }
 
-  if (!user.mining_rate_started) {
+  if (!user.mining.ton_started) {
     const title = t('list.mining_disabled');
 
     const miningButton = [

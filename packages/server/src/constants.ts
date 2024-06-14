@@ -5,4 +5,5 @@ export const API_VERSION_ROUTES = {
 export const TAGS = {
   USERS: 'Users',
   TASKS: 'Tasks',
+  MINING: 'Mining',
 };

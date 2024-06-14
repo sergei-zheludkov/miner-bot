@@ -2,29 +2,30 @@ import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
-import { MATH, DATE } from '@common_bot/shared';
+import { DATE } from '@common_bot/shared';
 import { DataSource, Repository } from 'typeorm';
 import { toPromise } from '../../helpers';
 import { logger } from '../../libs/logger/logger.instance';
 import { WalletService } from '../wallet/wallet.service';
+import { MiningService } from '../mining/mining.service';
 import { UserEntity as User } from './user.entity';
 import { UserCreateDto, UserUpdateDto } from './dto';
 
-const { getMinedTokenAmount } = MATH;
 const { getFormattedDate } = DATE;
 
 const findOne = (users_repository: Repository<User>, id: string) => users_repository
   .findOne({
     where: { id },
-    relations: ['wallet', 'who_invited'],
+    relations: ['wallet', 'mining', 'who_invited'],
   });
 
 @Injectable()
 export class UserService {
   constructor(
-    private readonly walletService: WalletService,
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
+    private readonly walletService: WalletService,
+    private readonly miningService: MiningService,
     @InjectDataSource()
     private readonly dataSource: DataSource,
   ) {}
@@ -82,9 +83,14 @@ export class UserService {
           return user_in_db;
         }
 
+        // Создаем кошелек с бонусом для нового юзера
         await this.walletService.createWallet({ id, ton_amount: 0 });
 
-        return users_repository.save({ ...data, wallet: id });
+        // Создаем маининг для нового юзера
+        await this.miningService.createMining({ id });
+
+        // Сохраняем юзера
+        return users_repository.save({ ...data, wallet: id, mining: id });
       });
     } catch (error) {
       logger.error('UserService(createUser):', error);
@@ -118,8 +124,15 @@ export class UserService {
           // Создаем кошелек с бонусом для нового юзера
           await this.walletService.createWallet({ id, ton_amount: 0.005 });
 
-          await users_repository.save({ ...other_data, who_invited, wallet: id });
+          // Создаем маининг для нового юзера
+          await this.miningService.createMining({ id });
 
+          // Сохраняем юзера
+          await users_repository.save({
+            ...other_data, who_invited, wallet: id, mining: id,
+          });
+
+          // Отправляем уведомление о регистрации нового юзера
           this.postNewReferralNotification(who_invited, data.username);
         } else {
           await users_repository.save({ ...other_data, who_invited: null });
@@ -138,12 +151,7 @@ export class UserService {
   }
 
   async updateUser(user_data: UserUpdateDto) {
-    const {
-      id,
-      increase_mining_rate,
-      increase_complete_tasks_count,
-      ...data
-    } = user_data;
+    const { id, increase_completed_tasks_count, ...data } = user_data;
 
     try {
       return await this.dataSource.transaction(async (manager) => {
@@ -155,26 +163,8 @@ export class UserService {
           return user_in_db;
         }
 
-        // TODO перенести в модуль Mining
-        /*
-          Перегнать намайненное в баланс,
-          если пришла обновленная дата начала майнига по данному рейту
-        */
-        if (data.mining_rate_started) {
-          const earned = getMinedTokenAmount(
-            user_in_db.mining_rate,
-            user_in_db.mining_rate_started,
-          );
-
-          await this.walletService.updateWallet({ id, operation: 'increase', ton_amount: earned });
-        }
-
-        if (increase_mining_rate) {
-          await users_repository.increment({ id }, 'mining_rate', increase_mining_rate);
-        }
-
-        if (increase_complete_tasks_count) {
-          await users_repository.increment({ id }, 'complete_tasks_count', increase_complete_tasks_count);
+        if (increase_completed_tasks_count) {
+          await users_repository.increment({ id }, 'completed_tasks_count', increase_completed_tasks_count);
         }
 
         await users_repository.update({ id }, data);
