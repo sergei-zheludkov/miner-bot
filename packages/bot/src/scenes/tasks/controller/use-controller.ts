@@ -96,7 +96,8 @@ export const useController = () => {
 
       await postCompleteTask(user.id, {
         tasks: [task.id],
-        increase_ton_rate: task.increase_mining_rate.toString(),
+        currency: task.currency,
+        mining_rate: task.mining_rate.toString(),
       });
     }
   };

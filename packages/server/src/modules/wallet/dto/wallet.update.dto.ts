@@ -1,7 +1,8 @@
 import {
-  IsString, IsNotEmpty, IsOptional,
+  IsString, IsNotEmpty, IsOptional, IsEnum,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { CurrencyEnum } from '@common_bot/shared';
 
 export class WalletUpdateDto {
   @ApiProperty({
@@ -11,6 +12,14 @@ export class WalletUpdateDto {
   @IsNotEmpty()
   @IsString()
   id: string;
+
+  @ApiProperty({
+    required: true,
+    enum: CurrencyEnum,
+  })
+  @IsNotEmpty()
+  @IsEnum(CurrencyEnum)
+  currency: CurrencyEnum;
 
   @ApiProperty({
     required: true,
@@ -26,7 +35,7 @@ export class WalletUpdateDto {
   })
   @IsOptional()
   @IsString()
-  ton_amount?: string | number;
+  amount?: string | number;
 
   @ApiProperty({
     required: false,
@@ -34,5 +43,5 @@ export class WalletUpdateDto {
   })
   @IsOptional()
   @IsString()
-  ton_address?: string;
+  address?: string;
 }

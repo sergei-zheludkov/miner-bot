@@ -44,7 +44,9 @@ export class MiningService {
     }
   }
 
-  async updateMining({ id, increase_ton_rate, ton_started }: MiningUpdateDto) {
+  async updateMining({
+    id, currency, mining_rate, started,
+  }: MiningUpdateDto) {
     try {
       return await this.dataSource.transaction(async (manager) => {
         const mining_repository = manager.getRepository(Mining);
@@ -59,20 +61,31 @@ export class MiningService {
           Перегнать намайненное в баланс,
           если пришла обновленная дата начала майнига по данному рейту
         */
-        if (ton_started) {
+        if (started) {
           // Вычисляем заработанные деньги
-          const earned = getMinedTokenAmount(mining_in_db.ton_rate, mining_in_db.ton_started);
+          const earned = getMinedTokenAmount(
+            mining_in_db[`${currency}_rate`],
+            mining_in_db[`${currency}_started`],
+          );
 
           // Начисляем их в кошелек
-          await this.walletService.updateWallet({ id, operation: 'increase', ton_amount: earned });
+          await this.walletService.updateWallet({
+            id,
+            currency,
+            operation: 'increase',
+            amount: earned,
+          });
 
           // Обновляем дату маининга
-          await mining_repository.update({ id }, { ton_started });
+          await mining_repository.update(
+            { id },
+            { [`${currency}_started`]: started },
+          );
         }
 
-        if (increase_ton_rate) {
+        if (mining_rate) {
           // Увеличиваем ставку маининга
-          await mining_repository.increment({ id }, 'ton_rate', increase_ton_rate);
+          await mining_repository.increment({ id }, `${currency}_rate`, mining_rate);
         }
 
         return findOne(mining_repository, id);

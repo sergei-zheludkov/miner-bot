@@ -1,5 +1,8 @@
-import { IsString, IsNotEmpty, IsDecimal } from 'class-validator';
+import {
+  IsString, IsNotEmpty, IsDecimal, IsEnum,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { CurrencyEnum } from '@common_bot/shared';
 
 export class WalletCreateDto {
   @ApiProperty({
@@ -12,9 +15,17 @@ export class WalletCreateDto {
 
   @ApiProperty({
     required: true,
+    enum: CurrencyEnum,
+  })
+  @IsNotEmpty()
+  @IsEnum(CurrencyEnum)
+  currency: CurrencyEnum;
+
+  @ApiProperty({
+    required: true,
     example: 0.005,
   })
   @IsNotEmpty()
   @IsDecimal()
-  ton_amount: number;
+  amount: number;
 }

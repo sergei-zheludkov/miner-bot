@@ -171,6 +171,10 @@ export const ru = {
           message: 'Укажи гендер на который нужно отображать задания',
           error: '',
         },
+        currency: {
+          message: 'Укажи токен(монету) для вознаграждения',
+          error: '',
+        },
         increase_mining_rate: {
           message: 'Наберите майнинг-рейт за выполнение задания',
           error: '',

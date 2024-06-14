@@ -7,6 +7,5 @@ export type TaskUpdateDto = {
     name: string;
     description?: string;
     available_limit?: number;
-    contact?: string;
 };
 

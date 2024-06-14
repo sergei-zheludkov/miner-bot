@@ -7,10 +7,10 @@ export const useCreate = () => {
   // const { switchToMenuTasksControl } = useRouter();
   const {
     isCalled: isPostCalled,
-    isLoading: isPostLoading,
+    // isLoading: isPostLoading,
     isSuccess: isPostSuccess,
     isError: isPostError,
-    statusCode: postStatusCode,
+    // statusCode: postStatusCode,
     fetch: postTask,
   } = useQuery('post_task', postTaskApi, { isLazy: true });
 
@@ -23,22 +23,23 @@ export const useCreate = () => {
     const placement = answers[QUESTION_KEYS.PLACEMENT] as unknown as TaskCreateDto['placement'];
     // Такой финт из-за кривой генерации enum в @common_bot/api
     const gender = answers[QUESTION_KEYS.GENDER] as unknown as TaskCreateDto['gender'];
+    // Такой финт из-за кривой генерации enum в @common_bot/api
+    const currency = answers[QUESTION_KEYS.CURRENCY] as unknown as TaskCreateDto['currency'];
 
-    const args = {
-      increase_mining_rate: Number(answers[QUESTION_KEYS.INCREASE_MINING_RATE]).toFixed(10),
+    await postTask({
+      mining_rate: Number(answers[QUESTION_KEYS.INCREASE_MINING_RATE]).toFixed(10),
       available_limit: Number(answers[QUESTION_KEYS.AVAILABLE_LIMIT]),
       description: answers[QUESTION_KEYS.DESCRIPTION],
       check_key: answers[QUESTION_KEYS.CHECK_KEY],
-      contact: answers[QUESTION_KEYS.CONTACT],
+      contact_id: answers[QUESTION_KEYS.CONTACT],
       name: answers[QUESTION_KEYS.NAME],
       url: answers[QUESTION_KEYS.URL],
+      currency,
       type,
       country,
       placement,
       gender,
-    };
-
-    await postTask(args);
+    });
   };
 
   // const isValidLanguage = (lang: string) => {

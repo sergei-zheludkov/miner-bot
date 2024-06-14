@@ -324,36 +324,6 @@
       }
     },
     "/api/v1/mining": {
-      "post": {
-        "operationId": "postMining",
-        "summary": "Creating new mining in db",
-        "tags": [
-          "Mining"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MiningCreateDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Mining has been successfully created.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MiningEntity"
-                }
-              }
-            }
-          }
-        }
-      },
       "patch": {
         "operationId": "patchMining",
         "summary": "Updating mining data",
@@ -695,13 +665,21 @@
               "type": "number"
             }
           },
-          "increase_ton_rate": {
+          "currency": {
+            "type": "string",
+            "enum": [
+              "ton",
+              "not"
+            ]
+          },
+          "mining_rate": {
             "type": "string",
             "example": "0.000_000_1"
           }
         },
         "required": [
-          "tasks"
+          "tasks",
+          "currency"
         ]
       },
       "TaskEntity": {
@@ -753,7 +731,14 @@
             "type": "string",
             "example": "https://t.me/bro_development"
           },
-          "increase_mining_rate": {
+          "currency": {
+            "type": "string",
+            "enum": [
+              "ton",
+              "not"
+            ]
+          },
+          "mining_rate": {
             "type": "number",
             "example": 1e-7
           },
@@ -771,13 +756,12 @@
             "example": 5
           },
           "contact": {
-            "type": "string",
-            "example": [
-              "tg:266006070",
-              "email:kykarek@yandex.ru",
-              "phone:+79238849922"
-            ],
-            "nullable": true
+            "nullable": false,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserEntity"
+              }
+            ]
           },
           "created": {
             "format": "date-time",
@@ -804,7 +788,8 @@
           "gender",
           "description",
           "url",
-          "increase_mining_rate",
+          "currency",
+          "mining_rate",
           "available_limit",
           "check_key",
           "complete_count",
@@ -885,7 +870,14 @@
             "type": "string",
             "example": "https://t.me/bro_development"
           },
-          "increase_mining_rate": {
+          "currency": {
+            "type": "string",
+            "enum": [
+              "ton",
+              "not"
+            ]
+          },
+          "mining_rate": {
             "type": "string",
             "example": "0.000_000_1"
           },
@@ -893,17 +885,13 @@
             "type": "number",
             "example": 1000
           },
+          "contact_id": {
+            "type": "string",
+            "example": "266006070"
+          },
           "check_key": {
             "type": "string",
             "example": "-1002238903830"
-          },
-          "contact": {
-            "type": "string",
-            "example": [
-              "tg:266006070",
-              "email:kykarek@yandex.ru",
-              "phone:+79238849922"
-            ]
           }
         },
         "required": [
@@ -914,7 +902,9 @@
           "gender",
           "description",
           "url",
-          "available_limit"
+          "currency",
+          "available_limit",
+          "contact_id"
         ]
       },
       "TaskUpdateDto": {
@@ -935,36 +925,11 @@
           "available_limit": {
             "type": "number",
             "example": 1000
-          },
-          "contact": {
-            "type": "string",
-            "example": [
-              "tg:266006070",
-              "email:kykarek@yandex.ru",
-              "phone:+79238849922"
-            ]
           }
         },
         "required": [
           "id",
           "name"
-        ]
-      },
-      "MiningCreateDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "example": "266006070"
-          },
-          "ton_started": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2022-10-21T19:48:59.726Z"
-          }
-        },
-        "required": [
-          "id"
         ]
       },
       "MiningUpdateDto": {
@@ -974,18 +939,26 @@
             "type": "string",
             "example": "266006070"
           },
-          "ton_started": {
+          "currency": {
+            "type": "string",
+            "enum": [
+              "ton",
+              "not"
+            ]
+          },
+          "mining_rate": {
+            "type": "string",
+            "example": "0.000_000_1"
+          },
+          "started": {
             "format": "date-time",
             "type": "string",
             "example": "2022-10-21T19:48:59.726Z"
-          },
-          "increase_ton_rate": {
-            "type": "string",
-            "example": "0.000_000_1"
           }
         },
         "required": [
-          "id"
+          "id",
+          "currency"
         ]
       }
     }

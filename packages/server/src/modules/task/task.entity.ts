@@ -4,12 +4,13 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  DeleteDateColumn,
+  DeleteDateColumn, ManyToOne, JoinColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  CountriesEnum, GenderEnum, PlacementEnum, TasksEnum,
+  CountriesEnum, GenderEnum, PlacementEnum, TasksEnum, CurrencyEnum,
 } from '@common_bot/shared';
+import { UserEntity as User } from '../user/user.entity';
 
 @Entity('tasks')
 export class TaskEntity {
@@ -80,13 +81,22 @@ export class TaskEntity {
   url: string;
 
   @ApiProperty({
+    enum: CurrencyEnum,
+  })
+  @Column({
+    type: 'enum',
+    enum: CurrencyEnum,
+  })
+  currency: CurrencyEnum;
+
+  @ApiProperty({
     example: 0.000_000_1,
   })
   @Column({
     type: 'decimal',
     default: 0.000_000_1,
   })
-  increase_mining_rate: number;
+  mining_rate: number;
 
   @ApiProperty({
     example: 5,
@@ -117,14 +127,16 @@ export class TaskEntity {
   complete_count: number;
 
   @ApiProperty({
-    example: ['tg:266006070', 'email:kykarek@yandex.ru', 'phone:+79238849922'],
-    nullable: true,
+    type: User,
+    nullable: false,
   })
-  @Column({
-    type: 'text',
-    nullable: true,
+  @ManyToOne(() => User, {
+    nullable: false,
   })
-  contact?: string;
+  @JoinColumn({
+    name: 'contact_id',
+  })
+  contact: string;
 
   @ApiProperty({
     example: '2022-10-21T19:48:59.726Z',

@@ -1,7 +1,12 @@
 import {
-  IsString, IsNotEmpty, IsOptional, IsDecimal, IsDateString,
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  IsDateString,
+  IsEnum,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { CurrencyEnum } from '@common_bot/shared';
 
 export class MiningUpdateDto {
   @ApiProperty({
@@ -13,12 +18,12 @@ export class MiningUpdateDto {
   id: string;
 
   @ApiProperty({
-    required: false,
-    example: '2022-10-21T19:48:59.726Z',
+    required: true,
+    enum: CurrencyEnum,
   })
-  @IsOptional()
-  @IsDateString()
-  ton_started?: Date;
+  @IsNotEmpty()
+  @IsEnum(CurrencyEnum)
+  currency: CurrencyEnum;
 
   @ApiProperty({
     required: false,
@@ -26,5 +31,13 @@ export class MiningUpdateDto {
   })
   @IsOptional()
   @IsString()
-  increase_ton_rate?: string;
+  mining_rate?: string;
+
+  @ApiProperty({
+    required: false,
+    example: '2022-10-21T19:48:59.726Z',
+  })
+  @IsOptional()
+  @IsDateString()
+  started?: Date;
 }

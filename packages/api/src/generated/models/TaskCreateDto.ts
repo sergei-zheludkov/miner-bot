@@ -10,10 +10,11 @@ export type TaskCreateDto = {
     gender: TaskCreateDto.gender;
     description: string;
     url: string;
-    increase_mining_rate?: string;
+    currency: TaskCreateDto.currency;
+    mining_rate?: string;
     available_limit: number;
+    contact_id: string;
     check_key?: string;
-    contact?: string;
 };
 
 export namespace TaskCreateDto {
@@ -38,6 +39,11 @@ export namespace TaskCreateDto {
         MALE = 'male',
         FEMALE = 'female',
         ALL = 'all',
+    }
+
+    export enum currency {
+        TON = 'ton',
+        NOT = 'not',
     }
 
 
