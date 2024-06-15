@@ -41,6 +41,7 @@ export namespace UserEntity {
         ADMIN = 'admin',
         SUPPORT = 'support',
         AFFILIATE = 'affiliate',
+        ADVERTISER = 'advertiser',
         USER = 'user',
     }
 

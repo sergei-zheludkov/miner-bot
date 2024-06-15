@@ -77,7 +77,7 @@ export class TaskCreateDto {
   currency: CurrencyEnum;
 
   @ApiProperty({
-    required: false,
+    required: true,
     example: '0.000_000_1',
   })
   @IsNotEmpty()

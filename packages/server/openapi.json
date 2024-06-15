@@ -442,7 +442,7 @@
         }
       },
       "post": {
-        "operationId": "createWithdrawal",
+        "operationId": "postWithdrawal",
         "summary": "Creating new withdrawal in db",
         "tags": [
           "Withdrawal"
@@ -635,6 +635,7 @@
               "admin",
               "support",
               "affiliate",
+              "advertiser",
               "user"
             ]
           },
@@ -1050,6 +1051,7 @@
           "description",
           "url",
           "currency",
+          "mining_rate",
           "available_limit",
           "contact_id"
         ]
@@ -1123,18 +1125,22 @@
               }
             ]
           },
-          "wallet": {
-            "nullable": false,
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/WalletEntity"
-              }
-            ]
+          "address": {
+            "type": "string",
+            "example": "UQD2WTp9z4qlXhYpiuI7WygQR59MC8dVxRCztvUtJrhLtRRE",
+            "nullable": false
+          },
+          "network": {
+            "type": "string",
+            "example": "TRC20",
+            "nullable": true
           },
           "currency": {
             "type": "string",
-            "example": "TON",
-            "nullable": false
+            "enum": [
+              "ton",
+              "not"
+            ]
           },
           "amount": {
             "type": "number",
@@ -1146,6 +1152,7 @@
               "consideration",
               "confirmed",
               "rejected",
+              "canceled",
               "paid"
             ]
           },
@@ -1163,7 +1170,8 @@
         "required": [
           "id",
           "user",
-          "wallet",
+          "address",
+          "network",
           "currency",
           "amount",
           "status",
@@ -1180,17 +1188,29 @@
           },
           "currency": {
             "type": "string",
-            "example": "TON"
+            "enum": [
+              "ton",
+              "not"
+            ]
           },
           "amount": {
-            "type": "number",
-            "example": 1e-7
+            "type": "string",
+            "example": "1.1"
+          },
+          "address": {
+            "type": "string",
+            "example": "UQD2WTp9z4qlXhYpiuI7WygQR59MC8dVxRCztvUtJrhLtRRE"
+          },
+          "network": {
+            "type": "string",
+            "example": "TRC20"
           }
         },
         "required": [
           "user_id",
           "currency",
-          "amount"
+          "amount",
+          "address"
         ]
       },
       "WithdrawalUpdateDto": {
@@ -1206,6 +1226,7 @@
               "consideration",
               "confirmed",
               "rejected",
+              "canceled",
               "paid"
             ]
           }

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { logger } from '../../libs/logger/logger.instance';
+import { WalletService } from '../wallet/wallet.service';
 import { WithdrawalEntity as Withdrawal } from './withdrawal.entity';
 import { WithdrawalCreateDto, WithdrawalUpdateDto } from './dto';
 import type { GetQuery } from './types';
@@ -12,6 +13,7 @@ const findOne = (withdrawal_repository: Repository<Withdrawal>, id: number) => w
 @Injectable()
 export class WithdrawalService {
   constructor(
+    private readonly walletService: WalletService,
     @InjectDataSource()
     private readonly dataSource: DataSource,
   ) {}
@@ -48,13 +50,25 @@ export class WithdrawalService {
       return await this.dataSource.transaction(async (manager) => {
         const withdrawal_repository = manager.getRepository(Withdrawal);
 
-        const new_withdrawal = withdrawal_repository.create({
+        // Блокируем деньги в кошельке
+        await this.walletService.updateWallet({
+          ...data,
+          id: user_id,
+          operation: 'decrease',
+        });
+
+        const new_withdrawal_data = {
           ...data,
           user: user_id,
           wallet: user_id,
-        });
+          amount: 0,
+        };
 
-        return withdrawal_repository.save(new_withdrawal);
+        if (!Number.isNaN(data.amount)) {
+          new_withdrawal_data.amount = Number(data.amount);
+        }
+
+        return withdrawal_repository.save(new_withdrawal_data);
       });
     } catch (error) {
       logger.error('WithdrawalService(createWithdrawal):', error);

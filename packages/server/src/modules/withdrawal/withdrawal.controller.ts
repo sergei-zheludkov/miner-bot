@@ -75,7 +75,7 @@ export class WithdrawalController {
   })
   @ApiOperation({
     tags: [TAGS.WITHDRAWAL],
-    operationId: 'createWithdrawal',
+    operationId: 'postWithdrawal',
     summary: 'Creating new withdrawal in db',
   })
   @Post()

@@ -13,6 +13,10 @@ export type {
   MiningEntity,
   MiningUpdateDto,
 
+  WithdrawalEntity,
+  WithdrawalCreateDto,
+  WithdrawalUpdateDto,
+
   TaskEntity,
   TaskCreateDto,
   TaskUpdateDto,

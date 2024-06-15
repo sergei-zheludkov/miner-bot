@@ -11,7 +11,7 @@ export type TaskCreateDto = {
     description: string;
     url: string;
     currency: TaskCreateDto.currency;
-    mining_rate?: string;
+    mining_rate: string;
     available_limit: number;
     contact_id: string;
     check_key?: string;

@@ -1,14 +1,15 @@
 import {
+  ManyToOne,
   Entity,
   Column,
+  JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { WithdrawalStatusEnum } from '@common_bot/shared';
+import { CurrencyEnum, WithdrawalStatusEnum } from '@common_bot/shared';
 import { UserEntity as User } from '../user/user.entity';
-import { WalletEntity as Wallet } from '../wallet/wallet.entity';
 
 @Entity('withdrawals')
 export class WithdrawalEntity {
@@ -31,26 +32,33 @@ export class WithdrawalEntity {
   user: string;
 
   @ApiProperty({
-    type: Wallet,
-    nullable: false,
-  })
-  @OneToOne(() => Wallet, {
-    nullable: false,
-  })
-  @JoinColumn({
-    name: 'wallet_id',
-  })
-  wallet: string;
-
-  @ApiProperty({
-    example: 'TON',
+    example: 'UQD2WTp9z4qlXhYpiuI7WygQR59MC8dVxRCztvUtJrhLtRRE',
     nullable: false,
   })
   @Column({
     type: 'varchar',
     nullable: false,
   })
-  currency: string;
+  address: string;
+
+  @ApiProperty({
+    example: 'TRC20',
+    nullable: true,
+  })
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  network: string;
+
+  @ApiProperty({
+    enum: CurrencyEnum,
+  })
+  @Column({
+    type: 'enum',
+    enum: CurrencyEnum,
+  })
+  currency: CurrencyEnum;
 
   @ApiProperty({
     example: 0.5,

@@ -1,5 +1,8 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import {
+  IsString, IsNotEmpty, IsEnum, IsOptional,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { CurrencyEnum } from '@common_bot/shared';
 
 export class WithdrawalCreateDto {
   @ApiProperty({
@@ -12,17 +15,33 @@ export class WithdrawalCreateDto {
 
   @ApiProperty({
     required: true,
-    example: 'TON',
+    enum: CurrencyEnum,
   })
   @IsNotEmpty()
-  @IsString()
-  currency: string;
+  @IsEnum(CurrencyEnum)
+  currency: CurrencyEnum;
 
   @ApiProperty({
     required: true,
-    example: 0.000_000_1,
+    example: '1.1',
   })
   @IsNotEmpty()
   @IsString()
-  amount: number;
+  amount: string;
+
+  @ApiProperty({
+    required: true,
+    example: 'UQD2WTp9z4qlXhYpiuI7WygQR59MC8dVxRCztvUtJrhLtRRE',
+  })
+  @IsNotEmpty()
+  @IsString()
+  address: string;
+
+  @ApiProperty({
+    required: false,
+    example: 'TRC20',
+  })
+  @IsOptional()
+  @IsString()
+  network?: string;
 }

@@ -41,6 +41,9 @@ export const SceneSwitcher = () => {
         </SceneWrapper>
       );
 
+    case T.SceneEnum.WITHDRAWAL:
+      return <Scene.Withdrawal />;
+
     // ----------------------------------------ADMIN MENU--------------------------------------
     case T.MenuEnum.TASKS_CONTROL:
       return <Menu.TasksControl />;
