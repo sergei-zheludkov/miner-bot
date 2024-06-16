@@ -14,6 +14,7 @@ export enum SceneEnum {
   ADD_TASK_LIMIT = 'scene_add_task_limit',
   CREATE_TASK = 'scene_create_task',
 
+  WITHDRAWAL = 'scene_withdrawal',
   REFERRAL_INVITATION = 'scene_referral_invitation',
 
   RESET = 'scene_reset',

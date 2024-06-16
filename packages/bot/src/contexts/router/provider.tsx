@@ -29,6 +29,7 @@ export const RouterProvider = ({ children }: ProviderProps) => {
   const switchToSceneAddTaskLimit = () => setScene(T.SceneEnum.ADD_TASK_LIMIT);
   const switchToSceneTaskController = () => setScene(T.SceneEnum.TASK_CONTROLLER);
   const switchToSceneTaskNotification = () => setScene(T.SceneEnum.TASK_NOTIFICATION);
+  const switchToSceneWithdrawal = () => setScene(T.SceneEnum.WITHDRAWAL);
   const switchToSceneReferralInvitation = () => setScene(T.SceneEnum.REFERRAL_INVITATION);
 
   useCommand(switchToMenuMain, '/main_menu');
@@ -53,6 +54,7 @@ export const RouterProvider = ({ children }: ProviderProps) => {
     switchToSceneAddTaskLimit,
     switchToSceneTaskController,
     switchToSceneTaskNotification,
+    switchToSceneWithdrawal,
     switchToSceneReferralInvitation,
   }), [scene]);
 

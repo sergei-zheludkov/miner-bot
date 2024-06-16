@@ -8,7 +8,7 @@ import {
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  CountriesEnum, GenderEnum, PlacementEnum, TasksEnum,
+  CountriesEnum, GenderEnum, PlacementEnum, TasksEnum, CurrencyEnum,
 } from '@common_bot/shared';
 
 export class TaskCreateDto {
@@ -69,12 +69,20 @@ export class TaskCreateDto {
   url: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
+    enum: CurrencyEnum,
+  })
+  @IsNotEmpty()
+  @IsEnum(CurrencyEnum)
+  currency: CurrencyEnum;
+
+  @ApiProperty({
+    required: true,
     example: '0.000_000_1',
   })
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  increase_mining_rate?: string;
+  mining_rate: string;
 
   @ApiProperty({
     required: true,
@@ -85,18 +93,18 @@ export class TaskCreateDto {
   available_limit: number;
 
   @ApiProperty({
+    required: true,
+    example: '266006070',
+  })
+  @IsNotEmpty()
+  @IsString()
+  contact_id: string;
+
+  @ApiProperty({
     required: false,
     example: '-1002238903830',
   })
   @IsOptional()
   @IsString()
   check_key?: string;
-
-  @ApiProperty({
-    required: false,
-    example: ['tg:266006070', 'email:kykarek@yandex.ru', 'phone:+79238849922'],
-  })
-  @IsOptional()
-  @IsString()
-  contact?: string;
 }

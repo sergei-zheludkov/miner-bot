@@ -95,16 +95,16 @@ export class TaskService {
     });
   }
 
-  async createTask(data: TaskCreateDto) {
+  async createTask({ contact_id, ...data }: TaskCreateDto) {
     try {
       return await this.dataSource.transaction(async (manager) => {
         const tasks_repository = manager.getRepository(Task);
 
         // Нюансы передачи decimal по api
-        const new_task_data = { ...data, increase_mining_rate: 0 };
+        const new_task_data = { ...data, contact: contact_id, mining_rate: 0 };
 
-        if (!Number.isNaN(data.increase_mining_rate)) {
-          new_task_data.increase_mining_rate = Number(data.increase_mining_rate);
+        if (!Number.isNaN(data.mining_rate)) {
+          new_task_data.mining_rate = Number(data.mining_rate);
         }
         // --- --- --- --- --- --- --- ---
 
@@ -143,7 +143,7 @@ export class TaskService {
     }
   }
 
-  completeTasks(user_id: string, { tasks, increase_ton_rate }: CompletedTasksCreateDto) {
+  completeTasks(user_id: string, { tasks, currency, mining_rate }: CompletedTasksCreateDto) {
     try {
       return this.dataSource.transaction(async (manager) => {
         const tasks_repository = manager.getRepository(Task);
@@ -156,18 +156,19 @@ export class TaskService {
           }),
         );
 
-        const user_data = {
-          id: user_id,
-          increase_completed_tasks_count: tasks.length,
-        };
-
-        if (!Number.isNaN(increase_ton_rate)) {
-          const mining_data = { id: user_id, increase_ton_rate, ton_started: new Date() };
-
-          await this.miningService.updateMining(mining_data);
+        if (!Number.isNaN(mining_rate)) {
+          await this.miningService.updateMining({
+            id: user_id,
+            currency,
+            mining_rate,
+            started: new Date(),
+          });
         }
 
-        await this.userService.updateUser(user_data);
+        await this.userService.updateUser({
+          id: user_id,
+          increase_completed_tasks_count: tasks.length,
+        });
 
         const completed_tasks_data = tasks.map((id) => ({ user: user_id, task: id }));
 

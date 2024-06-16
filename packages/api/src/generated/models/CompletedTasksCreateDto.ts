@@ -4,6 +4,17 @@
 
 export type CompletedTasksCreateDto = {
     tasks: Array<number>;
-    increase_ton_rate?: string;
+    currency: CompletedTasksCreateDto.currency;
+    mining_rate?: string;
 };
+
+export namespace CompletedTasksCreateDto {
+
+    export enum currency {
+        TON = 'ton',
+        NOT = 'not',
+    }
+
+
+}
 

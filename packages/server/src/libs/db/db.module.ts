@@ -6,6 +6,7 @@ import { TaskEntity } from '../../modules/task/task.entity';
 import { UserEntity } from '../../modules/user/user.entity';
 import { WalletEntity } from '../../modules/wallet/wallet.entity';
 import { MiningEntity } from '../../modules/mining/mining.entity';
+import { WithdrawalEntity } from '../../modules/withdrawal/withdrawal.entity';
 import { CompletedTaskEntity } from '../../modules/task/completed-task.entity';
 
 @Module({
@@ -18,6 +19,7 @@ import { CompletedTaskEntity } from '../../modules/task/completed-task.entity';
           UserEntity,
           WalletEntity,
           MiningEntity,
+          WithdrawalEntity,
           TaskEntity,
           CompletedTaskEntity,
         ],

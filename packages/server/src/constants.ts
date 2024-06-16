@@ -6,4 +6,5 @@ export const TAGS = {
   USERS: 'Users',
   TASKS: 'Tasks',
   MINING: 'Mining',
+  WITHDRAWAL: 'Withdrawal',
 };

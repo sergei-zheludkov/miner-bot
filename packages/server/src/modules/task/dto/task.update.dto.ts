@@ -38,12 +38,4 @@ export class TaskUpdateDto {
   @IsOptional()
   @IsNumber()
   available_limit?: number;
-
-  @ApiProperty({
-    required: false,
-    example: ['tg:266006070', 'email:kykarek@yandex.ru', 'phone:+79238849922'],
-  })
-  @IsOptional()
-  @IsString()
-  contact?: string;
 }

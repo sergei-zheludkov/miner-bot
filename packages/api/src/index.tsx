@@ -8,8 +8,19 @@ export type {
   UserCreateDto,
   UserUpdateDto,
 
+  WalletEntity,
+
+  MiningEntity,
+  MiningUpdateDto,
+
+  WithdrawalEntity,
+  WithdrawalCreateDto,
+  WithdrawalUpdateDto,
+
   TaskEntity,
   TaskCreateDto,
   TaskUpdateDto,
+
+  CompletedTaskEntity,
   CompletedTasksCreateDto,
 } from './generated';

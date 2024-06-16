@@ -1,10 +1,8 @@
 import {
-  IsOptional,
-  IsString,
-  IsNotEmpty,
-  IsArray,
+  IsString, IsNotEmpty, IsArray, IsEnum,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { CurrencyEnum } from '@common_bot/shared';
 
 export class CompletedTasksCreateDto {
   @ApiProperty({
@@ -17,10 +15,18 @@ export class CompletedTasksCreateDto {
   tasks: number[];
 
   @ApiProperty({
+    required: true,
+    enum: CurrencyEnum,
+  })
+  @IsNotEmpty()
+  @IsEnum(CurrencyEnum)
+  currency: CurrencyEnum;
+
+  @ApiProperty({
     required: false,
     example: '0.000_000_1',
   })
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  increase_ton_rate?: string;
+  mining_rate: string;
 }

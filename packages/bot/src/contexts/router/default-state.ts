@@ -24,5 +24,6 @@ export const defaultState: ContextState = {
   switchToSceneAddTaskLimit: empty,
   switchToSceneTaskController: empty,
   switchToSceneTaskNotification: empty,
+  switchToSceneWithdrawal: empty,
   switchToSceneReferralInvitation: empty,
 };

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
-import { DATE } from '@common_bot/shared';
+import { CurrencyEnum, DATE } from '@common_bot/shared';
 import { DataSource, Repository } from 'typeorm';
 import { toPromise } from '../../helpers';
 import { logger } from '../../libs/logger/logger.instance';
@@ -84,7 +84,11 @@ export class UserService {
         }
 
         // Создаем кошелек с бонусом для нового юзера
-        await this.walletService.createWallet({ id, ton_amount: 0 });
+        await this.walletService.createWallet({
+          id,
+          amount: 0,
+          currency: CurrencyEnum.TON,
+        });
 
         // Создаем маининг для нового юзера
         await this.miningService.createMining({ id });
@@ -119,10 +123,19 @@ export class UserService {
           await users_repository.increment({ id: who_invited }, 'referral_counter', 1);
 
           // Начисляем бонус тому кто пригласил
-          await this.walletService.updateWallet({ id: who_invited, operation: 'increase', ton_amount: 0.005 });
+          await this.walletService.updateWallet({
+            id: who_invited,
+            operation: 'increase',
+            amount: 0.005,
+            currency: CurrencyEnum.TON,
+          });
 
           // Создаем кошелек с бонусом для нового юзера
-          await this.walletService.createWallet({ id, ton_amount: 0.005 });
+          await this.walletService.createWallet({
+            id,
+            amount: 0.005,
+            currency: CurrencyEnum.TON,
+          });
 
           // Создаем маининг для нового юзера
           await this.miningService.createMining({ id });

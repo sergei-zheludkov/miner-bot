@@ -14,6 +14,7 @@ export enum QUESTION_KEYS {
   COUNTRY = 'country',
   PLACEMENT = 'placement',
   GENDER = 'gender',
+  CURRENCY = 'currency',
   INCREASE_MINING_RATE = 'increase_mining_rate',
 
   AVAILABLE_LIMIT = 'available_limit',

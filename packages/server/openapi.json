@@ -324,36 +324,6 @@
       }
     },
     "/api/v1/mining": {
-      "post": {
-        "operationId": "postMining",
-        "summary": "Creating new mining in db",
-        "tags": [
-          "Mining"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MiningCreateDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Mining has been successfully created.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MiningEntity"
-                }
-              }
-            }
-          }
-        }
-      },
       "patch": {
         "operationId": "patchMining",
         "summary": "Updating mining data",
@@ -384,6 +354,153 @@
           },
           "404": {
             "description": "Mining not found."
+          }
+        }
+      }
+    },
+    "/api/v1/withdrawals/{id}": {
+      "get": {
+        "operationId": "getOneWithdrawal",
+        "summary": "Returning information about withdrawal",
+        "tags": [
+          "Withdrawal"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Withdrawal has been found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WithdrawalEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Withdrawal not found."
+          }
+        }
+      }
+    },
+    "/api/v1/withdrawals": {
+      "get": {
+        "operationId": "getWithdrawals",
+        "summary": "Returning information about withdrawals",
+        "tags": [
+          "Withdrawal"
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Withdrawals has been found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WithdrawalEntity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "postWithdrawal",
+        "summary": "Creating new withdrawal in db",
+        "tags": [
+          "Withdrawal"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WithdrawalCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Withdrawals has been successfully created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WithdrawalEntity"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateWithdrawal",
+        "summary": "Updating withdrawal data",
+        "tags": [
+          "Withdrawal"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WithdrawalUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Withdrawals has been updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WithdrawalEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Withdrawals not found."
           }
         }
       }
@@ -518,6 +635,7 @@
               "admin",
               "support",
               "affiliate",
+              "advertiser",
               "user"
             ]
           },
@@ -695,13 +813,21 @@
               "type": "number"
             }
           },
-          "increase_ton_rate": {
+          "currency": {
+            "type": "string",
+            "enum": [
+              "ton",
+              "not"
+            ]
+          },
+          "mining_rate": {
             "type": "string",
             "example": "0.000_000_1"
           }
         },
         "required": [
-          "tasks"
+          "tasks",
+          "currency"
         ]
       },
       "TaskEntity": {
@@ -753,7 +879,14 @@
             "type": "string",
             "example": "https://t.me/bro_development"
           },
-          "increase_mining_rate": {
+          "currency": {
+            "type": "string",
+            "enum": [
+              "ton",
+              "not"
+            ]
+          },
+          "mining_rate": {
             "type": "number",
             "example": 1e-7
           },
@@ -771,13 +904,12 @@
             "example": 5
           },
           "contact": {
-            "type": "string",
-            "example": [
-              "tg:266006070",
-              "email:kykarek@yandex.ru",
-              "phone:+79238849922"
-            ],
-            "nullable": true
+            "nullable": false,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserEntity"
+              }
+            ]
           },
           "created": {
             "format": "date-time",
@@ -804,7 +936,8 @@
           "gender",
           "description",
           "url",
-          "increase_mining_rate",
+          "currency",
+          "mining_rate",
           "available_limit",
           "check_key",
           "complete_count",
@@ -885,7 +1018,14 @@
             "type": "string",
             "example": "https://t.me/bro_development"
           },
-          "increase_mining_rate": {
+          "currency": {
+            "type": "string",
+            "enum": [
+              "ton",
+              "not"
+            ]
+          },
+          "mining_rate": {
             "type": "string",
             "example": "0.000_000_1"
           },
@@ -893,17 +1033,13 @@
             "type": "number",
             "example": 1000
           },
+          "contact_id": {
+            "type": "string",
+            "example": "266006070"
+          },
           "check_key": {
             "type": "string",
             "example": "-1002238903830"
-          },
-          "contact": {
-            "type": "string",
-            "example": [
-              "tg:266006070",
-              "email:kykarek@yandex.ru",
-              "phone:+79238849922"
-            ]
           }
         },
         "required": [
@@ -914,7 +1050,10 @@
           "gender",
           "description",
           "url",
-          "available_limit"
+          "currency",
+          "mining_rate",
+          "available_limit",
+          "contact_id"
         ]
       },
       "TaskUpdateDto": {
@@ -935,36 +1074,11 @@
           "available_limit": {
             "type": "number",
             "example": 1000
-          },
-          "contact": {
-            "type": "string",
-            "example": [
-              "tg:266006070",
-              "email:kykarek@yandex.ru",
-              "phone:+79238849922"
-            ]
           }
         },
         "required": [
           "id",
           "name"
-        ]
-      },
-      "MiningCreateDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "example": "266006070"
-          },
-          "ton_started": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2022-10-21T19:48:59.726Z"
-          }
-        },
-        "required": [
-          "id"
         ]
       },
       "MiningUpdateDto": {
@@ -974,18 +1088,152 @@
             "type": "string",
             "example": "266006070"
           },
-          "ton_started": {
+          "currency": {
+            "type": "string",
+            "enum": [
+              "ton",
+              "not"
+            ]
+          },
+          "mining_rate": {
+            "type": "string",
+            "example": "0.000_000_1"
+          },
+          "started": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          }
+        },
+        "required": [
+          "id",
+          "currency"
+        ]
+      },
+      "WithdrawalEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 3
+          },
+          "user": {
+            "nullable": false,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserEntity"
+              }
+            ]
+          },
+          "address": {
+            "type": "string",
+            "example": "UQD2WTp9z4qlXhYpiuI7WygQR59MC8dVxRCztvUtJrhLtRRE",
+            "nullable": false
+          },
+          "network": {
+            "type": "string",
+            "example": "TRC20",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "ton",
+              "not"
+            ]
+          },
+          "amount": {
+            "type": "number",
+            "example": 0.5
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "consideration",
+              "confirmed",
+              "rejected",
+              "canceled",
+              "paid"
+            ]
+          },
+          "created": {
             "format": "date-time",
             "type": "string",
             "example": "2022-10-21T19:48:59.726Z"
           },
-          "increase_ton_rate": {
+          "updated": {
+            "format": "date-time",
             "type": "string",
-            "example": "0.000_000_1"
+            "example": "2022-10-21T19:48:59.726Z"
           }
         },
         "required": [
-          "id"
+          "id",
+          "user",
+          "address",
+          "network",
+          "currency",
+          "amount",
+          "status",
+          "created",
+          "updated"
+        ]
+      },
+      "WithdrawalCreateDto": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "example": "266006070"
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "ton",
+              "not"
+            ]
+          },
+          "amount": {
+            "type": "string",
+            "example": "1.1"
+          },
+          "address": {
+            "type": "string",
+            "example": "UQD2WTp9z4qlXhYpiuI7WygQR59MC8dVxRCztvUtJrhLtRRE"
+          },
+          "network": {
+            "type": "string",
+            "example": "TRC20"
+          }
+        },
+        "required": [
+          "user_id",
+          "currency",
+          "amount",
+          "address"
+        ]
+      },
+      "WithdrawalUpdateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 3
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "consideration",
+              "confirmed",
+              "rejected",
+              "canceled",
+              "paid"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "status"
         ]
       }
     }

@@ -21,6 +21,7 @@ export type ContextState = {
   switchToSceneAddTaskLimit: () => void;
   switchToSceneTaskController: () => void;
   switchToSceneTaskNotification: () => void;
+  switchToSceneWithdrawal: () => void;
   switchToSceneReferralInvitation: () => void;
 }
 

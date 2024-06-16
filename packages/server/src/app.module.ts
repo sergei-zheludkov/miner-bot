@@ -7,6 +7,7 @@ import { UserModule } from './modules/user/user.module';
 import { TaskModule } from './modules/task/task.module';
 import { WalletModule } from './modules/wallet/wallet.module';
 import { MiningModule } from './modules/mining/mining.module';
+import { WithdrawalModule } from './modules/withdrawal/withdrawal.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { MiningModule } from './modules/mining/mining.module';
     TaskModule,
     WalletModule,
     MiningModule,
+    WithdrawalModule,
   ],
 })
 export class AppModule {}

@@ -1,4 +1,9 @@
-import { CountriesEnum, PlacementEnum, TasksEnum } from '@common_bot/shared';
+import {
+  CountriesEnum,
+  PlacementEnum,
+  TasksEnum,
+  WithdrawalStatusEnum,
+} from '@common_bot/shared';
 
 export const ru = {
   common: {
@@ -22,6 +27,7 @@ export const ru = {
     [CountriesEnum.KAZAKHSTAN]: '🇰🇿',
   },
   buttons: {
+    main_menu: '📱 Главное меню',
     mining: '🚀 Майнинг',
     tasks: '📂 Задания',
     referral: '💎 Партнеры',
@@ -39,7 +45,7 @@ export const ru = {
     back: '🔙 Назад',
     exit: '🔚 Выход',
     change: '🖊 Изменить',
-    confirm: '☑️️ Применить',
+    confirm: '☑️️ Подтверждаю',
     go_to: '🔗 Перейти',
     great: '✅ Отлично!',
     ready: '✅ Готово',
@@ -171,6 +177,10 @@ export const ru = {
           message: 'Укажи гендер на который нужно отображать задания',
           error: '',
         },
+        currency: {
+          message: 'Укажи токен(монету) для вознаграждения',
+          error: '',
+        },
         increase_mining_rate: {
           message: 'Наберите майнинг-рейт за выполнение задания',
           error: '',
@@ -247,6 +257,40 @@ export const ru = {
       title: 'По вашей ссылке зарегистрировался юзер @',
       invitation_bonus_prefix: 'Вы получили',
       invitation_bonus_postfix: 'на баланс',
+    },
+  },
+  withdrawals: {
+    address_addition: {
+      message_prefix: 'Введите адрес вашего',
+      message_postfix: 'кошелька',
+      ps: '*Его можно будет изменить/удалить в настройках в будущем',
+    },
+    amount_controller: {
+      message: 'Укажите сумму для вывода',
+      available: 'Максимально доступно:',
+      withdrawn: 'Вывести:',
+      error_increase: 'Не может превышать',
+      error_decrease: 'Не может быть менее',
+    },
+    confirmation: {
+      title: 'Подтверждение вывода',
+      on_address: 'На адрес:',
+      amount: 'Количество',
+      currency: 'Валюта:',
+      description_block_amount: '*Сумма будет списана(заблокирована) с вашего баланса сразу.',
+      description_consideration: '*Рассмотрение и обработка операции может занять несколько дней.',
+    },
+    success: {
+      message: 'Заявка на вывод создана!',
+      number: 'Номер заявки:',
+    },
+    status: {
+      title: 'Статус:',
+      [WithdrawalStatusEnum.CONSIDERATION]: '🟡 На рассмотрении',
+      [WithdrawalStatusEnum.CANCELED]: '⚪ Отменено',
+      [WithdrawalStatusEnum.REJECTED]: '🔴 Отклонено',
+      [WithdrawalStatusEnum.CONFIRMED]: '🟢 Подтверждено',
+      [WithdrawalStatusEnum.PAID]: '🔵 Выплачено',
     },
   },
 };

@@ -3,7 +3,7 @@ import { ButtonGroup, Button } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { MATH } from '@common_bot/shared';
 import { useUser } from '../../contexts';
-import { useMining } from './use-mining';
+import { useMiningTon } from './use-mining-ton';
 import {
   isActiveState, isRegisteredState, isRegistrationState, isTransferredState,
 } from './predicates';
@@ -19,7 +19,7 @@ export const Mining = () => {
     handleClickReady,
     handleClickGet,
     handleClickBack,
-  } = useMining();
+  } = useMiningTon();
 
   const balance = getMinedTokenAmount(mining.ton_rate, mining.ton_started || '');
 

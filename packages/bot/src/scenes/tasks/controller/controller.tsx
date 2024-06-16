@@ -79,9 +79,9 @@ export const Controller = () => {
       <>
         {t('list.task_completed')}
         &#32;
-        <b>{getCryptoAmount(task?.increase_mining_rate)}</b>
+        <b>{getCryptoAmount(task?.mining_rate)}</b>
         &#32;
-        TON
+        {task.currency.toUpperCase()}
       </>
     );
 
@@ -142,9 +142,9 @@ export const Controller = () => {
         <br />
         {t('list.task_reward')}
         &#32;
-        <b>{getCryptoAmount(task?.increase_mining_rate)}</b>
+        <b>{getCryptoAmount(task?.mining_rate)}</b>
         &#32;
-        TON
+        {task.currency.toUpperCase()}
       </>
     );
 
