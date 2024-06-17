@@ -58,13 +58,6 @@ export const Mining = () => {
           {t('done')}
           <br />
           <br />
-          {t('mined')}
-          &#32;
-          <b>{balance}</b>
-          &#32;
-          TON
-          <br />
-          <br />
           {t('rate')}
           &#32;
           <b>0.0000001000</b>
@@ -117,7 +110,11 @@ export const Mining = () => {
       return registrationButtons;
     }
 
-    if (isRegisteredState(state) || isActiveState(state)) {
+    if (isRegisteredState(state)) {
+      return backButton;
+    }
+
+    if (isActiveState(state)) {
       return activeButton;
     }
 
