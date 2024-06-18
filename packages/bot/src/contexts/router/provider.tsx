@@ -17,13 +17,13 @@ export const RouterProvider = ({ children }: ProviderProps) => {
   const switchToMenuSupport = () => setScene(T.MenuEnum.SUPPORT);
   const switchToMenuReferral = () => setScene(T.MenuEnum.REFERRAL);
   const switchToMenuSettings = () => setScene(T.MenuEnum.SETTINGS);
+  const switchToMenuInformation = () => setScene(T.MenuEnum.INFORMATION);
   const switchToMenuTasksControl = () => setScene(T.MenuEnum.TASKS_CONTROL);
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
   const switchToSceneReset = () => setScene(T.SceneEnum.RESET);
   const switchToSceneMining = () => setScene(T.SceneEnum.MINING);
   const switchToSceneBalance = () => setScene(T.SceneEnum.BALANCE);
   const switchToSceneGreeting = () => setScene(T.SceneEnum.GREETING);
-  const switchToSceneInformation = () => setScene(T.SceneEnum.INFORMATION);
   const switchToSceneSettingsLanguage = () => setScene(T.SceneEnum.SETTINGS_LANGUAGE);
   const switchToSceneCreateTask = () => setScene(T.SceneEnum.CREATE_TASK);
   const switchToSceneAddTaskLimit = () => setScene(T.SceneEnum.ADD_TASK_LIMIT);
@@ -31,6 +31,8 @@ export const RouterProvider = ({ children }: ProviderProps) => {
   const switchToSceneTaskNotification = () => setScene(T.SceneEnum.TASK_NOTIFICATION);
   const switchToSceneWithdrawal = () => setScene(T.SceneEnum.WITHDRAWAL);
   const switchToSceneReferralInvitation = () => setScene(T.SceneEnum.REFERRAL_INVITATION);
+  const switchToSceneRules = () => setScene(T.SceneEnum.RULES);
+  const switchToSceneContacts = () => setScene(T.SceneEnum.CONTACTS);
 
   useCommand(switchToMenuMain, '/main_menu');
 
@@ -42,13 +44,13 @@ export const RouterProvider = ({ children }: ProviderProps) => {
     switchToMenuSupport,
     switchToMenuReferral,
     switchToMenuSettings,
+    switchToMenuInformation,
     switchToMenuTasksControl,
-    // -- -- -- -- -- -- -- -- --
     switchToSceneReset,
+    // -- -- -- -- -- -- -- -- --
     switchToSceneMining,
     switchToSceneBalance,
     switchToSceneGreeting,
-    switchToSceneInformation,
     switchToSceneSettingsLanguage,
     switchToSceneCreateTask,
     switchToSceneAddTaskLimit,
@@ -56,6 +58,8 @@ export const RouterProvider = ({ children }: ProviderProps) => {
     switchToSceneTaskNotification,
     switchToSceneWithdrawal,
     switchToSceneReferralInvitation,
+    switchToSceneRules,
+    switchToSceneContacts,
   }), [scene]);
 
   return (

@@ -17,9 +17,6 @@ export const SceneSwitcher = () => {
       return <Scene.Greeting />;
 
     // ----------------------------------------MAIN MENU---------------------------------------
-    case T.SceneEnum.INFORMATION:
-      return <Scene.Information />;
-
     case T.SceneEnum.MINING:
       return (
         <SceneWrapper type="remove-keyboard">
@@ -43,6 +40,12 @@ export const SceneSwitcher = () => {
 
     case T.SceneEnum.WITHDRAWAL:
       return <Scene.Withdrawal />;
+
+    case T.SceneEnum.RULES:
+      return <Scene.Rules />;
+
+    case T.SceneEnum.CONTACTS:
+      return <Scene.Contacts />;
 
     // ----------------------------------------ADMIN MENU--------------------------------------
     case T.MenuEnum.TASKS_CONTROL:
@@ -79,6 +82,9 @@ export const SceneSwitcher = () => {
 
     case T.MenuEnum.SETTINGS:
       return <Menu.Settings />;
+
+    case T.MenuEnum.INFORMATION:
+      return <Menu.Information />;
 
     // ----------------------------------------------------------------------------------------
     default:

@@ -30,7 +30,23 @@ export const Registration = ({ refId, getUser }: Props) => {
   if (isRegistered) {
     logScene(chat.id, 'scene_registration_success', chat.username);
 
-    return <Text>{t('success')}</Text>;
+    return (
+      <>
+        <Text>{t('success')}</Text>
+        <Text>
+          <b>{t('rules:title')}</b>
+          <br />
+          <br />
+          -
+          &#32;
+          {t('rules:multi_accounting')}
+          <br />
+          -
+          &#32;
+          {t('rules:fraud')}
+        </Text>
+      </>
+    );
   }
 
   if (!isRegistered && isSentData) {

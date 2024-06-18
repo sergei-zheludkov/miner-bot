@@ -5,7 +5,6 @@ export enum SceneEnum {
   MINING = 'scene_mining',
   BALANCE = 'scene_balance',
   GREETING = 'scene_greeting',
-  INFORMATION = 'scene_information',
 
   SETTINGS_LANGUAGE = 'scene_settings_language',
 
@@ -17,6 +16,9 @@ export enum SceneEnum {
   WITHDRAWAL = 'scene_withdrawal',
   REFERRAL_INVITATION = 'scene_referral_invitation',
 
+  RULES = 'scene_rules',
+  CONTACTS = 'scene_contacts',
+
   RESET = 'scene_reset',
   DISABLE = 'scene_disable'
 }
@@ -27,6 +29,7 @@ export enum MenuEnum {
   SUPPORT = 'support_menu',
   REFERRAL = 'referral_menu',
   SETTINGS = 'settings_menu',
+  INFORMATION = 'information_menu',
   TASKS_CONTROL = 'tasks_control_menu'
 }
 

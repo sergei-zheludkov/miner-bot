@@ -21,16 +21,14 @@ export class WalletService {
         const wallet_repository = manager.getRepository(Wallet);
 
         // TODO Подумать над выбросом ошибки в случае если кошелек создан
-        const { id } = data;
+        const { id, currency, amount } = data;
         const wallet_in_db = await findOne(wallet_repository, id);
 
         if (wallet_in_db) {
           return wallet_in_db;
         }
 
-        const new_wallet = wallet_repository.create(data);
-
-        return wallet_repository.save(new_wallet);
+        return wallet_repository.save({ id, [`${currency}_amount`]: amount });
       });
     } catch (error) {
       logger.error('WalletService(createWallet):', error);

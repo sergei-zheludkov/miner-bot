@@ -5,7 +5,10 @@ import { MATH } from '@common_bot/shared';
 import { useUser } from '../../contexts';
 import { useMiningTon } from './use-mining-ton';
 import {
-  isActiveState, isRegisteredState, isRegistrationState, isTransferredState,
+  isActiveState,
+  isRegisteredState,
+  isRegistrationState,
+  isTransferredState,
 } from './predicates';
 
 const { getCryptoAmount, getMinedTokenAmount } = MATH;
