@@ -42,7 +42,7 @@ export const Referral = () => {
       &#32;
       <i>{t('common:and')}</i>
       &#32;
-      <b>3%*</b>
+      <b>2%*</b>
       <br />
       <br />
       *&#32;

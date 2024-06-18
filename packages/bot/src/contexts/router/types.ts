@@ -9,13 +9,13 @@ export type ContextState = {
   switchToMenuSupport: () => void;
   switchToMenuReferral: () => void;
   switchToMenuSettings: () => void;
+  switchToMenuInformation: () => void;
   switchToMenuTasksControl: () => void;
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
   switchToSceneReset: () => void;
   switchToSceneMining: () => void;
   switchToSceneBalance: () => void;
   switchToSceneGreeting: () => void;
-  switchToSceneInformation: () => void;
   switchToSceneSettingsLanguage: () => void;
   switchToSceneCreateTask: () => void;
   switchToSceneAddTaskLimit: () => void;
@@ -23,6 +23,8 @@ export type ContextState = {
   switchToSceneTaskNotification: () => void;
   switchToSceneWithdrawal: () => void;
   switchToSceneReferralInvitation: () => void;
+  switchToSceneRules: () => void;
+  switchToSceneContacts: () => void;
 }
 
 export type ProviderProps = {

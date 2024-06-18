@@ -3,13 +3,16 @@ import { ButtonGroup, Button, useText } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter } from '../../contexts';
 
-export const Settings = () => {
-  const { t } = useTranslation(['buttons']);
-  const { switchToSceneSettingsLanguage, switchToMenuMain } = useRouter();
+export const Information = () => {
+  const { t } = useTranslation('buttons');
+  const { switchToSceneRules, switchToSceneContacts, switchToMenuMain } = useRouter();
 
   /* ---------- BUTTON HOOKS ---------- */
-  const language = t('language');
-  useText(switchToSceneSettingsLanguage, language);
+  const rules = t('rules');
+  useText(switchToSceneRules, rules);
+
+  const contacts = t('contacts');
+  useText(switchToSceneContacts, contacts);
 
   const back = t('back');
   useText(switchToMenuMain, back);
@@ -19,10 +22,11 @@ export const Settings = () => {
     <ButtonGroup
       isReplyButtons
       isResizedKeyboard
-      maxColumns={1}
-      title={t('menu:settings')}
+      maxColumns={2}
+      title={t('menu:information')}
     >
-      <Button>{language}</Button>
+      <Button>{rules}</Button>
+      <Button>{contacts}</Button>
       <Button>{back}</Button>
     </ButtonGroup>
   );

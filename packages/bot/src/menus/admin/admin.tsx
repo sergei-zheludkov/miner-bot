@@ -17,7 +17,7 @@ export const Admin = () => {
   const tasks_control_menu = t('tasks');
   useText(switchToMenuTasksControl, tasks_control_menu);
 
-  const title = t(isUserAdmin ? 'admin:message' : 'admin:error');
+  const title = t(isUserAdmin ? 'menu:admin' : 'admin:error');
 
   return (
     <ButtonGroup

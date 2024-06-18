@@ -7,7 +7,6 @@ import {
 } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter } from '../../contexts';
-// import { useCommonMainMenu } from './use-common-main-menu';
 
 export const Main = () => {
   const {
@@ -17,11 +16,10 @@ export const Main = () => {
     // switchToMenuSettings,
     switchToSceneMining,
     switchToSceneBalance,
-    switchToSceneInformation,
+    switchToMenuInformation,
     switchToSceneTaskController,
   } = useRouter();
   const { t } = useTranslation('buttons');
-  // const { message } = useCommonMainMenu();
 
   /* ---------- BUTTON HOOKS ---------- */
   useCommand(switchToMenuAdmin, '/admin');
@@ -43,11 +41,11 @@ export const Main = () => {
   // useText(switchToMenuSettings, settings);
 
   const information = t('information');
-  useText(switchToSceneInformation, information);
+  useText(switchToMenuInformation, information);
   /* --------------------------------- */
 
   return (
-    <ButtonGroup isReplyButtons isResizedKeyboard title={t('common:main_menu')}>
+    <ButtonGroup isReplyButtons isResizedKeyboard title={t('menu:main')}>
       {[<Button key="mining">{mining}</Button>]}
       {[<Button key="tasks">{tasks}</Button>, <Button key="referral">{referral}</Button>]}
       {[<Button key="balance">{balance}</Button>, <Button key="information">{information}</Button>]}

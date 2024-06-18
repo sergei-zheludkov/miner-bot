@@ -5,9 +5,16 @@ import { useRouter } from '../../contexts';
 
 export const Greeting = () => {
   const { switchToMenuMain } = useRouter();
-  const { t } = useTranslation();
+  const { t } = useTranslation('greeting');
 
   useEffect(switchToMenuMain, []);
 
-  return <Text>{t('greeting')}</Text>;
+  return (
+    <Text>
+      {t('title')}
+      <br />
+      <br />
+      {t('description')}
+    </Text>
+  );
 };
