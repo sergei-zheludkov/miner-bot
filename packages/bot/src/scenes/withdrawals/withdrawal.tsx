@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, useText } from '@urban-bot/core';
+import { useText } from '@urban-bot/core';
 import { CurrencyEnum } from '@common_bot/shared';
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter } from '../../contexts';
+import { Error } from '../../components';
 import { Reset } from '../reset';
 import { useWithdrawal } from './use-withdrawal';
 import { AddressInput } from './address-input';
@@ -70,8 +71,7 @@ export const Withdrawal = () => {
   }
 
   if (isPostError) {
-    // TODO: Реализовать компонент ERROR
-    return <Text>Error!!!</Text>;
+    return <Error />;
   }
 
   if (isPostSuccess && withdrawal) {
