@@ -10,9 +10,9 @@ export const Notification = () => {
   // TODO валидацию
   useText((event) => handleGeo(event.text));
 
-  const input = (<Text>Введи ГЕО</Text>);
-  const check = (<Text>Проверка уведомления</Text>);
-  const send = (<Text>Отправлено</Text>);
+  const input = <Text>Введи ГЕО</Text>;
+  const check = <Text>Проверка уведомления</Text>;
+  const send = <Text>Отправлено</Text>;
 
   switch (state) {
     case NOTIFICATION_STATE.INPUT:
