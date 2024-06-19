@@ -38,10 +38,41 @@ Promocode: 6481073677
 
 1. Переходишь в  `Товары => Виртуальные серверы => +Заказать`.
 2. Далее в `Товары => Домены => +Регистрация`.
-
-4. Задаешь пароль для входа на сервер: `Товары => Виртуальные серверы => Инструкция => Пароль`.
-5. Спускаешься в `Панель управления => ispManager` и вводишь логин пароль.
-6. 
+3. Задаешь пароль для входа на сервер: `Товары => Виртуальные серверы => Инструкция => Пароль`.
+4. Спускаешься в `Панель управления => ispManager` и вводишь логин пароль.
+5. Прикрепляешь домен в `Сайты => Создать сайт`.
+6. В `... => Конфиг. файл` прописываешь следующие locations:
+    ```
+    add_header 'Access-Control-Allow-Origin' '*';
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+    add_header 'Access-Control-Allow-Headers' 'Content-Type,Accept';
+    location /api/ {
+        access_log /var/log/nginx/server-access-api.log;
+        error_log /var/log/nginx/server-error-api.log;
+        proxy_pass http://localhost:3000/api/;
+        proxy_redirect off;
+    }
+    location /bot/ {
+        access_log /var/log/nginx/telegram-access-api.log;
+        error_log /var/log/nginx/telegram-error-api.log;
+        proxy_pass http://localhost:5050/;
+        proxy_redirect off;
+    }
+    ```
+7. Перезапускаешь **nginx** в shell-клиенте: `sudo systemctl restart nginx`.
+8. Подключаешься по SSH к серверу `ssh name@ip`.
+9. Настраиваешь подключение к **github** к серверу по **SSH** по [инструкции](https://habr.com/ru/articles/755036/).
+10. Клонируешь проект в папку
+11. Устанавливаешь nodejs через nvm по [инструкции п.3](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04).
+12. Устанавливаешь docker по [инструкции](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04).
+13. Вносишь настройки в .env файлы и добавляешь init_scripts.
+14. Прописываешь в .env бота `WEBHOOK_HOST` на локальной машине.
+15. Прописываешь в .env бота `TELEGRAM_TOKEN` на локальной машине. 
+16. Запускаешь команду в shell-клиенте команду `urban-bot set-webhook telegram`
+17. Переходишь в папку проекта.
+18. Запускаешь `docker compose up -d postgres`.
+19. Запускаешь `docker compose up -d server`.
+20. Запускаешь `docker compose up -d bot`.
 
 ## New version deploy
 
@@ -71,9 +102,7 @@ Promocode: 6481073677
 
 ---
 
-## DOCKER 
-
-[DOCKER UBUNTU INSTALL GUIDE](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
+## DOCKER
 
 #### container list
 `docker ps`
