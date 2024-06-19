@@ -109,12 +109,6 @@ export const useController = () => {
     }
   };
 
-  const handleClickBack = () => {
-    getUser();
-
-    switchToMenuMain();
-  };
-
   // useEffect(() => {
   //   checkTasksForCompletion(tasks);
   // }, [tasks.length]);
@@ -134,6 +128,5 @@ export const useController = () => {
     handleClickNext,
     handleClickReady,
     handleClickGreat,
-    handleClickBack,
   };
 };

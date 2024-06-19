@@ -3,11 +3,13 @@ import { ButtonGroup, Button, useText } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 // import { predicates, RoleEnum } from '@common_bot/shared';
 import { useRouter, useUser } from '../../contexts';
+import { Loading } from '../../components';
 
 export const Referral = () => {
   const { user } = useUser();
   const { t } = useTranslation(['buttons']);
   const { switchToSceneReferralInvitation, switchToMenuMain } = useRouter();
+  const { isGetLoading } = useUser();
 
   /* ---------- BUTTON HOOKS ---------- */
   const invite = t('invite');
@@ -16,6 +18,10 @@ export const Referral = () => {
   const back = t('back');
   useText(switchToMenuMain, back);
   /* --------------------------------- */
+
+  if (isGetLoading) {
+    return <Loading />;
+  }
 
   const title = (
     <>

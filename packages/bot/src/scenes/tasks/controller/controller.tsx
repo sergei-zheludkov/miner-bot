@@ -1,8 +1,9 @@
 import React from 'react';
-import { Button, ButtonGroup, Text } from '@urban-bot/core';
+import { Button, ButtonGroup } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { MATH } from '@common_bot/shared';
 import { useRouter, useUser } from '../../../contexts';
+import { Loading } from '../../../components';
 import { useController } from './use-controller';
 
 const { getCryptoAmount } = MATH;
@@ -10,7 +11,8 @@ const { getCryptoAmount } = MATH;
 export const Controller = () => {
   const { t } = useTranslation('tasks');
   const { switchToSceneMining, switchToMenuReferral } = useRouter();
-  const { user } = useUser();
+  const { user, isGetLoading: isGetUserLoading } = useUser();
+  const { switchToMenuMain } = useRouter();
   const {
     tasks,
     taskNumber,
@@ -25,24 +27,16 @@ export const Controller = () => {
     handleClickNext,
     handleClickReady,
     handleClickGreat,
-    handleClickBack,
   } = useController();
 
   const backButton = [
-    <Button key="back-to-main-menu" onClick={handleClickBack}>
+    <Button key="back-to-main-menu" onClick={switchToMenuMain}>
       {t('buttons:back')}
     </Button>,
   ];
 
-  if (/* !isChecked || */ !isGetCalled || isGetLoading) {
-    // TODO в отдельный компонент
-    return (
-      <Text isNewMessageEveryRender={false}>
-        🤖
-        &#32;
-        {t('common:loading')}
-      </Text>
-    );
+  if (/* !isChecked || */ !isGetCalled || isGetLoading || isGetUserLoading) {
+    return <Loading />;
   }
 
   if (!user.mining.ton_started) {
@@ -74,12 +68,12 @@ export const Controller = () => {
 
   const task = tasks[taskNumber];
 
-  if (isPostSuccess) {
+  if (isPostSuccess && task) {
     const title = (
       <>
         {t('list.task_completed')}
         &#32;
-        <b>{getCryptoAmount(task?.mining_rate)}</b>
+        <b>{getCryptoAmount(task.mining_rate)}</b>
         &#32;
         {task.currency.toUpperCase()}
       </>
@@ -123,7 +117,7 @@ export const Controller = () => {
     );
   }
 
-  if (isGetSuccess && !isEmptyList) {
+  if (isGetSuccess && !isEmptyList && task) {
     const title = (
       <>
         <b>{t('list.task_title')}</b>
@@ -142,7 +136,7 @@ export const Controller = () => {
         <br />
         {t('list.task_reward')}
         &#32;
-        <b>{getCryptoAmount(task?.mining_rate)}</b>
+        <b>{getCryptoAmount(task.mining_rate)}</b>
         &#32;
         {task.currency.toUpperCase()}
       </>

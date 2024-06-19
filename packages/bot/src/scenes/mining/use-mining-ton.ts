@@ -4,7 +4,7 @@ import type { UrbanBotTelegram } from '@urban-bot/telegram';
 import { useTranslation } from '@common_bot/i18n';
 import { useApi, useQuery, CompletedTasksCreateDto } from '@common_bot/api';
 import { PlacementEnum, CurrencyEnum } from '@common_bot/shared';
-import { useUser, useRouter } from '../../contexts';
+import { useUser } from '../../contexts';
 import { usePostCompleteTask } from '../tasks';
 import { MINING_STATES } from './constants';
 import { getStartedState } from './helpers';
@@ -15,8 +15,7 @@ const currency = CurrencyEnum.TON as unknown as CompletedTasksCreateDto['currenc
 export const useMiningTon = () => {
   const { t } = useTranslation('common');
   const { bot } = useBotContext<UrbanBotTelegram>();
-  const { switchToMenuMain } = useRouter();
-  const { user, getUser } = useUser();
+  const { user } = useUser();
   const { getTasks: getTasksApi } = useApi().task;
   const { patchMining: patchMiningApi } = useApi().mining;
   const { isPostCalled, isPostSuccess, postCompleteTask } = usePostCompleteTask();
@@ -88,12 +87,6 @@ export const useMiningTon = () => {
     setState(MINING_STATES.TRANSFERRED);
   };
 
-  const handleClickBack = () => {
-    getUser();
-
-    switchToMenuMain();
-  };
-
   return {
     state,
     tasks,
@@ -102,6 +95,5 @@ export const useMiningTon = () => {
     isPostSuccess,
     handleClickReady,
     handleClickGet,
-    handleClickBack,
   };
 };

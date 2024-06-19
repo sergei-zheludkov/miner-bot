@@ -2,7 +2,8 @@ import React from 'react';
 import { Button, ButtonGroup } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { MATH } from '@common_bot/shared';
-import { useRouter } from '../../contexts';
+import { useRouter, useUser } from '../../contexts';
+import { Loading } from '../../components';
 import { useBalance } from './use-balance';
 
 const { getCryptoAmount } = MATH;
@@ -11,8 +12,12 @@ export const Balance = () => {
   const { t } = useTranslation('balance');
   const { switchToMenuMain } = useRouter();
   const { wallet, handleClickWithdrawn } = useBalance();
+  const { isGetLoading } = useUser();
 
-  // TODO info message
+  if (isGetLoading) {
+    return <Loading />;
+  }
+
   const title = (
     <>
       {t('message')}

@@ -14,7 +14,7 @@ export const Contacts = () => {
       <br />
       {t('advertisement')}
       &#32;
-      @pizdohan
+      @crypto_bot_owner
     </>
   );
 
