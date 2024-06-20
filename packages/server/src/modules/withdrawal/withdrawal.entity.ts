@@ -6,6 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
+  DeleteDateColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { CurrencyEnum, WithdrawalStatusEnum } from '@common_bot/shared';
@@ -90,4 +91,11 @@ export class WithdrawalEntity {
   })
   @UpdateDateColumn()
   updated: Date;
+
+  @ApiProperty({
+    example: '2022-10-21T19:48:59.726Z',
+    nullable: true,
+  })
+  @DeleteDateColumn()
+  deleted: Date;
 }
