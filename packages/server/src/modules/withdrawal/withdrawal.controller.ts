@@ -33,7 +33,7 @@ export class WithdrawalController {
     description: 'Withdrawal not found.',
   })
   @ApiOperation({
-    tags: [TAGS.WITHDRAWAL],
+    tags: [TAGS.WITHDRAWALS],
     operationId: 'getOneWithdrawal',
     summary: 'Returning information about withdrawal',
   })
@@ -53,7 +53,7 @@ export class WithdrawalController {
     type: [WithdrawalEntity],
   })
   @ApiOperation({
-    tags: [TAGS.WITHDRAWAL],
+    tags: [TAGS.WITHDRAWALS],
     operationId: 'getWithdrawals',
     summary: 'Returning information about withdrawals',
   })
@@ -74,7 +74,7 @@ export class WithdrawalController {
     type: WithdrawalEntity,
   })
   @ApiOperation({
-    tags: [TAGS.WITHDRAWAL],
+    tags: [TAGS.WITHDRAWALS],
     operationId: 'postWithdrawal',
     summary: 'Creating new withdrawal in db',
   })
@@ -91,7 +91,7 @@ export class WithdrawalController {
     description: 'Withdrawals not found.',
   })
   @ApiOperation({
-    tags: [TAGS.WITHDRAWAL],
+    tags: [TAGS.WITHDRAWALS],
     operationId: 'updateWithdrawal',
     summary: 'Updating withdrawal data',
   })
