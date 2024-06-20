@@ -520,77 +520,6 @@
   ],
   "components": {
     "schemas": {
-      "WalletEntity": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "example": "266006070"
-          },
-          "ton_amount": {
-            "type": "number",
-            "example": 0.5
-          },
-          "ton_address": {
-            "type": "string",
-            "example": "UQD2WTp9z4qlXhYpiuI7WygQR59MC8dVxRCztvUtJrhLtRRE",
-            "nullable": true
-          },
-          "created": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2022-10-21T19:48:59.726Z"
-          },
-          "updated": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2022-10-21T19:48:59.726Z"
-          }
-        },
-        "required": [
-          "id",
-          "ton_amount",
-          "ton_address",
-          "created",
-          "updated"
-        ]
-      },
-      "MiningEntity": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "example": "266006070"
-          },
-          "ton_rate": {
-            "type": "number",
-            "example": 1e-7
-          },
-          "ton_started": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2022-10-21T19:48:59.726Z",
-            "nullable": true
-          },
-          "created": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2022-10-21T19:48:59.726Z"
-          },
-          "updated": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2022-10-21T19:48:59.726Z"
-          }
-        },
-        "required": [
-          "id",
-          "ton_rate",
-          "ton_started",
-          "created",
-          "updated"
-        ]
-      },
       "UserEntity": {
         "type": "object",
         "properties": {
@@ -647,13 +576,10 @@
               "all"
             ]
           },
-          "who_invited": {
-            "nullable": true,
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/UserEntity"
-              }
-            ]
+          "who_invited_id": {
+            "type": "string",
+            "example": "266006070",
+            "nullable": true
           },
           "referral_counter": {
             "type": "number",
@@ -662,22 +588,6 @@
           "completed_tasks_count": {
             "type": "number",
             "example": 5
-          },
-          "wallet": {
-            "nullable": false,
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/WalletEntity"
-              }
-            ]
-          },
-          "mining": {
-            "nullable": false,
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/MiningEntity"
-              }
-            ]
           },
           "created": {
             "format": "date-time",
@@ -699,11 +609,9 @@
           "country",
           "role",
           "gender",
-          "who_invited",
+          "who_invited_id",
           "referral_counter",
           "completed_tasks_count",
-          "wallet",
-          "mining",
           "created",
           "updated"
         ]
@@ -1108,6 +1016,42 @@
         "required": [
           "id",
           "currency"
+        ]
+      },
+      "MiningEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "266006070"
+          },
+          "ton_rate": {
+            "type": "number",
+            "example": 1e-7
+          },
+          "ton_started": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z",
+            "nullable": true
+          },
+          "created": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          },
+          "updated": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          }
+        },
+        "required": [
+          "id",
+          "ton_rate",
+          "ton_started",
+          "created",
+          "updated"
         ]
       },
       "WithdrawalEntity": {
