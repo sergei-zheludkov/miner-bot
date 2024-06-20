@@ -8,4 +8,5 @@ export { Withdrawal } from './withdrawals';
 export { Registration } from './registration';
 export { SettingsLanguage } from './settings';
 export { ReferralInvitation } from './referral';
+export { UsersControl } from './users-control';
 export { CreateTask, TaskController, TaskNotification } from './tasks';

@@ -51,6 +51,9 @@ export const SceneSwitcher = () => {
     case T.MenuEnum.TASKS_CONTROL:
       return <Menu.TasksControl />;
 
+    case T.SceneEnum.USERS_CONTROL:
+      return <Scene.UsersControl />;
+
     // ----------------------------------------REFERRAL MENU--------------------------------------
     case T.SceneEnum.REFERRAL_INVITATION:
       return <Scene.ReferralInvitation />;

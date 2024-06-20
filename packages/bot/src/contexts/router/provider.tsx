@@ -33,6 +33,7 @@ export const RouterProvider = ({ children }: ProviderProps) => {
   const switchToSceneReferralInvitation = () => setScene(T.SceneEnum.REFERRAL_INVITATION);
   const switchToSceneRules = () => setScene(T.SceneEnum.RULES);
   const switchToSceneContacts = () => setScene(T.SceneEnum.CONTACTS);
+  const switchToSceneUsersControl = () => setScene(T.SceneEnum.USERS_CONTROL);
 
   useCommand(switchToMenuMain, '/main_menu');
 
@@ -46,8 +47,8 @@ export const RouterProvider = ({ children }: ProviderProps) => {
     switchToMenuSettings,
     switchToMenuInformation,
     switchToMenuTasksControl,
-    switchToSceneReset,
     // -- -- -- -- -- -- -- -- --
+    switchToSceneReset,
     switchToSceneMining,
     switchToSceneBalance,
     switchToSceneGreeting,
@@ -60,6 +61,7 @@ export const RouterProvider = ({ children }: ProviderProps) => {
     switchToSceneReferralInvitation,
     switchToSceneRules,
     switchToSceneContacts,
+    switchToSceneUsersControl,
   }), [scene]);
 
   return (
