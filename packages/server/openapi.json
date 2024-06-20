@@ -824,13 +824,10 @@
             "type": "number",
             "example": 5
           },
-          "contact": {
-            "nullable": false,
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/UserEntity"
-              }
-            ]
+          "contact_id": {
+            "type": "string",
+            "example": "266006070",
+            "nullable": false
           },
           "created": {
             "format": "date-time",
@@ -862,7 +859,7 @@
           "available_limit",
           "check_key",
           "complete_count",
-          "contact",
+          "contact_id",
           "created",
           "updated",
           "deleted"
@@ -1122,6 +1119,12 @@
             "format": "date-time",
             "type": "string",
             "example": "2022-10-21T19:48:59.726Z"
+          },
+          "deleted": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z",
+            "nullable": true
           }
         },
         "required": [
@@ -1133,7 +1136,8 @@
           "amount",
           "status",
           "created",
-          "updated"
+          "updated",
+          "deleted"
         ]
       },
       "WithdrawalCreateDto": {
