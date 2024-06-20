@@ -589,6 +589,11 @@
             "type": "number",
             "example": 5
           },
+          "ban_reason": {
+            "type": "string",
+            "example": "Накрутка приглашений",
+            "nullable": true
+          },
           "created": {
             "format": "date-time",
             "type": "string",
@@ -598,6 +603,12 @@
             "format": "date-time",
             "type": "string",
             "example": "2022-10-21T19:48:59.726Z"
+          },
+          "deleted": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z",
+            "nullable": true
           }
         },
         "required": [
@@ -612,8 +623,10 @@
           "who_invited_id",
           "referral_counter",
           "completed_tasks_count",
+          "ban_reason",
           "created",
-          "updated"
+          "updated",
+          "deleted"
         ]
       },
       "UserCreateDto": {

@@ -10,8 +10,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   GenderEnum, RoleEnum, BotLanguageEnum, CountriesEnum,
 } from '@common_bot/shared';
-import { WalletEntity as Wallet } from '../wallet/wallet.entity';
-import { MiningEntity as Mining } from '../mining/mining.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -126,7 +124,7 @@ export class UserEntity {
     type: 'varchar',
     nullable: true,
   })
-  ban_reason?: string
+  ban_reason?: string;
 
   @ApiProperty({
     example: '2022-10-21T19:48:59.726Z',
@@ -145,5 +143,5 @@ export class UserEntity {
     nullable: true,
   })
   @DeleteDateColumn()
-  deleted: Date
+  deleted: Date;
 }
