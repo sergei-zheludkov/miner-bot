@@ -3,11 +3,11 @@ import { ButtonGroup, Button, useText } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter } from '../../contexts';
 // import { Loading } from '../../components';
-import { useTasksControlMenu } from './use-tasks-control-menu';
+import { useTasksControl } from './use-tasks-control';
 
 export const TasksControl = () => {
   const { t } = useTranslation('buttons');
-  const { isUserAdmin } = useTasksControlMenu();
+  const { isUserAdmin } = useTasksControl();
   const {
     switchToMenuAdmin,
     switchToSceneCreateTask,

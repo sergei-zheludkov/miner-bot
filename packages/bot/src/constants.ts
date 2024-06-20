@@ -12,6 +12,7 @@ export enum SceneEnum {
   TASK_CONTROLLER = 'scene_task_controller',
   ADD_TASK_LIMIT = 'scene_add_task_limit',
   CREATE_TASK = 'scene_create_task',
+  USERS_CONTROL = 'scene_users_control',
 
   WITHDRAWAL = 'scene_withdrawal',
   REFERRAL_INVITATION = 'scene_referral_invitation',
@@ -30,7 +31,7 @@ export enum MenuEnum {
   REFERRAL = 'referral_menu',
   SETTINGS = 'settings_menu',
   INFORMATION = 'information_menu',
-  TASKS_CONTROL = 'tasks_control_menu'
+  TASKS_CONTROL = 'tasks_control_menu',
 }
 
 export const LANGUAGES = {

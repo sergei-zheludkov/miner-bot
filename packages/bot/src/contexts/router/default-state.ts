@@ -28,4 +28,5 @@ export const defaultState: ContextState = {
   switchToSceneReferralInvitation: empty,
   switchToSceneRules: empty,
   switchToSceneContacts: empty,
+  switchToSceneUsersControl: empty,
 };

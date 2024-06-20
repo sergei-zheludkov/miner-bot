@@ -25,6 +25,7 @@ export type ContextState = {
   switchToSceneReferralInvitation: () => void;
   switchToSceneRules: () => void;
   switchToSceneContacts: () => void;
+  switchToSceneUsersControl: () => void;
 }
 
 export type ProviderProps = {
