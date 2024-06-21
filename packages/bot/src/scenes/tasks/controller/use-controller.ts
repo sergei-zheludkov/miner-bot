@@ -4,6 +4,7 @@ import { /* HOOK, */ PlacementEnum } from '@common_bot/shared';
 import { /* TaskEntity, */ useApi, useQuery } from '@common_bot/api';
 import { useBotContext } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
+import { SUPPORT_ID } from '../../../constants';
 import { useRouter, useUser } from '../../../contexts';
 import { usePostCompleteTask } from '../use-post-complete-task';
 
@@ -11,8 +12,8 @@ import { usePostCompleteTask } from '../use-post-complete-task';
 
 export const useController = () => {
   const { t } = useTranslation('common');
-  const { switchToMenuMain } = useRouter();
-  const { user, getUser } = useUser();
+  const { switchToSceneError } = useRouter();
+  const { user/* getUser */ } = useUser();
   const { bot } = useBotContext<UrbanBotTelegram>();
   const { getTasks: getTasksApi } = useApi().task;
   const {
@@ -80,25 +81,34 @@ export const useController = () => {
   // TODO добавить описание параметров коллбека в библиотеке urban-bot
   const handleClickReady = async (message: any) => {
     const channel_id = Number(tasks[taskNumber].check_key);
-    const checkRequests = await bot.client.getChatMember(channel_id, user.id);
 
-    if (checkRequests.status === 'left') {
-      // TODO метод answerCallbackQuery в библиотеку urban-bot
-      const options = { text: t('conditions_not_met'), show_alert: true };
+    try {
+      // Проверяем человека на вступление в группу
+      const checkRequests = await bot.client.getChatMember(channel_id, user.id);
 
-      await bot.client.answerCallbackQuery(message.nativeEvent.payload.id, options);
+      if (checkRequests.status === 'left') {
+        // TODO метод answerCallbackQuery в библиотеку urban-bot
+        const options = { text: t('conditions_not_met'), show_alert: true };
 
-      return;
-    }
+        await bot.client.answerCallbackQuery(message.nativeEvent.payload.id, options);
 
-    if (!isPostCalled) {
-      const task = tasks[taskNumber];
+        return;
+      }
 
-      await postCompleteTask(user.id, {
-        tasks: [task.id],
-        currency: task.currency,
-        mining_rate: task.mining_rate.toString(),
-      });
+      if (!isPostCalled) {
+        const task = tasks[taskNumber];
+
+        await postCompleteTask(user.id, {
+          tasks: [task.id],
+          currency: task.currency,
+          mining_rate: task.mining_rate.toString(),
+        });
+      }
+    } catch (error) {
+      // Оповещаем админа, если владелец чата не добавил бота в админку
+      bot.client.sendMessage(SUPPORT_ID, `Владелец чата  "${tasks[taskNumber]?.name}" не добавил бота в Админку`);
+
+      switchToSceneError();
     }
   };
 

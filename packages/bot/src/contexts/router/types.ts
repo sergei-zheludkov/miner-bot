@@ -13,6 +13,7 @@ export type ContextState = {
   switchToMenuTasksControl: () => void;
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
   switchToSceneReset: () => void;
+  switchToSceneError: () => void;
   switchToSceneMining: () => void;
   switchToSceneBalance: () => void;
   switchToSceneGreeting: () => void;

@@ -21,7 +21,8 @@ export enum SceneEnum {
   CONTACTS = 'scene_contacts',
 
   RESET = 'scene_reset',
-  DISABLE = 'scene_disable'
+  ERROR = 'scene_error',
+  DISABLE = 'scene_disable',
 }
 
 export enum MenuEnum {
@@ -40,3 +41,5 @@ export const LANGUAGES = {
 };
 
 export type Scenes = MenuEnum | SceneEnum;
+
+export const SUPPORT_ID = '6694504339';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider, useRouter } from './contexts';
-import { SceneWrapper } from './components';
+import { SceneWrapper, Error } from './components';
 
 import * as Menu from './menus';
 import * as Scene from './scenes';
@@ -15,6 +15,9 @@ export const SceneSwitcher = () => {
 
     case T.SceneEnum.GREETING:
       return <Scene.Greeting />;
+
+    case T.SceneEnum.ERROR:
+      return <Error />;
 
     // ----------------------------------------MAIN MENU---------------------------------------
     case T.SceneEnum.MINING:

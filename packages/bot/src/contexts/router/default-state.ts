@@ -16,6 +16,7 @@ export const defaultState: ContextState = {
   switchToMenuTasksControl: empty,
   // -- -- -- -- -- -- -- -- -- -- -- -- --
   switchToSceneReset: empty,
+  switchToSceneError: empty,
   switchToSceneMining: empty,
   switchToSceneBalance: empty,
   switchToSceneGreeting: empty,
