@@ -4,13 +4,12 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  DeleteDateColumn, ManyToOne, JoinColumn,
+  DeleteDateColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   CountriesEnum, GenderEnum, PlacementEnum, TasksEnum, CurrencyEnum,
 } from '@common_bot/shared';
-import { UserEntity as User } from '../user/user.entity';
 
 @Entity('tasks')
 export class TaskEntity {
@@ -127,16 +126,14 @@ export class TaskEntity {
   complete_count: number;
 
   @ApiProperty({
-    type: User,
+    example: '266006070',
     nullable: false,
   })
-  @ManyToOne(() => User, {
+  @Column({
+    type: 'varchar',
     nullable: false,
   })
-  @JoinColumn({
-    name: 'contact_id',
-  })
-  contact: string;
+  contact_id: string;
 
   @ApiProperty({
     example: '2022-10-21T19:48:59.726Z',

@@ -1,19 +1,15 @@
 import {
   Entity,
   Column,
-  JoinColumn,
   PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
-  OneToOne,
+  DeleteDateColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   GenderEnum, RoleEnum, BotLanguageEnum, CountriesEnum,
 } from '@common_bot/shared';
-import { WalletEntity as Wallet } from '../wallet/wallet.entity';
-import { MiningEntity as Mining } from '../mining/mining.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -93,17 +89,14 @@ export class UserEntity {
   gender: GenderEnum;
 
   @ApiProperty({
-    // eslint-disable-next-line no-use-before-define
-    type: UserEntity,
+    example: '266006070',
     nullable: true,
   })
-  @ManyToOne(() => UserEntity, {
+  @Column({
+    type: 'varchar',
     nullable: true,
   })
-  @JoinColumn({
-    name: 'who_invited_id',
-  })
-  who_invited?: string;
+  who_invited_id?: string;
 
   @ApiProperty({
     example: 5,
@@ -124,28 +117,14 @@ export class UserEntity {
   completed_tasks_count: number;
 
   @ApiProperty({
-    type: Wallet,
-    nullable: false,
+    example: 'Накрутка приглашений',
+    nullable: true,
   })
-  @OneToOne(() => Wallet, {
-    nullable: false,
+  @Column({
+    type: 'varchar',
+    nullable: true,
   })
-  @JoinColumn({
-    name: 'wallet_id',
-  })
-  wallet: string;
-
-  @ApiProperty({
-    type: Mining,
-    nullable: false,
-  })
-  @OneToOne(() => Mining, {
-    nullable: false,
-  })
-  @JoinColumn({
-    name: 'mining_id',
-  })
-  mining: string;
+  ban_reason?: string;
 
   @ApiProperty({
     example: '2022-10-21T19:48:59.726Z',
@@ -158,4 +137,11 @@ export class UserEntity {
   })
   @UpdateDateColumn()
   updated: Date;
+
+  @ApiProperty({
+    example: '2022-10-21T19:48:59.726Z',
+    nullable: true,
+  })
+  @DeleteDateColumn()
+  deleted: Date;
 }

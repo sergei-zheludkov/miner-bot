@@ -5,6 +5,7 @@ export const API_VERSION_ROUTES = {
 export const TAGS = {
   USERS: 'Users',
   TASKS: 'Tasks',
+  WALLETS: 'Wallets',
   MINING: 'Mining',
-  WITHDRAWAL: 'Withdrawal',
+  WITHDRAWALS: 'Withdrawals',
 };

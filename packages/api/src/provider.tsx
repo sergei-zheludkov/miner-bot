@@ -1,18 +1,20 @@
 import React, { createContext, useContext } from 'react';
 import {
   UsersService,
+  WalletsService,
   TasksService,
   MiningService,
-  WithdrawalService,
+  WithdrawalsService,
 } from './generated';
 
 type ApiProviderProps = { children: React.ReactNode };
 
 const ApiService = {
   user: UsersService,
-  task: TasksService,
   mining: MiningService,
-  withdrawal: WithdrawalService,
+  wallet: WalletsService,
+  task: TasksService,
+  withdrawal: WithdrawalsService,
 };
 
 const ApiContext = createContext(ApiService);

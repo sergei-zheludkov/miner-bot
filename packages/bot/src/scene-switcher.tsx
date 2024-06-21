@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRouter } from './contexts';
+import { Provider, useRouter } from './contexts';
 import { SceneWrapper } from './components';
 
 import * as Menu from './menus';
@@ -19,27 +19,31 @@ export const SceneSwitcher = () => {
     // ----------------------------------------MAIN MENU---------------------------------------
     case T.SceneEnum.MINING:
       return (
-        <SceneWrapper type="remove-keyboard">
+        <Provider.Mining>
           <Scene.Mining />
-        </SceneWrapper>
-      );
-
-    case T.SceneEnum.BALANCE:
-      return (
-        <SceneWrapper type="remove-keyboard">
-          <Scene.Balance />
-        </SceneWrapper>
+        </Provider.Mining>
       );
 
     case T.SceneEnum.TASK_CONTROLLER:
       return (
-        <SceneWrapper type="remove-keyboard">
+        <Provider.Mining>
           <Scene.TaskController />
-        </SceneWrapper>
+        </Provider.Mining>
+      );
+
+    case T.SceneEnum.BALANCE:
+      return (
+        <Provider.Wallet>
+          <Scene.Balance />
+        </Provider.Wallet>
       );
 
     case T.SceneEnum.WITHDRAWAL:
-      return <Scene.Withdrawal />;
+      return (
+        <Provider.Wallet>
+          <Scene.Withdrawal />
+        </Provider.Wallet>
+      );
 
     case T.SceneEnum.RULES:
       return <Scene.Rules />;

@@ -16,7 +16,6 @@ const { getFormattedDate } = DATE;
 const findOne = (users_repository: Repository<User>, id: string) => users_repository
   .findOne({
     where: { id },
-    relations: ['wallet', 'mining', 'who_invited'],
   });
 
 @Injectable()
@@ -94,7 +93,7 @@ export class UserService {
         await this.miningService.createMining({ id });
 
         // Сохраняем юзера
-        return users_repository.save({ ...data, wallet: id, mining: id });
+        return users_repository.save(data);
       });
     } catch (error) {
       logger.error('UserService(createUser):', error);
@@ -116,15 +115,15 @@ export class UserService {
           return user_in_db;
         }
 
-        const { who_invited_id: who_invited, ...other_data } = data;
-        const referral_user = await findOne(users_repository, who_invited);
+        const { who_invited_id, ...other_data } = data;
+        const referral_user = await findOne(users_repository, who_invited_id);
 
         if (referral_user) {
-          await users_repository.increment({ id: who_invited }, 'referral_counter', 1);
+          await users_repository.increment({ id: who_invited_id }, 'referral_counter', 1);
 
           // Начисляем бонус тому кто пригласил
           await this.walletService.updateWallet({
-            id: who_invited,
+            id: who_invited_id,
             operation: 'increase',
             amount: 0.005,
             currency: CurrencyEnum.TON,
@@ -133,7 +132,7 @@ export class UserService {
           // Создаем кошелек с бонусом для нового юзера
           await this.walletService.createWallet({
             id,
-            amount: 0.005,
+            amount: 0.0025,
             currency: CurrencyEnum.TON,
           });
 
@@ -141,14 +140,12 @@ export class UserService {
           await this.miningService.createMining({ id });
 
           // Сохраняем юзера
-          await users_repository.save({
-            ...other_data, who_invited, wallet: id, mining: id,
-          });
+          await users_repository.save(data);
 
           // Отправляем уведомление о регистрации нового юзера
-          this.postNewReferralNotification(who_invited, data.username);
+          this.postNewReferralNotification(who_invited_id, data.username);
         } else {
-          await users_repository.save({ ...other_data, who_invited: null });
+          await users_repository.save(other_data);
           // TODO обращение к API бота, для оповещения юзера что такого рефералла нет
           // const { firstname, lastname } = user;
           // this.httpService.post();

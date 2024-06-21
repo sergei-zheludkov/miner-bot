@@ -15,6 +15,14 @@ export class WalletService {
     private readonly dataSource: DataSource,
   ) {}
 
+  getOneWallet(id: string) {
+    return this.dataSource.transaction(async (manager) => {
+      const wallet_repository = manager.getRepository(Wallet);
+
+      return findOne(wallet_repository, id);
+    });
+  }
+
   async createWallet(data: WalletCreateDto) {
     try {
       return await this.dataSource.transaction(async (manager) => {

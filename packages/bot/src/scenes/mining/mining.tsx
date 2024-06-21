@@ -2,8 +2,7 @@ import React from 'react';
 import { ButtonGroup, Button } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { MATH } from '@common_bot/shared';
-import { useRouter, useUser } from '../../contexts';
-import { Loading } from '../../components';
+import { useRouter, useMining } from '../../contexts';
 import { useMiningTon } from './use-mining-ton';
 import {
   isActiveState,
@@ -16,7 +15,7 @@ const { getCryptoAmount, getMinedTokenAmount } = MATH;
 
 export const Mining = () => {
   const { t } = useTranslation('mining');
-  const { user: { mining }, isGetLoading } = useUser();
+  const { mining } = useMining();
   const { switchToMenuMain } = useRouter();
   const {
     state,
@@ -24,10 +23,6 @@ export const Mining = () => {
     handleClickReady,
     handleClickGet,
   } = useMiningTon();
-
-  if (isGetLoading) {
-    return <Loading />;
-  }
 
   const balance = getMinedTokenAmount(mining.ton_rate, mining.ton_started || '');
 

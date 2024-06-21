@@ -14,6 +14,7 @@ export type WithdrawalEntity = {
     status: WithdrawalEntity.status;
     created: string;
     updated: string;
+    deleted: string | null;
 };
 
 export namespace WithdrawalEntity {
