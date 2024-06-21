@@ -1,0 +1,54 @@
+image: node:16.14.2-alpine3.15
+
+default:
+  tags:
+    - ton-miner-bot-stage
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+
+stages:
+  - install
+  - build
+  - checks
+  - tests
+
+cache:
+  untracked: true
+  paths:
+    - node_modules/
+    - packages/shared/dist
+    - packages/i18/dist
+    - packages/api/dist
+
+install:
+  stage: install
+  script:
+    - yarn cache clean
+    - yarn install --update-checksums --ignore-engines --non-interactive
+
+build-packages:
+  stage: build
+  script:
+    - yarn build:packages
+
+build-services:
+  stage: build
+  script:
+    - yarn build:services
+
+typescript:
+  stage: checks
+  script:
+    - yarn typecheck:project
+
+eslint:
+  stage: checks
+  script:
+    - yarn lint:project
+
+unit:
+  stage: tests
+  script:
+    - yarn test:project

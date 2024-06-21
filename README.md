@@ -173,5 +173,12 @@ Promocode: 6481073677
 14. `docker rmi {{image_id: server}}`
 15. `docker compose up -d bot`
 
+---
+
 [DB_RESTORE GUIDE 1](https://stackoverflow.com/questions/24718706/backup-restore-a-dockerized-postgresql-database)
+
 [DB_RESTORE GUIDE 2](https://medium.com/@burakkocakeu/get-pg-dump-from-a-docker-container-and-pg-restore-into-another-in-5-steps-74ca5bf0589c)
+
+[GITLAB RUNNER GUIDE](https://technoupdate.medium.com/how-to-configure-gitlab-runner-on-ubuntu-20-04-c26e2f16fd24)
+
+[GITLAB CI/CD GUIDE](https://www.youtube.com/watch?v=dLfqjoE-WNQ)
