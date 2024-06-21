@@ -132,7 +132,7 @@ export class UserService {
           // Создаем кошелек с бонусом для нового юзера
           await this.walletService.createWallet({
             id,
-            amount: 0.005,
+            amount: 0.0025,
             currency: CurrencyEnum.TON,
           });
 

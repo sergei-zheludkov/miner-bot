@@ -20,6 +20,14 @@ export class MiningService {
     private readonly dataSource: DataSource,
   ) {}
 
+  getOneMining(id: string) {
+    return this.dataSource.transaction(async (manager) => {
+      const mining_repository = manager.getRepository(Mining);
+
+      return findOne(mining_repository, id);
+    });
+  }
+
   async createMining(data: MiningCreateDto) {
     try {
       return await this.dataSource.transaction(async (manager) => {

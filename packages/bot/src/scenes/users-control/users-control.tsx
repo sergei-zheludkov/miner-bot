@@ -37,7 +37,7 @@ export const UsersControl = () => {
     referral_counter,
     completed_tasks_count,
     created,
-    who_invited,
+    who_invited_id,
   } = user;
 
   const title = (
@@ -76,7 +76,7 @@ export const UsersControl = () => {
       <br />
       {t('who_invited_id')}
       &#32;
-      <b>{who_invited?.username || '-'}</b>
+      <b>{who_invited_id || '-'}</b>
     </>
   );
 

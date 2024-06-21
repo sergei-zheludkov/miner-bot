@@ -4,7 +4,7 @@ import type { UrbanBotTelegram } from '@urban-bot/telegram';
 import { useTranslation } from '@common_bot/i18n';
 import { CurrencyEnum, HOOK } from '@common_bot/shared';
 import { useApi, useQuery, WithdrawalCreateDto } from '@common_bot/api';
-import { useUser } from '../../contexts';
+import { useUser, useWallet } from '../../contexts';
 
 const { useToggleState } = HOOK;
 const MINIMAL = '1';
@@ -14,6 +14,7 @@ export const useWithdrawal = () => {
   const { bot } = useBotContext<UrbanBotTelegram>();
   const { user } = useUser();
   const { postWithdrawal: postWithdrawalApi } = useApi().withdrawal;
+  const { wallet } = useWallet();
 
   const {
     data: withdrawal,
@@ -27,7 +28,7 @@ export const useWithdrawal = () => {
   const [address, setAddress] = useState(/* user.wallet.ton_address || */ '');
   const [amount, setAmount] = useState(MINIMAL);
   const { toggle: isConfirmedAmount, turnOn: handleConfirmAmount } = useToggleState();
-  const maxAmount = Number(user.wallet.ton_amount).toFixed(1);
+  const maxAmount = Number(wallet.ton_amount).toFixed(1);
 
   const handleAddAddress = (str: string) => {
     if (!address) {

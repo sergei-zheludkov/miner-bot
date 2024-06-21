@@ -26,17 +26,17 @@ export class WalletController {
   })
   @ApiOperation({
     tags: [TAGS.WALLETS],
-    operationId: 'getOneWithdrawal',
+    operationId: 'getOneWallet',
     summary: 'Returning information about wallet',
   })
   @Get(':id')
-  async getOneWithdrawal(@Param('id') id: string) {
-    const withdrawal = await this.walletService.getOneWallet(id);
+  async getOneWallet(@Param('id') id: string) {
+    const wallet = await this.walletService.getOneWallet(id);
 
-    if (!withdrawal) {
+    if (!wallet) {
       throw new NotFoundException();
     }
 
-    return withdrawal;
+    return wallet;
   }
 }

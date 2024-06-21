@@ -11,6 +11,27 @@ import { request as __request } from '../core/request';
 export class MiningService {
 
     /**
+     * Returning information about mining
+     * @param id
+     * @returns MiningEntity Mining has been found.
+     * @throws ApiError
+     */
+    public static getOneMining(
+        id: string,
+    ): CancelablePromise<MiningEntity> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/mining/{id}',
+            path: {
+                'id': id,
+            },
+            errors: {
+                404: `Mining not found.`,
+            },
+        });
+    }
+
+    /**
      * Updating mining data
      * @param requestBody
      * @returns MiningEntity Mining has been updated.

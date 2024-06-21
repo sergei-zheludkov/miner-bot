@@ -325,7 +325,7 @@
     },
     "/api/v1/wallets/{id}": {
       "get": {
-        "operationId": "getOneWithdrawal",
+        "operationId": "getOneWallet",
         "summary": "Returning information about wallet",
         "tags": [
           "Wallets"
@@ -353,6 +353,40 @@
           },
           "404": {
             "description": "Wallet not found."
+          }
+        }
+      }
+    },
+    "/api/v1/mining/{id}": {
+      "get": {
+        "operationId": "getOneMining",
+        "summary": "Returning information about mining",
+        "tags": [
+          "Mining"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mining has been found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MiningEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Mining not found."
           }
         }
       }
@@ -1068,35 +1102,6 @@
           "updated"
         ]
       },
-      "MiningUpdateDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "example": "266006070"
-          },
-          "currency": {
-            "type": "string",
-            "enum": [
-              "ton",
-              "not"
-            ]
-          },
-          "mining_rate": {
-            "type": "string",
-            "example": "0.000_000_1"
-          },
-          "started": {
-            "format": "date-time",
-            "type": "string",
-            "example": "2022-10-21T19:48:59.726Z"
-          }
-        },
-        "required": [
-          "id",
-          "currency"
-        ]
-      },
       "MiningEntity": {
         "type": "object",
         "properties": {
@@ -1131,6 +1136,35 @@
           "ton_started",
           "created",
           "updated"
+        ]
+      },
+      "MiningUpdateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "266006070"
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "ton",
+              "not"
+            ]
+          },
+          "mining_rate": {
+            "type": "string",
+            "example": "0.000_000_1"
+          },
+          "started": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          }
+        },
+        "required": [
+          "id",
+          "currency"
         ]
       },
       "WithdrawalEntity": {

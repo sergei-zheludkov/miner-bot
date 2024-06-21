@@ -4,7 +4,7 @@ import type { UrbanBotTelegram } from '@urban-bot/telegram';
 import { useTranslation } from '@common_bot/i18n';
 import { useApi, useQuery, CompletedTasksCreateDto } from '@common_bot/api';
 import { PlacementEnum, CurrencyEnum } from '@common_bot/shared';
-import { useUser } from '../../contexts';
+import { useMining, useUser } from '../../contexts';
 import { usePostCompleteTask } from '../tasks';
 import { MINING_STATES } from './constants';
 import { getStartedState } from './helpers';
@@ -15,6 +15,7 @@ const currency = CurrencyEnum.TON as unknown as CompletedTasksCreateDto['currenc
 export const useMiningTon = () => {
   const { t } = useTranslation('common');
   const { bot } = useBotContext<UrbanBotTelegram>();
+  const { mining } = useMining();
   const { user } = useUser();
   const { getTasks: getTasksApi } = useApi().task;
   const { patchMining: patchMiningApi } = useApi().mining;
@@ -48,7 +49,7 @@ export const useMiningTon = () => {
   } = useQuery('get_tasks', patchMiningApi, { isLazy: true });
 
   // TODO постараться избавиться от стейта и завязаться на статусы ручек
-  const [state, setState] = useState<MINING_STATES>(getStartedState(user));
+  const [state, setState] = useState<MINING_STATES>(getStartedState(mining));
 
   // TODO добавить описание параметров коллбека в библиотеке urban-bot
   const handleClickReady = async (message: any) => {

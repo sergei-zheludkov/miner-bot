@@ -17,9 +17,9 @@ export class WalletService {
 
   getOneWallet(id: string) {
     return this.dataSource.transaction(async (manager) => {
-      const withdrawal_repository = manager.getRepository(Wallet);
+      const wallet_repository = manager.getRepository(Wallet);
 
-      return findOne(withdrawal_repository, id);
+      return findOne(wallet_repository, id);
     });
   }
 

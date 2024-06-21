@@ -24,4 +24,5 @@ export { WithdrawalUpdateDto } from './models/WithdrawalUpdateDto';
 export { MiningService } from './services/MiningService';
 export { TasksService } from './services/TasksService';
 export { UsersService } from './services/UsersService';
-export { WithdrawalService } from './services/WithdrawalService';
+export { WalletsService } from './services/WalletsService';
+export { WithdrawalsService } from './services/WithdrawalsService';

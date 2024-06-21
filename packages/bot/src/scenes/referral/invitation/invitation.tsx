@@ -4,6 +4,7 @@ import {
 } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter, useUser } from '../../../contexts';
+import { Error } from '../../../components';
 import { useInvitation } from './use-invitation';
 
 export const Invitation = () => {
@@ -27,11 +28,7 @@ export const Invitation = () => {
   }
 
   if (name === 'ERROR') {
-    return (
-      <Text isNewMessageEveryRender={false}>
-        Что-то пошло не так
-      </Text>
-    );
+    return <Error />;
   }
 
   const inviteLink = `https://t.me/${name}?start=ref_${user.id}`;
@@ -47,7 +44,7 @@ export const Invitation = () => {
       <br />
       <br />
       <i>{t('invitation.bonus_prefix')}</i>
-      <b>&#32;0.005 TON&#32;</b>
+      <b>&#32;0.0025 TON&#32;</b>
       <i>{t('invitation.bonus_postfix')}</i>
     </>
   );

@@ -6,40 +6,47 @@ import {
   useCommand,
 } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
+import { useRouter } from '../../contexts';
 import { useMainMenu } from './use-main-menu';
 
 export const Main = () => {
   const { t } = useTranslation('buttons');
   const {
-    handleCommandAdmin,
-    handleClickMining,
-    handleClickTasks,
     handleClickReferral,
-    handleClickBalance,
-    handleClickInformation,
   } = useMainMenu();
 
+  const {
+    switchToMenuAdmin,
+    // switchToMenuSupport,
+    // switchToMenuReferral,
+    // switchToMenuSettings,
+    switchToSceneMining,
+    switchToSceneBalance,
+    switchToMenuInformation,
+    switchToSceneTaskController,
+  } = useRouter();
+
   /* ---------- BUTTON HOOKS ---------- */
-  useCommand(handleCommandAdmin, '/admin');
+  useCommand(switchToMenuAdmin, '/admin');
   // useCommand(switchToMenuSupport, '/support');
 
   const mining = t('mining');
-  useText(handleClickMining, mining);
+  useText(switchToSceneMining, mining);
 
   const tasks = t('tasks');
-  useText(handleClickTasks, tasks);
+  useText(switchToSceneTaskController, tasks);
 
   const referral = t('referral');
   useText(handleClickReferral, referral);
 
   const balance = t('balance');
-  useText(handleClickBalance, balance);
+  useText(switchToSceneBalance, balance);
 
   // const settings = t('settings');
   // useText(switchToMenuSettings, settings);
 
   const information = t('information');
-  useText(handleClickInformation, information);
+  useText(switchToMenuInformation, information);
   /* --------------------------------- */
 
   return (

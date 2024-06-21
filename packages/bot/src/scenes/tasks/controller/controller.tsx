@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, ButtonGroup } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { MATH } from '@common_bot/shared';
-import { useRouter, useUser } from '../../../contexts';
+import { useRouter, useMining } from '../../../contexts';
 import { Loading } from '../../../components';
 import { useController } from './use-controller';
 
@@ -11,7 +11,7 @@ const { getCryptoAmount } = MATH;
 export const Controller = () => {
   const { t } = useTranslation('tasks');
   const { switchToSceneMining, switchToMenuReferral } = useRouter();
-  const { user, isGetLoading: isGetUserLoading } = useUser();
+  const { mining } = useMining();
   const { switchToMenuMain } = useRouter();
   const {
     tasks,
@@ -35,11 +35,11 @@ export const Controller = () => {
     </Button>,
   ];
 
-  if (/* !isChecked || */ !isGetCalled || isGetLoading || isGetUserLoading) {
+  if (/* !isChecked || */ !isGetCalled || isGetLoading) {
     return <Loading />;
   }
 
-  if (!user.mining.ton_started) {
+  if (!mining.ton_started) {
     const title = t('list.mining_disabled');
 
     const miningButton = [
