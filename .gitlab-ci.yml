@@ -15,12 +15,13 @@ stages:
   - tests
 
 cache:
-  untracked: true
   paths:
     - node_modules/
-    - packages/shared/dist
-    - packages/i18/dist
-    - packages/api/dist
+
+#  untracked: true
+#    - packages/shared/dist
+#    - packages/i18/dist
+#    - packages/api/dist
 
 install:
   stage: install
@@ -32,9 +33,17 @@ build-packages:
   stage: build
   script:
     - yarn build:packages
+  artifacts:
+    expire_in: 1h
+    paths:
+      - packages/shared/dist
+      - packages/i18n/dist
+      - packages/api/dist
 
 build-services:
   stage: build
+  needs:
+    - build-packages
   script:
     - yarn build:services
 
