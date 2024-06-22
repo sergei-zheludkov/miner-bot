@@ -7,7 +7,6 @@ import { DataSource, Repository } from 'typeorm';
 import { toPromise } from '../../helpers';
 import { logger } from '../../libs/logger/logger.instance';
 import { WalletService } from '../wallet/wallet.service';
-import { MiningService } from '../mining/mining.service';
 import { UserEntity as User } from './user.entity';
 import { UserCreateDto, UserUpdateDto } from './dto';
 
@@ -24,7 +23,6 @@ export class UserService {
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
     private readonly walletService: WalletService,
-    private readonly miningService: MiningService,
     @InjectDataSource()
     private readonly dataSource: DataSource,
   ) {}
@@ -82,15 +80,8 @@ export class UserService {
           return user_in_db;
         }
 
-        // Создаем кошелек с бонусом для нового юзера
-        await this.walletService.createWallet({
-          id,
-          amount: 0,
-          currency: CurrencyEnum.TON,
-        });
-
-        // Создаем маининг для нового юзера
-        await this.miningService.createMining({ id });
+        // Создаем кошелек для нового юзера
+        await this.walletService.createWallet({ id, amount: 0, currency: CurrencyEnum.TON });
 
         // Сохраняем юзера
         return users_repository.save(data);
@@ -121,29 +112,11 @@ export class UserService {
         if (referral_user) {
           await users_repository.increment({ id: who_invited_id }, 'referral_counter', 1);
 
-          // Начисляем бонус тому кто пригласил
-          await this.walletService.updateWallet({
-            id: who_invited_id,
-            operation: 'increase',
-            amount: 0.005,
-            currency: CurrencyEnum.TON,
-          });
-
           // Создаем кошелек с бонусом для нового юзера
-          await this.walletService.createWallet({
-            id,
-            amount: 0.0025,
-            currency: CurrencyEnum.TON,
-          });
-
-          // Создаем маининг для нового юзера
-          await this.miningService.createMining({ id });
+          await this.walletService.createWallet({ id, amount: 0, currency: CurrencyEnum.TON });
 
           // Сохраняем юзера
           await users_repository.save(data);
-
-          // Отправляем уведомление о регистрации нового юзера
-          this.postNewReferralNotification(who_invited_id, data.username);
         } else {
           await users_repository.save(other_data);
           // TODO обращение к API бота, для оповещения юзера что такого рефералла нет

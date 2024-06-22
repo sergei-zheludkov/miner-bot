@@ -20,7 +20,7 @@ export class MiningEntity {
   })
   @Column({
     type: 'decimal',
-    default: 0.0,
+    default: 0.000_000_1,
   })
   ton_rate: number;
 

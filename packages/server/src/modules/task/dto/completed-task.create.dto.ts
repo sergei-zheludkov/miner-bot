@@ -1,18 +1,28 @@
-import {
-  IsString, IsNotEmpty, IsArray, IsEnum,
-} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { CurrencyEnum } from '@common_bot/shared';
+import {
+  IsString,
+  IsNumber,
+  IsEnum,
+  IsNotEmpty,
+} from 'class-validator';
 
-export class CompletedTasksCreateDto {
+export class CompletedTaskCreateDto {
   @ApiProperty({
     required: true,
-    type: [Number],
-    example: [1, 2, 3],
+    example: '266006070',
   })
   @IsNotEmpty()
-  @IsArray()
-  tasks: number[];
+  @IsString()
+  user_id: string;
+
+  @ApiProperty({
+    required: true,
+    example: 4,
+  })
+  @IsNotEmpty()
+  @IsNumber()
+  task_id: number;
 
   @ApiProperty({
     required: true,

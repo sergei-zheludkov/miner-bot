@@ -100,29 +100,20 @@
         }
       }
     },
-    "/api/v1/tasks/complete/{id}": {
+    "/api/v1/tasks/complete": {
       "post": {
-        "operationId": "postCompleteTasks",
+        "operationId": "postCompleteTask",
         "summary": "Creating new completed tasks in db",
         "tags": [
           "Tasks"
         ],
-        "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "parameters": [],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CompletedTasksCreateDto"
+                "$ref": "#/components/schemas/CompletedTaskCreateDto"
               }
             }
           }
@@ -392,6 +383,36 @@
       }
     },
     "/api/v1/mining": {
+      "post": {
+        "operationId": "postMining",
+        "summary": "Creating new mining in db",
+        "tags": [
+          "Mining"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MiningCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Mining has been successfully created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MiningEntity"
+                }
+              }
+            }
+          }
+        }
+      },
       "patch": {
         "operationId": "patchMining",
         "summary": "Updating mining data",
@@ -788,19 +809,16 @@
           "id"
         ]
       },
-      "CompletedTasksCreateDto": {
+      "CompletedTaskCreateDto": {
         "type": "object",
         "properties": {
-          "tasks": {
-            "example": [
-              1,
-              2,
-              3
-            ],
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
+          "user_id": {
+            "type": "string",
+            "example": "266006070"
+          },
+          "task_id": {
+            "type": "number",
+            "example": 4
           },
           "currency": {
             "type": "string",
@@ -815,7 +833,8 @@
           }
         },
         "required": [
-          "tasks",
+          "user_id",
+          "task_id",
           "currency"
         ]
       },
@@ -1136,6 +1155,35 @@
           "ton_started",
           "created",
           "updated"
+        ]
+      },
+      "MiningCreateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "266006070"
+          },
+          "tasks": {
+            "example": [
+              1,
+              2,
+              3
+            ],
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "who_invited_id": {
+            "type": "string",
+            "nullable": true,
+            "example": "1269959930"
+          }
+        },
+        "required": [
+          "id",
+          "tasks"
         ]
       },
       "MiningUpdateDto": {

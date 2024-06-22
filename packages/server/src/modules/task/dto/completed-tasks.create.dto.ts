@@ -1,19 +1,14 @@
+import { IsNotEmpty, IsArray, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsString,
-  IsNotEmpty,
-  IsOptional,
-  IsArray,
-} from 'class-validator';
 
-export class MiningCreateDto {
+export class CompletedTasksCreateDto {
   @ApiProperty({
     required: true,
     example: '266006070',
   })
   @IsNotEmpty()
   @IsString()
-  id: string;
+  user_id: string;
 
   @ApiProperty({
     required: true,
@@ -23,13 +18,4 @@ export class MiningCreateDto {
   @IsNotEmpty()
   @IsArray()
   tasks: number[];
-
-  @ApiProperty({
-    required: false,
-    nullable: true,
-    example: '1269959930',
-  })
-  @IsOptional()
-  @IsString()
-  who_invited_id?: string;
 }

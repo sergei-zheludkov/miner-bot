@@ -39,7 +39,7 @@ export const Controller = () => {
     return <Loading />;
   }
 
-  if (!mining.ton_started) {
+  if (!mining) {
     const title = t('list.mining_disabled');
 
     const miningButton = [

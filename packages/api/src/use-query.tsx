@@ -7,20 +7,22 @@ export type QueryOptions = {
   isLazy?: boolean;
 }
 
-type QueryState<T, E = ApiError> = {
+type QueryState<R, E = ApiError> = {
   isCalled: boolean;
   isLoading: boolean;
   isError: boolean;
   isSuccess: boolean;
   error?: E;
-  data?: T;
+  data?: R;
   statusCode?: number;
 }
 
-export type Query<T, E = ApiError, A = any> = QueryState<T, E> & {
-  fetch: (...arg: A[]) => Promise<QueryState<T, E>>;
+export type Query<R, E = ApiError, A = any> = QueryState<R, E> & {
+  fetch: (...arg: A[]) => Promise<QueryState<R, E>>;
   reset: () => void;
 }
+
+export type Fetch<A, R, E = ApiError> = Query<R, E, A>['fetch'];
 
 export function useQuery<T, A, E extends ApiError = ApiError>(
   id: string,

@@ -1,5 +1,6 @@
 export { ApiProvider, useApi } from './provider';
 export { useQuery } from './use-query';
+export type { Fetch } from './use-query';
 
 export * as predicates from './predicates';
 
@@ -11,6 +12,7 @@ export type {
   WalletEntity,
 
   MiningEntity,
+  MiningCreateDto,
   MiningUpdateDto,
 
   WithdrawalEntity,
@@ -22,5 +24,5 @@ export type {
   TaskUpdateDto,
 
   CompletedTaskEntity,
-  CompletedTasksCreateDto,
+  CompletedTaskCreateDto,
 } from './generated';

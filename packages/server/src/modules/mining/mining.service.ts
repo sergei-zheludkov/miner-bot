@@ -1,11 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
-import { MATH } from '@common_bot/shared';
+import { CurrencyEnum, MATH } from '@common_bot/shared';
 import { logger } from '../../libs/logger/logger.instance';
+import { UserService } from '../user/user.service';
+import { TaskService } from '../task/task.service';
+import { WalletService } from '../wallet/wallet.service';
 import { MiningEntity as Mining } from './mining.entity';
 import { MiningCreateDto, MiningUpdateDto } from './dto';
-import { WalletService } from '../wallet/wallet.service';
 
 const { getMinedTokenAmount } = MATH;
 
@@ -15,6 +17,9 @@ const findOne = (wallet_repository: Repository<Mining>, id: string) => wallet_re
 @Injectable()
 export class MiningService {
   constructor(
+    @Inject(forwardRef(() => TaskService))
+    private readonly taskService: TaskService,
+    private readonly userService: UserService,
     private readonly walletService: WalletService,
     @InjectDataSource()
     private readonly dataSource: DataSource,
@@ -28,25 +33,74 @@ export class MiningService {
     });
   }
 
-  async createMining(data: MiningCreateDto) {
+  async createMining({ id, tasks }: MiningCreateDto) {
     try {
       return await this.dataSource.transaction(async (manager) => {
         const mining_repository = manager.getRepository(Mining);
 
         // TODO Подумать над выбросом ошибки в случае если маининг создан
-        const { id } = data;
         const mining_in_db = await findOne(mining_repository, id);
 
         if (mining_in_db) {
           return mining_in_db;
         }
 
-        const new_mining = mining_repository.create(data);
+        // Записываем информацию о выполненных заданиях
+        await this.taskService.completeTasks({ user_id: id, tasks });
 
-        return mining_repository.save(new_mining);
+        // Сохраняем информацию о маининге для юзера
+        return mining_repository.save({ id, ton_started: new Date() });
       });
     } catch (error) {
       logger.error('MiningService(createMining):', error);
+
+      throw new Error();
+    }
+  }
+
+  async createMiningWithReferral({ id, tasks, who_invited_id }: MiningCreateDto) {
+    try {
+      return await this.dataSource.transaction(async (manager) => {
+        const mining_repository = manager.getRepository(Mining);
+
+        // TODO Подумать над выбросом ошибки в случае если маининг создан
+        const mining_in_db = await findOne(mining_repository, id);
+
+        if (mining_in_db) {
+          return mining_in_db;
+        }
+
+        const referral_user = await this.userService.getOneUser(who_invited_id);
+
+        if (referral_user) {
+          // Начисляем бонус тому кто пригласил
+          await this.walletService.updateWallet({
+            id: who_invited_id,
+            operation: 'increase',
+            amount: 0.005,
+            currency: CurrencyEnum.TON,
+          });
+
+          // Начисляем бонус тому кто был приглашен и активировал маининг
+          await this.walletService.updateWallet({
+            id,
+            operation: 'increase',
+            amount: 0.0025,
+            currency: CurrencyEnum.TON,
+          });
+
+          // Отправляем уведомление о регистрации нового юзера
+          // this.postNewReferralNotification(who_invited_id, data.username);
+        }
+
+        // Записываем информацию о выполненных заданиях
+        await this.taskService.completeTasks({ user_id: id, tasks });
+
+        // Сохраняем информацию о маининге для юзера
+        return mining_repository.save({ id, ton_started: new Date() });
+      });
+    } catch (error) {
+      logger.error('MiningService(createMiningWithReferral):', error);
 
       throw new Error();
     }
@@ -85,10 +139,7 @@ export class MiningService {
           });
 
           // Обновляем дату маининга
-          await mining_repository.update(
-            { id },
-            { [`${currency}_started`]: started },
-          );
+          await mining_repository.update({ id }, { [`${currency}_started`]: started });
         }
 
         if (mining_rate) {

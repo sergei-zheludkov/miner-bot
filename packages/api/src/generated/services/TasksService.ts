@@ -1,8 +1,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CompletedTaskCreateDto } from '../models/CompletedTaskCreateDto';
 import type { CompletedTaskEntity } from '../models/CompletedTaskEntity';
-import type { CompletedTasksCreateDto } from '../models/CompletedTasksCreateDto';
 import type { TaskCreateDto } from '../models/TaskCreateDto';
 import type { TaskEntity } from '../models/TaskEntity';
 import type { TaskUpdateDto } from '../models/TaskUpdateDto';
@@ -15,21 +15,16 @@ export class TasksService {
 
     /**
      * Creating new completed tasks in db
-     * @param id
      * @param requestBody
      * @returns CompletedTaskEntity Completed tasks has been successfully created.
      * @throws ApiError
      */
-    public static postCompleteTasks(
-        id: string,
-        requestBody: CompletedTasksCreateDto,
+    public static postCompleteTask(
+        requestBody: CompletedTaskCreateDto,
     ): CancelablePromise<Array<CompletedTaskEntity>> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/v1/tasks/complete/{id}',
-            path: {
-                'id': id,
-            },
+            url: '/api/v1/tasks/complete',
             body: requestBody,
             mediaType: 'application/json',
         });

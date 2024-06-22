@@ -6,8 +6,9 @@ export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
+export { CompletedTaskCreateDto } from './models/CompletedTaskCreateDto';
 export type { CompletedTaskEntity } from './models/CompletedTaskEntity';
-export { CompletedTasksCreateDto } from './models/CompletedTasksCreateDto';
+export type { MiningCreateDto } from './models/MiningCreateDto';
 export type { MiningEntity } from './models/MiningEntity';
 export { MiningUpdateDto } from './models/MiningUpdateDto';
 export { TaskCreateDto } from './models/TaskCreateDto';

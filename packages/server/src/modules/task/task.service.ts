@@ -1,14 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { GenderEnum } from '@common_bot/shared';
 import { logger } from '../../libs/logger/logger.instance';
 import { UserService } from '../user/user.service';
 import { MiningService } from '../mining/mining.service';
-import { CompletedTasksCreateDto, TaskCreateDto, TaskUpdateDto } from './dto';
 import { CompletedTaskEntity as CompletedTask } from './completed-task.entity';
 import { TaskEntity as Task } from './task.entity';
-import { GetQuery } from './types';
+import {
+  TaskCreateDto, TaskUpdateDto, CompletedTaskCreateDto, CompletedTasksCreateDto,
+} from './dto';
+import type { GetQuery } from './types';
 
 const findOne = (tasks_repository: Repository<Task>, id: number) => tasks_repository
   .findOne({
@@ -19,6 +21,7 @@ const findOne = (tasks_repository: Repository<Task>, id: number) => tasks_reposi
 export class TaskService {
   constructor(
     private readonly userService: UserService,
+    @Inject(forwardRef(() => MiningService))
     private readonly miningService: MiningService,
     @InjectDataSource()
     private readonly dataSource: DataSource,
@@ -143,7 +146,7 @@ export class TaskService {
     }
   }
 
-  completeTasks(user_id: string, { tasks, currency, mining_rate }: CompletedTasksCreateDto) {
+  completeTasks({ user_id, tasks }: CompletedTasksCreateDto) {
     try {
       return this.dataSource.transaction(async (manager) => {
         const tasks_repository = manager.getRepository(Task);
@@ -156,15 +159,6 @@ export class TaskService {
           }),
         );
 
-        if (!Number.isNaN(mining_rate)) {
-          await this.miningService.updateMining({
-            id: user_id,
-            currency,
-            mining_rate,
-            started: new Date(),
-          });
-        }
-
         await this.userService.updateUser({
           id: user_id,
           increase_completed_tasks_count: tasks.length,
@@ -175,6 +169,37 @@ export class TaskService {
         const completed_tasks = completed_tasks_repository.create(completed_tasks_data);
 
         return completed_tasks_repository.save(completed_tasks);
+      });
+    } catch (error) {
+      logger.error('TaskService(completeTasks):', error);
+
+      throw new Error();
+    }
+  }
+
+  completeTask({
+    user_id, task_id, currency, mining_rate,
+  }: CompletedTaskCreateDto) {
+    try {
+      return this.dataSource.transaction(async (manager) => {
+        const tasks_repository = manager.getRepository(Task);
+        const completed_tasks_repository = manager.getRepository(CompletedTask);
+
+        await tasks_repository.increment({ id: task_id }, 'complete_count', 1);
+        await tasks_repository.decrement({ id: task_id }, 'available_limit', 1);
+
+        if (!Number.isNaN(mining_rate)) {
+          await this.miningService.updateMining({
+            id: user_id,
+            currency,
+            mining_rate,
+            started: new Date(),
+          });
+        }
+
+        await this.userService.updateUser({ id: user_id, increase_completed_tasks_count: 1 });
+
+        return completed_tasks_repository.save({ user: user_id, task: task_id });
       });
     } catch (error) {
       logger.error('TaskService(completeTasks):', error);

@@ -1,11 +1,13 @@
 import type { ReactNode } from 'react';
-import { UserEntity } from '@common_bot/api';
+import type { Fetch, UserEntity } from '@common_bot/api';
+
+export type GetUserCallback = Fetch<never, UserEntity>;
 
 export type ContextState = {
   referralId: string | null;
   user: UserEntity;
 
-  getUser: () => Promise<unknown>;
+  getUser: GetUserCallback;
   isGetCalled: boolean;
   isGetLoading: boolean;
   isGetSuccess: boolean;

@@ -2,13 +2,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type CompletedTasksCreateDto = {
-    tasks: Array<number>;
-    currency: CompletedTasksCreateDto.currency;
+export type CompletedTaskCreateDto = {
+    user_id: string;
+    task_id: number;
+    currency: CompletedTaskCreateDto.currency;
     mining_rate?: string;
 };
 
-export namespace CompletedTasksCreateDto {
+export namespace CompletedTaskCreateDto {
 
     export enum currency {
         TON = 'ton',

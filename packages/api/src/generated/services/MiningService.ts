@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { MiningCreateDto } from '../models/MiningCreateDto';
 import type { MiningEntity } from '../models/MiningEntity';
 import type { MiningUpdateDto } from '../models/MiningUpdateDto';
 
@@ -28,6 +29,23 @@ export class MiningService {
             errors: {
                 404: `Mining not found.`,
             },
+        });
+    }
+
+    /**
+     * Creating new mining in db
+     * @param requestBody
+     * @returns MiningEntity Mining has been successfully created.
+     * @throws ApiError
+     */
+    public static postMining(
+        requestBody: MiningCreateDto,
+    ): CancelablePromise<MiningEntity> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/mining',
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 

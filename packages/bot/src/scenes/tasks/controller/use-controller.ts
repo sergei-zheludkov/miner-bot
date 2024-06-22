@@ -6,7 +6,6 @@ import { useBotContext } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { SUPPORT_ID } from '../../../constants';
 import { useRouter, useUser } from '../../../contexts';
-import { usePostCompleteTask } from '../use-post-complete-task';
 
 // const { useToggleState } = HOOK;
 
@@ -15,14 +14,7 @@ export const useController = () => {
   const { switchToSceneError } = useRouter();
   const { user/* getUser */ } = useUser();
   const { bot } = useBotContext<UrbanBotTelegram>();
-  const { getTasks: getTasksApi } = useApi().task;
-  const {
-    isPostCalled,
-    isPostSuccess,
-    isPostError,
-    postCompleteTask,
-    postReset,
-  } = usePostCompleteTask();
+  const { getTasks: getTasksApi, postCompleteTask: postCompleteTaskApi } = useApi().task;
 
   const {
     data: tasks = [],
@@ -41,6 +33,20 @@ export const useController = () => {
     0,
     100,
   ));
+
+  const {
+    // data: completedTask,
+    isCalled: isPostCalled,
+    isLoading: isPostLoading,
+    isSuccess: isPostSuccess,
+    isError: isPostError,
+    fetch: postCompleteTask,
+    reset: postReset,
+  } = useQuery(
+    'post_completed_task',
+    postCompleteTaskApi,
+    { isLazy: true },
+  );
 
   // const { toggle: isChecked, turnOn: setChecked } = useToggleState();
 
@@ -95,11 +101,12 @@ export const useController = () => {
         return;
       }
 
-      if (!isPostCalled) {
-        const task = tasks[taskNumber];
+      const task = tasks[taskNumber];
 
-        await postCompleteTask(user.id, {
-          tasks: [task.id],
+      if (!isPostCalled && task) {
+        await postCompleteTask({
+          user_id: user.id,
+          task_id: task.id,
           currency: task.currency,
           mining_rate: task.mining_rate.toString(),
         });
@@ -132,6 +139,7 @@ export const useController = () => {
     isGetLoading,
     isGetError,
     isGetSuccess,
+    isPostLoading,
     isPostSuccess,
     isPostError,
     handleClickPrev,

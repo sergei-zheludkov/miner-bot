@@ -2,18 +2,18 @@ import {
   Controller,
   NotFoundException,
   Patch,
-  Body, Get, Param,
+  Body, Get, Param, Post,
 } from '@nestjs/common';
 import {
   ApiOperation,
   ApiOkResponse,
   // ApiCreatedResponse,
-  ApiNotFoundResponse,
+  ApiNotFoundResponse, ApiCreatedResponse,
 } from '@nestjs/swagger';
 import { API_VERSION_ROUTES, TAGS } from '../../constants';
 import { MiningService } from './mining.service';
 import { MiningEntity } from './mining.entity';
-import { MiningUpdateDto } from './dto';
+import { MiningCreateDto, MiningUpdateDto } from './dto';
 
 @Controller(`${API_VERSION_ROUTES.v1}/mining`)
 export class MiningController {
@@ -40,6 +40,25 @@ export class MiningController {
     }
 
     return mining;
+  }
+
+  @ApiCreatedResponse({
+    description: 'Mining has been successfully created.',
+    type: MiningEntity,
+  })
+  @ApiOperation({
+    tags: [TAGS.MINING],
+    operationId: 'postMining',
+    summary: 'Creating new mining in db',
+  })
+  @Post()
+  async postMining(
+    @Body('who_invited_id') who_invited_id: string,
+    @Body() data: MiningCreateDto,
+  ) {
+    return who_invited_id
+      ? this.miningService.createMiningWithReferral(data)
+      : this.miningService.createMining(data);
   }
 
   @ApiOkResponse({

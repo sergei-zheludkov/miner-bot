@@ -21,7 +21,7 @@ import { API_VERSION_ROUTES, TAGS } from '../../constants';
 import { TaskService } from './task.service';
 import { TaskEntity } from './task.entity';
 import { CompletedTaskEntity } from './completed-task.entity';
-import { CompletedTasksCreateDto, TaskCreateDto, TaskUpdateDto } from './dto';
+import { TaskCreateDto, TaskUpdateDto, CompletedTaskCreateDto } from './dto';
 import type { GetQuery } from './types';
 
 @Controller(`${API_VERSION_ROUTES.v1}/tasks`)
@@ -34,16 +34,15 @@ export class TaskController {
   })
   @ApiOperation({
     tags: [TAGS.TASKS],
-    operationId: 'postCompleteTasks',
+    operationId: 'postCompleteTask',
     summary: 'Creating new completed tasks in db',
   })
-  @ApiBody({ type: CompletedTasksCreateDto })
-  @Post('complete/:id')
+  @ApiBody({ type: CompletedTaskCreateDto })
+  @Post('complete')
   async postCompleteTask(
-    @Body() data: CompletedTasksCreateDto,
-    @Param('id') user_id: string,
+    @Body() data: CompletedTaskCreateDto,
   ) {
-    return this.tasksService.completeTasks(user_id, data);
+    return this.tasksService.completeTask(data);
   }
 
   @ApiOkResponse({
