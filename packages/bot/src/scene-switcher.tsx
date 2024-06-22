@@ -13,6 +13,9 @@ export const SceneSwitcher = () => {
     case T.SceneEnum.RESET:
       return <Scene.Reset />;
 
+    case T.SceneEnum.ACCESSION:
+      return <Scene.Accession />;
+
     case T.SceneEnum.GREETING:
       return <Scene.Greeting />;
 

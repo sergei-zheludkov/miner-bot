@@ -4,8 +4,10 @@ import type { UrbanBotTelegram } from '@urban-bot/telegram';
 import { useTranslation } from '@common_bot/i18n';
 import { NOTIFICATION_STATE } from './constants';
 
-const isNotificationInputState = (state: NOTIFICATION_STATE) => state === NOTIFICATION_STATE.INPUT;
-const isNotificationCheckState = (state: NOTIFICATION_STATE) => state === NOTIFICATION_STATE.CHECK;
+// eslint-disable-next-line max-len
+// const isNotificationInputState = (state: NOTIFICATION_STATE) => state === NOTIFICATION_STATE.INPUT;
+// eslint-disable-next-line max-len
+// const isNotificationCheckState = (state: NOTIFICATION_STATE) => state === NOTIFICATION_STATE.CHECK;
 const isNotificationSendState = (state: NOTIFICATION_STATE) => state === NOTIFICATION_STATE.SEND;
 
 const DEFAULT_NOTIFICATION_STATE = { geo: '', state: NOTIFICATION_STATE.INPUT };

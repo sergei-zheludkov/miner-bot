@@ -7,7 +7,9 @@ export const Greeting = () => {
   const { switchToMenuMain } = useRouter();
   const { t } = useTranslation('greeting');
 
-  useEffect(switchToMenuMain, []);
+  useEffect(() => {
+    setTimeout(switchToMenuMain, 100);
+  }, []);
 
   return (
     <Text>

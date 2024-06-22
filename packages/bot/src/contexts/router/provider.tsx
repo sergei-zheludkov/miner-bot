@@ -25,6 +25,7 @@ export const RouterProvider = ({ children }: ProviderProps) => {
   const switchToSceneMining = () => setScene(T.SceneEnum.MINING);
   const switchToSceneBalance = () => setScene(T.SceneEnum.BALANCE);
   const switchToSceneGreeting = () => setScene(T.SceneEnum.GREETING);
+  const switchToSceneAccession = () => setScene(T.SceneEnum.ACCESSION);
   const switchToSceneSettingsLanguage = () => setScene(T.SceneEnum.SETTINGS_LANGUAGE);
   const switchToSceneCreateTask = () => setScene(T.SceneEnum.CREATE_TASK);
   const switchToSceneAddTaskLimit = () => setScene(T.SceneEnum.ADD_TASK_LIMIT);
@@ -64,6 +65,7 @@ export const RouterProvider = ({ children }: ProviderProps) => {
     switchToSceneRules,
     switchToSceneContacts,
     switchToSceneUsersControl,
+    switchToSceneAccession,
   }), [scene]);
 
   return (

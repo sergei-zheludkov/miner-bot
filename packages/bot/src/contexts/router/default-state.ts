@@ -20,6 +20,7 @@ export const defaultState: ContextState = {
   switchToSceneMining: empty,
   switchToSceneBalance: empty,
   switchToSceneGreeting: empty,
+  switchToSceneAccession: empty,
   switchToSceneSettingsLanguage: empty,
   switchToSceneCreateTask: empty,
   switchToSceneAddTaskLimit: empty,

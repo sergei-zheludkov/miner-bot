@@ -22,6 +22,10 @@ export const Rules = () => {
       <br />
       -
       &#32;
+      {t('breaking')}
+      <br />
+      -
+      &#32;
       {t('minimum')}
       <br />
       -

@@ -25,7 +25,7 @@ type Props = {
 
 export const useRegistration = ({ refId, getUser }: Props) => {
   // const { t } = useTranslation('registration');
-  const { switchToSceneGreeting } = useRouter();
+  const { switchToSceneGreeting, switchToSceneAccession } = useRouter();
   const { i18n } = useTranslation('lang');
   const { chat } = useBotContext();
   const { postUser } = useApi().user;
@@ -57,6 +57,7 @@ export const useRegistration = ({ refId, getUser }: Props) => {
 
     await getUser();
     switchToSceneGreeting();
+    switchToSceneAccession();
   };
 
   const handleChangeLanguage = async (lang: string) => {

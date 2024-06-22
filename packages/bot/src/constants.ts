@@ -5,6 +5,7 @@ export enum SceneEnum {
   MINING = 'scene_mining',
   BALANCE = 'scene_balance',
   GREETING = 'scene_greeting',
+  ACCESSION = 'scene_accession',
 
   SETTINGS_LANGUAGE = 'scene_settings_language',
 

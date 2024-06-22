@@ -17,6 +17,7 @@ export type ContextState = {
   switchToSceneMining: () => void;
   switchToSceneBalance: () => void;
   switchToSceneGreeting: () => void;
+  switchToSceneAccession: () => void;
   switchToSceneSettingsLanguage: () => void;
   switchToSceneCreateTask: () => void;
   switchToSceneAddTaskLimit: () => void;
