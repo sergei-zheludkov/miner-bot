@@ -1,8 +1,11 @@
 import React from 'react';
+import dotenv from 'dotenv';
 import { Text, Image } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 
-const IMAGE_ID = 'AgACAgIAAxkBAAI7HWZ2SR0rgLYCOeYKW0qs8k6Rh22QAAIG2zEb2wawSwaR7ZVe5dLdAQADAgADcwADNQQ';
+dotenv.config();
+
+const { BUTTON_GUIDE_IMG_ID } = process.env;
 
 export const Accession = () => {
   const { t } = useTranslation('rules');
@@ -21,7 +24,7 @@ export const Accession = () => {
         &#32;
         {t('rules:fraud')}
       </Text>
-      <Image file={IMAGE_ID} />
+      {BUTTON_GUIDE_IMG_ID && <Image file={BUTTON_GUIDE_IMG_ID} />}
     </>
   );
 };
