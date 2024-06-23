@@ -30,7 +30,7 @@ export const SceneSwitcher = () => {
     case T.SceneEnum.TASK_CONTROLLER:
       return (
         <Provider.Mining>
-          <Scene.TaskController />
+          <Scene.Tasks.Controller />
         </Provider.Mining>
       );
 
@@ -74,14 +74,14 @@ export const SceneSwitcher = () => {
 
     // ----------------------------------------REFERRAL MENU--------------------------------------
     case T.SceneEnum.REFERRAL_INVITATION:
-      return <Scene.ReferralInvitation />;
+      return <Scene.Referral.Invitation />;
 
     // ------------------------------------TASKS CONTROL MENU----------------------------------
     case T.SceneEnum.CREATE_TASK:
-      return <Scene.CreateTask />;
+      return <Scene.Tasks.Create />;
 
-    case T.SceneEnum.TASK_NOTIFICATION:
-      return <Scene.TaskNotification />;
+      // case T.SceneEnum.TASK_NOTIFICATION:
+      //   return <Scene.Tasks.Notification />;
 
     // -------------------------------------SETTINGS MENU-------------------------------------
     case T.SceneEnum.SETTINGS_LANGUAGE:
@@ -90,6 +90,10 @@ export const SceneSwitcher = () => {
           <Scene.SettingsLanguage />
         </SceneWrapper>
       );
+
+    // -------------------------------------STATISTICS MENU-------------------------------------
+    case T.SceneEnum.STATISTICS_USERS:
+      return <Scene.Statistics.Users />;
 
     // ----------------------------------------------------------------------------------------
     case T.MenuEnum.MAIN:

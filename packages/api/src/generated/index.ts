@@ -11,6 +11,7 @@ export type { CompletedTaskEntity } from './models/CompletedTaskEntity';
 export type { MiningCreateDto } from './models/MiningCreateDto';
 export type { MiningEntity } from './models/MiningEntity';
 export { MiningUpdateDto } from './models/MiningUpdateDto';
+export type { StatisticsGetDto } from './models/StatisticsGetDto';
 export { TaskCreateDto } from './models/TaskCreateDto';
 export { TaskEntity } from './models/TaskEntity';
 export type { TaskUpdateDto } from './models/TaskUpdateDto';

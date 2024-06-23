@@ -5,12 +5,11 @@ import { useRouter } from '../../contexts';
 
 export const Statistics = () => {
   const { t } = useTranslation('buttons');
-  const { switchToMenuAdmin } = useRouter();
+  const { switchToMenuAdmin, switchToSceneStatisticsUsers } = useRouter();
 
   /* ---------- BUTTON HOOKS ---------- */
   const users = t('users');
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  useText(() => {}, users);
+  useText(switchToSceneStatisticsUsers, users);
 
   const back = t('back');
   useText(switchToMenuAdmin, back);

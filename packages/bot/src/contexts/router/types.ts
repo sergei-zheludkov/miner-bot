@@ -28,6 +28,7 @@ export type ContextState = {
   switchToSceneRules: () => void;
   switchToSceneContacts: () => void;
   switchToSceneUsersControl: () => void;
+  switchToSceneStatisticsUsers: () => void;
 }
 
 export type ProviderProps = {

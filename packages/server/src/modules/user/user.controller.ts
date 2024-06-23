@@ -17,11 +17,25 @@ import {
 import { API_VERSION_ROUTES, TAGS } from '../../constants';
 import { UserService } from './user.service';
 import { UserEntity } from './user.entity';
-import { UserCreateDto, UserUpdateDto } from './dto';
+import { StatisticsGetDto, UserCreateDto, UserUpdateDto } from './dto';
 
 @Controller(`${API_VERSION_ROUTES.v1}/users`)
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  @ApiOkResponse({
+    description: 'User statistics has been found.',
+    type: StatisticsGetDto,
+  })
+  @ApiOperation({
+    tags: [TAGS.USERS],
+    operationId: 'getUsersStatistics',
+    summary: 'Returning information about users statistics',
+  })
+  @Get('statistics')
+  async getUsersStatistics(): Promise<StatisticsGetDto> {
+    return this.userService.getStatistics();
+  }
 
   @ApiOkResponse({
     description: 'User has been found.',

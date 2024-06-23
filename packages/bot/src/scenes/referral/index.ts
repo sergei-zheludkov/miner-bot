@@ -1,1 +1,5 @@
-export { Invitation as ReferralInvitation } from './invitation';
+import { Invitation } from './invitation';
+
+export const Referral = {
+  Invitation,
+};

@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { StatisticsGetDto } from '../models/StatisticsGetDto';
 import type { UserCreateDto } from '../models/UserCreateDto';
 import type { UserEntity } from '../models/UserEntity';
 import type { UserUpdateDto } from '../models/UserUpdateDto';
@@ -10,6 +11,18 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
 export class UsersService {
+
+    /**
+     * Returning information about users statistics
+     * @returns StatisticsGetDto User statistics has been found.
+     * @throws ApiError
+     */
+    public static getUsersStatistics(): CancelablePromise<StatisticsGetDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/users/statistics',
+        });
+    }
 
     /**
      * Returning information about user

@@ -334,12 +334,15 @@ export const ru = {
   statistics: {
     users: {
       title: 'Статистика по пользователям',
+      new: 'Кол-во новых пользователей:',
     },
     periods: {
-      daily: 'За день:',
+      today: 'За день:',
       yesterday: 'За вчера:',
-      weekly: 'За неделю:',
-      monthly: 'За месяц:',
+      this_week: 'С понедельника:',
+      this_month: 'С начала этого месяца:',
+      last_7_days: 'За последние 7 дней:',
+      last_30_days: 'За последние 30 дней:',
       all_time: 'За все время:',
     },
   },

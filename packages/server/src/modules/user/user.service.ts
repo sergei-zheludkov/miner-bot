@@ -1,11 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
-import { CurrencyEnum } from '@common_bot/shared';
-import { DataSource, Repository } from 'typeorm';
+import { CurrencyEnum, DATE } from '@common_bot/shared';
+import {
+  Repository,
+  DataSource,
+  MoreThan,
+  Between,
+} from 'typeorm';
 import { logger } from '../../libs/logger/logger.instance';
 import { WalletService } from '../wallet/wallet.service';
 import { UserEntity as User } from './user.entity';
-import { UserCreateDto, UserUpdateDto } from './dto';
+import { StatisticsGetDto, UserCreateDto, UserUpdateDto } from './dto';
+
+const {
+  getStartToday,
+  getStartYesterday,
+  getStartWeek,
+  getStartMonth,
+} = DATE;
 
 const findOne = (users_repository: Repository<User>, id: string) => users_repository
   .findOne({
@@ -143,6 +155,49 @@ export class UserService {
       const users_repository = manager.getRepository(User);
 
       return users_repository.findOne({ where: { id }, select: ['id', 'referral_counter'] });
+    });
+  }
+
+  async getStatistics(): Promise<StatisticsGetDto> {
+    return this.dataSource.transaction(async (manager) => {
+      const users_repository = manager.getRepository(User);
+
+      const todayStart = getStartToday().toDate();
+      const yesterdayStart = getStartYesterday().toDate();
+      const weekStart = getStartWeek().toDate();
+      const monthStart = getStartMonth().toDate();
+      const sevenDaysAgo = getStartToday().subtract(7, 'day').toDate();
+      const thirtyDaysAgo = getStartToday().subtract(30, 'day').toDate();
+
+      const all_time = await users_repository.count();
+      const today = await users_repository.countBy({
+        created: MoreThan(todayStart),
+      });
+      const yesterday = await users_repository.countBy({
+        created: Between(yesterdayStart, todayStart),
+      });
+      const last_7_days = await users_repository.countBy({
+        created: MoreThan(sevenDaysAgo),
+      });
+      const last_30_days = await users_repository.countBy({
+        created: MoreThan(thirtyDaysAgo),
+      });
+      const this_week = await users_repository.countBy({
+        created: MoreThan(weekStart),
+      });
+      const this_month = await users_repository.countBy({
+        created: MoreThan(monthStart),
+      });
+
+      return {
+        today,
+        yesterday,
+        last_7_days,
+        last_30_days,
+        this_week,
+        this_month,
+        all_time,
+      };
     });
   }
 }

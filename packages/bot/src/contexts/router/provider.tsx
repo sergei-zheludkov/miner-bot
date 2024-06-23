@@ -36,6 +36,7 @@ export const RouterProvider = ({ children }: ProviderProps) => {
   const switchToSceneRules = () => setScene(T.SceneEnum.RULES);
   const switchToSceneContacts = () => setScene(T.SceneEnum.CONTACTS);
   const switchToSceneUsersControl = () => setScene(T.SceneEnum.USERS_CONTROL);
+  const switchToSceneStatisticsUsers = () => setScene(T.SceneEnum.STATISTICS_USERS);
 
   useCommand(switchToMenuMain, '/main_menu');
 
@@ -66,6 +67,7 @@ export const RouterProvider = ({ children }: ProviderProps) => {
     switchToSceneContacts,
     switchToSceneUsersControl,
     switchToSceneAccession,
+    switchToSceneStatisticsUsers,
   }), [scene]);
 
   return (

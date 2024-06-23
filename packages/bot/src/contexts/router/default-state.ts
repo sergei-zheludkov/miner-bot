@@ -31,4 +31,5 @@ export const defaultState: ContextState = {
   switchToSceneRules: empty,
   switchToSceneContacts: empty,
   switchToSceneUsersControl: empty,
+  switchToSceneStatisticsUsers: empty,
 };

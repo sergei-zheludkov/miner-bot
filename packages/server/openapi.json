@@ -1,6 +1,28 @@
 {
   "openapi": "3.0.0",
   "paths": {
+    "/api/v1/users/statistics": {
+      "get": {
+        "operationId": "getUsersStatistics",
+        "summary": "Returning information about users statistics",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "User statistics has been found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatisticsGetDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/users/{id}": {
       "get": {
         "operationId": "getOneUser",
@@ -617,6 +639,48 @@
   ],
   "components": {
     "schemas": {
+      "StatisticsGetDto": {
+        "type": "object",
+        "properties": {
+          "today": {
+            "type": "number",
+            "example": 5
+          },
+          "yesterday": {
+            "type": "number",
+            "example": 5
+          },
+          "last_7_days": {
+            "type": "number",
+            "example": 5
+          },
+          "last_30_days": {
+            "type": "number",
+            "example": 5
+          },
+          "this_week": {
+            "type": "number",
+            "example": 5
+          },
+          "this_month": {
+            "type": "number",
+            "example": 5
+          },
+          "all_time": {
+            "type": "number",
+            "example": 5
+          }
+        },
+        "required": [
+          "today",
+          "yesterday",
+          "last_7_days",
+          "last_30_days",
+          "this_week",
+          "this_month",
+          "all_time"
+        ]
+      },
       "UserEntity": {
         "type": "object",
         "properties": {

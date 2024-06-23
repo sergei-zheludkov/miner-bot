@@ -1,3 +1,9 @@
-export { Create as CreateTask } from './create';
-export { Controller as TaskController } from './controller';
-export { Notification as TaskNotification } from './notification';
+import { Create } from './create';
+import { Controller } from './controller';
+import { Notification } from './notification';
+
+export const Tasks = {
+  Create,
+  Controller,
+  Notification,
+};

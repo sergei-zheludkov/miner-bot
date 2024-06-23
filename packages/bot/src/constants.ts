@@ -9,6 +9,8 @@ export enum SceneEnum {
 
   SETTINGS_LANGUAGE = 'scene_settings_language',
 
+  STATISTICS_USERS = 'scene_statistics_users',
+
   TASK_NOTIFICATION = 'scene_task_notification',
   TASK_CONTROLLER = 'scene_task_controller',
   ADD_TASK_LIMIT = 'scene_add_task_limit',
