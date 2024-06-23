@@ -66,6 +66,9 @@ export const SceneSwitcher = () => {
     case T.MenuEnum.TASKS_CONTROL:
       return <Menu.TasksControl />;
 
+    case T.MenuEnum.STATISTICS:
+      return <Menu.Statistics />;
+
     case T.SceneEnum.USERS_CONTROL:
       return <Scene.UsersControl />;
 

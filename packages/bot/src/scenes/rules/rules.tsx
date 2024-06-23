@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ButtonGroup, useText } from '@urban-bot/core';
+import { Button, ButtonGroup } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter } from '../../contexts';
 

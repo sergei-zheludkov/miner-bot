@@ -17,6 +17,7 @@ export const RouterProvider = ({ children }: ProviderProps) => {
   const switchToMenuSupport = () => setScene(T.MenuEnum.SUPPORT);
   const switchToMenuReferral = () => setScene(T.MenuEnum.REFERRAL);
   const switchToMenuSettings = () => setScene(T.MenuEnum.SETTINGS);
+  const switchToMenuStatistics = () => setScene(T.MenuEnum.STATISTICS);
   const switchToMenuInformation = () => setScene(T.MenuEnum.INFORMATION);
   const switchToMenuTasksControl = () => setScene(T.MenuEnum.TASKS_CONTROL);
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -46,6 +47,7 @@ export const RouterProvider = ({ children }: ProviderProps) => {
     switchToMenuSupport,
     switchToMenuReferral,
     switchToMenuSettings,
+    switchToMenuStatistics,
     switchToMenuInformation,
     switchToMenuTasksControl,
     // -- -- -- -- -- -- -- -- --

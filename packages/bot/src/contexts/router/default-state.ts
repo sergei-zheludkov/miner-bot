@@ -12,6 +12,7 @@ export const defaultState: ContextState = {
   switchToMenuSupport: empty,
   switchToMenuReferral: empty,
   switchToMenuSettings: empty,
+  switchToMenuStatistics: empty,
   switchToMenuInformation: empty,
   switchToMenuTasksControl: empty,
   // -- -- -- -- -- -- -- -- -- -- -- -- --

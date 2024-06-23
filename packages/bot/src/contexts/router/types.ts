@@ -9,6 +9,7 @@ export type ContextState = {
   switchToMenuSupport: () => void;
   switchToMenuReferral: () => void;
   switchToMenuSettings: () => void;
+  switchToMenuStatistics: () => void;
   switchToMenuInformation: () => void;
   switchToMenuTasksControl: () => void;
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --

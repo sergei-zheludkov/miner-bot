@@ -31,6 +31,7 @@ export enum MenuEnum {
   SUPPORT = 'support_menu',
   REFERRAL = 'referral_menu',
   SETTINGS = 'settings_menu',
+  STATISTICS = 'statistics_menu',
   INFORMATION = 'information_menu',
   TASKS_CONTROL = 'tasks_control_menu',
 }

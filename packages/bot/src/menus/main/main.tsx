@@ -7,19 +7,13 @@ import {
 } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter } from '../../contexts';
-import { useMainMenu } from './use-main-menu';
 
 export const Main = () => {
   const { t } = useTranslation('buttons');
-  const {
-    handleClickReferral,
-  } = useMainMenu();
 
   const {
     switchToMenuAdmin,
-    // switchToMenuSupport,
-    // switchToMenuReferral,
-    // switchToMenuSettings,
+    switchToMenuReferral,
     switchToSceneMining,
     switchToSceneBalance,
     switchToMenuInformation,
@@ -37,7 +31,7 @@ export const Main = () => {
   useText(switchToSceneTaskController, tasks);
 
   const referral = t('referral');
-  useText(handleClickReferral, referral);
+  useText(switchToMenuReferral, referral);
 
   const balance = t('balance');
   useText(switchToSceneBalance, balance);

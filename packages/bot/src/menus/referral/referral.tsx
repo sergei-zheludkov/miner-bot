@@ -6,7 +6,7 @@ import { Error, Loading } from '../../components';
 import { useReferral } from './use-referral';
 
 export const Referral = () => {
-  const { t } = useTranslation(['buttons']);
+  const { t } = useTranslation('buttons');
   const { switchToSceneReferralInvitation, switchToMenuMain } = useRouter();
   const {
     user,
