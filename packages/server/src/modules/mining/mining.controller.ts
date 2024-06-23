@@ -1,14 +1,17 @@
 import {
   Controller,
   NotFoundException,
+  Get,
+  Post,
   Patch,
-  Body, Get, Param, Post,
+  Param,
+  Body,
 } from '@nestjs/common';
 import {
   ApiOperation,
   ApiOkResponse,
-  // ApiCreatedResponse,
-  ApiNotFoundResponse, ApiCreatedResponse,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
 } from '@nestjs/swagger';
 import { API_VERSION_ROUTES, TAGS } from '../../constants';
 import { MiningService } from './mining.service';

@@ -8,6 +8,7 @@ import { TaskModule } from './modules/task/task.module';
 import { WalletModule } from './modules/wallet/wallet.module';
 import { MiningModule } from './modules/mining/mining.module';
 import { WithdrawalModule } from './modules/withdrawal/withdrawal.module';
+import { NotificationModule } from './modules/notification/notification.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { WithdrawalModule } from './modules/withdrawal/withdrawal.module';
     WalletModule,
     MiningModule,
     WithdrawalModule,
+    NotificationModule,
   ],
 })
 export class AppModule {}

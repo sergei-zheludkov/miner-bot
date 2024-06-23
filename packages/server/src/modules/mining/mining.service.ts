@@ -6,6 +6,7 @@ import { logger } from '../../libs/logger/logger.instance';
 import { UserService } from '../user/user.service';
 import { TaskService } from '../task/task.service';
 import { WalletService } from '../wallet/wallet.service';
+import { NotificationService } from '../notification/notification.service';
 import { MiningEntity as Mining } from './mining.entity';
 import { MiningCreateDto, MiningUpdateDto } from './dto';
 
@@ -21,6 +22,7 @@ export class MiningService {
     private readonly taskService: TaskService,
     private readonly userService: UserService,
     private readonly walletService: WalletService,
+    private readonly notificationService: NotificationService,
     @InjectDataSource()
     private readonly dataSource: DataSource,
   ) {}
@@ -70,7 +72,8 @@ export class MiningService {
           return mining_in_db;
         }
 
-        const referral_user = await this.userService.getOneUser(who_invited_id);
+        // TODO заменить на короткую проверку
+        const referral_user = await this.userService.isExisting(who_invited_id);
 
         if (referral_user) {
           // Начисляем бонус тому кто пригласил
@@ -90,7 +93,10 @@ export class MiningService {
           });
 
           // Отправляем уведомление о регистрации нового юзера
-          // this.postNewReferralNotification(who_invited_id, data.username);
+
+          const { username } = await this.userService.getNickname(id);
+
+          this.notificationService.newReferralActivated(who_invited_id, username);
         }
 
         // Записываем информацию о выполненных заданиях

@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserService } from '../user/user.service';
 import { WalletService } from '../wallet/wallet.service';
 import { MiningService } from '../mining/mining.service';
+import { NotificationService } from '../notification/notification.service';
 import { TaskController } from './task.controller';
 import { TaskEntity as Task } from './task.entity';
 import { TaskService } from './task.service';
@@ -10,6 +11,12 @@ import { TaskService } from './task.service';
 @Module({
   imports: [TypeOrmModule.forFeature([Task])],
   controllers: [TaskController],
-  providers: [WalletService, MiningService, UserService, TaskService],
+  providers: [
+    WalletService,
+    MiningService,
+    UserService,
+    NotificationService,
+    TaskService,
+  ],
 })
 export class TaskModule {}
