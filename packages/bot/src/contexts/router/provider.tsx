@@ -20,7 +20,6 @@ export const RouterProvider = ({ children }: ProviderProps) => {
   const switchToMenuInformation = () => setScene(T.MenuEnum.INFORMATION);
   const switchToMenuTasksControl = () => setScene(T.MenuEnum.TASKS_CONTROL);
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-  const switchToSceneReset = () => setScene(T.SceneEnum.RESET);
   const switchToSceneError = () => setScene(T.SceneEnum.ERROR);
   const switchToSceneMining = () => setScene(T.SceneEnum.MINING);
   const switchToSceneBalance = () => setScene(T.SceneEnum.BALANCE);
@@ -50,7 +49,6 @@ export const RouterProvider = ({ children }: ProviderProps) => {
     switchToMenuInformation,
     switchToMenuTasksControl,
     // -- -- -- -- -- -- -- -- --
-    switchToSceneReset,
     switchToSceneError,
     switchToSceneMining,
     switchToSceneBalance,

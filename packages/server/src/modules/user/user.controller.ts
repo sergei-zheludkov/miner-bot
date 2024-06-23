@@ -4,6 +4,7 @@ import {
   Get,
   Post,
   Patch,
+  Query,
   Param,
   Body,
 } from '@nestjs/common';
@@ -11,7 +12,7 @@ import {
   ApiOperation,
   ApiOkResponse,
   ApiCreatedResponse,
-  ApiNotFoundResponse,
+  ApiNotFoundResponse, ApiQuery,
 } from '@nestjs/swagger';
 import { API_VERSION_ROUTES, TAGS } from '../../constants';
 import { UserService } from './user.service';
@@ -34,9 +35,24 @@ export class UserController {
     operationId: 'getOneUser',
     summary: 'Returning information about user',
   })
+  @ApiQuery({ name: 'select', required: false, type: String })
   @Get(':id')
-  async getOneUser(@Param('id') id: string) {
-    const user = await this.userService.getOneUser(id);
+  async getOneUser(
+    @Param('id') id: string,
+    @Query('select') select?: 'username' | 'referral_counter',
+  ) {
+    let user: UserEntity | null = null;
+
+    switch (select) {
+      case 'username':
+        user = await this.userService.getNickname(id);
+        break;
+      case 'referral_counter':
+        user = await this.userService.getReferralCounter(id);
+        break;
+      default:
+        user = await this.userService.getOneUser(id);
+    }
 
     if (!user) {
       throw new NotFoundException();

@@ -1,11 +1,11 @@
 import { LocalStorage } from 'node-localstorage';
 import { UrbanChat } from '@urban-bot/core';
 
-const CHAT_MAP_KEY = 'CHAT_MAP_KEY';
+const FILE_NAME = 'CHATS';
 const localStorage = new LocalStorage('./storage');
 
 export const getChatsMap = (): Record<string, UrbanChat> => {
-  const chatsRaw = localStorage.getItem(CHAT_MAP_KEY);
+  const chatsRaw = localStorage.getItem(FILE_NAME);
 
   if (!chatsRaw) {
     return {};
@@ -16,7 +16,14 @@ export const getChatsMap = (): Record<string, UrbanChat> => {
 
 export const getChats = () => {
   const chatsMap = getChatsMap();
+
   return Object.values(chatsMap);
+};
+
+export const getChat = (id: string): UrbanChat | null => {
+  const chat = getChatsMap()[id];
+
+  return chat?.id ? chat : null;
 };
 
 export const saveChat = (chat: UrbanChat) => {
@@ -27,5 +34,5 @@ export const saveChat = (chat: UrbanChat) => {
     [chat.id]: chat,
   };
 
-  localStorage.setItem(CHAT_MAP_KEY, JSON.stringify(newChatsMap));
+  localStorage.setItem(FILE_NAME, JSON.stringify(newChatsMap));
 };

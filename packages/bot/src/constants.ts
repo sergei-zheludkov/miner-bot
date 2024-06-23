@@ -21,7 +21,6 @@ export enum SceneEnum {
   RULES = 'scene_rules',
   CONTACTS = 'scene_contacts',
 
-  RESET = 'scene_reset',
   ERROR = 'scene_error',
   DISABLE = 'scene_disable',
 }

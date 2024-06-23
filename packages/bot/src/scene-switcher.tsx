@@ -10,9 +10,6 @@ export const SceneSwitcher = () => {
   const { scene } = useRouter();
 
   switch (scene) {
-    case T.SceneEnum.RESET:
-      return <Scene.Reset />;
-
     case T.SceneEnum.ACCESSION:
       return <Scene.Accession />;
 

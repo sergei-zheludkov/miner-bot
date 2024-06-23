@@ -5,7 +5,7 @@ import type { ContextState } from './types';
 const { empty } = UTILITIES;
 
 export const defaultState: ContextState = {
-  scene: T.SceneEnum.RESET,
+  scene: T.SceneEnum.DISABLE,
 
   switchToMenuMain: empty,
   switchToMenuAdmin: empty,
@@ -15,7 +15,6 @@ export const defaultState: ContextState = {
   switchToMenuInformation: empty,
   switchToMenuTasksControl: empty,
   // -- -- -- -- -- -- -- -- -- -- -- -- --
-  switchToSceneReset: empty,
   switchToSceneError: empty,
   switchToSceneMining: empty,
   switchToSceneBalance: empty,

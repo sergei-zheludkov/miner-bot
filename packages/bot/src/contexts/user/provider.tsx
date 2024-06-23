@@ -1,9 +1,14 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React, { useState, useEffect } from 'react';
-import { useBotContext, useCommand } from '@urban-bot/core';
-import { useApi, useQuery, predicates } from '@common_bot/api';
-import { saveChat, getChatsMap } from '../../local-storage';
-import { /* ShortRegistration, */ Registration } from '../../scenes';
+import { UrbanChat, useBotContext, useCommand } from '@urban-bot/core';
+import {
+  useApi,
+  useQuery,
+  predicates,
+  UserEntity,
+} from '@common_bot/api';
+import { saveChat, getChat } from '../../local-storage';
+import { /* ShortRegistration, */ Registration, Reset } from '../../scenes';
 import { useRouter } from '../router';
 import { Context } from './context';
 import { getStartQueryParams } from './helpers';
@@ -12,10 +17,11 @@ import type { ProviderProps, ContextState } from './types';
 const { isNotFoundError } = predicates;
 
 export const UserProvider = ({ children }: ProviderProps) => {
+  const { chat } = useBotContext();
+  const [userInStore, setUser] = useState<UrbanChat | null>(getChat(chat.id));
   const [referralId, setReferralId] = useState<ContextState['referralId']>(null);
   // const { i18n } = useTranslation('common');
-  const { switchToSceneReset, switchToSceneGreeting } = useRouter();
-  const { chat } = useBotContext();
+  const { switchToSceneGreeting } = useRouter();
   const { getOneUser: getOneUserApi } = useApi().user;
   const {
     data: user,
@@ -41,27 +47,33 @@ export const UserProvider = ({ children }: ProviderProps) => {
       setReferralId(ref);
     }
 
-    if (isUserLoaded) {
+    // Юзер есть в DB и в Local и уже активен
+    if (user && userInStore) {
       switchToSceneGreeting();
+
+      return;
     }
+
+    let user_data: UserEntity | undefined;
 
     if (!isGetCalled) {
-      await getUser();
+      user_data = (await getUser()).data;
+    }
+
+    // Юзер есть в DB и в Local и стоит на reset
+    if (user_data && userInStore) {
+      switchToSceneGreeting();
+
+      return;
+    }
+
+    // Юзер есть в DB, но нет в Local
+    if (user_data && !userInStore) {
+      saveChat(chat);
+      setUser(chat);
+      switchToSceneGreeting();
     }
   }, '/start');
-
-  // AFTER RESTART SERVICE
-  useEffect(() => {
-    const userInStore = getChatsMap()[chat.id];
-
-    if (userInStore && !isGetCalled) {
-      getUser().then(switchToSceneReset);
-    }
-  }, []);
-
-  useEffect(() => {
-    saveChat(chat);
-  }, [chat.id]);
 
   // useEffect(() => {
   //   if (user) {
@@ -71,6 +83,10 @@ export const UserProvider = ({ children }: ProviderProps) => {
 
   if (isUserNotFound) {
     return <Registration refId={referralId} getUser={getUser} />;
+  }
+
+  if (!isGetCalled && userInStore) {
+    return <Reset getUser={getUser} />;
   }
 
   if (isUserLoaded) {

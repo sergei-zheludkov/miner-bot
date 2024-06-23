@@ -14,17 +14,22 @@ export class UsersService {
     /**
      * Returning information about user
      * @param id
+     * @param select
      * @returns UserEntity User has been found.
      * @throws ApiError
      */
     public static getOneUser(
         id: string,
+        select?: string,
     ): CancelablePromise<UserEntity> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/users/{id}',
             path: {
                 'id': id,
+            },
+            query: {
+                'select': select,
             },
             errors: {
                 404: `User not found.`,

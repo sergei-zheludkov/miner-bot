@@ -16,6 +16,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "select",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {

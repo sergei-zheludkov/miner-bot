@@ -1,16 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
-import { HttpService } from '@nestjs/axios';
-import { ConfigService } from '@nestjs/config';
-import { CurrencyEnum, DATE } from '@common_bot/shared';
+import { CurrencyEnum } from '@common_bot/shared';
 import { DataSource, Repository } from 'typeorm';
-import { toPromise } from '../../helpers';
 import { logger } from '../../libs/logger/logger.instance';
 import { WalletService } from '../wallet/wallet.service';
 import { UserEntity as User } from './user.entity';
 import { UserCreateDto, UserUpdateDto } from './dto';
-
-const { getFormattedDate } = DATE;
 
 const findOne = (users_repository: Repository<User>, id: string) => users_repository
   .findOne({
@@ -20,44 +15,10 @@ const findOne = (users_repository: Repository<User>, id: string) => users_reposi
 @Injectable()
 export class UserService {
   constructor(
-    private readonly httpService: HttpService,
-    private readonly configService: ConfigService,
     private readonly walletService: WalletService,
     @InjectDataSource()
     private readonly dataSource: DataSource,
   ) {}
-
-  // TODO сделать отдельный сервис который будет посылать уведомления на сервер бота
-  private async postNewReferralNotification(userid: string, username: string) {
-    const url = `${this.configService.get('WEBHOOK_HOST_BASE')}notifications/referrals/new/${userid}`;
-
-    const request = this.httpService.post(url, { username });
-
-    const data = {
-      request,
-      logger_message: 'USER SERVICE [post new referral notification]',
-      error_message: 'Something goes wrong',
-    };
-
-    try {
-      /* const resp = */ await toPromise(data);
-      // console.info(
-      //   getFormattedDate(),
-      //   `| User ID: ${userid}`,
-      //   `| Username: ${username}`,
-      //   `| URL: ${url}`,
-      //   `| Resp: ${resp}`,
-      // );
-    } catch (error) {
-      console.info(
-        getFormattedDate(),
-        `| User ID: ${userid}`,
-        `| Username: ${username}`,
-        `| URL: ${url}`,
-        `| Error: ${error}`,
-      );
-    }
-  }
 
   getOneUser(id: string) {
     return this.dataSource.transaction(async (manager) => {
@@ -159,5 +120,29 @@ export class UserService {
 
       throw new Error();
     }
+  }
+
+  isExisting(id: string) {
+    return this.dataSource.transaction(async (manager) => {
+      const users_repository = manager.getRepository(User);
+
+      return users_repository.existsBy({ id });
+    });
+  }
+
+  getNickname(id: string) {
+    return this.dataSource.transaction(async (manager) => {
+      const users_repository = manager.getRepository(User);
+
+      return users_repository.findOne({ where: { id }, select: ['id', 'username'] });
+    });
+  }
+
+  getReferralCounter(id: string) {
+    return this.dataSource.transaction(async (manager) => {
+      const users_repository = manager.getRepository(User);
+
+      return users_repository.findOne({ where: { id }, select: ['id', 'referral_counter'] });
+    });
   }
 }

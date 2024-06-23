@@ -4,6 +4,7 @@ import { BotLanguageEnum } from '@common_bot/shared';
 import { useApi, useQuery } from '@common_bot/api';
 import type { UserCreateDto } from '@common_bot/api';
 import { useTranslation } from '@common_bot/i18n';
+import { saveChat } from '../../local-storage';
 import { useRouter } from '../../contexts';
 
 export const DEFAULT_STATE = {
@@ -55,6 +56,7 @@ export const useRegistration = ({ refId, getUser }: Props) => {
       return;
     }
 
+    saveChat(chat);
     await getUser();
     switchToSceneGreeting();
     switchToSceneAccession();
