@@ -13,7 +13,7 @@ export const useUsersControl = () => {
     fetch: getUser,
   } = useQuery(
     'get_one_user_in_user_control',
-    getOneUserApi,
+    (id: string) => getOneUserApi(id),
     { isLazy: true },
   );
 
