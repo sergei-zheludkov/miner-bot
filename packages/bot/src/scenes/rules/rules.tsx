@@ -34,9 +34,6 @@ export const Rules = () => {
     </>
   );
 
-  // const back = t('buttons:back');
-  // useText(switchToMenuInformation, back);
-
   return (
     <ButtonGroup isNewMessageEveryRender={false} maxColumns={1} title={title}>
       <Button onClick={switchToMenuInformation}>{t('buttons:back')}</Button>

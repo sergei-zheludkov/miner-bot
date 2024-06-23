@@ -12,7 +12,7 @@ export const useSceneWrapper = () => {
   useEffect(() => {
     if (ref.current && toggle) {
       ref.current = false;
-      setTimeout(turnOff, 300);
+      setTimeout(turnOff, 0);
     }
   }, []);
 

@@ -49,10 +49,18 @@ export const SceneSwitcher = () => {
       );
 
     case T.SceneEnum.RULES:
-      return <Scene.Rules />;
+      return (
+        <SceneWrapper type="remove-keyboard">
+          <Scene.Rules />
+        </SceneWrapper>
+      );
 
     case T.SceneEnum.CONTACTS:
-      return <Scene.Contacts />;
+      return (
+        <SceneWrapper type="remove-keyboard">
+          <Scene.Contacts />
+        </SceneWrapper>
+      );
 
     // ----------------------------------------ADMIN MENU--------------------------------------
     case T.MenuEnum.TASKS_CONTROL:
