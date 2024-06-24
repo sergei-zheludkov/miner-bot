@@ -68,7 +68,7 @@ Promocode: 6481073677
 13. Вносишь настройки в .env файлы и добавляешь init_scripts.
 14. Прописываешь в .env бота `WEBHOOK_HOST` на локальной машине.
 15. Прописываешь в .env бота `TELEGRAM_TOKEN` на локальной машине. 
-16. Запускаешь команду в shell-клиенте команду `urban-bot set-webhook telegram`
+16. Запускаешь команду в shell-клиенте команду `urban-bot set-webhook telegram` (При след запуске бота, через поллинг, веб-хук сбрасывается)
 17. Переходишь в папку проекта.
 18. Запускаешь `docker compose up -d postgres`.
 19. Запускаешь `docker compose up -d server`.
@@ -81,6 +81,7 @@ Promocode: 6481073677
 3. `yarn stop_pm2:prod` - останавливает бот.
 4. `git pull` - тянем последние изменения из ветки `production`
 
+`sudo systemctl restart nginx`
 ---
 
 ## Start on the server
@@ -142,28 +143,29 @@ Promocode: 6481073677
 
 ## System update
 
-`sudo systemctl restart nginx`
 
-#### Without transfer DB 
-
-1. `cd ../var/www/www-root/data/ton-miner-bot/miner-bot`
-2. `git pull`
-3. `cd packages/devops`
-4. `docker cp {{container_id}}:/bot/packages/bot/storage /var/www/www-root/data/ton-miner-bot/miner-bot/packages/bot`
-5. `docker compose down bot`
-6. `docker compose down server`
-7. `docker rmi {{image_id: bot}}`
-8. `docker rmi {{image_id: server}}`
-9. `docker compose up -d bot`
-
-#### Without transfer DB 
-1. `cd ../var/www/www-root/data/ton-miner-bot/miner-bot`
-2. `git pull`
-3. `cd packages/devops`
-4. `docker exec -it {{postgres_container_id}} bash`
-5. `pg_dump -U root -F t miner_bot > miner_bot.tar`
-6. `docker cp {{postgres_container_id}}:/miner_bot.tar /var/www/www-root/data/ton-miner-bot/miner-bot/packages/devops`
-7. `docker cp {{bot_container_id}}:/bot/packages/bot/storage /var/www/www-root/data/ton-miner-bot/miner-bot/packages/bot`
+1. Переходишь в директорию с файлами проекта.
+```
+cd ../var/www/www-root/data/ton-miner-bot/miner-bot
+```
+2. Тянешь обновления из хранилища.
+```
+git pull
+```
+3. Переходишь в директорию с файлами запуска.
+```
+cd packages/devops
+```
+4. Копируешь БД из докер-контейнера postgres. 
+```
+docker exec {{postgres_container_id}} pg_dump -U root -F t miner_bot > miner_bot.tar
+```
+5. Копируешь Storage-файл из докер-контейнера bot.
+```
+docker cp {{bot_container_id}}:/bot/packages/bot/storage /var/www/www-root/data/miner_bot/miner-bot/packages/bot
+```
+---
+-Переписать-
 8. `docker cp miner_bot.tar {{postgres_container_id}}:/`
 9. `docker exec -it {{container_id}} bash`
 10. `pg_restore -U sergei_zheludkov -C -d miner_bot miner_bot.tar`
@@ -175,10 +177,9 @@ Promocode: 6481073677
 
 ---
 
-[DB_RESTORE GUIDE 1](https://stackoverflow.com/questions/24718706/backup-restore-a-dockerized-postgresql-database)
-
-[DB_RESTORE GUIDE 2](https://medium.com/@burakkocakeu/get-pg-dump-from-a-docker-container-and-pg-restore-into-another-in-5-steps-74ca5bf0589c)
-
-[GITLAB RUNNER GUIDE](https://technoupdate.medium.com/how-to-configure-gitlab-runner-on-ubuntu-20-04-c26e2f16fd24)
-
-[GITLAB CI/CD GUIDE](https://www.youtube.com/watch?v=dLfqjoE-WNQ)
+[DB_RESTORE GUIDE 1](https://stackoverflow.com/questions/24718706/backup-restore-a-dockerized-postgresql-database)\
+[DB_RESTORE GUIDE 2](https://medium.com/@burakkocakeu/get-pg-dump-from-a-docker-container-and-pg-restore-into-another-in-5-steps-74ca5bf0589c)\
+[DB_RESTORE GUIDE 2](https://gist.github.com/spalladino/6d981f7b33f6e0afe6bb)\
+[GITLAB RUNNER GUIDE](https://technoupdate.medium.com/how-to-configure-gitlab-runner-on-ubuntu-20-04-c26e2f16fd24)\
+[GITLAB CI/CD GUIDE](https://www.youtube.com/watch?v=dLfqjoE-WNQ)\
+[CRON JOB GUIDE](https://www.digitalocean.com/community/tutorials/how-to-use-cron-to-automate-tasks-ubuntu-1804)
