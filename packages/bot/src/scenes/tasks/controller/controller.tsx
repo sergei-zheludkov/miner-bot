@@ -10,7 +10,7 @@ const { getCryptoAmount } = MATH;
 
 export const Controller = () => {
   const { t } = useTranslation('tasks');
-  const { switchToSceneMining, switchToMenuReferral } = useRouter();
+  const { switchToSceneMining, switchToSceneReferralTerms } = useRouter();
   const { mining } = useMining();
   const { switchToMenuMain } = useRouter();
   const {
@@ -97,7 +97,7 @@ export const Controller = () => {
     const title = t('list.empty');
 
     const referralButton = [
-      <Button key="referral" onClick={switchToMenuReferral}>
+      <Button key="referral" onClick={switchToSceneReferralTerms}>
         {t('buttons:referral')}
       </Button>,
     ];

@@ -1,7 +1,7 @@
 import { useApi, useQuery } from '@common_bot/api';
 import { useBotContext } from '@urban-bot/core';
 
-export const useReferral = () => {
+export const useTerms = () => {
   const { chat } = useBotContext();
   const { getOneUser: getOneUserApi } = useApi().user;
 

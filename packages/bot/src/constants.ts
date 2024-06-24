@@ -18,6 +18,8 @@ export enum SceneEnum {
   USERS_CONTROL = 'scene_users_control',
 
   WITHDRAWAL = 'scene_withdrawal',
+
+  REFERRAL_TERMS = 'scene_referral_terms',
   REFERRAL_INVITATION = 'scene_referral_invitation',
 
   RULES = 'scene_rules',
@@ -31,7 +33,6 @@ export enum MenuEnum {
   MAIN = 'main_menu',
   ADMIN = 'admin_menu',
   SUPPORT = 'support_menu',
-  REFERRAL = 'referral_menu',
   SETTINGS = 'settings_menu',
   STATISTICS = 'statistics_menu',
   INFORMATION = 'information_menu',

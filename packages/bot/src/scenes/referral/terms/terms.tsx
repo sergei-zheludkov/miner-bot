@@ -1,11 +1,11 @@
 import React from 'react';
-import { Button, ButtonGroup, useText } from '@urban-bot/core';
+import { Button, ButtonGroup } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
-import { useRouter } from '../../contexts';
-import { Error, Loading } from '../../components';
-import { useReferral } from './use-referral';
+import { useRouter } from '../../../contexts';
+import { Error, Loading } from '../../../components';
+import { useTerms } from './use-terms';
 
-export const Referral = () => {
+export const Terms = () => {
   const { t } = useTranslation('buttons');
   const { switchToSceneReferralInvitation, switchToMenuMain } = useRouter();
   const {
@@ -14,18 +14,10 @@ export const Referral = () => {
     isGetLoading,
     isGetSuccess,
     isGetError,
-  } = useReferral();
-
-  /* ---------- BUTTON HOOKS ---------- */
-  const invite = t('invite');
-  useText(switchToSceneReferralInvitation, invite);
-
-  const back = t('back');
-  useText(switchToMenuMain, back);
-  /* --------------------------------- */
+  } = useTerms();
 
   if (!isGetCalled || isGetLoading) {
-    return <Loading />;
+    return <Loading isRemoveKeyboard />;
   }
 
   if (isGetError) {
@@ -33,16 +25,18 @@ export const Referral = () => {
   }
 
   if (isGetSuccess && user) {
+    const { referral_counter } = user;
+
     const title = (
       <>
         <b>{t('referral:title')}</b>
         <br />
         <br />
-        <i>{t('referral:statistic.connected', { count: user.referral_counter })}</i>
+        <i>{t('referral:statistic.connected', { count: referral_counter })}</i>
         &#32;
-        <b>{user.referral_counter}</b>
+        <b>{referral_counter}</b>
         &#32;
-        <i>{t('referral:statistic.people', { count: user.referral_counter })}</i>
+        <i>{t('referral:statistic.people', { count: referral_counter })}</i>
         <br />
         <br />
         ------------------------------
@@ -67,9 +61,13 @@ export const Referral = () => {
     );
 
     return (
-      <ButtonGroup isReplyButtons isResizedKeyboard maxColumns={1} title={title}>
-        <Button>{invite}</Button>
-        <Button>{back}</Button>
+      <ButtonGroup isNewMessageEveryRender={false} maxColumns={1} title={title}>
+        <Button onClick={switchToSceneReferralInvitation}>
+          {t('invite')}
+        </Button>
+        <Button onClick={switchToMenuMain}>
+          {t('back')}
+        </Button>
       </ButtonGroup>
     );
   }

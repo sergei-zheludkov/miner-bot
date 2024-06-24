@@ -13,10 +13,10 @@ export const Main = () => {
 
   const {
     switchToMenuAdmin,
-    switchToMenuReferral,
+    switchToMenuInformation,
     switchToSceneMining,
     switchToSceneBalance,
-    switchToMenuInformation,
+    switchToSceneReferralTerms,
     switchToSceneTaskController,
   } = useRouter();
 
@@ -31,7 +31,7 @@ export const Main = () => {
   useText(switchToSceneTaskController, tasks);
 
   const referral = t('referral');
-  useText(switchToMenuReferral, referral);
+  useText(switchToSceneReferralTerms, referral);
 
   const balance = t('balance');
   useText(switchToSceneBalance, balance);

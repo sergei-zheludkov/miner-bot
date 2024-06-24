@@ -15,7 +15,6 @@ export const RouterProvider = ({ children }: ProviderProps) => {
   const switchToMenuMain = () => setScene(T.MenuEnum.MAIN);
   const switchToMenuAdmin = () => setScene(T.MenuEnum.ADMIN);
   const switchToMenuSupport = () => setScene(T.MenuEnum.SUPPORT);
-  const switchToMenuReferral = () => setScene(T.MenuEnum.REFERRAL);
   const switchToMenuSettings = () => setScene(T.MenuEnum.SETTINGS);
   const switchToMenuStatistics = () => setScene(T.MenuEnum.STATISTICS);
   const switchToMenuInformation = () => setScene(T.MenuEnum.INFORMATION);
@@ -32,6 +31,7 @@ export const RouterProvider = ({ children }: ProviderProps) => {
   const switchToSceneTaskController = () => setScene(T.SceneEnum.TASK_CONTROLLER);
   const switchToSceneTaskNotification = () => setScene(T.SceneEnum.TASK_NOTIFICATION);
   const switchToSceneWithdrawal = () => setScene(T.SceneEnum.WITHDRAWAL);
+  const switchToSceneReferralTerms = () => setScene(T.SceneEnum.REFERRAL_TERMS);
   const switchToSceneReferralInvitation = () => setScene(T.SceneEnum.REFERRAL_INVITATION);
   const switchToSceneRules = () => setScene(T.SceneEnum.RULES);
   const switchToSceneContacts = () => setScene(T.SceneEnum.CONTACTS);
@@ -46,7 +46,6 @@ export const RouterProvider = ({ children }: ProviderProps) => {
     switchToMenuMain,
     switchToMenuAdmin,
     switchToMenuSupport,
-    switchToMenuReferral,
     switchToMenuSettings,
     switchToMenuStatistics,
     switchToMenuInformation,
@@ -62,6 +61,7 @@ export const RouterProvider = ({ children }: ProviderProps) => {
     switchToSceneTaskController,
     switchToSceneTaskNotification,
     switchToSceneWithdrawal,
+    switchToSceneReferralTerms,
     switchToSceneReferralInvitation,
     switchToSceneRules,
     switchToSceneContacts,
