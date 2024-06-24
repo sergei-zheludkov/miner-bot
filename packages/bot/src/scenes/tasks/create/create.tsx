@@ -124,11 +124,11 @@ export const Create = () => {
 
   const increaseMiningRateContent = (
     <ButtonGroup isReplyButtons isResizedKeyboard maxColumns={1} title={t('create.questions.increase_mining_rate.message')}>
-      <Button id="0.000_000_1">
-        0.000_000_1
+      <Button id="0.0000001">
+        0.0000001
       </Button>
-      <Button id="0.000_000_2">
-        0.000_000_2
+      <Button id="0.0000002">
+        0.0000002
       </Button>
       {/* <Button id="0.000_000_3"> */}
       {/*  0.000_000_3 */}
