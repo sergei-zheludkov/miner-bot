@@ -104,7 +104,7 @@ export class TaskService {
         const tasks_repository = manager.getRepository(Task);
 
         // Нюансы передачи decimal по api
-        const new_task_data = { ...data, contact: contact_id, mining_rate: 0 };
+        const new_task_data = { ...data, contact_id, mining_rate: 0 };
 
         if (!Number.isNaN(data.mining_rate)) {
           new_task_data.mining_rate = Number(data.mining_rate);
