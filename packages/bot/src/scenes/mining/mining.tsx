@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, ButtonGroup } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { MATH } from '@common_bot/shared';
-import { useMining, useRouter } from '../../contexts';
+import { useMining, useRouter, useUser } from '../../contexts';
 import { useActivation } from './use-activation';
 import { Error, Loading } from '../../components';
 import { useMiningTon } from './use-mining-ton';
@@ -12,6 +12,7 @@ const { getCryptoAmount, getMinedTokenAmount } = MATH;
 export const Mining = () => {
   const { t } = useTranslation('mining');
   const { switchToMenuMain } = useRouter();
+  const { user: { who_invited_id } } = useUser();
   const {
     mining,
     // isGetMiningSuccess,
@@ -47,6 +48,20 @@ export const Mining = () => {
 
     // Если запись о майнинге в БД сделана успешно
     if (isPostMiningSuccess) {
+      const bonus = (
+        <>
+          <br />
+          <br />
+          {t('bonus_prefix')}
+          &#32;
+          <b>0.0025</b>
+          &#32;
+          TON
+          &#32;
+          {t('bonus_postfix')}
+        </>
+      );
+
       const titleComponent = (
         <>
           {t('done')}
@@ -57,15 +72,7 @@ export const Mining = () => {
           <b>0.0000001000</b>
           &#32;
           TON
-          <br />
-          <br />
-          {t('bonus_prefix')}
-          &#32;
-          <b>0.0025</b>
-          &#32;
-          TON
-          &#32;
-          {t('bonus_postfix')}
+          {who_invited_id && bonus}
         </>
       );
 
