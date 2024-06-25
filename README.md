@@ -175,6 +175,10 @@ docker cp {{bot_container_id}}:/bot/packages/bot/storage /var/www/www-root/data/
 14. `docker rmi {{image_id: server}}`
 15. `docker compose up -d bot`
 
+команда для cron для создания копий БД: 
+```
+docker exec postgres.prod pg_dump -U root -F t miner_bot > ../var/www/www-root/data/miner_bot/miner-bot/dumps/miner_bot_`date +%Y_%m_%d-%H_%M`.tar
+```
 ---
 
 [DB_RESTORE GUIDE 1](https://stackoverflow.com/questions/24718706/backup-restore-a-dockerized-postgresql-database)\

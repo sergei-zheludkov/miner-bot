@@ -131,6 +131,7 @@ export const useController = () => {
   // }, [tasks.length]);
 
   return {
+    displayedTask: tasks[taskNumber],
     tasks,
     taskNumber,
     isEmptyList,
