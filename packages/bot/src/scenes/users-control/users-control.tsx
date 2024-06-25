@@ -2,7 +2,6 @@ import React from 'react';
 import { ButtonGroup, Button, useText } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter } from '../../contexts';
-// import { Loading } from '../../components';
 import { useUsersControl } from './use-users-control';
 import { UserInput } from './user-input';
 

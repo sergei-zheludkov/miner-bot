@@ -4,7 +4,7 @@ import { useTranslation } from '@common_bot/i18n';
 import { MATH } from '@common_bot/shared';
 import { useMining, useRouter, useUser } from '../../contexts';
 import { useActivation } from './use-activation';
-import { Error, Loading } from '../../components';
+import { Error } from '../../components';
 import { useMiningTon } from './use-mining-ton';
 
 const { getCryptoAmount, getMinedTokenAmount } = MATH;
@@ -36,7 +36,7 @@ export const Mining = () => {
   }
 
   if (!isGetTasksCalled || isGetTasksLoading) {
-    return <Loading />;
+    return null;
   }
 
   const { title, buttons } = (() => {

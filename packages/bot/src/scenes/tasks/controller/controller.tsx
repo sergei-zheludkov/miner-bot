@@ -3,7 +3,6 @@ import { Button, ButtonGroup } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { MATH } from '@common_bot/shared';
 import { useRouter, useMining } from '../../../contexts';
-import { Loading } from '../../../components';
 import { useController } from './use-controller';
 
 const { getCryptoAmount } = MATH;
@@ -36,7 +35,7 @@ export const Controller = () => {
   ];
 
   if (/* !isChecked || */ !isGetCalled || isGetLoading) {
-    return <Loading />;
+    return null;
   }
 
   if (!mining) {

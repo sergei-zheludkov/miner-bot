@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, ButtonGroup, useText } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter } from '../../../contexts';
-import { Error, Loading } from '../../../components';
+import { Error } from '../../../components';
 import { useUsersStatistics } from './use-users-statistics';
 
 export const Users = () => {
@@ -20,7 +20,7 @@ export const Users = () => {
   useText(switchToMenuMain, back);
 
   if (!isGetCalled || isGetLoading) {
-    return <Loading />;
+    return null;
   }
 
   if (isGetError) {
