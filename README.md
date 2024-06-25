@@ -162,7 +162,12 @@ docker exec {{postgres_container_id}} pg_dump -U root -F t miner_bot > miner_bot
 ```
 5. Копируешь Storage-файл из докер-контейнера bot.
 ```
-docker cp {{bot_container_id}}:/bot/packages/bot/storage /var/www/www-root/data/miner_bot/miner-bot/packages/bot
+docker cp bot.prod:/bot/packages/bot/storage /var/www/www-root/data/miner_bot/miner-bot/packages/bot
+```
+6. Команда на восстановление БД из папки packages/devops
+
+```
+docker cp miner_bot.tar postgres.prod:/ && docker exec postgres.prod pg_restore -U sergei_zheludkov -C -d miner_bot miner_bot.tar 
 ```
 ---
 -Переписать-
@@ -179,11 +184,16 @@ docker cp {{bot_container_id}}:/bot/packages/bot/storage /var/www/www-root/data/
 ```
 docker exec postgres.prod pg_dump -U root -F t miner_bot > ../var/www/www-root/data/miner_bot/miner-bot/dumps/miner_bot_`date +%Y_%m_%d-%H_%M`.tar
 ```
+команда для cron для создания копий локального хранилища бота:
+```
+docker cp bot.prod:/bot/packages/bot/storage/CHATS ../var/www/www-root/data/miner_bot/miner-bot/dumps/CHATS_`date +%Y_%m_%d-%H_%M`
+```
 ---
 
 [DB_RESTORE GUIDE 1](https://stackoverflow.com/questions/24718706/backup-restore-a-dockerized-postgresql-database)\
 [DB_RESTORE GUIDE 2](https://medium.com/@burakkocakeu/get-pg-dump-from-a-docker-container-and-pg-restore-into-another-in-5-steps-74ca5bf0589c)\
-[DB_RESTORE GUIDE 2](https://gist.github.com/spalladino/6d981f7b33f6e0afe6bb)\
+[DB_RESTORE GUIDE 3](https://gist.github.com/spalladino/6d981f7b33f6e0afe6bb)\
 [GITLAB RUNNER GUIDE](https://technoupdate.medium.com/how-to-configure-gitlab-runner-on-ubuntu-20-04-c26e2f16fd24)\
 [GITLAB CI/CD GUIDE](https://www.youtube.com/watch?v=dLfqjoE-WNQ)\
-[CRON JOB GUIDE](https://www.digitalocean.com/community/tutorials/how-to-use-cron-to-automate-tasks-ubuntu-1804)
+[CRON JOB GUIDE 1](https://www.digitalocean.com/community/tutorials/how-to-use-cron-to-automate-tasks-ubuntu-1804)
+[CRON JOB GUIDE 2](https://bobcares.com/blog/postgres-docker-backup-cron/)
