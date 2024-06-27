@@ -1,7 +1,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { StatisticsGetDto } from '../models/StatisticsGetDto';
+import type { LeadersStatisticReadDto } from '../models/LeadersStatisticReadDto';
+import type { StatisticsReadDto } from '../models/StatisticsReadDto';
 import type { UserCreateDto } from '../models/UserCreateDto';
 import type { UserEntity } from '../models/UserEntity';
 import type { UserUpdateDto } from '../models/UserUpdateDto';
@@ -13,11 +14,26 @@ import { request as __request } from '../core/request';
 export class UsersService {
 
     /**
-     * Returning information about users statistics
-     * @returns StatisticsGetDto User statistics has been found.
+     * Returning information about referral leaders
+     * @returns LeadersStatisticReadDto Referral leaders statistics has been found.
      * @throws ApiError
      */
-    public static getUsersStatistics(): CancelablePromise<StatisticsGetDto> {
+    public static getReferralLeaders(): CancelablePromise<LeadersStatisticReadDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/users/leaders',
+            errors: {
+                404: `Referral leaders statistics has not found.`,
+            },
+        });
+    }
+
+    /**
+     * Returning information about users statistics
+     * @returns StatisticsReadDto User statistics has been found.
+     * @throws ApiError
+     */
+    public static getUsersStatistics(): CancelablePromise<StatisticsReadDto> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/users/statistics',

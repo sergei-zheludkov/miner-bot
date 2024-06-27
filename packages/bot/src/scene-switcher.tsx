@@ -34,9 +34,6 @@ export const SceneSwitcher = () => {
         </Provider.Mining>
       );
 
-    case T.SceneEnum.REFERRAL_TERMS:
-      return <Scene.Referral.Terms />;
-
     case T.SceneEnum.BALANCE:
       return (
         <Provider.Wallet>
@@ -75,7 +72,13 @@ export const SceneSwitcher = () => {
     case T.SceneEnum.USERS_CONTROL:
       return <Scene.UsersControl />;
 
-    // ----------------------------------------REFERRAL MENU--------------------------------------
+    // ----------------------------------------REFERRAL--------------------------------------
+    case T.SceneEnum.REFERRAL_TERMS:
+      return <Scene.Referral.Terms />;
+
+    case T.SceneEnum.REFERRAL_LEADERS:
+      return <Scene.Referral.Leaders />;
+
     case T.SceneEnum.REFERRAL_INVITATION:
       return <Scene.Referral.Invitation />;
 

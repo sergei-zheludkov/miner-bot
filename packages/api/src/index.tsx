@@ -25,4 +25,6 @@ export type {
 
   CompletedTaskEntity,
   CompletedTaskCreateDto,
+
+  LeadersStatisticReadDto,
 } from './generated';

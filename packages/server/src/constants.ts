@@ -9,3 +9,8 @@ export const TAGS = {
   MINING: 'Mining',
   WITHDRAWALS: 'Withdrawals',
 };
+
+export const CRON = {
+  EVERY_1_HOUR: '0 */1 * * *',
+  EVERY_10_SECONDS: '*/10 * * * * *',
+};

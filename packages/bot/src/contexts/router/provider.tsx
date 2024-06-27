@@ -32,6 +32,7 @@ export const RouterProvider = ({ children }: ProviderProps) => {
   const switchToSceneTaskNotification = () => setScene(T.SceneEnum.TASK_NOTIFICATION);
   const switchToSceneWithdrawal = () => setScene(T.SceneEnum.WITHDRAWAL);
   const switchToSceneReferralTerms = () => setScene(T.SceneEnum.REFERRAL_TERMS);
+  const switchToSceneReferralLeaders = () => setScene(T.SceneEnum.REFERRAL_LEADERS);
   const switchToSceneReferralInvitation = () => setScene(T.SceneEnum.REFERRAL_INVITATION);
   const switchToSceneRules = () => setScene(T.SceneEnum.RULES);
   const switchToSceneContacts = () => setScene(T.SceneEnum.CONTACTS);
@@ -62,6 +63,7 @@ export const RouterProvider = ({ children }: ProviderProps) => {
     switchToSceneTaskNotification,
     switchToSceneWithdrawal,
     switchToSceneReferralTerms,
+    switchToSceneReferralLeaders,
     switchToSceneReferralInvitation,
     switchToSceneRules,
     switchToSceneContacts,

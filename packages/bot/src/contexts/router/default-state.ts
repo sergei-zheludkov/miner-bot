@@ -27,6 +27,7 @@ export const defaultState: ContextState = {
   switchToSceneTaskNotification: empty,
   switchToSceneWithdrawal: empty,
   switchToSceneReferralTerms: empty,
+  switchToSceneReferralLeaders: empty,
   switchToSceneReferralInvitation: empty,
   switchToSceneRules: empty,
   switchToSceneContacts: empty,

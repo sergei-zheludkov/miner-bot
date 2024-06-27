@@ -11,10 +11,7 @@ export const useTerms = () => {
     isLoading: isGetLoading,
     isSuccess: isGetSuccess,
     isError: isGetError,
-  } = useQuery(
-    'get_one_user',
-    () => getOneUserApi(chat.id, 'referral_counter'),
-  );
+  } = useQuery('get_one_user', () => getOneUserApi(chat.id, 'referral_counter'));
 
   return {
     user,

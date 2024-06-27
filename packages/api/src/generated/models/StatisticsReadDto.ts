@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type StatisticsGetDto = {
+export type StatisticsReadDto = {
     today: number;
     yesterday: number;
     last_7_days: number;

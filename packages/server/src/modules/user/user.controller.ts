@@ -1,31 +1,66 @@
 import {
-  Controller,
   NotFoundException,
+  Controller,
   Get,
   Post,
   Patch,
   Query,
   Param,
-  Body,
+  Body, Inject,
 } from '@nestjs/common';
 import {
   ApiOperation,
   ApiOkResponse,
   ApiCreatedResponse,
-  ApiNotFoundResponse, ApiQuery,
+  ApiNotFoundResponse,
+  ApiQuery,
 } from '@nestjs/swagger';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 import { API_VERSION_ROUTES, TAGS } from '../../constants';
 import { UserService } from './user.service';
 import { UserEntity } from './user.entity';
-import { StatisticsGetDto, UserCreateDto, UserUpdateDto } from './dto';
+import {
+  LeadersStatisticReadDto,
+  StatisticsReadDto,
+  UserCreateDto,
+  UserUpdateDto,
+} from './dto';
 
 @Controller(`${API_VERSION_ROUTES.v1}/users`)
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    @Inject(CACHE_MANAGER)
+    private cacheManager: Cache,
+    private readonly userService: UserService,
+  ) {}
+
+  @ApiOkResponse({
+    description: 'Referral leaders statistics has been found.',
+    type: LeadersStatisticReadDto,
+  })
+  @ApiNotFoundResponse({
+    description: 'Referral leaders statistics has not found.',
+  })
+  @ApiOperation({
+    tags: [TAGS.USERS],
+    operationId: 'getReferralLeaders',
+    summary: 'Returning information about referral leaders',
+  })
+  @Get('leaders')
+  async getReferralLeaders(): Promise<LeadersStatisticReadDto> {
+    const referral_leaders_statistic = this.cacheManager.get<LeadersStatisticReadDto>('leaders');
+
+    if (!referral_leaders_statistic) {
+      throw new NotFoundException();
+    }
+
+    return referral_leaders_statistic;
+  }
 
   @ApiOkResponse({
     description: 'User statistics has been found.',
-    type: StatisticsGetDto,
+    type: StatisticsReadDto,
   })
   @ApiOperation({
     tags: [TAGS.USERS],
@@ -33,7 +68,7 @@ export class UserController {
     summary: 'Returning information about users statistics',
   })
   @Get('statistics')
-  async getUsersStatistics(): Promise<StatisticsGetDto> {
+  async getUsersStatistics(): Promise<StatisticsReadDto> {
     return this.userService.getStatistics();
   }
 

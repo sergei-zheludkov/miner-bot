@@ -20,6 +20,7 @@ export enum SceneEnum {
   WITHDRAWAL = 'scene_withdrawal',
 
   REFERRAL_TERMS = 'scene_referral_terms',
+  REFERRAL_LEADERS = 'scene_referral_leaders',
   REFERRAL_INVITATION = 'scene_referral_invitation',
 
   RULES = 'scene_rules',

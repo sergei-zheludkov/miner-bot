@@ -1,46 +1,34 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { HttpService } from '@nestjs/axios';
-import { ConfigService } from '@nestjs/config';
+import { Inject, Injectable, OnApplicationBootstrap } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cron } from '@nestjs/schedule';
-// import { DATE } from '@common_bot/shared';
-import { Repository } from 'typeorm';
-import { logger } from '../../libs/logger/logger.instance';
-// import { toPromise } from '../../helpers';
-import { UserEntity as User } from './user.entity';
+import { Cache } from 'cache-manager';
+import { DATE } from '@common_bot/shared';
+import { CRON } from '../../constants';
+import { UserService } from './user.service';
 
-// const { getTimeAsNumber } = DATE;
-
-const EVERY_30_MINUTES = '0 */30 8-21 * * *';
-// const logger_message = 'UserCronService(startReminder)[POST]:';
-// const error_message = 'Error with http req in User Cron';
+const { getStartToday, getStartMonth } = DATE;
 
 @Injectable()
-export class UserCronService {
+export class UserCronService implements OnApplicationBootstrap {
   constructor(
-    @InjectRepository(User)
-    private readonly user: Repository<User>,
-    private readonly configService: ConfigService,
-    private readonly httpService: HttpService,
+    @Inject(CACHE_MANAGER)
+    private cacheManager: Cache,
+    private readonly userService: UserService,
   ) {}
 
-  getURL(userid: string) {
-    return `${this.configService.get('WEBHOOK_HOST_BASE')}/notification/message/${userid}`;
+  onApplicationBootstrap(): void {
+    this.leaders();
   }
 
-  @Cron(EVERY_30_MINUTES, { timeZone: 'Europe/Moscow' })
-  async startReminder() {
-    try {
-      // const reminder_time = getTimeAsNumber();
-      const users = await this.user.find({ select: ['id'] });
+  @Cron(CRON.EVERY_1_HOUR, { timeZone: 'Europe/Moscow' })
+  async leaders() {
+    const todayStart = getStartToday().toDate();
+    const monthStart = getStartMonth().toDate();
 
-      // users.forEach(({ id }) => {
-      //   const request = this.httpService.post(this.getURL(id), { message: '' });
-      //   toPromise({ request, logger_message, error_message });
-      // });
-    } catch (error) {
-      logger.error('UserCronService(startReminder):', error);
-      throw new Error('Error with User Cron');
-    }
+    const today = await this.userService.getLeaders(todayStart);
+    const month = await this.userService.getLeaders(monthStart);
+    const all_time = await this.userService.getLeaders();
+
+    await this.cacheManager.set('leaders', { today, month, all_time }, 3_610_000);
   }
 }

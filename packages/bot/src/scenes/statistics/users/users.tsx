@@ -50,31 +50,31 @@ export const Users = () => {
         <i>{t('users.new')}</i>
         <br />
         <br />
-        {t('periods.today')}
+        {t('periods:today')}
         &#32;
         <b>{today}</b>
         <br />
-        {t('periods.yesterday')}
+        {t('periods:yesterday')}
         &#32;
         <b>{yesterday}</b>
         <br />
-        {t('periods.this_week')}
+        {t('periods:this_week')}
         &#32;
         <b>{this_week}</b>
         <br />
-        {t('periods.this_month')}
+        {t('periods:this_month')}
         &#32;
         <b>{this_month}</b>
         <br />
-        {t('periods.last_7_days')}
+        {t('periods:last_7_days')}
         &#32;
         <b>{last_7_days}</b>
         <br />
-        {t('periods.last_30_days')}
+        {t('periods:last_30_days')}
         &#32;
         <b>{last_30_days}</b>
         <br />
-        {t('periods.all_time')}
+        {t('periods:all_time')}
         &#32;
         <b>{all_time}</b>
         <br />

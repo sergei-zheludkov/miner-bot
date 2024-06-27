@@ -1,16 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
-import { CurrencyEnum, DATE } from '@common_bot/shared';
+import { CurrencyEnum, DATE, RoleEnum } from '@common_bot/shared';
 import {
-  Repository,
   DataSource,
-  MoreThan,
+  Not,
+  And,
+  IsNull,
   Between,
+  MoreThan,
 } from 'typeorm';
 import { logger } from '../../libs/logger/logger.instance';
 import { WalletService } from '../wallet/wallet.service';
 import { UserEntity as User } from './user.entity';
-import { StatisticsGetDto, UserCreateDto, UserUpdateDto } from './dto';
+import { findOne, getLeadersDataCallback } from './helpers';
+import { SHORT_USER_SELECT } from './constants';
+import { RawLeadersData } from './types';
+import {
+  ShortUserReadDto,
+  StatisticsReadDto,
+  UserCreateDto,
+  UserUpdateDto,
+} from './dto';
 
 const {
   getStartToday,
@@ -18,11 +28,6 @@ const {
   getStartWeek,
   getStartMonth,
 } = DATE;
-
-const findOne = (users_repository: Repository<User>, id: string) => users_repository
-  .findOne({
-    where: { id },
-  });
 
 @Injectable()
 export class UserService {
@@ -158,7 +163,7 @@ export class UserService {
     });
   }
 
-  async getStatistics(): Promise<StatisticsGetDto> {
+  async getStatistics(): Promise<StatisticsReadDto> {
     return this.dataSource.transaction(async (manager) => {
       const users_repository = manager.getRepository(User);
 
@@ -199,5 +204,44 @@ export class UserService {
         all_time,
       };
     });
+  }
+
+  async getLeaders(date?: Date): Promise<ShortUserReadDto[]> {
+    try {
+      return this.dataSource.transaction(async (manager) => {
+        const users_repository = manager.getRepository(User);
+
+        if (!date) {
+          return users_repository.find({
+            where: { role: RoleEnum.USER, referral_counter: MoreThan(0) },
+            select: { ...SHORT_USER_SELECT, referral_counter: true },
+            order: { referral_counter: 'DESC', firstname: 'DESC' },
+            take: 10,
+          });
+        }
+
+        const exceptions = (await users_repository.find({ where: { role: Not(RoleEnum.USER) }, select: ['id'] }))
+          .map(({ id }) => Not(id))
+          .concat(Not(IsNull()));
+
+        return Promise.all(
+          (await users_repository
+            .createQueryBuilder('user')
+            .select(['who_invited_id AS id', 'COUNT(*) AS referral_counter'])
+            .where({
+              who_invited_id: And(...exceptions),
+              created: MoreThan(date),
+            })
+            .groupBy('who_invited_id')
+            .orderBy('referral_counter', 'DESC')
+            .limit(10)
+            .getRawMany<RawLeadersData>())
+            .map(getLeadersDataCallback(users_repository)),
+        );
+      });
+    } catch (error) {
+      logger.error('UserCronService(startReminder):', error);
+      throw new Error('Error with User Cron');
+    }
   }
 }

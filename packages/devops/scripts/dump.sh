@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DATE=`date +%Y-%m-%d_%H%M%S`
+DATE=`date +%Y-%m-%d_%Hh%Mm`
 
 BACKUP_PATH="../var/www/www-root/data/miner_bot/miner-bot/dumps"
 

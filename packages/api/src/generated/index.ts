@@ -8,10 +8,12 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 
 export { CompletedTaskCreateDto } from './models/CompletedTaskCreateDto';
 export type { CompletedTaskEntity } from './models/CompletedTaskEntity';
+export type { LeadersStatisticReadDto } from './models/LeadersStatisticReadDto';
 export type { MiningCreateDto } from './models/MiningCreateDto';
 export type { MiningEntity } from './models/MiningEntity';
 export { MiningUpdateDto } from './models/MiningUpdateDto';
-export type { StatisticsGetDto } from './models/StatisticsGetDto';
+export { ShortUserReadDto } from './models/ShortUserReadDto';
+export type { StatisticsReadDto } from './models/StatisticsReadDto';
 export { TaskCreateDto } from './models/TaskCreateDto';
 export { TaskEntity } from './models/TaskEntity';
 export type { TaskUpdateDto } from './models/TaskUpdateDto';

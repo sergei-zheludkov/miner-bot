@@ -1,6 +1,31 @@
 {
   "openapi": "3.0.0",
   "paths": {
+    "/api/v1/users/leaders": {
+      "get": {
+        "operationId": "getReferralLeaders",
+        "summary": "Returning information about referral leaders",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Referral leaders statistics has been found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeadersStatisticReadDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Referral leaders statistics has not found."
+          }
+        }
+      }
+    },
     "/api/v1/users/statistics": {
       "get": {
         "operationId": "getUsersStatistics",
@@ -15,7 +40,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StatisticsGetDto"
+                  "$ref": "#/components/schemas/StatisticsReadDto"
                 }
               }
             }
@@ -639,7 +664,79 @@
   ],
   "components": {
     "schemas": {
-      "StatisticsGetDto": {
+      "ShortUserReadDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "266006070"
+          },
+          "firstname": {
+            "type": "string",
+            "example": "Ivan"
+          },
+          "lastname": {
+            "type": "string",
+            "example": "Ivanov"
+          },
+          "country": {
+            "type": "string",
+            "enum": [
+              "BY",
+              "KZ",
+              "RU",
+              "UA"
+            ]
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female",
+              "all"
+            ]
+          },
+          "referral_counter": {
+            "type": "number",
+            "example": "3"
+          }
+        },
+        "required": [
+          "id",
+          "country",
+          "gender",
+          "referral_counter"
+        ]
+      },
+      "LeadersStatisticReadDto": {
+        "type": "object",
+        "properties": {
+          "today": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShortUserReadDto"
+            }
+          },
+          "month": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShortUserReadDto"
+            }
+          },
+          "all_time": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShortUserReadDto"
+            }
+          }
+        },
+        "required": [
+          "today",
+          "month",
+          "all_time"
+        ]
+      },
+      "StatisticsReadDto": {
         "type": "object",
         "properties": {
           "today": {

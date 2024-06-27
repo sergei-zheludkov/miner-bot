@@ -7,7 +7,11 @@ import { useTerms } from './use-terms';
 
 export const Terms = () => {
   const { t } = useTranslation('buttons');
-  const { switchToSceneReferralInvitation, switchToMenuMain } = useRouter();
+  const {
+    switchToMenuMain,
+    switchToSceneReferralLeaders,
+    switchToSceneReferralInvitation,
+  } = useRouter();
   const {
     user,
     isGetCalled,
@@ -64,6 +68,9 @@ export const Terms = () => {
       <ButtonGroup isNewMessageEveryRender={false} maxColumns={1} title={title}>
         <Button onClick={switchToSceneReferralInvitation}>
           {t('invite')}
+        </Button>
+        <Button onClick={switchToSceneReferralLeaders}>
+          {t('leaders')}
         </Button>
         <Button onClick={switchToMenuMain}>
           {t('back')}

@@ -24,6 +24,7 @@ export type ContextState = {
   switchToSceneTaskNotification: () => void;
   switchToSceneWithdrawal: () => void;
   switchToSceneReferralTerms: () => void;
+  switchToSceneReferralLeaders: () => void;
   switchToSceneReferralInvitation: () => void;
   switchToSceneRules: () => void;
   switchToSceneContacts: () => void;
