@@ -3,8 +3,8 @@ import { Button, ButtonGroup } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { MATH } from '@common_bot/shared';
 import { useMining, useRouter, useUser } from '../../contexts';
-import { useActivation } from './use-activation';
 import { Error } from '../../components';
+import { useActivation } from './use-activation';
 import { useMiningTon } from './use-mining-ton';
 
 const { getCryptoAmount, getMinedTokenAmount } = MATH;
@@ -79,8 +79,26 @@ export const Mining = () => {
       return { title: titleComponent, buttons: backButton };
     }
 
-    // Если юзер еще не активировал маининг
+    // Если юзер еще не активировал майнинг
     if (!mining) {
+      const titleComponent = (
+        <>
+          <b>{t('title')}</b>
+          <br />
+          <br />
+          💡
+          {t('description')}
+          <br />
+          <br />
+          💵
+          {t('explanation')}
+          <br />
+          <br />
+          👇
+          {t('action')}
+        </>
+      );
+
       const buttonsComponent = tasks.map((task) => (
         <Button key={task.name} url={task.url}>
           {task.name}
@@ -92,7 +110,7 @@ export const Mining = () => {
         ...backButton,
       ]);
 
-      return { title: t('message'), buttons: buttonsComponent };
+      return { title: titleComponent, buttons: buttonsComponent };
     }
 
     // Если юзер успешно перевел намайненые токены на баланс
