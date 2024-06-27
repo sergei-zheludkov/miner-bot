@@ -2,6 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { CountriesStatisticReadDto } from './CountriesStatisticReadDto';
+import type { GendersStatisticReadDto } from './GendersStatisticReadDto';
+
 export type StatisticsReadDto = {
     today: number;
     yesterday: number;
@@ -10,5 +13,7 @@ export type StatisticsReadDto = {
     this_week: number;
     this_month: number;
     all_time: number;
+    countries: CountriesStatisticReadDto;
+    genders: GendersStatisticReadDto;
 };
 

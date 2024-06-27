@@ -1,13 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
-import { CurrencyEnum, DATE, RoleEnum } from '@common_bot/shared';
 import {
-  DataSource,
-  Not,
-  And,
-  IsNull,
-  Between,
-  MoreThan,
+  CountriesEnum, CurrencyEnum, DATE, GenderEnum, RoleEnum,
+} from '@common_bot/shared';
+import {
+  And, Between, DataSource, IsNull, MoreThan, Not,
 } from 'typeorm';
 import { logger } from '../../libs/logger/logger.instance';
 import { WalletService } from '../wallet/wallet.service';
@@ -16,10 +13,7 @@ import { findOne, getLeadersDataCallback } from './helpers';
 import { SHORT_USER_SELECT } from './constants';
 import { RawLeadersData } from './types';
 import {
-  ShortUserReadDto,
-  StatisticsReadDto,
-  UserCreateDto,
-  UserUpdateDto,
+  ShortUserReadDto, StatisticsReadDto, UserCreateDto, UserUpdateDto,
 } from './dto';
 
 const {
@@ -175,24 +169,21 @@ export class UserService {
       const thirtyDaysAgo = getStartToday().subtract(30, 'day').toDate();
 
       const all_time = await users_repository.count();
-      const today = await users_repository.countBy({
-        created: MoreThan(todayStart),
-      });
-      const yesterday = await users_repository.countBy({
-        created: Between(yesterdayStart, todayStart),
-      });
-      const last_7_days = await users_repository.countBy({
-        created: MoreThan(sevenDaysAgo),
-      });
-      const last_30_days = await users_repository.countBy({
-        created: MoreThan(thirtyDaysAgo),
-      });
-      const this_week = await users_repository.countBy({
-        created: MoreThan(weekStart),
-      });
-      const this_month = await users_repository.countBy({
-        created: MoreThan(monthStart),
-      });
+      const today = await users_repository.countBy({ created: MoreThan(todayStart) });
+      // eslint-disable-next-line max-len
+      const yesterday = await users_repository.countBy({ created: Between(yesterdayStart, todayStart) });
+      const last_7_days = await users_repository.countBy({ created: MoreThan(sevenDaysAgo) });
+      const last_30_days = await users_repository.countBy({ created: MoreThan(thirtyDaysAgo) });
+      const this_week = await users_repository.countBy({ created: MoreThan(weekStart) });
+      const this_month = await users_repository.countBy({ created: MoreThan(monthStart) });
+
+      const male = await users_repository.countBy({ gender: GenderEnum.MALE });
+      const female = await users_repository.countBy({ gender: GenderEnum.FEMALE });
+
+      const RU = await users_repository.countBy({ country: CountriesEnum.RUSSIA });
+      const UA = await users_repository.countBy({ country: CountriesEnum.UKRAINE });
+      const KZ = await users_repository.countBy({ country: CountriesEnum.KAZAKHSTAN });
+      const BY = await users_repository.countBy({ country: CountriesEnum.BELARUS });
 
       return {
         today,
@@ -202,6 +193,12 @@ export class UserService {
         this_week,
         this_month,
         all_time,
+        countries: {
+          RU, UA, KZ, BY,
+        },
+        genders: {
+          male, female,
+        },
       };
     });
   }

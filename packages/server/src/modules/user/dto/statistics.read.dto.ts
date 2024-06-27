@@ -1,4 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { CountriesStatisticReadDto } from './countries-statistic.read.dto';
+import { GendersStatisticReadDto } from './genders-statistic.read.dto';
 
 export class StatisticsReadDto {
   @ApiProperty({
@@ -35,4 +37,14 @@ export class StatisticsReadDto {
     example: 5,
   })
   all_time: number;
+
+  @ApiProperty({
+    example: CountriesStatisticReadDto,
+  })
+  countries: CountriesStatisticReadDto;
+
+  @ApiProperty({
+    example: GendersStatisticReadDto,
+  })
+  genders: GendersStatisticReadDto;
 }

@@ -8,6 +8,8 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 
 export { CompletedTaskCreateDto } from './models/CompletedTaskCreateDto';
 export type { CompletedTaskEntity } from './models/CompletedTaskEntity';
+export type { CountriesStatisticReadDto } from './models/CountriesStatisticReadDto';
+export type { GendersStatisticReadDto } from './models/GendersStatisticReadDto';
 export type { LeadersStatisticReadDto } from './models/LeadersStatisticReadDto';
 export type { MiningCreateDto } from './models/MiningCreateDto';
 export type { MiningEntity } from './models/MiningEntity';

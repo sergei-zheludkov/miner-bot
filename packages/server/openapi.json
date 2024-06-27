@@ -736,6 +736,50 @@
           "all_time"
         ]
       },
+      "CountriesStatisticReadDto": {
+        "type": "object",
+        "properties": {
+          "RU": {
+            "type": "number",
+            "example": 5
+          },
+          "UA": {
+            "type": "number",
+            "example": 5
+          },
+          "KZ": {
+            "type": "number",
+            "example": 5
+          },
+          "BY": {
+            "type": "number",
+            "example": 5
+          }
+        },
+        "required": [
+          "RU",
+          "UA",
+          "KZ",
+          "BY"
+        ]
+      },
+      "GendersStatisticReadDto": {
+        "type": "object",
+        "properties": {
+          "male": {
+            "type": "number",
+            "example": 5
+          },
+          "female": {
+            "type": "number",
+            "example": 5
+          }
+        },
+        "required": [
+          "male",
+          "female"
+        ]
+      },
       "StatisticsReadDto": {
         "type": "object",
         "properties": {
@@ -766,6 +810,20 @@
           "all_time": {
             "type": "number",
             "example": 5
+          },
+          "countries": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CountriesStatisticReadDto"
+              }
+            ]
+          },
+          "genders": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/GendersStatisticReadDto"
+              }
+            ]
           }
         },
         "required": [
@@ -775,7 +833,9 @@
           "last_30_days",
           "this_week",
           "this_month",
-          "all_time"
+          "all_time",
+          "countries",
+          "genders"
         ]
       },
       "UserEntity": {

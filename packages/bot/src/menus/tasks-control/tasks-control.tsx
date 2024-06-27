@@ -11,7 +11,7 @@ export const TasksControl = () => {
     switchToMenuAdmin,
     switchToSceneCreateTask,
     switchToSceneAddTaskLimit,
-    switchToSceneTaskNotification,
+    // switchToSceneTaskNotification,
   } = useRouter();
 
   /* ---------- BUTTON HOOKS ---------- */
@@ -24,8 +24,8 @@ export const TasksControl = () => {
   const add_task_limit = t('add_task_limit');
   useText(switchToSceneAddTaskLimit, add_task_limit);
 
-  const task_notification = t('task_notification');
-  useText(switchToSceneTaskNotification, task_notification);
+  // const task_notification = t('task_notification');
+  // useText(switchToSceneTaskNotification, task_notification);
 
   const title = t(isUserAdmin ? 'admin:message' : 'admin:error');
   // const errorText = t();
@@ -39,7 +39,7 @@ export const TasksControl = () => {
     >
       <Button>{create_task}</Button>
       <Button>{add_task_limit}</Button>
-      <Button>{task_notification}</Button>
+      {/* <Button>{task_notification}</Button> */}
       <Button>{back}</Button>
     </ButtonGroup>
   );

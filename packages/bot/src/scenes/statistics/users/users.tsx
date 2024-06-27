@@ -1,13 +1,21 @@
 import React from 'react';
 import { Button, ButtonGroup, useText } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
+import { CountriesEnum } from '@common_bot/shared';
 import { useRouter } from '../../../contexts';
 import { Error } from '../../../components';
 import { useUsersStatistics } from './use-users-statistics';
 
+const {
+  RUSSIA,
+  UKRAINE,
+  KAZAKHSTAN,
+  BELARUS,
+} = CountriesEnum;
+
 export const Users = () => {
   const { t } = useTranslation('statistics');
-  const { switchToMenuMain } = useRouter();
+  const { switchToMenuStatistics } = useRouter();
   const {
     statistics,
     isGetCalled,
@@ -17,7 +25,7 @@ export const Users = () => {
   } = useUsersStatistics();
 
   const back = t('buttons:back');
-  useText(switchToMenuMain, back);
+  useText(switchToMenuStatistics, back);
 
   if (!isGetCalled || isGetLoading) {
     return null;
@@ -36,6 +44,8 @@ export const Users = () => {
       this_week,
       this_month,
       all_time,
+      countries,
+      genders,
     } = statistics;
 
     const title = (
@@ -58,11 +68,11 @@ export const Users = () => {
         &#32;
         <b>{yesterday}</b>
         <br />
-        {t('periods:this_week')}
+        {t('periods:week')}
         &#32;
         <b>{this_week}</b>
         <br />
-        {t('periods:this_month')}
+        {t('periods:month')}
         &#32;
         <b>{this_month}</b>
         <br />
@@ -78,6 +88,33 @@ export const Users = () => {
         &#32;
         <b>{all_time}</b>
         <br />
+        <br />
+        <i>{t('users.countries')}</i>
+        <br />
+        {t(`countries:${RUSSIA}`)}
+        &#32;
+        {countries.RU}
+        &#32;
+        {t(`countries:${UKRAINE}`)}
+        &#32;
+        {countries.UA}
+        &#32;
+        {t(`countries:${KAZAKHSTAN}`)}
+        &#32;
+        {countries.KZ}
+        &#32;
+        {t(`countries:${BELARUS}`)}
+        &#32;
+        {countries.BY}
+        <br />
+        <br />
+        <i>{t('users.genders')}</i>
+        <br />
+        👨&#32;
+        {genders.male}
+        &#32;
+        👩&#32;
+        {genders.female}
       </>
     );
 
