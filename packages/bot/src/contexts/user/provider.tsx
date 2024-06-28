@@ -38,7 +38,6 @@ export const UserProvider = ({ children }: ProviderProps) => {
   );
 
   const user = data?.user;
-  const toggles = data?.toggles;
 
   const isUserNotFound = isGetCalled && isGetError && isNotFoundError(getStatusCode);
   const isUserLoaded = isGetCalled && !isGetLoading && isGetSuccess && !!data;

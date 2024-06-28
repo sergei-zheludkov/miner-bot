@@ -68,12 +68,14 @@ export class TaskService {
 
       // TODO переписать, созвонившись с Серегой Мазаевым или Сашей Махориным
       return manager.query(`
-        SELECT * FROM tasks WHERE
-        country = '${country}' AND
-        placement = '${placement}' AND
-        (gender = '${GenderEnum.ALL}' OR gender = '${gender}') AND
-        ${getAvailableLimitQuery()}
+        SELECT * FROM tasks 
+        WHERE deleted IS NULL 
+        AND country = '${country}'
+        AND placement = '${placement}'
+        AND (gender = '${GenderEnum.ALL}' OR gender = '${gender}')
+        AND ${getAvailableLimitQuery()}
         id NOT IN (SELECT task_id FROM completed_tasks WHERE user_id = '${user_id}')
+        ORDER BY id ASC
         LIMIT ${limit}
         OFFSET ${offset}
       `);

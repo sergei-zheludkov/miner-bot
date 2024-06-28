@@ -99,6 +99,12 @@ export const Mining = () => {
         </>
       );
 
+      const gpt = [
+        <Button key="gpt" url="https://t.me/RussiaChatGPTBot?start=r508571">
+          Chat AI Bot 🤖
+        </Button>,
+      ];
+
       const buttonsComponent = tasks.map((task) => (
         <Button key={task.name} url={task.url}>
           {task.name}
@@ -110,7 +116,7 @@ export const Mining = () => {
         ...backButton,
       ]);
 
-      return { title: titleComponent, buttons: buttonsComponent };
+      return { title: titleComponent, buttons: [...gpt, ...buttonsComponent] };
     }
 
     // Если юзер успешно перевел намайненые токены на баланс

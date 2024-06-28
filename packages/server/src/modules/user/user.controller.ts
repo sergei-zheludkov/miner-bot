@@ -116,7 +116,7 @@ export class UserController {
     @Param('id') id: string,
     @Query('select') select?: 'short' | 'username' | 'referral_counter',
   ) {
-    let user: UserEntity | null = null;
+    let user: UserEntity | null;
 
     switch (select) {
       case 'short':
