@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const Registration = ({ refId, getUser }: Props) => {
-  const { chat } = useBotContext();
+  const { chat: { id, username, firstName } } = useBotContext();
   const { t } = useTranslation('registration');
   const {
     state,
@@ -28,7 +28,7 @@ export const Registration = ({ refId, getUser }: Props) => {
   });
 
   if (isRegistered) {
-    logScene(chat.id, 'scene_registration_success', chat.username);
+    logScene(id, 'scene_registration_success', username ?? firstName);
 
     return <Text>{t('success')}</Text>;
   }
@@ -45,13 +45,13 @@ export const Registration = ({ refId, getUser }: Props) => {
   // }
 
   if (!isRegistered && !isSentData && !state.country) {
-    logScene(chat.id, 'scene_registration: question_country', chat.username);
+    logScene(id, 'scene_registration: question_country', username ?? firstName);
 
     return <Question.Country handleChange={handleChangeCountry} />;
   }
 
   if (!isRegistered && !isSentData && !state.gender) {
-    logScene(chat.id, 'scene_registration: question_gender', chat.username);
+    logScene(id, 'scene_registration: question_gender', username ?? firstName);
 
     return <Question.Gender handleChange={handleChangeGender} />;
   }

@@ -6,37 +6,38 @@ import { messageBroker } from '../api';
 import { logScene } from '../logs';
 import type { NewReferralData } from '../api';
 
-const defaultState: NewReferralData = { username: '' };
+const defaultState: NewReferralData = { username: '', firstname: '' };
 
-export const NewReferral: React.FC = () => {
+export const NewReferralActivated: React.FC = () => {
   const { t } = useTranslation('notification');
   const { chat, bot } = useBotContext<UrbanBotTelegram>();
-  const [{ username }, setState] = useState<NewReferralData>(defaultState);
+  const [{ username, firstname }, setState] = useState<NewReferralData>(defaultState);
 
   const callback = (data: NewReferralData) => setState(data);
 
   useEffect(
-    () => messageBroker.newReferral(chat.id, callback),
+    () => messageBroker.newReferralActivated(chat.id, callback),
     [bot.client, chat.id],
   );
 
-  logScene(chat.id, 'notification_new_referral', chat.username, '| DATA:', { username });
+  logScene(chat.id, 'notification_new_referral', chat.username ?? chat.firstName, '| DATA:', [username, firstname]);
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
 
-    if (username) {
+    if (username ?? firstname) {
       timeoutId = setTimeout(() => setState(defaultState), 1000);
     }
 
     return () => clearTimeout(timeoutId);
-  }, [username]);
+  }, [username, firstname]);
 
-  if (username) {
+  if (username ?? firstname) {
     return (
       <Text>
         {t('new_referral.title_prefix')}
-        {username}
+        &#32;
+        {username ? `@${username}` : firstname}
         &#32;
         {t('new_referral.title_postfix')}
         <br />

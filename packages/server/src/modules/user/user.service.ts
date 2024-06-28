@@ -165,11 +165,11 @@ export class UserService {
     });
   }
 
-  getNickname(id: string) {
+  getName(id: string) {
     return this.dataSource.transaction(async (manager) => {
       const users_repository = manager.getRepository(User);
 
-      return users_repository.findOne({ where: { id }, select: ['id', 'username'] });
+      return users_repository.findOne({ where: { id }, select: ['id', 'firstname', 'lastname', 'username'] });
     });
   }
 

@@ -7,10 +7,10 @@ import type { Scenes } from '../../constants';
 import type { ProviderProps } from './types';
 
 export const RouterProvider = ({ children }: ProviderProps) => {
-  const { chat } = useBotContext();
+  const { chat: { id, username, firstName } } = useBotContext();
   const [scene, setScene] = useState<Scenes>(T.SceneEnum.DISABLE);
 
-  logScene(chat.id, scene, chat.username);
+  logScene(id, scene, username ?? firstName);
 
   const switchToMenuMain = () => setScene(T.MenuEnum.MAIN);
   const switchToMenuAdmin = () => setScene(T.MenuEnum.ADMIN);

@@ -1,7 +1,7 @@
 import type { NewReferralData } from '../types';
 
 export const getNewReferralData = (data: any): NewReferralData => {
-  const username = data?.username || '';
+  const { firstname = '', username } = data;
 
-  return { username };
+  return { username, firstname };
 };

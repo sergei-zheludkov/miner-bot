@@ -8,10 +8,10 @@ type Props = {
 }
 
 export const Reset = ({ getUser }: Props) => {
-  const { chat } = useBotContext();
+  const { chat: { id, username, firstName } } = useBotContext();
   const { switchToMenuMain } = useRouter();
 
-  logScene(chat.id, 'scene_reset', chat.username);
+  logScene(id, 'scene_reset', username ?? firstName);
 
   useAnyEvent((event) => {
     if (!event.command) {

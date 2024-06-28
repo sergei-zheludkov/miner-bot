@@ -1,3 +1,4 @@
 export type NewReferralData = {
-  username: string;
+  username?: string;
+  firstname: string;
 };

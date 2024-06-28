@@ -301,7 +301,7 @@ export const ru = {
   },
   notification: {
     new_referral: {
-      title_prefix: '🎉 Поздравляю! Юзер @',
+      title_prefix: '🎉 Поздравляю! Юзер',
       title_postfix: ', которого вы пригласили, выполнил обязательные условия ✅',
       invitation_bonus_prefix: 'Вы получаете',
       invitation_bonus_postfix: 'на баланс 💰',

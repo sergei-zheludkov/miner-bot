@@ -1,4 +1,4 @@
 import React from 'react';
-import { NewReferral } from './new-referral';
+import { NewReferralActivated } from './new-referral-activated';
 
-export const Notifications = () => <NewReferral />;
+export const Notifications = () => <NewReferralActivated />;

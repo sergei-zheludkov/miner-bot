@@ -94,9 +94,9 @@ export class MiningService {
 
           // Отправляем уведомление о регистрации нового юзера
 
-          const { username } = await this.userService.getNickname(id);
+          const { username, firstname } = await this.userService.getName(id);
 
-          this.notificationService.newReferralActivated(who_invited_id, username);
+          this.notificationService.newReferralActivated(who_invited_id, username, firstname);
         }
 
         // Записываем информацию о выполненных заданиях

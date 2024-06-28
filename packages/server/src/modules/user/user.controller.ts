@@ -114,7 +114,7 @@ export class UserController {
   @Get(':id')
   async getOneUser(
     @Param('id') id: string,
-    @Query('select') select?: 'short' | 'username' | 'referral_counter',
+    @Query('select') select?: 'short' | 'name' | 'referral_counter',
   ) {
     let user: UserEntity | null;
 
@@ -122,8 +122,8 @@ export class UserController {
       case 'short':
         user = await this.userService.getOneUserShort(id);
         break;
-      case 'username':
-        user = await this.userService.getNickname(id);
+      case 'name':
+        user = await this.userService.getName(id);
         break;
       case 'referral_counter':
         user = await this.userService.getReferralCounter(id);
