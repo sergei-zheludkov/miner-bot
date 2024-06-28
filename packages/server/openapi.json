@@ -1,6 +1,41 @@
 {
   "openapi": "3.0.0",
   "paths": {
+    "/api/v1/toggles": {
+      "patch": {
+        "operationId": "patchToggle",
+        "summary": "Updating toggle data",
+        "tags": [
+          "Toggles"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToggleUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Toggle has been updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ToggleEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Toggle not found."
+          }
+        }
+      }
+    },
     "/api/v1/users/leaders": {
       "get": {
         "operationId": "getReferralLeaders",
@@ -44,6 +79,40 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/v1/users/toggles/{id}": {
+      "get": {
+        "operationId": "getOneUserAndToggles",
+        "summary": "Returning information about user and toggles",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User and toggles has been found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersAndTogglesReadDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found."
           }
         }
       }
@@ -664,6 +733,58 @@
   ],
   "components": {
     "schemas": {
+      "ToggleUpdateDto": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "example": "referral_leaders"
+          },
+          "value": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "key",
+          "value"
+        ]
+      },
+      "ToggleEntity": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "example": "referral_leaders"
+          },
+          "value": {
+            "type": "boolean",
+            "example": true
+          },
+          "created": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          },
+          "updated": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          },
+          "deleted": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2022-10-21T19:48:59.726Z"
+          }
+        },
+        "required": [
+          "key",
+          "value",
+          "created",
+          "updated",
+          "deleted"
+        ]
+      },
       "ShortUserReadDto": {
         "type": "object",
         "properties": {
@@ -945,6 +1066,24 @@
           "created",
           "updated",
           "deleted"
+        ]
+      },
+      "UsersAndTogglesReadDto": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/UserEntity"
+          },
+          "toggles": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "boolean"
+            }
+          }
+        },
+        "required": [
+          "user",
+          "toggles"
         ]
       },
       "UserCreateDto": {

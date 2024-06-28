@@ -1,12 +1,13 @@
 import React from 'react';
 import { Button, ButtonGroup } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
-import { useRouter } from '../../../contexts';
+import { useRouter, useUser } from '../../../contexts';
 import { Error, Loading } from '../../../components';
 import { useTerms } from './use-terms';
 
 export const Terms = () => {
   const { t } = useTranslation('buttons');
+  const { toggles } = useUser();
   const {
     switchToMenuMain,
     switchToSceneReferralLeaders,
@@ -69,9 +70,11 @@ export const Terms = () => {
         <Button onClick={switchToSceneReferralInvitation}>
           {t('invite')}
         </Button>
-        <Button onClick={switchToSceneReferralLeaders}>
-          {t('leaders')}
-        </Button>
+        {toggles.referral_leaders && (
+          <Button onClick={switchToSceneReferralLeaders}>
+            {t('leaders')}
+          </Button>
+        )}
         <Button onClick={switchToMenuMain}>
           {t('back')}
         </Button>

@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { UrbanChat, useBotContext, useCommand } from '@urban-bot/core';
 import {
   useApi,
@@ -22,9 +22,9 @@ export const UserProvider = ({ children }: ProviderProps) => {
   const [referralId, setReferralId] = useState<ContextState['referralId']>(null);
   // const { i18n } = useTranslation('common');
   const { switchToSceneGreeting } = useRouter();
-  const { getOneUser: getOneUserApi } = useApi().user;
+  const { getOneUserAndToggles: getOneUserAndTogglesApi } = useApi().user;
   const {
-    data: user,
+    data,
     isCalled: isGetCalled,
     isLoading: isGetLoading,
     isSuccess: isGetSuccess,
@@ -33,12 +33,15 @@ export const UserProvider = ({ children }: ProviderProps) => {
     fetch: getUser,
   } = useQuery(
     'get_one_user',
-    () => getOneUserApi(chat.id),
+    () => getOneUserAndTogglesApi(chat.id),
     { isLazy: true },
   );
 
+  const user = data?.user;
+  const toggles = data?.toggles;
+
   const isUserNotFound = isGetCalled && isGetError && isNotFoundError(getStatusCode);
-  const isUserLoaded = isGetCalled && !isGetLoading && isGetSuccess && !!user;
+  const isUserLoaded = isGetCalled && !isGetLoading && isGetSuccess && !!data;
 
   useCommand(async ({ argument = '' }) => {
     const { ref } = getStartQueryParams(argument);
@@ -57,7 +60,7 @@ export const UserProvider = ({ children }: ProviderProps) => {
     let user_data: UserEntity | undefined;
 
     if (!isGetCalled) {
-      user_data = (await getUser()).data;
+      user_data = (await getUser()).data?.user;
     }
 
     // Юзер есть в DB и в Local и стоит на reset
@@ -94,7 +97,7 @@ export const UserProvider = ({ children }: ProviderProps) => {
       <Context.Provider
         value={{
           referralId,
-          user,
+          ...data,
 
           isGetCalled,
           isGetLoading,

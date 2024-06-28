@@ -7,6 +7,7 @@ const { asyncEmpty } = UTILITIES;
 export const defaultState: ContextState = {
   referralId: null,
   user: {} as UserEntity,
+  toggles: {},
 
   isGetCalled: false,
   isGetLoading: false,

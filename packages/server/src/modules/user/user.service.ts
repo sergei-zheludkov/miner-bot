@@ -8,12 +8,16 @@ import {
 } from 'typeorm';
 import { logger } from '../../libs/logger/logger.instance';
 import { WalletService } from '../wallet/wallet.service';
+import { ToggleService } from '../toggle/toggle.service';
 import { UserEntity as User } from './user.entity';
 import { findOne, getLeadersDataCallback } from './helpers';
 import { SHORT_USER_SELECT } from './constants';
 import { RawLeadersData } from './types';
 import {
-  ShortUserReadDto, StatisticsReadDto, UserCreateDto, UserUpdateDto,
+  ShortUserReadDto,
+  StatisticsReadDto,
+  UserCreateDto,
+  UserUpdateDto,
 } from './dto';
 
 const {
@@ -26,16 +30,36 @@ const {
 @Injectable()
 export class UserService {
   constructor(
-    private readonly walletService: WalletService,
     @InjectDataSource()
     private readonly dataSource: DataSource,
+    private readonly walletService: WalletService,
+    private readonly toggleService: ToggleService,
   ) {}
+
+  getOneUserAndToggles(id: string) {
+    return this.dataSource.transaction(async (manager) => {
+      const users_repository = manager.getRepository(User);
+
+      const user = await findOne(users_repository, id);
+      const toggles = await this.toggleService.getToggles();
+
+      return { user, toggles };
+    });
+  }
 
   getOneUser(id: string) {
     return this.dataSource.transaction(async (manager) => {
       const users_repository = manager.getRepository(User);
 
       return findOne(users_repository, id);
+    });
+  }
+
+  getOneUserShort(id: string) {
+    return this.dataSource.transaction(async (manager) => {
+      const users_repository = manager.getRepository(User);
+
+      return findOne(users_repository, id, SHORT_USER_SELECT);
     });
   }
 

@@ -7,6 +7,7 @@ export const TAGS = {
   TASKS: 'Tasks',
   WALLETS: 'Wallets',
   MINING: 'Mining',
+  TOGGLES: 'Toggles',
   WITHDRAWALS: 'Withdrawals',
 };
 

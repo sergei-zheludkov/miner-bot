@@ -5,6 +5,7 @@ import type { LeadersStatisticReadDto } from '../models/LeadersStatisticReadDto'
 import type { StatisticsReadDto } from '../models/StatisticsReadDto';
 import type { UserCreateDto } from '../models/UserCreateDto';
 import type { UserEntity } from '../models/UserEntity';
+import type { UsersAndTogglesReadDto } from '../models/UsersAndTogglesReadDto';
 import type { UserUpdateDto } from '../models/UserUpdateDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -37,6 +38,27 @@ export class UsersService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/users/statistics',
+        });
+    }
+
+    /**
+     * Returning information about user and toggles
+     * @param id
+     * @returns UsersAndTogglesReadDto User and toggles has been found.
+     * @throws ApiError
+     */
+    public static getOneUserAndToggles(
+        id: string,
+    ): CancelablePromise<UsersAndTogglesReadDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/users/toggles/{id}',
+            path: {
+                'id': id,
+            },
+            errors: {
+                404: `User not found.`,
+            },
         });
     }
 

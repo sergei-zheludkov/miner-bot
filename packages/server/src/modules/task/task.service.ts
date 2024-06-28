@@ -8,14 +8,15 @@ import { MiningService } from '../mining/mining.service';
 import { CompletedTaskEntity as CompletedTask } from './completed-task.entity';
 import { TaskEntity as Task } from './task.entity';
 import {
-  TaskCreateDto, TaskUpdateDto, CompletedTaskCreateDto, CompletedTasksCreateDto,
+  TaskCreateDto,
+  TaskUpdateDto,
+  CompletedTaskCreateDto,
+  CompletedTasksCreateDto,
 } from './dto';
 import type { GetQuery } from './types';
 
 const findOne = (tasks_repository: Repository<Task>, id: number) => tasks_repository
-  .findOne({
-    where: { id },
-  });
+  .findOne({ where: { id } });
 
 @Injectable()
 export class TaskService {

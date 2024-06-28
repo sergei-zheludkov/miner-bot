@@ -7,6 +7,7 @@ import { NotificationService } from '../notification/notification.service';
 import { TaskController } from './task.controller';
 import { TaskEntity as Task } from './task.entity';
 import { TaskService } from './task.service';
+import { ToggleService } from '../toggle/toggle.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Task])],
@@ -15,6 +16,7 @@ import { TaskService } from './task.service';
     WalletService,
     MiningService,
     UserService,
+    ToggleService,
     NotificationService,
     TaskService,
   ],

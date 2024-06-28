@@ -22,6 +22,7 @@ import { UserService } from './user.service';
 import { UserEntity } from './user.entity';
 import {
   LeadersStatisticReadDto,
+  UsersAndTogglesReadDto,
   StatisticsReadDto,
   UserCreateDto,
   UserUpdateDto,
@@ -73,6 +74,31 @@ export class UserController {
   }
 
   @ApiOkResponse({
+    description: 'User and toggles has been found.',
+    type: UsersAndTogglesReadDto,
+  })
+  @ApiNotFoundResponse({
+    description: 'User not found.',
+  })
+  @ApiOperation({
+    tags: [TAGS.USERS],
+    operationId: 'getOneUserAndToggles',
+    summary: 'Returning information about user and toggles',
+  })
+  @Get('toggles/:id')
+  async getOneUserAndToggles(
+    @Param('id') id: string,
+  ): Promise<UsersAndTogglesReadDto> {
+    const { user, toggles } = await this.userService.getOneUserAndToggles(id);
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    return { user, toggles };
+  }
+
+  @ApiOkResponse({
     description: 'User has been found.',
     type: UserEntity,
   })
@@ -88,11 +114,14 @@ export class UserController {
   @Get(':id')
   async getOneUser(
     @Param('id') id: string,
-    @Query('select') select?: 'username' | 'referral_counter',
+    @Query('select') select?: 'short' | 'username' | 'referral_counter',
   ) {
     let user: UserEntity | null = null;
 
     switch (select) {
+      case 'short':
+        user = await this.userService.getOneUserShort(id);
+        break;
       case 'username':
         user = await this.userService.getNickname(id);
         break;

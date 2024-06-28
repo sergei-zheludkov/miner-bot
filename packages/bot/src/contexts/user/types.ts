@@ -1,11 +1,16 @@
 import type { ReactNode } from 'react';
-import type { Fetch, UserEntity } from '@common_bot/api';
+import type {
+  Fetch,
+  // ToggleEntity,
+  UsersAndTogglesReadDto,
+} from '@common_bot/api';
 
-export type GetUserCallback = Fetch<never, UserEntity>;
+export type GetUserCallback = Fetch<never, UsersAndTogglesReadDto>;
 
 export type ContextState = {
   referralId: string | null;
-  user: UserEntity;
+  user: UsersAndTogglesReadDto['user'];
+  toggles: UsersAndTogglesReadDto['toggles'];
 
   getUser: GetUserCallback;
   isGetCalled: boolean;

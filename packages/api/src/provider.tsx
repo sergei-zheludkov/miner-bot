@@ -5,6 +5,7 @@ import {
   TasksService,
   MiningService,
   WithdrawalsService,
+  TogglesService,
 } from './generated';
 
 type ApiProviderProps = { children: React.ReactNode };
@@ -14,6 +15,7 @@ const ApiService = {
   mining: MiningService,
   wallet: WalletsService,
   task: TasksService,
+  toggle: TogglesService,
   withdrawal: WithdrawalsService,
 };
 

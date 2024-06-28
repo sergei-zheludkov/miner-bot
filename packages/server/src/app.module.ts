@@ -4,6 +4,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { DatabaseModule } from './libs/db/db.module';
 import { GlobalHttpModule } from './libs/http/http.module';
 import { GlobalCacheModule } from './libs/cache/cache.module';
+import { ToggleModule } from './modules/toggle/toggle.module';
 import { UserModule } from './modules/user/user.module';
 import { TaskModule } from './modules/task/task.module';
 import { WalletModule } from './modules/wallet/wallet.module';
@@ -18,6 +19,7 @@ import { NotificationModule } from './modules/notification/notification.module';
     GlobalCacheModule,
     GlobalHttpModule,
     DatabaseModule,
+    ToggleModule,
     UserModule,
     TaskModule,
     WalletModule,

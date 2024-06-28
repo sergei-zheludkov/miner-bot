@@ -8,6 +8,8 @@ export type {
   UserEntity,
   UserCreateDto,
   UserUpdateDto,
+  UsersAndTogglesReadDto,
+  LeadersStatisticReadDto,
 
   WalletEntity,
 
@@ -26,5 +28,6 @@ export type {
   CompletedTaskEntity,
   CompletedTaskCreateDto,
 
-  LeadersStatisticReadDto,
+  ToggleEntity,
+  ToggleUpdateDto,
 } from './generated';

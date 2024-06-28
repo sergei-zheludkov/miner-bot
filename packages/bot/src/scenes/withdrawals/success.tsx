@@ -11,6 +11,7 @@ type Props = {
 export const Success = ({ withdrawal }: Props) => {
   const { t } = useTranslation('withdrawals');
   const { switchToSceneBalance } = useRouter();
+  // TODO заменить на short request
   const { getUser } = useUser();
 
   const handleClickButton = (callback: () => void) => async () => {

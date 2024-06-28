@@ -2,6 +2,7 @@ import { join } from 'path';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
+import { ToggleEntity } from '../../modules/toggle/toggle.entity';
 import { TaskEntity } from '../../modules/task/task.entity';
 import { UserEntity } from '../../modules/user/user.entity';
 import { WalletEntity } from '../../modules/wallet/wallet.entity';
@@ -16,12 +17,13 @@ import { CompletedTaskEntity } from '../../modules/task/completed-task.entity';
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         entities: [
+          ToggleEntity,
           UserEntity,
           WalletEntity,
           MiningEntity,
           WithdrawalEntity,
-          TaskEntity,
           CompletedTaskEntity,
+          TaskEntity,
         ],
         autoLoadEntities: true,
         host: configService.get('DB_HOST'),
