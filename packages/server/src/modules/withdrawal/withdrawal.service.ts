@@ -19,30 +19,40 @@ export class WithdrawalService {
   ) {}
 
   getOneWithdrawal(id: number) {
-    return this.dataSource.transaction(async (manager) => {
-      const withdrawal_repository = manager.getRepository(Withdrawal);
+    try {
+      return this.dataSource.transaction(async (manager) => {
+        const withdrawal_repository = manager.getRepository(Withdrawal);
 
-      return findOne(withdrawal_repository, id);
-    });
+        return findOne(withdrawal_repository, id);
+      });
+    } catch (error) {
+      logger.error('WithdrawalService | getOneWithdrawal | ERROR:\n', error);
+      throw new Error('Error with service callback: getOneWithdrawal');
+    }
   }
 
   getWithdrawals({ status, limit, offset }: GetQuery): Promise<[Array<Withdrawal>, number]> {
-    return this.dataSource.transaction(async (manager) => {
-      const withdrawal_repository = manager.getRepository(Withdrawal);
+    try {
+      return this.dataSource.transaction(async (manager) => {
+        const withdrawal_repository = manager.getRepository(Withdrawal);
 
-      const count = await withdrawal_repository.countBy({ status });
+        const count = await withdrawal_repository.countBy({ status });
 
-      const withdrawals = await withdrawal_repository
-        .createQueryBuilder('withdrawal')
-        .leftJoinAndSelect('withdrawal.user', 'user')
-        .where({ status })
-        .take(limit)
-        .skip(offset)
-        .orderBy('withdrawal.created', 'ASC')
-        .getMany();
+        const withdrawals = await withdrawal_repository
+          .createQueryBuilder('withdrawal')
+          .leftJoinAndSelect('withdrawal.user', 'user')
+          .where({ status })
+          .take(limit)
+          .skip(offset)
+          .orderBy('withdrawal.created', 'ASC')
+          .getMany();
 
-      return [withdrawals, count - limit];
-    });
+        return [withdrawals, count - limit];
+      });
+    } catch (error) {
+      logger.error('WithdrawalService | getWithdrawals | ERROR:\n', error);
+      throw new Error('Error with service callback: getWithdrawals');
+    }
   }
 
   async createWithdrawal({ user_id, ...data }: WithdrawalCreateDto) {
@@ -71,9 +81,8 @@ export class WithdrawalService {
         return withdrawal_repository.save(new_withdrawal_data);
       });
     } catch (error) {
-      logger.error('WithdrawalService(createWithdrawal):', error);
-
-      throw new Error();
+      logger.error('WithdrawalService | createWithdrawal | ERROR:\n', error);
+      throw new Error('Error with service callback: createWithdrawal');
     }
   }
 
@@ -87,9 +96,8 @@ export class WithdrawalService {
         return findOne(withdrawal_repository, id);
       });
     } catch (error) {
-      logger.error('WithdrawalService(updateWithdrawal):', error);
-
-      throw new Error();
+      logger.error('WithdrawalService | updateWithdrawal | ERROR:\n', error);
+      throw new Error('Error with service callback: updateWithdrawal');
     }
   }
 }

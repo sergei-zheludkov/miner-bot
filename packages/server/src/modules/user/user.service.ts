@@ -37,30 +37,45 @@ export class UserService {
   ) {}
 
   getOneUserAndToggles(id: string) {
-    return this.dataSource.transaction(async (manager) => {
-      const users_repository = manager.getRepository(User);
+    try {
+      return this.dataSource.transaction(async (manager) => {
+        const users_repository = manager.getRepository(User);
 
-      const user = await findOne(users_repository, id);
-      const toggles = await this.toggleService.getToggles();
+        const user = await findOne(users_repository, id);
+        const toggles = await this.toggleService.getToggles();
 
-      return { user, toggles };
-    });
+        return { user, toggles };
+      });
+    } catch (error) {
+      logger.error('UserService | getOneUserAndToggles | ERROR:\n', error);
+      throw new Error('Error with service callback: getOneUserAndToggles');
+    }
   }
 
   getOneUser(id: string) {
-    return this.dataSource.transaction(async (manager) => {
-      const users_repository = manager.getRepository(User);
+    try {
+      return this.dataSource.transaction(async (manager) => {
+        const users_repository = manager.getRepository(User);
 
-      return findOne(users_repository, id);
-    });
+        return findOne(users_repository, id);
+      });
+    } catch (error) {
+      logger.error('UserService | getOneUser | ERROR:\n', error);
+      throw new Error('Error with service callback: getOneUser');
+    }
   }
 
   getOneUserShort(id: string) {
-    return this.dataSource.transaction(async (manager) => {
-      const users_repository = manager.getRepository(User);
+    try {
+      return this.dataSource.transaction(async (manager) => {
+        const users_repository = manager.getRepository(User);
 
-      return findOne(users_repository, id, SHORT_USER_SELECT);
-    });
+        return findOne(users_repository, id, SHORT_USER_SELECT);
+      });
+    } catch (error) {
+      logger.error('UserService | getOneUserShort | ERROR:\n', error);
+      throw new Error('Error with service callback: getOneUserShort');
+    }
   }
 
   async createUser(data: UserCreateDto) {
@@ -83,9 +98,8 @@ export class UserService {
         return users_repository.save(data);
       });
     } catch (error) {
-      logger.error('UserService(createUser):', error);
-
-      throw new Error();
+      logger.error('UserService | createUser | ERROR:\n', error);
+      throw new Error('Error with service callback: createUser');
     }
   }
 
@@ -123,9 +137,8 @@ export class UserService {
         return findOne(users_repository, id);
       });
     } catch (error) {
-      logger.error('UserService(createUserWithReferral):', error);
-
-      throw new Error();
+      logger.error('UserService | createUserWithReferral | ERROR:\n', error);
+      throw new Error('Error with service callback: createUserWithReferral');
     }
   }
 
@@ -151,80 +164,99 @@ export class UserService {
         return findOne(users_repository, id);
       });
     } catch (error) {
-      logger.error('UserService(updateUser):', error);
-
-      throw new Error();
+      logger.error('UserService | updateUser | ERROR:\n', error);
+      throw new Error('Error with service callback: updateUser');
     }
   }
 
   isExisting(id: string) {
-    return this.dataSource.transaction(async (manager) => {
-      const users_repository = manager.getRepository(User);
+    try {
+      return this.dataSource.transaction(async (manager) => {
+        const users_repository = manager.getRepository(User);
 
-      return users_repository.existsBy({ id });
-    });
+        return users_repository.existsBy({ id });
+      });
+    } catch (error) {
+      logger.error('UserService | isExisting | ERROR:\n', error);
+      throw new Error('Error with service callback: isExisting');
+    }
   }
 
   getName(id: string) {
-    return this.dataSource.transaction(async (manager) => {
-      const users_repository = manager.getRepository(User);
+    try {
+      return this.dataSource.transaction(async (manager) => {
+        const users_repository = manager.getRepository(User);
 
-      return users_repository.findOne({ where: { id }, select: ['id', 'firstname', 'lastname', 'username'] });
-    });
+        return users_repository.findOne({ where: { id }, select: ['id', 'firstname', 'lastname', 'username'] });
+      });
+    } catch (error) {
+      logger.error('UserService | getName | ERROR:\n', error);
+      throw new Error('Error with service callback: getName');
+    }
   }
 
   getReferralCounter(id: string) {
-    return this.dataSource.transaction(async (manager) => {
-      const users_repository = manager.getRepository(User);
+    try {
+      return this.dataSource.transaction(async (manager) => {
+        const users_repository = manager.getRepository(User);
 
-      return users_repository.findOne({ where: { id }, select: ['id', 'referral_counter'] });
-    });
+        return users_repository.findOne({ where: { id }, select: ['id', 'referral_counter'] });
+      });
+    } catch (error) {
+      logger.error('UserService | getReferralCounter | ERROR:\n', error);
+      throw new Error('Error with service callback: getReferralCounter');
+    }
   }
 
   async getStatistics(): Promise<StatisticsReadDto> {
-    return this.dataSource.transaction(async (manager) => {
-      const users_repository = manager.getRepository(User);
+    try {
+      return this.dataSource.transaction(async (manager) => {
+        const users_repository = manager.getRepository(User);
 
-      const todayStart = getStartToday().toDate();
-      const yesterdayStart = getStartYesterday().toDate();
-      const weekStart = getStartWeek().toDate();
-      const monthStart = getStartMonth().toDate();
-      const sevenDaysAgo = getStartToday().subtract(7, 'day').toDate();
-      const thirtyDaysAgo = getStartToday().subtract(30, 'day').toDate();
+        const todayStart = getStartToday().toDate();
+        const yesterdayStart = getStartYesterday().toDate();
+        const weekStart = getStartWeek().toDate();
+        const monthStart = getStartMonth().toDate();
+        const sevenDaysAgo = getStartToday().subtract(7, 'day').toDate();
+        const thirtyDaysAgo = getStartToday().subtract(30, 'day').toDate();
 
-      const all_time = await users_repository.count();
-      const today = await users_repository.countBy({ created: MoreThan(todayStart) });
-      // eslint-disable-next-line max-len
-      const yesterday = await users_repository.countBy({ created: Between(yesterdayStart, todayStart) });
-      const last_7_days = await users_repository.countBy({ created: MoreThan(sevenDaysAgo) });
-      const last_30_days = await users_repository.countBy({ created: MoreThan(thirtyDaysAgo) });
-      const this_week = await users_repository.countBy({ created: MoreThan(weekStart) });
-      const this_month = await users_repository.countBy({ created: MoreThan(monthStart) });
+        const all_time = await users_repository.count();
+        const today = await users_repository.countBy({ created: MoreThan(todayStart) });
+        // eslint-disable-next-line max-len
+        const yesterday = await users_repository.countBy({ created: Between(yesterdayStart, todayStart) });
+        const last_7_days = await users_repository.countBy({ created: MoreThan(sevenDaysAgo) });
+        const last_30_days = await users_repository.countBy({ created: MoreThan(thirtyDaysAgo) });
+        const this_week = await users_repository.countBy({ created: MoreThan(weekStart) });
+        const this_month = await users_repository.countBy({ created: MoreThan(monthStart) });
 
-      const male = await users_repository.countBy({ gender: GenderEnum.MALE });
-      const female = await users_repository.countBy({ gender: GenderEnum.FEMALE });
+        const male = await users_repository.countBy({ gender: GenderEnum.MALE });
+        const female = await users_repository.countBy({ gender: GenderEnum.FEMALE });
 
-      const RU = await users_repository.countBy({ country: CountriesEnum.RUSSIA });
-      const UA = await users_repository.countBy({ country: CountriesEnum.UKRAINE });
-      const KZ = await users_repository.countBy({ country: CountriesEnum.KAZAKHSTAN });
-      const BY = await users_repository.countBy({ country: CountriesEnum.BELARUS });
+        const RU = await users_repository.countBy({ country: CountriesEnum.RUSSIA });
+        const UA = await users_repository.countBy({ country: CountriesEnum.UKRAINE });
+        const KZ = await users_repository.countBy({ country: CountriesEnum.KAZAKHSTAN });
+        const BY = await users_repository.countBy({ country: CountriesEnum.BELARUS });
 
-      return {
-        today,
-        yesterday,
-        last_7_days,
-        last_30_days,
-        this_week,
-        this_month,
-        all_time,
-        countries: {
-          RU, UA, KZ, BY,
-        },
-        genders: {
-          male, female,
-        },
-      };
-    });
+        return {
+          today,
+          yesterday,
+          last_7_days,
+          last_30_days,
+          this_week,
+          this_month,
+          all_time,
+          countries: {
+            RU, UA, KZ, BY,
+          },
+          genders: {
+            male, female,
+          },
+        };
+      });
+    } catch (error) {
+      logger.error('UserService | getStatistics | ERROR:\n', error);
+      throw new Error('Error with service callback: getStatistics');
+    }
   }
 
   async getLeaders(date?: Date): Promise<ShortUserReadDto[]> {
@@ -261,8 +293,8 @@ export class UserService {
         );
       });
     } catch (error) {
-      logger.error('UserCronService(startReminder):', error);
-      throw new Error('Error with User Cron');
+      logger.error('UserService | getLeaders | ERROR:\n', error);
+      throw new Error('Error with service callback: getLeaders');
     }
   }
 }

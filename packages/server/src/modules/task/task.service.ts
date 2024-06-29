@@ -29,76 +29,53 @@ export class TaskService {
   ) {}
 
   getOneTask(id: number) {
-    return this.dataSource.transaction(async (manager) => {
-      const tasks_repository = manager.getRepository(Task);
+    try {
+      return this.dataSource.transaction(async (manager) => {
+        const tasks_repository = manager.getRepository(Task);
 
-      return findOne(tasks_repository, id);
-    });
+        return findOne(tasks_repository, id);
+      });
+    } catch (error) {
+      logger.error('TaskService | getOneTask | ERROR:\n', error);
+      throw new Error('Error with service callback: getOneTask');
+    }
   }
 
   getTasks({
     user_id, limit, offset, country, placement, status, gender,
   }: GetQuery) {
-    return this.dataSource.transaction(async (manager) => {
-      // const where: FindOptionsWhere<Task> = {
-      //   country,
-      //   placement,
-      //   gender: Or(Equal(gender), Equal(GenderEnum.ALL)),
-      // };
+    try {
+      return this.dataSource.transaction(async (manager) => {
+        const getAvailableLimitQuery = () => {
+          if (status === 'active') {
+            return 'available_limit > 0 AND';
+          }
 
-      // if (status === 'active') {
-      //   where.available_limit = MoreThan(0);
-      // }
-      //
-      // if (status === 'finished') {
-      //   where.available_limit = 0;
-      // }
+          if (status === 'finished') {
+            return 'available_limit = 0 AND';
+          }
 
-      const getAvailableLimitQuery = () => {
-        if (status === 'active') {
-          return 'available_limit > 0 AND';
-        }
+          return '';
+        };
 
-        if (status === 'finished') {
-          return 'available_limit = 0 AND';
-        }
-
-        return '';
-      };
-
-      // TODO переписать, созвонившись с Серегой Мазаевым или Сашей Махориным
-      return manager.query(`
-        SELECT * FROM tasks 
-        WHERE deleted IS NULL 
-        AND country = '${country}'
-        AND placement = '${placement}'
-        AND (gender = '${GenderEnum.ALL}' OR gender = '${gender}')
-        AND ${getAvailableLimitQuery()}
-        id NOT IN (SELECT task_id FROM completed_tasks WHERE user_id = '${user_id}')
-        ORDER BY id ASC
-        LIMIT ${limit}
-        OFFSET ${offset}
-      `);
-
-      // return manager.getRepository(Task).find({
-      //   where,
-      //   take: limit,
-      //   skip: offset,
-      // });
-
-      // .getRepository(Task)
-      // .createQueryBuilder('task')
-      // .leftJoinAndSelect('completed_task.user', 'user')
-      // .where(where)
-      // .take(limit)
-      // .skip(offset)
-      // .getMany();
-
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      // console.log('TASKS:', (await tasks));
-      // console.log('-- --- -- --- --- -- - - - -- - -- - - -- - - -- - - -- - -- - -- - - -');
-    });
+        // TODO переписать, созвонившись с Серегой Мазаевым или Сашей Махориным
+        return manager.query(`
+          SELECT * FROM tasks 
+          WHERE deleted IS NULL 
+          AND country = '${country}'
+          AND placement = '${placement}'
+          AND (gender = '${GenderEnum.ALL}' OR gender = '${gender}')
+          AND ${getAvailableLimitQuery()}
+          id NOT IN (SELECT task_id FROM completed_tasks WHERE user_id = '${user_id}')
+          ORDER BY id ASC
+          LIMIT ${limit}
+          OFFSET ${offset}
+        `);
+      });
+    } catch (error) {
+      logger.error('TaskService | getTasks | ERROR:\n', error);
+      throw new Error('Error with service callback: getTasks');
+    }
   }
 
   async createTask(data: TaskCreateDto) {
@@ -119,9 +96,8 @@ export class TaskService {
         return tasks_repository.save(new_task);
       });
     } catch (error) {
-      logger.error('TaskService(createTask):', error);
-
-      throw new Error();
+      logger.error('TaskService | createTask | ERROR:\n', error);
+      throw new Error('Error with service callback: createTask');
     }
   }
 
@@ -143,9 +119,8 @@ export class TaskService {
         return findOne(tasks_repository, id);
       });
     } catch (error) {
-      logger.error('TaskService(updateTask):', error);
-
-      throw new Error();
+      logger.error('TaskService | updateTask | ERROR:\n', error);
+      throw new Error('Error with service callback: updateTask');
     }
   }
 
@@ -174,9 +149,8 @@ export class TaskService {
         return completed_tasks_repository.save(completed_tasks);
       });
     } catch (error) {
-      logger.error('TaskService(completeTasks):', error);
-
-      throw new Error();
+      logger.error('TaskService | completeTasks | ERROR:\n', error);
+      throw new Error('Error with service callback: completeTasks');
     }
   }
 
@@ -205,9 +179,8 @@ export class TaskService {
         return completed_tasks_repository.save({ user: user_id, task: task_id });
       });
     } catch (error) {
-      logger.error('TaskService(completeTasks):', error);
-
-      throw new Error();
+      logger.error('TaskService | completeTask | ERROR:\n', error);
+      throw new Error('Error with service callback: completeTask');
     }
   }
 }

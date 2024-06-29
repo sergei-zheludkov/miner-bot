@@ -28,11 +28,16 @@ export class MiningService {
   ) {}
 
   getOneMining(id: string) {
-    return this.dataSource.transaction(async (manager) => {
-      const mining_repository = manager.getRepository(Mining);
+    try {
+      return this.dataSource.transaction(async (manager) => {
+        const mining_repository = manager.getRepository(Mining);
 
-      return findOne(mining_repository, id);
-    });
+        return findOne(mining_repository, id);
+      });
+    } catch (error) {
+      logger.error('MiningService | getOneMining | ERROR:\n', error);
+      throw new Error('Error with service callback: getOneMining');
+    }
   }
 
   async createMining({ id, tasks }: MiningCreateDto) {
@@ -54,9 +59,8 @@ export class MiningService {
         return mining_repository.save({ id, ton_started: new Date() });
       });
     } catch (error) {
-      logger.error('MiningService(createMining):', error);
-
-      throw new Error();
+      logger.error('MiningService | createMining | ERROR:\n', error);
+      throw new Error('Error with service callback: createMining');
     }
   }
 
@@ -106,9 +110,8 @@ export class MiningService {
         return mining_repository.save({ id, ton_started: new Date() });
       });
     } catch (error) {
-      logger.error('MiningService(createMiningWithReferral):', error);
-
-      throw new Error();
+      logger.error('MiningService | createMiningWithReferral | ERROR:\n', error);
+      throw new Error('Error with service callback: createMiningWithReferral');
     }
   }
 
@@ -156,9 +159,8 @@ export class MiningService {
         return findOne(mining_repository, id);
       });
     } catch (error) {
-      logger.error('MiningService(updateMining):', error);
-
-      throw new Error();
+      logger.error('MiningService | updateMining | ERROR:\n', error);
+      throw new Error('Error with service callback: updateMining');
     }
   }
 }

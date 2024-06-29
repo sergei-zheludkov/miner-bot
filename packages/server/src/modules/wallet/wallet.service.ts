@@ -16,11 +16,16 @@ export class WalletService {
   ) {}
 
   getOneWallet(id: string) {
-    return this.dataSource.transaction(async (manager) => {
-      const wallet_repository = manager.getRepository(Wallet);
+    try {
+      return this.dataSource.transaction(async (manager) => {
+        const wallet_repository = manager.getRepository(Wallet);
 
-      return findOne(wallet_repository, id);
-    });
+        return findOne(wallet_repository, id);
+      });
+    } catch (error) {
+      logger.error('WalletService | getOneWallet | ERROR:\n', error);
+      throw new Error('Error with service callback: getOneWallet');
+    }
   }
 
   async createWallet(data: WalletCreateDto) {
@@ -39,9 +44,8 @@ export class WalletService {
         return wallet_repository.save({ id, [`${currency}_amount`]: amount });
       });
     } catch (error) {
-      logger.error('WalletService(createWallet):', error);
-
-      throw new Error();
+      logger.error('WalletService | createWallet | ERROR:\n', error);
+      throw new Error('Error with service callback: createWallet');
     }
   }
 
@@ -67,9 +71,8 @@ export class WalletService {
         return findOne(wallet_repository, id);
       });
     } catch (error) {
-      logger.error('WalletService(updateWallet):', error);
-
-      throw new Error();
+      logger.error('WalletService | updateWallet | ERROR:\n', error);
+      throw new Error('Error with service callback: updateWallet');
     }
   }
 }

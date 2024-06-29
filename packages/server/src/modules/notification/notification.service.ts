@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
-import { DATE } from '@common_bot/shared';
+import { logger } from '../../libs/logger/logger.instance';
 import { toPromise } from '../../helpers';
-
-const { getFormattedDate } = DATE;
 
 @Injectable()
 export class NotificationService {
@@ -27,13 +25,8 @@ export class NotificationService {
     try {
       await toPromise(data);
     } catch (error) {
-      console.info(
-        getFormattedDate(),
-        `| User ID: ${userid}`,
-        `| Username: ${username}`,
-        `| URL: ${url}`,
-        `| Error: ${error}`,
-      );
+      logger.error('NotificationService | newReferralActivated | ERROR:\n', error);
+      throw new Error('Error with service callback: newReferralActivated');
     }
   }
 }

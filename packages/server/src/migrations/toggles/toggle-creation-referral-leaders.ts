@@ -5,7 +5,7 @@ export class ReferralLeaders1719555005942 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       INSERT INTO toggles (key, value, created, updated) VALUES
-        ('referral_leaders', false, '2024-06-21 00:00:00', '2024-06-21 00:00:00');
+        ('referral_leaders', true, '2024-06-21 00:00:00', '2024-06-21 00:00:00');
     `);
   }
 

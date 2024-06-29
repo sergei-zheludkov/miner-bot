@@ -16,13 +16,18 @@ export class ToggleService {
   ) {}
 
   getToggles() {
-    return this.dataSource.transaction(async (manager) => {
-      // TODO вынести в кэш с обновлением по update
-      const toggle_repository = manager.getRepository(Toggle);
+    try {
+      return this.dataSource.transaction(async (manager) => {
+        // TODO вынести в кэш с обновлением по update
+        const toggle_repository = manager.getRepository(Toggle);
 
-      return (await toggle_repository.find())
-        .reduce<Record<string, boolean>>((acc, { key, value }) => ({ ...acc, [key]: value }), {});
-    });
+        return (await toggle_repository.find())
+          .reduce<Record<string, boolean>>((acc, { key, value }) => ({ ...acc, [key]: value }), {});
+      });
+    } catch (error) {
+      logger.error('WithdrawalService | getToggles | ERROR:\n', error);
+      throw new Error('Error with service callback: getToggles');
+    }
   }
 
   async updateToggle({ key, value }: ToggleUpdateDto) {
@@ -41,9 +46,8 @@ export class ToggleService {
         return findOne(tasks_repository, key);
       });
     } catch (error) {
-      logger.error('ToggleService(updateToggle):', error);
-
-      throw new Error();
+      logger.error('WithdrawalService | updateToggle | ERROR:\n', error);
+      throw new Error('Error with service callback: updateToggle');
     }
   }
 }
