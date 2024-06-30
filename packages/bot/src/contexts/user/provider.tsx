@@ -49,10 +49,16 @@ export const UserProvider = ({ children }: ProviderProps) => {
       setReferralId(ref);
     }
 
-    // Юзер есть в DB и в Local и уже активен
+    // Юзер загружен, есть в Local и уже активен
     if (user && userInStore) {
       switchToSceneGreeting();
+      return;
+    }
 
+    // Юзер загружен, нет в Local и уже активен
+    if (user && !userInStore) {
+      setUser(chat);
+      switchToSceneGreeting();
       return;
     }
 
@@ -65,7 +71,6 @@ export const UserProvider = ({ children }: ProviderProps) => {
     // Юзер есть в DB и в Local и стоит на reset
     if (user_data && userInStore) {
       switchToSceneGreeting();
-
       return;
     }
 

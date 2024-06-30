@@ -180,6 +180,10 @@ docker cp miner_bot.tar postgres.prod:/ && docker exec postgres.prod pg_restore 
 14. `docker rmi {{image_id: server}}`
 15. `docker compose up -d bot`
 
+Выкачать Error file
+```
+docker cp server.prod:/server/packages/server/logs/error-file /var/www/www-root/data/miner_bot/miner-bot/error-file
+```
 команда для cron для создания копий БД: 
 ```
 docker exec postgres.prod pg_dump -U root -F t miner_bot > ../var/www/www-root/data/miner_bot/miner-bot/dumps/miner_bot_`date +%Y_%m_%d-%H_%M`.tar

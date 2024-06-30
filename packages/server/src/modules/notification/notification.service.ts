@@ -26,7 +26,7 @@ export class NotificationService {
       await toPromise(data);
     } catch (error) {
       logger.error('NotificationService | newReferralActivated | ERROR:\n', error);
-      throw new Error('Error with service callback: newReferralActivated');
+      // throw new Error('Error with service callback: newReferralActivated');
     }
   }
 }
