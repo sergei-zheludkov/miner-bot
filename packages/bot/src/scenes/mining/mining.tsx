@@ -11,7 +11,7 @@ const { getCryptoAmount, getMinedTokenAmount } = MATH;
 
 export const Mining = () => {
   const { t } = useTranslation('mining');
-  const { switchToMenuMain } = useRouter();
+  const { switchToMenuMain, switchToSceneTaskController, switchToSceneReferralTerms } = useRouter();
   const { user: { who_invited_id } } = useUser();
   const {
     mining,
@@ -72,11 +72,24 @@ export const Mining = () => {
           <b>0.0000001000</b>
           &#32;
           TON
+          <br />
+          <br />
+          {t('increase')}
           {who_invited_id && bonus}
         </>
       );
 
-      return { title: titleComponent, buttons: backButton };
+      const buttonComponent = [
+        <Button key="tasks" onClick={switchToSceneTaskController}>
+          {t('buttons:tasks')}
+        </Button>,
+        <Button key="tasks" onClick={switchToSceneReferralTerms}>
+          {t('buttons:referral')}
+        </Button>,
+        ...backButton,
+      ];
+
+      return { title: titleComponent, buttons: buttonComponent };
     }
 
     // Если юзер еще не активировал майнинг
@@ -154,12 +167,21 @@ export const Mining = () => {
         <b>{getCryptoAmount(mining.ton_rate)}</b>
         &#32;
         TON
+        <br />
+        <br />
+        {t('increase')}
       </>
     );
 
     const buttonsComponent = [
       <Button key="collect" onClick={handleClickGet}>
         {`${t('buttons:collect')} ${balance} TON`}
+      </Button>,
+      <Button key="tasks" onClick={switchToSceneTaskController}>
+        {t('buttons:tasks')}
+      </Button>,
+      <Button key="referral" onClick={switchToSceneReferralTerms}>
+        {t('buttons:referral')}
       </Button>,
       ...backButton,
     ];
