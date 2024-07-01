@@ -54,7 +54,7 @@ export const Mining = () => {
           <br />
           {t('bonus_prefix')}
           &#32;
-          <b>0.0025</b>
+          <b>0.005</b>
           &#32;
           TON
           &#32;

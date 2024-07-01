@@ -53,7 +53,7 @@ export const Terms = () => {
         🤝&#32;
         <i>{t('referral:invitation_bonus')}</i>
         &#32;
-        <b>0.005 TON</b>
+        <b>0.01 TON</b>
         &#32;
         <i>{t('common:and')}</i>
         &#32;

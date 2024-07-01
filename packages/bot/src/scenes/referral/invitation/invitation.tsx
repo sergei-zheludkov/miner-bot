@@ -44,7 +44,7 @@ export const Invitation = () => {
       <br />
       <br />
       <i>{t('invitation.bonus_prefix')}</i>
-      <b>&#32;0.0025 TON&#32;</b>
+      <b>&#32;0.005 TON&#32;</b>
       <i>{t('invitation.bonus_postfix')}</i>
     </>
   );

@@ -43,7 +43,7 @@ export const NewReferralActivated: React.FC = () => {
         <br />
         <br />
         {t('new_referral.invitation_bonus_prefix')}
-        <b>&#32;0.005 TON&#32;</b>
+        <b>&#32;0.01 TON&#32;</b>
         {t('new_referral.invitation_bonus_postfix')}
       </Text>
     );
