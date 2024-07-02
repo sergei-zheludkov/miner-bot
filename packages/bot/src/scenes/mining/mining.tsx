@@ -80,13 +80,15 @@ export const Mining = () => {
       );
 
       const buttonComponent = [
-        <Button key="tasks" onClick={switchToSceneTaskController}>
-          {t('buttons:tasks')}
-        </Button>,
-        <Button key="tasks" onClick={switchToSceneReferralTerms}>
-          {t('buttons:referral')}
-        </Button>,
-        ...backButton,
+        [
+          <Button key="tasks" onClick={switchToSceneTaskController}>
+            {t('buttons:tasks')}
+          </Button>,
+          <Button key="referral" onClick={switchToSceneReferralTerms}>
+            {t('buttons:referral')}
+          </Button>,
+        ],
+        backButton,
       ];
 
       return { title: titleComponent, buttons: buttonComponent };
@@ -119,17 +121,21 @@ export const Mining = () => {
       ];
 
       const buttonsComponent = tasks.map((task) => (
-        <Button key={task.name} url={task.url}>
-          {task.name}
-        </Button>
+        [
+          <Button key={task.name} url={task.url}>
+            {task.name}
+          </Button>,
+        ]
       )).concat([
-        <Button key="ready" onClick={handleClickReady}>
-          {t('buttons:ready')}
-        </Button>,
-        ...backButton,
+        [
+          <Button key="ready" onClick={handleClickReady}>
+            {t('buttons:ready')}
+          </Button>,
+        ],
+        backButton,
       ]);
 
-      return { title: titleComponent, buttons: [...gpt, ...buttonsComponent] };
+      return { title: titleComponent, buttons: [gpt, ...buttonsComponent] };
     }
 
     // Если юзер успешно перевел намайненые токены на баланс
@@ -174,23 +180,27 @@ export const Mining = () => {
     );
 
     const buttonsComponent = [
-      <Button key="collect" onClick={handleClickGet}>
-        {`${t('buttons:collect')} ${balance} TON`}
-      </Button>,
-      <Button key="tasks" onClick={switchToSceneTaskController}>
-        {t('buttons:tasks')}
-      </Button>,
-      <Button key="referral" onClick={switchToSceneReferralTerms}>
-        {t('buttons:referral')}
-      </Button>,
-      ...backButton,
+      [
+        <Button key="collect" onClick={handleClickGet}>
+          {`${t('buttons:collect')} ${balance} TON`}
+        </Button>,
+      ],
+      [
+        <Button key="tasks" onClick={switchToSceneTaskController}>
+          {t('buttons:tasks')}
+        </Button>,
+        <Button key="referral" onClick={switchToSceneReferralTerms}>
+          {t('buttons:referral')}
+        </Button>,
+      ],
+      backButton,
     ];
 
     return { title: titleComponent, buttons: buttonsComponent };
   })();
 
   return (
-    <ButtonGroup isNewMessageEveryRender={false} title={title} maxColumns={1}>
+    <ButtonGroup isNewMessageEveryRender={false} title={title}>
       {buttons}
     </ButtonGroup>
   );
