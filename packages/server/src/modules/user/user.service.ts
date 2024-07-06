@@ -1,7 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import {
-  CountriesEnum, CurrencyEnum, DATE, GenderEnum, RoleEnum,
+  CountriesEnum,
+  CurrencyEnum,
+  GenderEnum,
+  RoleEnum,
+  DATE,
+  CONSTANTS,
 } from '@common_bot/shared';
 import {
   And, Between, DataSource, IsNull, MoreThan, Not,
@@ -26,6 +31,7 @@ const {
   getStartWeek,
   getStartMonth,
 } = DATE;
+const { ADMIN_IDS } = CONSTANTS;
 
 @Injectable()
 export class UserService {
@@ -38,11 +44,19 @@ export class UserService {
 
   getOneUserAndToggles(id: string) {
     try {
+      if (ADMIN_IDS.includes(id)) {
+        console.log('UserService.getOneUserAndToggles |', { id });
+      }
+
       return this.dataSource.transaction(async (manager) => {
         const users_repository = manager.getRepository(User);
 
         const user = await findOne(users_repository, id);
         const toggles = await this.toggleService.getToggles();
+
+        if (ADMIN_IDS.includes(id)) {
+          console.log('UserService.getOneUserAndToggles |', { user, toggles });
+        }
 
         return { user, toggles };
       });

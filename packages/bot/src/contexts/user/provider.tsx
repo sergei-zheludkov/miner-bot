@@ -7,6 +7,7 @@ import {
   predicates,
   UserEntity,
 } from '@common_bot/api';
+import { CONSTANTS } from '@common_bot/shared';
 import { saveChat, getChat } from '../../local-storage';
 import { /* ShortRegistration, */ Registration, Reset } from '../../scenes';
 import { useRouter } from '../router';
@@ -15,6 +16,7 @@ import { getStartQueryParams } from './helpers';
 import type { ProviderProps, ContextState } from './types';
 
 const { isNotFoundError } = predicates;
+const { ADMIN_IDS } = CONSTANTS;
 
 export const UserProvider = ({ children }: ProviderProps) => {
   const { chat } = useBotContext();
@@ -31,6 +33,7 @@ export const UserProvider = ({ children }: ProviderProps) => {
     isError: isGetError,
     statusCode: getStatusCode,
     fetch: getUser,
+    error,
   } = useQuery(
     'get_one_user',
     () => getOneUserAndTogglesApi(chat.id),
@@ -51,12 +54,20 @@ export const UserProvider = ({ children }: ProviderProps) => {
 
     // Юзер загружен, есть в Local и уже активен
     if (user && userInStore) {
+      if (ADMIN_IDS.includes(chat.id)) {
+        console.log('1. THE USER IS LOADED, IS IN LOCAL AND IS ALREADY ACTIVE', '\nUSER:\n', user, '\nUSER IN STORE:\n', userInStore);
+      }
+
       switchToSceneGreeting();
       return;
     }
 
     // Юзер загружен, нет в Local и уже активен
     if (user && !userInStore) {
+      if (ADMIN_IDS.includes(chat.id)) {
+        console.log('2. THE USER IS LOADED, NOT IN LOCAL AND ALREADY ACTIVE', '\nUSER:\n', user, '\nUSER IN STORE:\n', userInStore);
+      }
+
       setUser(chat);
       switchToSceneGreeting();
       return;
@@ -70,15 +81,42 @@ export const UserProvider = ({ children }: ProviderProps) => {
 
     // Юзер есть в DB и в Local и стоит на reset
     if (user_data && userInStore) {
+      if (ADMIN_IDS.includes(chat.id)) {
+        console.log('3. THE USER IS IN DB AND LOCAL AND IS SET TO RESET', '\nUSER_DATA:\n', user_data, '\nUSER IN STORE:\n', userInStore);
+      }
+
       switchToSceneGreeting();
       return;
     }
 
     // Юзер есть в DB, но нет в Local
     if (user_data && !userInStore) {
+      if (ADMIN_IDS.includes(chat.id)) {
+        console.log('4. THE USER IS IN DB, BUT NOT IN LOCAL', '\nUSER_DATA:\n', user_data, '\nUSER IN STORE:\n', userInStore);
+      }
+
       saveChat(chat);
       setUser(chat);
       switchToSceneGreeting();
+    }
+
+    if (ADMIN_IDS.includes(chat.id)) {
+      console.log(
+        '5. NONE OF THE CASES WORKED',
+        '\nUSER:\n',
+        user,
+        '\nUSER IN STORE:\n',
+        userInStore,
+        '\nREQUEST DATA:\n',
+        {
+          isGetCalled,
+          isGetLoading,
+          isGetSuccess,
+          isGetError,
+          getStatusCode,
+          error,
+        },
+      );
     }
   }, '/start');
 

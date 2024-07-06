@@ -17,6 +17,7 @@ import {
 } from '@nestjs/swagger';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+import { CONSTANTS } from '@common_bot/shared';
 import { API_VERSION_ROUTES, TAGS } from '../../constants';
 import { UserService } from './user.service';
 import { UserEntity } from './user.entity';
@@ -27,6 +28,8 @@ import {
   UserCreateDto,
   UserUpdateDto,
 } from './dto';
+
+const { ADMIN_IDS } = CONSTANTS;
 
 @Controller(`${API_VERSION_ROUTES.v1}/users`)
 export class UserController {
@@ -86,10 +89,16 @@ export class UserController {
     summary: 'Returning information about user and toggles',
   })
   @Get('toggles/:id')
-  async getOneUserAndToggles(
-    @Param('id') id: string,
-  ): Promise<UsersAndTogglesReadDto> {
+  async getOneUserAndToggles(@Param('id') id: string): Promise<UsersAndTogglesReadDto> {
+    if (ADMIN_IDS.includes(id)) {
+      console.log('UserController.getOneUserAndToggles |', { id });
+    }
+
     const { user, toggles } = await this.userService.getOneUserAndToggles(id);
+
+    if (ADMIN_IDS.includes(id)) {
+      console.log('UserController.getOneUserAndToggles |', { user, toggles });
+    }
 
     if (!user) {
       throw new NotFoundException();
