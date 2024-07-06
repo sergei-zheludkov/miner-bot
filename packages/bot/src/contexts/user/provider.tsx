@@ -98,6 +98,7 @@ export const UserProvider = ({ children }: ProviderProps) => {
       saveChat(chat);
       setUser(chat);
       switchToSceneGreeting();
+      return;
     }
 
     if (ADMIN_IDS.includes(chat.id)) {
