@@ -728,7 +728,7 @@
   "tags": [],
   "servers": [
     {
-      "url": "http://server:3000"
+      "url": "http://core-miner:3000"
     }
   ],
   "components": {

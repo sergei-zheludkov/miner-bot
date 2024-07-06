@@ -2,7 +2,7 @@ name: ton-miner-bot
 
 services:
   postgres:
-    container_name: "postgres.prod"
+    container_name: "postgres-container"
     build:
       context: ../../
       dockerfile: ./packages/devops/services/db/Dockerfile
@@ -12,33 +12,33 @@ services:
     ports:
       - "5434:5432"
 
-  server:
-    image: "ton_miner_server:${SERVER_VERSION}"
-    container_name: "server.prod"
+  core-miner:
+    image: "core-miner:${SERVER_VERSION}"
+    container_name: "core-miner-container"
     build:
       context: ../../
-      dockerfile: ./packages/devops/services/server/Dockerfile
+      dockerfile: ./packages/devops/services/core-miner/Dockerfile
       args:
         - PROJECT_VERSION=${SERVER_VERSION}
     env_file:
-      - ./services/server/.env
+      - services/core-miner/.env
     ports:
       - "3000:3000"
     depends_on:
       postgres:
         condition: service_healthy
 
-  bot:
-    image: "ton_miner_bot:${BOT_VERSION}"
-    container_name: "bot.prod"
+  bot-miner:
+    image: "bot-miner:${BOT_VERSION}"
+    container_name: "bot-miner-container"
     build:
       context: ../../
-      dockerfile: ./packages/devops/services/bot/Dockerfile
+      dockerfile: ./packages/devops/services/bot-miner/Dockerfile
       args:
         - PROJECT_VERSION=${BOT_VERSION}
     env_file:
-      - ./services/bot/.env
+      - ./services/bot-miner/.env
     ports:
       - "5050:5050"
     depends_on:
-      - server
+      - core-miner

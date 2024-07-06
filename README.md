@@ -158,16 +158,16 @@ cd packages/devops
 ```
 4. Копируешь БД из докер-контейнера postgres. 
 ```
-docker exec {{postgres_container_id}} pg_dump -U root -F t miner_bot > miner_bot.tar
+docker exec postgres pg_dump -U root -F t miner_bot > miner_bot.tar
 ```
 5. Копируешь Storage-файл из докер-контейнера bot.
 ```
-docker cp bot.prod:/bot/packages/bot/storage /var/www/www-root/data/miner_bot/miner-bot/packages/bot
+docker cp bot-miner:/bot/packages/bot-miner/storage /var/www/www-root/data/miner_bot/miner-bot/packages/bot
 ```
 6. Команда на восстановление БД из папки packages/devops
 
 ```
-docker cp miner_bot.tar postgres.prod:/ && docker exec postgres.prod pg_restore -U sergei_zheludkov -C -d miner_bot miner_bot.tar 
+docker cp miner_bot.tar postgres:/ && docker exec postgres.prod pg_restore -U sergei_zheludkov -C -d miner_bot miner_bot.tar 
 ```
 ---
 -Переписать-
