@@ -50,7 +50,7 @@ export const Leaders = () => {
             <React.Fragment key={id}>
               {getNumber(i)}
               &#32;
-              {firstname}
+              {firstname.slice(0, 15)}
               &#32;
               -
               &#32;

@@ -158,16 +158,16 @@ cd packages/devops
 ```
 4. Копируешь БД из докер-контейнера postgres. 
 ```
-docker exec postgres pg_dump -U root -F t miner_bot > miner_bot.tar
+docker exec postgres-container pg_dump -U root -F t miner_bot > miner_bot.tar
 ```
 5. Копируешь Storage-файл из докер-контейнера bot.
 ```
-docker cp bot-miner:/bot/packages/bot-miner/storage /var/www/www-root/data/miner_bot/miner-bot/packages/bot
+docker cp bot-miner-container:/bot/packages/bot-miner/storage /var/www/www-root/data/miner_bot/miner-bot/packages/bot-miner
 ```
 6. Команда на восстановление БД из папки packages/devops
 
 ```
-docker cp miner_bot.tar postgres:/ && docker exec postgres.prod pg_restore -U sergei_zheludkov -C -d miner_bot miner_bot.tar 
+docker cp miner_bot.tar postgres-container:/ && docker exec postgres-container pg_restore -U sergei_zheludkov -C -d miner_bot miner_bot.tar 
 ```
 ---
 -Переписать-
@@ -182,15 +182,19 @@ docker cp miner_bot.tar postgres:/ && docker exec postgres.prod pg_restore -U se
 
 Выкачать Error file
 ```
-docker cp server.prod:/server/packages/server/logs/error-file /var/www/www-root/data/miner_bot/miner-bot/error-file
+docker cp core-miner-container:/server/packages/core-miner/logs/error-file /var/www/www-root/data/miner_bot/miner-bot/error-file
 ```
 команда для cron для создания копий БД: 
 ```
-docker exec postgres.prod pg_dump -U root -F t miner_bot > ../var/www/www-root/data/miner_bot/miner-bot/dumps/miner_bot_`date +%Y_%m_%d-%H_%M`.tar
+docker exec postgres-container pg_dump -U root -F t miner_bot > ../var/www/www-root/data/miner_bot/miner-bot/dumps/miner_bot_`date +%Y_%m_%d-%H_%M`.tar
 ```
 команда для cron для создания копий локального хранилища бота:
 ```
-docker cp bot.prod:/bot/packages/bot/storage/CHATS ../var/www/www-root/data/miner_bot/miner-bot/dumps/CHATS_`date +%Y_%m_%d-%H_%M`
+docker cp bot-miner-container:/bot/packages/bot-miner/storage/CHATS ../var/www/www-root/data/miner_bot/miner-bot/dumps/CHATS_`date +%Y_%m_%d-%H_%M`
+```
+команда для установки в `Планировщик CRON` в ISP Manager
+```
+/var/www/www-root/data/miner_bot/miner-bot/packages/devops/scripts/dump.sh >/dev/null 2>&1
 ```
 ---
 
