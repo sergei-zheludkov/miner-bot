@@ -10,7 +10,7 @@ type Props = {
 
 export const Success = ({ withdrawal }: Props) => {
   const { t } = useTranslation('withdrawals');
-  const { switchToSceneBalance } = useRouter();
+  const { switchToSceneBalance, switchToMenuMain } = useRouter();
   // TODO заменить на short request
   const { getUser } = useUser();
 
@@ -20,11 +20,11 @@ export const Success = ({ withdrawal }: Props) => {
     callback();
   };
 
-  const main_menu = t('buttons:main_menu');
-  useText(handleClickButton(switchToSceneBalance), main_menu);
-
   const balance = t('buttons:balance');
   useText(handleClickButton(switchToSceneBalance), balance);
+
+  const main_menu = t('buttons:main_menu');
+  useText(handleClickButton(switchToMenuMain), main_menu);
 
   const title = (
     <>
