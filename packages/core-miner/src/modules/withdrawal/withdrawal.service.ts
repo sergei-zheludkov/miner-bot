@@ -31,7 +31,9 @@ export class WithdrawalService {
     }
   }
 
-  getWithdrawals({ status, limit, offset }: GetQuery): Promise<[Array<Withdrawal>, number]> {
+  getWithdrawals({
+    user_id, status, limit, offset,
+  }: GetQuery): Promise<[Array<Withdrawal>, number]> {
     try {
       return this.dataSource.transaction(async (manager) => {
         const withdrawal_repository = manager.getRepository(Withdrawal);
@@ -41,7 +43,7 @@ export class WithdrawalService {
         const withdrawals = await withdrawal_repository
           .createQueryBuilder('withdrawal')
           .leftJoinAndSelect('withdrawal.user', 'user')
-          .where({ status })
+          .where({ status, user_id })
           .take(limit)
           .skip(offset)
           .orderBy('withdrawal.created', 'ASC')

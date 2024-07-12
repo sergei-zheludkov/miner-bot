@@ -21,5 +21,13 @@ export const useUsersControl = () => {
     getUser(userId);
   };
 
-  return { user, handleConfirmInput };
+  return {
+    user,
+    handleConfirmInput,
+    isGetUserCalled,
+    isGetUserLoading,
+    isGetUserSuccess,
+    isGetUserError,
+    getUserStatusCode,
+  };
 };

@@ -614,6 +614,14 @@
         ],
         "parameters": [
           {
+            "name": "user_id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "status",
             "required": false,
             "in": "query",
@@ -1629,6 +1637,11 @@
               "paid"
             ]
           },
+          "comment": {
+            "type": "string",
+            "example": "Вы вышли из части групп, в которые вступали по заданиям. Это подпадает под разряд мошенничества. Выплата частично аннулируется. Вы получаете первое предупреждение",
+            "nullable": true
+          },
           "created": {
             "format": "date-time",
             "type": "string",
@@ -1654,6 +1667,7 @@
           "currency",
           "amount",
           "status",
+          "comment",
           "created",
           "updated",
           "deleted"

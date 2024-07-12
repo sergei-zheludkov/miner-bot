@@ -4,4 +4,5 @@ export type GetQuery = {
   limit: number;
   offset: number;
   status?: WithdrawalStatusEnum;
+  user_id?: string;
 }

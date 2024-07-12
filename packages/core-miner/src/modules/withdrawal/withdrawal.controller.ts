@@ -60,13 +60,17 @@ export class WithdrawalController {
   @ApiQuery({ name: 'limit', required: false, type: Number })
   @ApiQuery({ name: 'offset', required: false, type: Number })
   @ApiQuery({ name: 'status', required: false, type: String })
+  @ApiQuery({ name: 'user_id', required: false, type: String })
   @Get()
   getWithdrawals(
-    @Query('status') status?: WithdrawalStatusEnum,
+    @Query('user_id') user_id: string,
+    @Query('status') status: WithdrawalStatusEnum,
     @Query('limit') limit = 100,
     @Query('offset') offset = 0,
   ) {
-    return this.withdrawalService.getWithdrawals({ limit, offset, status });
+    return this.withdrawalService.getWithdrawals({
+      limit, offset, status, user_id,
+    });
   }
 
   @ApiCreatedResponse({

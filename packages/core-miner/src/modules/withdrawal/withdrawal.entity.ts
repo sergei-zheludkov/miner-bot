@@ -81,6 +81,16 @@ export class WithdrawalEntity {
   status: WithdrawalStatusEnum;
 
   @ApiProperty({
+    example: 'Вы вышли из части групп, в которые вступали по заданиям. Это подпадает под разряд мошенничества. Выплата частично аннулируется. Вы получаете первое предупреждение',
+    nullable: true,
+  })
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  comment: string;
+
+  @ApiProperty({
     example: '2022-10-21T19:48:59.726Z',
   })
   @CreateDateColumn()
