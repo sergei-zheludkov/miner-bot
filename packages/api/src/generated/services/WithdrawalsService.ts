@@ -3,6 +3,7 @@
 /* eslint-disable */
 import type { WithdrawalCreateDto } from '../models/WithdrawalCreateDto';
 import type { WithdrawalEntity } from '../models/WithdrawalEntity';
+import type { WithdrawalsReadDto } from '../models/WithdrawalsReadDto';
 import type { WithdrawalUpdateDto } from '../models/WithdrawalUpdateDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -35,21 +36,27 @@ export class WithdrawalsService {
     /**
      * Returning information about withdrawals
      * @param status
+     * @param userId
+     * @param sort
      * @param offset
      * @param limit
-     * @returns WithdrawalEntity Withdrawals has been found.
+     * @returns WithdrawalsReadDto Withdrawals has been found.
      * @throws ApiError
      */
     public static getWithdrawals(
         status?: string,
+        userId?: string,
+        sort?: string,
         offset?: number,
         limit?: number,
-    ): CancelablePromise<Array<WithdrawalEntity>> {
+    ): CancelablePromise<WithdrawalsReadDto> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/withdrawals',
             query: {
                 'status': status,
+                'user_id': userId,
+                'sort': sort,
                 'offset': offset,
                 'limit': limit,
             },

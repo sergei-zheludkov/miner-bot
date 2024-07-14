@@ -17,7 +17,8 @@ export enum SceneEnum {
   CREATE_TASK = 'scene_create_task',
   USERS_CONTROL = 'scene_users_control',
 
-  WITHDRAWAL = 'scene_withdrawal',
+  WITHDRAWAL_CREATE = 'scene_withdrawal_create',
+  WITHDRAWAL_LIST = 'scene_withdrawal_list',
 
   REFERRAL_TERMS = 'scene_referral_terms',
   REFERRAL_LEADERS = 'scene_referral_leaders',

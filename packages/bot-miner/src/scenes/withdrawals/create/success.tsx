@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, ButtonGroup, useText } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { WithdrawalEntity } from '@common_bot/api';
-import { useRouter, useUser } from '../../contexts';
+import { useRouter, useUser } from '../../../contexts';
 
 type Props = {
   withdrawal: WithdrawalEntity;

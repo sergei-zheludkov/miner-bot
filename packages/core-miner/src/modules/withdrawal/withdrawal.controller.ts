@@ -19,7 +19,7 @@ import { WithdrawalStatusEnum } from '@common_bot/shared';
 import { API_VERSION_ROUTES, TAGS } from '../../constants';
 import { WithdrawalService } from './withdrawal.service';
 import { WithdrawalEntity } from './withdrawal.entity';
-import { WithdrawalCreateDto, WithdrawalUpdateDto } from './dto';
+import { WithdrawalCreateDto, WithdrawalsReadDto, WithdrawalUpdateDto } from './dto';
 
 @Controller(`${API_VERSION_ROUTES.v1}/withdrawals`)
 export class WithdrawalController {
@@ -50,7 +50,7 @@ export class WithdrawalController {
 
   @ApiOkResponse({
     description: 'Withdrawals has been found.',
-    type: [WithdrawalEntity],
+    type: WithdrawalsReadDto,
   })
   @ApiOperation({
     tags: [TAGS.WITHDRAWALS],
@@ -59,17 +59,19 @@ export class WithdrawalController {
   })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   @ApiQuery({ name: 'offset', required: false, type: Number })
+  @ApiQuery({ name: 'sort', required: false, type: String })
   @ApiQuery({ name: 'status', required: false, type: String })
   @ApiQuery({ name: 'user_id', required: false, type: String })
   @Get()
   getWithdrawals(
-    @Query('user_id') user_id: string,
     @Query('status') status: WithdrawalStatusEnum,
-    @Query('limit') limit = 100,
+    @Query('user_id') user_id: string,
+    @Query('sort') sort: 'ASC' | 'DESC' = 'ASC',
+    @Query('limit') limit = 10,
     @Query('offset') offset = 0,
   ) {
     return this.withdrawalService.getWithdrawals({
-      limit, offset, status, user_id,
+      status, user_id, limit, offset, sort,
     });
   }
 

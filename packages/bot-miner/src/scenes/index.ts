@@ -8,7 +8,7 @@ export { Referral } from './referral';
 export { Contacts } from './contacts';
 export { Accession } from './accession';
 export { Statistics } from './statistics';
-export { Withdrawal } from './withdrawals';
+export { Withdrawals } from './withdrawals';
 export { SettingsLanguage } from './settings';
 export { UsersControl } from './users-control';
 export { Registration } from './registration';

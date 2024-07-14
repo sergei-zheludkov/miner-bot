@@ -1,4 +1,5 @@
 import React from 'react';
+import { useBotContext } from '@urban-bot/core';
 import { Provider, useRouter } from './contexts';
 import { SceneWrapper, Error } from './components';
 
@@ -7,6 +8,7 @@ import * as Scene from './scenes';
 import * as T from './constants';
 
 export const SceneSwitcher = () => {
+  const { chat } = useBotContext();
   const { scene } = useRouter();
 
   switch (scene) {
@@ -34,17 +36,24 @@ export const SceneSwitcher = () => {
         </Provider.Mining>
       );
 
+    case T.SceneEnum.WITHDRAWAL_CREATE:
+      return (
+        <Provider.Wallet>
+          <Scene.Withdrawals.Create />
+        </Provider.Wallet>
+      );
+
+    case T.SceneEnum.WITHDRAWAL_LIST:
+      return (
+        <Provider.Withdrawal userId={chat.id} sort="DESC">
+          <Scene.Withdrawals.List />
+        </Provider.Withdrawal>
+      );
+
     case T.SceneEnum.BALANCE:
       return (
         <Provider.Wallet>
           <Scene.Balance />
-        </Provider.Wallet>
-      );
-
-    case T.SceneEnum.WITHDRAWAL:
-      return (
-        <Provider.Wallet>
-          <Scene.Withdrawal />
         </Provider.Wallet>
       );
 

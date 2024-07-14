@@ -4,7 +4,7 @@ import type { UrbanBotTelegram } from '@urban-bot/telegram';
 import { useTranslation } from '@common_bot/i18n';
 import { CurrencyEnum, HOOK } from '@common_bot/shared';
 import { useApi, useQuery, WithdrawalCreateDto } from '@common_bot/api';
-import { useUser, useWallet } from '../../contexts';
+import { useUser, useWallet } from '../../../contexts';
 
 const { useToggleState } = HOOK;
 const MINIMAL = '1';

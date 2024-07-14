@@ -12,6 +12,7 @@ export type WithdrawalEntity = {
     currency: WithdrawalEntity.currency;
     amount: number;
     status: WithdrawalEntity.status;
+    comment: string | null;
     created: string;
     updated: string;
     deleted: string | null;

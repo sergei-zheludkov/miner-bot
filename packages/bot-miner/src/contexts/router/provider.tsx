@@ -30,7 +30,8 @@ export const RouterProvider = ({ children }: ProviderProps) => {
   const switchToSceneAddTaskLimit = () => setScene(T.SceneEnum.ADD_TASK_LIMIT);
   const switchToSceneTaskController = () => setScene(T.SceneEnum.TASK_CONTROLLER);
   const switchToSceneTaskNotification = () => setScene(T.SceneEnum.TASK_NOTIFICATION);
-  const switchToSceneWithdrawal = () => setScene(T.SceneEnum.WITHDRAWAL);
+  const switchToSceneWithdrawalCreate = () => setScene(T.SceneEnum.WITHDRAWAL_CREATE);
+  const switchToSceneWithdrawalList = () => setScene(T.SceneEnum.WITHDRAWAL_LIST);
   const switchToSceneReferralTerms = () => setScene(T.SceneEnum.REFERRAL_TERMS);
   const switchToSceneReferralLeaders = () => setScene(T.SceneEnum.REFERRAL_LEADERS);
   const switchToSceneReferralInvitation = () => setScene(T.SceneEnum.REFERRAL_INVITATION);
@@ -61,7 +62,8 @@ export const RouterProvider = ({ children }: ProviderProps) => {
     switchToSceneAddTaskLimit,
     switchToSceneTaskController,
     switchToSceneTaskNotification,
-    switchToSceneWithdrawal,
+    switchToSceneWithdrawalCreate,
+    switchToSceneWithdrawalList,
     switchToSceneReferralTerms,
     switchToSceneReferralLeaders,
     switchToSceneReferralInvitation,

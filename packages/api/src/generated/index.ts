@@ -28,6 +28,7 @@ export { UserUpdateDto } from './models/UserUpdateDto';
 export type { WalletEntity } from './models/WalletEntity';
 export { WithdrawalCreateDto } from './models/WithdrawalCreateDto';
 export { WithdrawalEntity } from './models/WithdrawalEntity';
+export type { WithdrawalsReadDto } from './models/WithdrawalsReadDto';
 export { WithdrawalUpdateDto } from './models/WithdrawalUpdateDto';
 
 export { MiningService } from './services/MiningService';

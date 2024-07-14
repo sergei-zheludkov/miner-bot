@@ -2,9 +2,9 @@ import React from 'react';
 import { useText } from '@urban-bot/core';
 import { CurrencyEnum } from '@common_bot/shared';
 import { useTranslation } from '@common_bot/i18n';
-import { useRouter } from '../../contexts';
-import { Error } from '../../components';
-import { Reset } from '../reset';
+import { useRouter } from '../../../contexts';
+import { Error } from '../../../components';
+import { Reset } from '../../reset';
 import { useWithdrawal } from './use-withdrawal';
 import { AddressInput } from './address-input';
 import { AmountController } from './amount-controller';
@@ -13,7 +13,7 @@ import { Success } from './success';
 
 const TON = CurrencyEnum.TON.toUpperCase();
 
-export const Withdrawal = () => {
+export const WithdrawalCreate = () => {
   const { t } = useTranslation('buttons');
   const { switchToSceneBalance } = useRouter();
   const {

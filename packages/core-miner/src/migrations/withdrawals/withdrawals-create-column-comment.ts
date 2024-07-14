@@ -8,6 +8,7 @@ export class WithdrawalsCreateColumnComment1720778941623 implements MigrationInt
       new TableColumn({
         name: 'comment',
         type: 'varchar',
+        isNullable: true,
       }),
     );
 

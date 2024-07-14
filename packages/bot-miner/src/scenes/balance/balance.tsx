@@ -9,8 +9,8 @@ const { getCryptoAmount } = MATH;
 
 export const Balance = () => {
   const { t } = useTranslation('balance');
-  const { switchToMenuMain } = useRouter();
-  const { handleClickWithdrawn } = useBalance();
+  const { switchToMenuMain, switchToSceneWithdrawalList } = useRouter();
+  const { handleClickWithdrawnCreate } = useBalance();
   const { wallet } = useWallet();
 
   const title = (
@@ -25,8 +25,11 @@ export const Balance = () => {
 
   return (
     <ButtonGroup isNewMessageEveryRender={false} title={title} maxColumns={1}>
-      <Button key="withdrawn" onClick={handleClickWithdrawn}>
-        {t('buttons:withdrawn')}
+      <Button key="withdrawn-create" onClick={handleClickWithdrawnCreate}>
+        {t('buttons:withdrawn_create')}
+      </Button>
+      <Button key="withdrawn-list" onClick={switchToSceneWithdrawalList}>
+        {t('buttons:withdrawn_list')}
       </Button>
       <Button key="back-to-main-menu" onClick={switchToMenuMain}>
         {t('buttons:back')}

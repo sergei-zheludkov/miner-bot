@@ -614,6 +614,14 @@
         ],
         "parameters": [
           {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "user_id",
             "required": false,
             "in": "query",
@@ -622,7 +630,7 @@
             }
           },
           {
-            "name": "status",
+            "name": "sort",
             "required": false,
             "in": "query",
             "schema": {
@@ -652,10 +660,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WithdrawalEntity"
-                  }
+                  "$ref": "#/components/schemas/WithdrawalsReadDto"
                 }
               }
             }
@@ -1671,6 +1676,25 @@
           "created",
           "updated",
           "deleted"
+        ]
+      },
+      "WithdrawalsReadDto": {
+        "type": "object",
+        "properties": {
+          "withdrawals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WithdrawalEntity"
+            }
+          },
+          "remain_count": {
+            "type": "number",
+            "example": 3
+          }
+        },
+        "required": [
+          "withdrawals",
+          "remain_count"
         ]
       },
       "WithdrawalCreateDto": {

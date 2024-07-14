@@ -4,11 +4,16 @@ import { DataSource, Repository } from 'typeorm';
 import { logger } from '../../libs/logger/logger.instance';
 import { WalletService } from '../wallet/wallet.service';
 import { WithdrawalEntity as Withdrawal } from './withdrawal.entity';
-import { WithdrawalCreateDto, WithdrawalUpdateDto } from './dto';
+import { WithdrawalCreateDto, WithdrawalsReadDto, WithdrawalUpdateDto } from './dto';
 import type { GetQuery } from './types';
 
 const findOne = (withdrawal_repository: Repository<Withdrawal>, id: number) => withdrawal_repository
   .findOne({ where: { id }, relations: ['user'] });
+
+const getWithdrawalsWhere = ({ user_id, status }: Partial<GetQuery>) => ({
+  ...(user_id ? { user: { id: user_id } } : {}),
+  ...(status ? { status } : {}),
+});
 
 @Injectable()
 export class WithdrawalService {
@@ -32,24 +37,27 @@ export class WithdrawalService {
   }
 
   getWithdrawals({
-    user_id, status, limit, offset,
-  }: GetQuery): Promise<[Array<Withdrawal>, number]> {
+    user_id, status, limit, offset, sort,
+  }: GetQuery): Promise<WithdrawalsReadDto> {
     try {
       return this.dataSource.transaction(async (manager) => {
         const withdrawal_repository = manager.getRepository(Withdrawal);
 
         const count = await withdrawal_repository.countBy({ status });
+        const remain_count = (count - limit) < 0 ? 0 : count - limit;
+
+        const where = getWithdrawalsWhere({ status, user_id });
 
         const withdrawals = await withdrawal_repository
           .createQueryBuilder('withdrawal')
           .leftJoinAndSelect('withdrawal.user', 'user')
-          .where({ status, user_id })
+          .where(where)
           .take(limit)
           .skip(offset)
-          .orderBy('withdrawal.created', 'ASC')
+          .orderBy('withdrawal.created', sort)
           .getMany();
 
-        return [withdrawals, count - limit];
+        return { withdrawals, remain_count }; // [withdrawals, count - limit];
       });
     } catch (error) {
       logger.error('WithdrawalService | getWithdrawals | ERROR:\n', error);
