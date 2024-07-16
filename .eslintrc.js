@@ -39,6 +39,14 @@ module.exports = {
     '@typescript-eslint/member-delimiter-style': 2,
     'import/prefer-default-export': 0,
     'import/extensions': 0,
+    'max-len': ['error', {
+      code: 120,
+      ignoreComments: true,
+      ignoreStrings: true,
+      ignoreUrls: true,
+      ignoreRegExpLiterals: true,
+      ignoreTemplateLiterals: true,
+    }],
   },
   overrides: [{
     files: ['packages/i18n/src/**/*.ts'],

@@ -6,37 +6,72 @@ export class StatisticsReadDto {
   @ApiProperty({
     example: 5,
   })
-  today: number;
+  registered_today: number;
 
   @ApiProperty({
     example: 5,
   })
-  yesterday: number;
+  activated_today: number;
 
   @ApiProperty({
     example: 5,
   })
-  last_7_days: number;
+  registered_yesterday: number;
 
   @ApiProperty({
     example: 5,
   })
-  last_30_days: number;
+  activated_yesterday: number;
 
   @ApiProperty({
     example: 5,
   })
-  this_week: number;
+  registered_last_7_days: number;
 
   @ApiProperty({
     example: 5,
   })
-  this_month: number;
+  activated_last_7_days: number;
 
   @ApiProperty({
     example: 5,
   })
-  all_time: number;
+  registered_last_30_days: number;
+
+  @ApiProperty({
+    example: 5,
+  })
+  activated_last_30_days: number;
+
+  @ApiProperty({
+    example: 5,
+  })
+  registered_this_week: number;
+
+  @ApiProperty({
+    example: 5,
+  })
+  activated_this_week: number;
+
+  @ApiProperty({
+    example: 5,
+  })
+  registered_this_month: number;
+
+  @ApiProperty({
+    example: 5,
+  })
+  activated_this_month: number;
+
+  @ApiProperty({
+    example: 5,
+  })
+  registered_all_time: number;
+
+  @ApiProperty({
+    example: 5,
+  })
+  activated_all_time: number;
 
   @ApiProperty({
     example: CountriesStatisticReadDto,

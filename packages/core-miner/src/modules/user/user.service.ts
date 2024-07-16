@@ -14,6 +14,7 @@ import {
 import { logger } from '../../libs/logger/logger.instance';
 import { WalletService } from '../wallet/wallet.service';
 import { ToggleService } from '../toggle/toggle.service';
+import { MiningEntity as Mining } from '../mining/mining.entity';
 import { UserEntity as User } from './user.entity';
 import { findOne, getLeadersDataCallback } from './helpers';
 import { SHORT_USER_SELECT } from './constants';
@@ -226,6 +227,7 @@ export class UserService {
     try {
       return this.dataSource.transaction(async (manager) => {
         const users_repository = manager.getRepository(User);
+        const mining_repository = manager.getRepository(Mining);
 
         const todayStart = getStartToday().toDate();
         const yesterdayStart = getStartYesterday().toDate();
@@ -234,14 +236,21 @@ export class UserService {
         const sevenDaysAgo = getStartToday().subtract(7, 'day').toDate();
         const thirtyDaysAgo = getStartToday().subtract(30, 'day').toDate();
 
-        const all_time = await users_repository.count();
-        const today = await users_repository.countBy({ created: MoreThan(todayStart) });
-        // eslint-disable-next-line max-len
-        const yesterday = await users_repository.countBy({ created: Between(yesterdayStart, todayStart) });
-        const last_7_days = await users_repository.countBy({ created: MoreThan(sevenDaysAgo) });
-        const last_30_days = await users_repository.countBy({ created: MoreThan(thirtyDaysAgo) });
-        const this_week = await users_repository.countBy({ created: MoreThan(weekStart) });
-        const this_month = await users_repository.countBy({ created: MoreThan(monthStart) });
+        const registered_all_time = await users_repository.count();
+        const registered_today = await users_repository.countBy({ created: MoreThan(todayStart) });
+        const registered_yesterday = await users_repository.countBy({ created: Between(yesterdayStart, todayStart) });
+        const registered_last_7_days = await users_repository.countBy({ created: MoreThan(sevenDaysAgo) });
+        const registered_last_30_days = await users_repository.countBy({ created: MoreThan(thirtyDaysAgo) });
+        const registered_this_week = await users_repository.countBy({ created: MoreThan(weekStart) });
+        const registered_this_month = await users_repository.countBy({ created: MoreThan(monthStart) });
+
+        const activated_all_time = await mining_repository.count();
+        const activated_today = await mining_repository.countBy({ created: MoreThan(todayStart) });
+        const activated_yesterday = await mining_repository.countBy({ created: Between(yesterdayStart, todayStart) });
+        const activated_last_7_days = await mining_repository.countBy({ created: MoreThan(sevenDaysAgo) });
+        const activated_last_30_days = await mining_repository.countBy({ created: MoreThan(thirtyDaysAgo) });
+        const activated_this_week = await mining_repository.countBy({ created: MoreThan(weekStart) });
+        const activated_this_month = await mining_repository.countBy({ created: MoreThan(monthStart) });
 
         const male = await users_repository.countBy({ gender: GenderEnum.MALE });
         const female = await users_repository.countBy({ gender: GenderEnum.FEMALE });
@@ -252,13 +261,20 @@ export class UserService {
         const BY = await users_repository.countBy({ country: CountriesEnum.BELARUS });
 
         return {
-          today,
-          yesterday,
-          last_7_days,
-          last_30_days,
-          this_week,
-          this_month,
-          all_time,
+          registered_today,
+          activated_today,
+          registered_yesterday,
+          activated_yesterday,
+          registered_last_7_days,
+          activated_last_7_days,
+          registered_last_30_days,
+          activated_last_30_days,
+          registered_this_week,
+          activated_this_week,
+          registered_this_month,
+          activated_this_month,
+          registered_all_time,
+          activated_all_time,
           countries: {
             RU, UA, KZ, BY,
           },

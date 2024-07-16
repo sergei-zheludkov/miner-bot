@@ -37,13 +37,20 @@ export const Users = () => {
 
   if (isGetSuccess && statistics) {
     const {
-      today,
-      yesterday,
-      last_7_days,
-      last_30_days,
-      this_week,
-      this_month,
-      all_time,
+      activated_today,
+      registered_today,
+      activated_yesterday,
+      registered_yesterday,
+      activated_last_7_days,
+      registered_last_7_days,
+      activated_last_30_days,
+      registered_last_30_days,
+      activated_this_week,
+      registered_this_week,
+      activated_this_month,
+      registered_this_month,
+      activated_all_time,
+      registered_all_time,
       countries,
       genders,
     } = statistics;
@@ -62,31 +69,59 @@ export const Users = () => {
         <br />
         {t('periods:today')}
         &#32;
-        <b>{today}</b>
+        <b>
+          {activated_today}
+          /
+          {registered_today}
+        </b>
         <br />
         {t('periods:yesterday')}
         &#32;
-        <b>{yesterday}</b>
+        <b>
+          {activated_yesterday}
+          /
+          {registered_yesterday}
+        </b>
         <br />
         {t('periods:week')}
         &#32;
-        <b>{this_week}</b>
+        <b>
+          {activated_this_week}
+          /
+          {registered_this_week}
+        </b>
         <br />
         {t('periods:month')}
         &#32;
-        <b>{this_month}</b>
+        <b>
+          {activated_this_month}
+          /
+          {registered_this_month}
+        </b>
         <br />
         {t('periods:last_7_days')}
         &#32;
-        <b>{last_7_days}</b>
+        <b>
+          {activated_last_7_days}
+          /
+          {registered_last_7_days}
+        </b>
         <br />
         {t('periods:last_30_days')}
         &#32;
-        <b>{last_30_days}</b>
+        <b>
+          {activated_last_30_days}
+          /
+          {registered_last_30_days}
+        </b>
         <br />
         {t('periods:all_time')}
         &#32;
-        <b>{all_time}</b>
+        <b>
+          {activated_all_time}
+          /
+          {registered_all_time}
+        </b>
         <br />
         <br />
         <i>{t('users.countries')}</i>

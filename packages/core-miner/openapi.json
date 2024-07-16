@@ -917,31 +917,59 @@
       "StatisticsReadDto": {
         "type": "object",
         "properties": {
-          "today": {
+          "registered_today": {
             "type": "number",
             "example": 5
           },
-          "yesterday": {
+          "activated_today": {
             "type": "number",
             "example": 5
           },
-          "last_7_days": {
+          "registered_yesterday": {
             "type": "number",
             "example": 5
           },
-          "last_30_days": {
+          "activated_yesterday": {
             "type": "number",
             "example": 5
           },
-          "this_week": {
+          "registered_last_7_days": {
             "type": "number",
             "example": 5
           },
-          "this_month": {
+          "activated_last_7_days": {
             "type": "number",
             "example": 5
           },
-          "all_time": {
+          "registered_last_30_days": {
+            "type": "number",
+            "example": 5
+          },
+          "activated_last_30_days": {
+            "type": "number",
+            "example": 5
+          },
+          "registered_this_week": {
+            "type": "number",
+            "example": 5
+          },
+          "activated_this_week": {
+            "type": "number",
+            "example": 5
+          },
+          "registered_this_month": {
+            "type": "number",
+            "example": 5
+          },
+          "activated_this_month": {
+            "type": "number",
+            "example": 5
+          },
+          "registered_all_time": {
+            "type": "number",
+            "example": 5
+          },
+          "activated_all_time": {
             "type": "number",
             "example": 5
           },
@@ -961,13 +989,20 @@
           }
         },
         "required": [
-          "today",
-          "yesterday",
-          "last_7_days",
-          "last_30_days",
-          "this_week",
-          "this_month",
-          "all_time",
+          "registered_today",
+          "activated_today",
+          "registered_yesterday",
+          "activated_yesterday",
+          "registered_last_7_days",
+          "activated_last_7_days",
+          "registered_last_30_days",
+          "activated_last_30_days",
+          "registered_this_week",
+          "activated_this_week",
+          "registered_this_month",
+          "activated_this_month",
+          "registered_all_time",
+          "activated_all_time",
           "countries",
           "genders"
         ]

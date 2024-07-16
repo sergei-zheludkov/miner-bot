@@ -15,12 +15,12 @@ export class TaskChanging1719563573058 implements MigrationInterface {
         
       UPDATE tasks SET name = 'Mining Bot Info 💡'
         WHERE name = 'Mining Bot Info';
-        
+
       UPDATE tasks SET description = '1️⃣ Переходи на канал 👇🏻 подпиcывайся и листай ленту вверх🔝👁 (5-7 постов) и оставляй реакции 🔥
   
 2️⃣ Возвращайся сюда, чтобы получить вознаграждение'
       WHERE NAME = 'Оцени Малышку 🍓' OR NAME = 'Разъеб 🤣🤣🤣';
-      
+
       INSERT INTO "tasks" (id, type, country, placement, gender, available_limit, name, description, check_key, contact_id, url, currency, created, updated) VALUES
         (36, 'tg_public', 'RU', 'mining_activation', 'all', 10000000, 'Crypto Sigma 💵', '1️⃣ Переходи на канал 👇🏻 подпиcывайся и листай ленту вверх🔝👁 (5-7 постов) и оставляй реакции 🔥
   
