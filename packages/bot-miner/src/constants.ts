@@ -48,4 +48,5 @@ export const LANGUAGES = {
 
 export type Scenes = MenuEnum | SceneEnum;
 
+// TODO вынести в shared
 export const SUPPORT_ID = '6694504339';

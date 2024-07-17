@@ -38,9 +38,9 @@
     "bot-miner:dev": "cd packages/bot-miner && yarn start:dev",
     "bot-miner:prod": "cd packages/bot-miner && yarn start:prod",
     "build:packages": "lerna run build --scope=@common_bot/{shared,api,i18n}",
-    "build:services": "lerna run build --parallel --scope=@common_bot/{server,bot}",
-    "lint:project": "lerna run lint --parallel --scope=@common_bot/{shared,api,i18n,server,bot}",
-    "typecheck:project": "lerna run typecheck --parallel --scope=@common_bot/{shared,api,i18n,server,bot}",
+    "build:services": "lerna run build --parallel --scope=@common_bot/{core-miner,bot-miner,bot-checker}",
+    "lint:project": "lerna run lint --parallel --scope=@common_bot/{shared,api,i18n,core-miner,bot-miner,bot-checker}",
+    "typecheck:project": "lerna run typecheck --parallel --scope=@common_bot/{shared,api,i18n,core-miner,bot-miner,bot-checker}",
     "test:project": "jest"
   },
   "husky": {
