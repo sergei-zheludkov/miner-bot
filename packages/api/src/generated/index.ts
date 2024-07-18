@@ -26,6 +26,7 @@ export { UserEntity } from './models/UserEntity';
 export type { UsersAndTogglesReadDto } from './models/UsersAndTogglesReadDto';
 export { UserUpdateDto } from './models/UserUpdateDto';
 export type { WalletEntity } from './models/WalletEntity';
+export { WalletUpdateDto } from './models/WalletUpdateDto';
 export { WithdrawalCreateDto } from './models/WithdrawalCreateDto';
 export { WithdrawalEntity } from './models/WithdrawalEntity';
 export type { WithdrawalsReadDto } from './models/WithdrawalsReadDto';

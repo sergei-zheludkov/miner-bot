@@ -472,6 +472,41 @@
         }
       }
     },
+    "/api/v1/wallets": {
+      "patch": {
+        "operationId": "patchWallet",
+        "summary": "Updating wallet data",
+        "tags": [
+          "Wallets"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WalletUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Wallet has been updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WalletEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Wallet not found."
+          }
+        }
+      }
+    },
     "/api/v1/mining/{id}": {
       "get": {
         "operationId": "getOneMining",
@@ -1535,6 +1570,38 @@
           "ton_address",
           "created",
           "updated"
+        ]
+      },
+      "WalletUpdateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "266006070"
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "ton",
+              "not"
+            ]
+          },
+          "operation": {
+            "type": "string",
+            "example": "decrease"
+          },
+          "amount": {
+            "type": "string",
+            "example": "0.005"
+          },
+          "address": {
+            "type": "string",
+            "example": "UQD2WTp9z4qlXhYpiuI7WygQR59MC8dVxRCztvUtJrhLtRRE"
+          }
+        },
+        "required": [
+          "id",
+          "currency"
         ]
       },
       "MiningEntity": {

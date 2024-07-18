@@ -11,11 +11,13 @@ export enum SceneEnum {
 
   STATISTICS_USERS = 'scene_statistics_users',
 
-  TASK_NOTIFICATION = 'scene_task_notification',
+  TASK_CREATE = 'scene_task_create',
   TASK_CONTROLLER = 'scene_task_controller',
-  ADD_TASK_LIMIT = 'scene_add_task_limit',
-  CREATE_TASK = 'scene_create_task',
-  USERS_CONTROL = 'scene_users_control',
+  TASK_NOTIFICATION = 'scene_task_notification',
+  TASK_ADD_LIMIT = 'scene_task_add_limit',
+
+  USERS_CONTROLLER = 'scene_users_controller',
+  USERS_PAYROLL = 'scene_users_payroll',
 
   WITHDRAWAL_CREATE = 'scene_withdrawal_create',
   WITHDRAWAL_LIST = 'scene_withdrawal_list',

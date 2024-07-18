@@ -18,10 +18,10 @@ export type ContextState = {
   switchToSceneGreeting: () => void;
   switchToSceneAccession: () => void;
   switchToSceneSettingsLanguage: () => void;
-  switchToSceneCreateTask: () => void;
-  switchToSceneAddTaskLimit: () => void;
+  switchToSceneTaskCreate: () => void;
   switchToSceneTaskController: () => void;
   switchToSceneTaskNotification: () => void;
+  switchToSceneTaskAddLimit: () => void;
   switchToSceneWithdrawalCreate: () => void;
   switchToSceneWithdrawalList: () => void;
   switchToSceneReferralTerms: () => void;
@@ -29,7 +29,8 @@ export type ContextState = {
   switchToSceneReferralInvitation: () => void;
   switchToSceneRules: () => void;
   switchToSceneContacts: () => void;
-  switchToSceneUsersControl: () => void;
+  switchToSceneUsersController: () => void;
+  switchToSceneUsersPayroll: () => void;
   switchToSceneStatisticsUsers: () => void;
 }
 

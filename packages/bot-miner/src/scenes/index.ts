@@ -10,5 +10,5 @@ export { Accession } from './accession';
 export { Statistics } from './statistics';
 export { Withdrawals } from './withdrawals';
 export { SettingsLanguage } from './settings';
-export { UsersControl } from './users-control';
+export { Users } from './users';
 export { Registration } from './registration';

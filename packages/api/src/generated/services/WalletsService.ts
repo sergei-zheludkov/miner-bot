@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { WalletEntity } from '../models/WalletEntity';
+import type { WalletUpdateDto } from '../models/WalletUpdateDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -24,6 +25,26 @@ export class WalletsService {
             path: {
                 'id': id,
             },
+            errors: {
+                404: `Wallet not found.`,
+            },
+        });
+    }
+
+    /**
+     * Updating wallet data
+     * @param requestBody
+     * @returns WalletEntity Wallet has been updated.
+     * @throws ApiError
+     */
+    public static patchWallet(
+        requestBody: WalletUpdateDto,
+    ): CancelablePromise<WalletEntity> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/api/v1/wallets',
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 404: `Wallet not found.`,
             },

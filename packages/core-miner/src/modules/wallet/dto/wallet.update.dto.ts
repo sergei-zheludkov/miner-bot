@@ -22,7 +22,7 @@ export class WalletUpdateDto {
   currency: CurrencyEnum;
 
   @ApiProperty({
-    required: true,
+    required: false,
     example: 'decrease',
   })
   @IsOptional()
@@ -35,7 +35,7 @@ export class WalletUpdateDto {
   })
   @IsOptional()
   @IsString()
-  amount?: string | number;
+  amount?: string;
 
   @ApiProperty({
     required: false,

@@ -9,8 +9,8 @@ export const TasksControl = () => {
   const { isUserAdmin } = useTasksControl();
   const {
     switchToMenuAdmin,
-    switchToSceneCreateTask,
-    switchToSceneAddTaskLimit,
+    switchToSceneTaskCreate,
+    switchToSceneTaskAddLimit,
     // switchToSceneTaskNotification,
   } = useRouter();
 
@@ -19,10 +19,10 @@ export const TasksControl = () => {
   useText(switchToMenuAdmin, back);
 
   const create_task = t('create_task');
-  useText(switchToSceneCreateTask, create_task);
+  useText(switchToSceneTaskCreate, create_task);
 
   const add_task_limit = t('add_task_limit');
-  useText(switchToSceneAddTaskLimit, add_task_limit);
+  useText(switchToSceneTaskAddLimit, add_task_limit);
 
   // const task_notification = t('task_notification');
   // useText(switchToSceneTaskNotification, task_notification);

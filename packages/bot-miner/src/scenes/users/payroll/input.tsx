@@ -6,7 +6,7 @@ type Props = {
   onConfirm: (address: string) => void;
 };
 
-export const UserInput = ({ onConfirm }: Props) => {
+export const Input = ({ onConfirm }: Props) => {
   const { t } = useTranslation('user_control');
 
   useText((event) => onConfirm(event.text));

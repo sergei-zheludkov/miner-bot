@@ -59,13 +59,13 @@ export class TaskController {
   })
   @Get(':id')
   async getOneTask(@Param('id') id: number) {
-    const user = await this.tasksService.getOneTask(id);
+    const task = await this.tasksService.getOneTask(id);
 
-    if (!user) {
+    if (!task) {
       throw new NotFoundException();
     }
 
-    return user;
+    return task;
   }
 
   @ApiOkResponse({
@@ -129,12 +129,12 @@ export class TaskController {
   })
   @Patch()
   async patchTask(@Body() data: TaskUpdateDto) {
-    const user = await this.tasksService.updateTask(data);
+    const task = await this.tasksService.updateTask(data);
 
-    if (!user) {
+    if (!task) {
       throw new NotFoundException();
     }
 
-    return user;
+    return task;
   }
 }

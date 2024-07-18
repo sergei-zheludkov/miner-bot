@@ -84,7 +84,7 @@ export class MiningService {
           await this.walletService.updateWallet({
             id: who_invited_id,
             operation: 'increase',
-            amount: 0.01,
+            amount: '0.01',
             currency: CurrencyEnum.TON,
           });
 
@@ -92,7 +92,7 @@ export class MiningService {
           await this.walletService.updateWallet({
             id,
             operation: 'increase',
-            amount: 0.005,
+            amount: '0.005',
             currency: CurrencyEnum.TON,
           });
 

@@ -78,8 +78,11 @@ export const SceneSwitcher = () => {
     case T.MenuEnum.STATISTICS:
       return <Menu.Statistics />;
 
-    case T.SceneEnum.USERS_CONTROL:
-      return <Scene.UsersControl />;
+    case T.SceneEnum.USERS_CONTROLLER:
+      return <Scene.Users.Controller />;
+
+    case T.SceneEnum.USERS_PAYROLL:
+      return <Scene.Users.Payroll />;
 
     // ----------------------------------------REFERRAL--------------------------------------
     case T.SceneEnum.REFERRAL_TERMS:
@@ -92,7 +95,7 @@ export const SceneSwitcher = () => {
       return <Scene.Referral.Invitation />;
 
     // ------------------------------------TASKS CONTROL MENU----------------------------------
-    case T.SceneEnum.CREATE_TASK:
+    case T.SceneEnum.TASK_CREATE:
       return <Scene.Tasks.Create />;
 
       // case T.SceneEnum.TASK_NOTIFICATION:

@@ -12,6 +12,7 @@ export type {
   LeadersStatisticReadDto,
 
   WalletEntity,
+  WalletUpdateDto,
 
   MiningEntity,
   MiningCreateDto,
