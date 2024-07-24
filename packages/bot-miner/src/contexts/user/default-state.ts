@@ -8,6 +8,7 @@ export const defaultState: ContextState = {
   referralId: null,
   user: {} as UserEntity,
   toggles: {},
+  isAdmin: false,
 
   isGetCalled: false,
   isGetLoading: false,

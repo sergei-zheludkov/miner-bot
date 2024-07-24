@@ -7,7 +7,7 @@ import {
   predicates,
   UserEntity,
 } from '@common_bot/api';
-import { CONSTANTS } from '@common_bot/shared';
+import { CONSTANTS, PREDICATES } from '@common_bot/shared';
 import { saveChat, getChat } from '../../local-storage';
 import { /* ShortRegistration, */ Registration, Reset } from '../../scenes';
 import { useRouter } from '../router';
@@ -17,6 +17,7 @@ import type { ProviderProps, ContextState } from './types';
 
 const { isNotFoundError } = predicates;
 const { ADMIN_IDS } = CONSTANTS;
+const { isAdmin: isAdminRole } = PREDICATES.ROLES;
 
 export const UserProvider = ({ children }: ProviderProps) => {
   const { chat } = useBotContext();
@@ -136,11 +137,14 @@ export const UserProvider = ({ children }: ProviderProps) => {
   }
 
   if (isUserLoaded) {
+    const isAdmin = isAdminRole(data.user.role);
+
     return (
       <Context.Provider
         value={{
           referralId,
           ...data,
+          isAdmin,
 
           isGetCalled,
           isGetLoading,

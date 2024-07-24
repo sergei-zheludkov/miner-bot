@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { useApi, useQuery } from '@common_bot/api';
 import { CurrencyEnum } from '@common_bot/shared';
 import type { WalletUpdateDto } from '@common_bot/api';
@@ -7,7 +7,7 @@ import type { WalletUpdateDto } from '@common_bot/api';
 const currency = CurrencyEnum.TON as unknown as WalletUpdateDto['currency'];
 const operation = 'increase';
 
-export const useControl = () => {
+export const usePayroll = () => {
   const { patchWallet: patchWalletApi } = useApi().wallet;
 
   const {

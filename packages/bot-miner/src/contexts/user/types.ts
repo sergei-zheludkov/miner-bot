@@ -11,6 +11,7 @@ export type ContextState = {
   referralId: string | null;
   user: UsersAndTogglesReadDto['user'];
   toggles: UsersAndTogglesReadDto['toggles'];
+  isAdmin: boolean;
 
   getUser: GetUserCallback;
   isGetCalled: boolean;

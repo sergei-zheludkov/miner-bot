@@ -1,8 +1,7 @@
 import React from 'react';
 import { ButtonGroup, Button, useText } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
-import { useRouter } from '../../contexts';
-import { useAdminMenu } from './use-admin-menu';
+import { useRouter, useUser } from '../../contexts';
 
 export const Admin = () => {
   const { t } = useTranslation('buttons');
@@ -12,7 +11,7 @@ export const Admin = () => {
     switchToMenuTasksControl,
     switchToSceneUsersController,
   } = useRouter();
-  const { isUserAdmin } = useAdminMenu();
+  const { isAdmin } = useUser();
 
   /* ---------- BUTTON HOOKS ---------- */
   const back = t('back');
@@ -27,16 +26,16 @@ export const Admin = () => {
   const statistics_menu = t('statistics');
   useText(switchToMenuStatistics, statistics_menu);
 
-  const title = t(isUserAdmin ? 'menu:admin' : 'admin:error');
+  const title = t(isAdmin ? 'menu:admin' : 'admin:error');
 
-  const firstButtonsRow = isUserAdmin
+  const firstButtonsRow = isAdmin
     ? [
       <Button key="tasks-control-menu">{tasks_control_menu}</Button>,
       <Button key="users-control-menu">{users_control_menu}</Button>,
     ]
     : [];
 
-  const secondButtonsRow = isUserAdmin
+  const secondButtonsRow = isAdmin
     ? [<Button key="statistics_menu">{statistics_menu}</Button>]
     : [];
 

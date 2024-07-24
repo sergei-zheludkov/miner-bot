@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, ButtonGroup } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
-import { useRouter } from '../../../contexts';
+import { useRouter, useUser } from '../../../contexts';
 import { Error } from '../../../components';
 import { useLeaders } from './use-leaders';
 import { getNumber } from './helpers';
@@ -10,6 +10,7 @@ import { isAllTime, isMonth, isToday } from './predicates';
 export const Leaders = () => {
   const { t } = useTranslation('referral');
   const { switchToSceneReferralTerms } = useRouter();
+  const { isAdmin } = useUser();
   const {
     data,
     scene,
@@ -51,6 +52,16 @@ export const Leaders = () => {
               {getNumber(i)}
               &#32;
               {firstname.slice(0, 20)}
+              {isAdmin && (
+                <>
+                  &#32;
+                  (
+                  <b>id:</b>
+                  &#32;
+                  {id}
+                  )
+                </>
+              )}
               &#32;
               -
               &#32;
