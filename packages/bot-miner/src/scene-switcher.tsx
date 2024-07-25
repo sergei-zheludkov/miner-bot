@@ -79,10 +79,18 @@ export const SceneSwitcher = () => {
       return <Menu.Statistics />;
 
     case T.SceneEnum.USERS_CONTROLLER:
-      return <Scene.Users.Controller />;
+      return (
+        <Scene.Users.Provider>
+          <Scene.Users.Controller />
+        </Scene.Users.Provider>
+      );
 
     case T.SceneEnum.USERS_PAYROLL:
-      return <Scene.Users.Payroll />;
+      return (
+        <Scene.Users.Provider>
+          <Scene.Users.Payroll />
+        </Scene.Users.Provider>
+      );
 
     // ----------------------------------------REFERRAL--------------------------------------
     case T.SceneEnum.REFERRAL_TERMS:

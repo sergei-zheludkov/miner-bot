@@ -7,14 +7,21 @@ type Props = {
 };
 
 export const Input = ({ onConfirm }: Props) => {
-  const { t } = useTranslation('user_control');
+  const { t } = useTranslation('users');
 
-  useText((event) => onConfirm(event.text));
+  const back = t('buttons:back');
+  const title = t('payroll.input.title');
+
+  useText((event) => {
+    if (event.text !== back) {
+      onConfirm(event.text);
+    }
+  });
 
   return (
-    <ButtonGroup isReplyButtons isResizedKeyboard maxColumns={1} title={t('title')}>
-      <Button key="exit-to-admin-menu">
-        {t('buttons:exit')}
+    <ButtonGroup isReplyButtons isResizedKeyboard maxColumns={1} title={title}>
+      <Button key="back-to-users-control">
+        {back}
       </Button>
     </ButtonGroup>
   );

@@ -5,9 +5,7 @@ import {
 import { useTranslation } from '@common_bot/i18n';
 import { DATE } from '@common_bot/shared';
 import { useRouter } from '../../../contexts';
-import { Loading } from '../../../components';
-import { useControl } from './use-control';
-import { Input } from './input';
+import { useUsers } from '../context';
 
 const { getFormattedDate } = DATE;
 const EMPTY = '-';
@@ -15,40 +13,11 @@ const EMPTY = '-';
 export const Controller = () => {
   const { t } = useTranslation('users');
   const { switchToMenuAdmin, switchToSceneUsersPayroll } = useRouter();
-  const {
-    user,
-    isGetUserCalled,
-    isGetUserLoading,
-    isGetUserSuccess,
-    isGetUserError,
-    getUserStatusCode,
-    handleConfirmInput,
-  } = useControl();
+  const { user } = useUsers();
 
   /* ---------- BUTTON HOOKS ---------- */
   const back = t('buttons:back');
   useText(switchToMenuAdmin, back);
-  //
-  // const create_task = t('create_task');
-  // useText(switchToSceneCreateTask, create_task);
-  //
-  // const add_task_limit = t('add_task_limit');
-  // useText(switchToSceneAddTaskLimit, add_task_limit);
-  //
-  // const task_notification = t('task_notification');
-  // useText(switchToSceneTaskNotification, task_notification);
-
-  if (isGetUserLoading) {
-    return <Loading />;
-  }
-
-  if (isGetUserError) {
-    return <Text>{t('controller.input.error')}</Text>;
-  }
-
-  if (!user) {
-    return <Input onConfirm={handleConfirmInput} />;
-  }
 
   const {
     id,

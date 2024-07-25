@@ -10,6 +10,7 @@ export const Input = ({ onConfirm }: Props) => {
   const { t } = useTranslation('users');
 
   const back = t('buttons:back');
+  const title = t('controller.input.title');
 
   useText((event) => {
     if (event.text !== back) {
@@ -18,7 +19,7 @@ export const Input = ({ onConfirm }: Props) => {
   });
 
   return (
-    <ButtonGroup isReplyButtons isResizedKeyboard maxColumns={1} title={t('controller.input.title')}>
+    <ButtonGroup isReplyButtons isResizedKeyboard maxColumns={1} title={title}>
       <Button key="back-to-admin-menu">
         {back}
       </Button>
