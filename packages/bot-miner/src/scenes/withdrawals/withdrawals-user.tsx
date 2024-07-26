@@ -1,9 +1,11 @@
 import React from 'react';
+import { useRouter } from '../../contexts';
 import { useWithdrawalController } from './use-withdrawal-controller';
-import { OpenedWithdrawal } from './opened-withdrawal';
-import { WithdrawalList } from './withdrawal-list';
+import { Display } from './item';
+import { List } from './list';
 
-export const WithdrawalListController = () => {
+export const WithdrawalsUser = () => {
+  const { switchToSceneBalance } = useRouter();
   const {
     withdrawal,
     withdrawals,
@@ -13,7 +15,7 @@ export const WithdrawalListController = () => {
 
   if (withdrawal) {
     return (
-      <OpenedWithdrawal
+      <Display
         withdrawal={withdrawal}
         onBackClick={handleResetWithdrawal}
       />
@@ -21,9 +23,10 @@ export const WithdrawalListController = () => {
   }
 
   return (
-    <WithdrawalList
+    <List
       withdrawals={withdrawals}
       onOpenClick={handleOpenWithdrawal}
+      onBackClick={switchToSceneBalance}
     />
   );
 };

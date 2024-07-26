@@ -1,1 +1,1 @@
-export { WithdrawalListController as List } from './withdrawal-list-controller';
+export { List } from './list';

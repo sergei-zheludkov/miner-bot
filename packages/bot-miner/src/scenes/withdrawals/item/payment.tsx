@@ -8,7 +8,7 @@ type Props = {
   onBackClick: () => void;
 }
 
-export const OpenedWithdrawal = ({ withdrawal, onBackClick }: Props) => {
+export const Payment = ({ withdrawal, onBackClick }: Props) => {
   const { t } = useTranslation('withdrawals');
 
   const {

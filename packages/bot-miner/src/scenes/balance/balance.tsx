@@ -9,7 +9,7 @@ const { getCryptoAmount } = MATH;
 
 export const Balance = () => {
   const { t } = useTranslation('balance');
-  const { switchToMenuMain, switchToSceneWithdrawalList } = useRouter();
+  const { switchToMenuMain, switchToSceneWithdrawalListForUser } = useRouter();
   const { handleClickWithdrawnCreate } = useBalance();
   const { wallet } = useWallet();
 
@@ -28,7 +28,7 @@ export const Balance = () => {
       <Button key="withdrawn-create" onClick={handleClickWithdrawnCreate}>
         {t('buttons:withdrawn_create')}
       </Button>
-      <Button key="withdrawn-list" onClick={switchToSceneWithdrawalList}>
+      <Button key="withdrawn-list" onClick={switchToSceneWithdrawalListForUser}>
         {t('buttons:withdrawn_list')}
       </Button>
       <Button key="back-to-main-menu" onClick={switchToMenuMain}>

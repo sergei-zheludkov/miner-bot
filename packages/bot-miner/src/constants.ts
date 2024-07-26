@@ -20,7 +20,8 @@ export enum SceneEnum {
   USERS_PAYROLL = 'scene_users_payroll',
 
   WITHDRAWAL_CREATE = 'scene_withdrawal_create',
-  WITHDRAWAL_LIST = 'scene_withdrawal_list',
+  WITHDRAWAL_LIST_FOR_USER = 'scene_withdrawal_list_for_user',
+  WITHDRAWAL_LIST_FOR_ADMIN = 'scene_withdrawal_list_for_admin',
 
   REFERRAL_TERMS = 'scene_referral_terms',
   REFERRAL_LEADERS = 'scene_referral_leaders',

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { WithdrawalEntity } from '@common_bot/api';
-import { useWithdrawals } from '../../../contexts';
+import { useWithdrawals } from '../../contexts';
 
 export const useWithdrawalController = () => {
   const { withdrawals } = useWithdrawals();

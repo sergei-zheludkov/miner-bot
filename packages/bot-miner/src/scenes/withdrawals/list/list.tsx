@@ -2,21 +2,20 @@ import React from 'react';
 import { Button, ButtonGroup } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import type { WithdrawalEntity } from '@common_bot/api';
-import { useRouter } from '../../../contexts';
 
 type Props = {
   withdrawals: Array<WithdrawalEntity>;
   onOpenClick: (withdrawal: WithdrawalEntity) => void;
+  onBackClick: () => void;
 };
 
-export const WithdrawalList = ({ withdrawals, onOpenClick }: Props) => {
+export const List = ({ withdrawals, onOpenClick, onBackClick }: Props) => {
   const { t } = useTranslation('withdrawals');
-  const { switchToSceneBalance } = useRouter();
 
   const title = withdrawals.length ? t('list.title') : t('list.empty');
 
   const backButtons = [
-    <Button key="back-to-balance" onClick={switchToSceneBalance}>
+    <Button key="back-to-balance" onClick={onBackClick}>
       {t('buttons:back')}
     </Button>,
   ];

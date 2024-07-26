@@ -76,6 +76,7 @@ export const ru = {
     month: '🗓 За месяц',
     all_time: '📊 Все время',
     payroll: '🧧 Начислить TON',
+    payment: '🪙 Выплаты',
 
     withdrawn_create: '📤 Вывести',
     withdrawn_list: '📨 Заявки',
@@ -333,6 +334,9 @@ export const ru = {
     list: {
       title: 'Список заявок на вывод',
       empty: 'Список заявок пуст',
+    },
+    payment: {
+
     },
     address_addition: {
       message_prefix: 'Введите адрес вашего',

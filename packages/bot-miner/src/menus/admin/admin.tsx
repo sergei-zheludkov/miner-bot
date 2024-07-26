@@ -10,6 +10,7 @@ export const Admin = () => {
     switchToMenuStatistics,
     switchToMenuTasksControl,
     switchToSceneUsersController,
+    switchToSceneWithdrawalListForAdmin,
   } = useRouter();
   const { isAdmin } = useUser();
 
@@ -17,11 +18,14 @@ export const Admin = () => {
   const back = t('back');
   useText(switchToMenuMain, back);
 
-  const tasks_control_menu = t('tasks');
-  useText(switchToMenuTasksControl, tasks_control_menu);
+  const tasks_menu = t('tasks');
+  useText(switchToMenuTasksControl, tasks_menu);
 
-  const users_control_menu = t('users');
-  useText(switchToSceneUsersController, users_control_menu);
+  const users_controller = t('users');
+  useText(switchToSceneUsersController, users_controller);
+
+  const withdrawal_list = t('payment');
+  useText(switchToSceneWithdrawalListForAdmin, withdrawal_list);
 
   const statistics_menu = t('statistics');
   useText(switchToMenuStatistics, statistics_menu);
@@ -30,13 +34,16 @@ export const Admin = () => {
 
   const firstButtonsRow = isAdmin
     ? [
-      <Button key="tasks-control-menu">{tasks_control_menu}</Button>,
-      <Button key="users-control-menu">{users_control_menu}</Button>,
+      <Button key="tasks-menu">{tasks_menu}</Button>,
+      <Button key="users-controller">{users_controller}</Button>,
     ]
     : [];
 
   const secondButtonsRow = isAdmin
-    ? [<Button key="statistics_menu">{statistics_menu}</Button>]
+    ? [
+      <Button key="withdrawal-list">{withdrawal_list}</Button>,
+      <Button key="statistics-menu">{statistics_menu}</Button>,
+    ]
     : [];
 
   const backButton = [<Button key="back-to-menu-main">{back}</Button>];

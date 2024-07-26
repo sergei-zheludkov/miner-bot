@@ -43,10 +43,10 @@ export const SceneSwitcher = () => {
         </Provider.Wallet>
       );
 
-    case T.SceneEnum.WITHDRAWAL_LIST:
+    case T.SceneEnum.WITHDRAWAL_LIST_FOR_USER:
       return (
         <Provider.Withdrawal userId={chat.id} sort="DESC">
-          <Scene.Withdrawals.List />
+          <Scene.Withdrawals.ListForUser />
         </Provider.Withdrawal>
       );
 
@@ -90,6 +90,13 @@ export const SceneSwitcher = () => {
         <Scene.Users.Provider>
           <Scene.Users.Payroll />
         </Scene.Users.Provider>
+      );
+
+    case T.SceneEnum.WITHDRAWAL_LIST_FOR_ADMIN:
+      return (
+        <Provider.Withdrawal sort="ASC">
+          <Scene.Withdrawals.ListForAdmin />
+        </Provider.Withdrawal>
       );
 
     // ----------------------------------------REFERRAL--------------------------------------
