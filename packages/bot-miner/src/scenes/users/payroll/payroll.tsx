@@ -3,7 +3,6 @@ import { Text, useText } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
 import { Input } from './input';
 import { usePayroll } from './use-payroll';
-import { Loading } from '../../../components';
 import { useRouter } from '../../../contexts';
 
 export const Payroll = () => {
@@ -12,7 +11,6 @@ export const Payroll = () => {
   const {
     amount,
     wallet,
-    isPatchWalletCalled,
     isPatchWalletLoading,
     isPatchWalletError,
     handleConfirmAmount,
@@ -23,14 +21,14 @@ export const Payroll = () => {
   useText(switchToSceneUsersController, back);
 
   if (isPatchWalletLoading) {
-    return <Loading />;
+    return null;
   }
 
   if (isPatchWalletError) {
     return <Text>{t('payroll.input.error')}</Text>;
   }
 
-  if (!wallet && !isPatchWalletCalled) {
+  if (!amount) {
     return <Input onConfirm={handleConfirmAmount} />;
   }
 

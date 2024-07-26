@@ -19,7 +19,7 @@ export const Input = ({ onConfirm }: Props) => {
   });
 
   return (
-    <ButtonGroup isReplyButtons isResizedKeyboard maxColumns={1} title={title}>
+    <ButtonGroup isNewMessageEveryRender isReplyButtons isResizedKeyboard maxColumns={1} title={title}>
       <Button key="back-to-users-control">
         {back}
       </Button>
