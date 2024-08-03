@@ -1,7 +1,8 @@
 import React from 'react';
 import { useBotContext } from '@urban-bot/core';
+import { WithdrawalStatusEnum } from '@common_bot/shared';
 import { Provider, useRouter } from './contexts';
-import { SceneWrapper, Error } from './components';
+import { Error, SceneWrapper } from './components';
 
 import * as Menu from './menus';
 import * as Scene from './scenes';
@@ -45,7 +46,7 @@ export const SceneSwitcher = () => {
 
     case T.SceneEnum.WITHDRAWAL_LIST_FOR_USER:
       return (
-        <Provider.Withdrawal userId={chat.id} sort="DESC">
+        <Provider.Withdrawal sort="DESC" userId={chat.id}>
           <Scene.Withdrawals.ListForUser />
         </Provider.Withdrawal>
       );
@@ -94,7 +95,7 @@ export const SceneSwitcher = () => {
 
     case T.SceneEnum.WITHDRAWAL_LIST_FOR_ADMIN:
       return (
-        <Provider.Withdrawal sort="ASC">
+        <Provider.Withdrawal sort="ASC" status={WithdrawalStatusEnum.CONFIRMED}>
           <Scene.Withdrawals.ListForAdmin />
         </Provider.Withdrawal>
       );

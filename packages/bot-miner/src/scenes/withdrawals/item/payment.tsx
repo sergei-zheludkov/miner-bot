@@ -1,14 +1,21 @@
 import React from 'react';
 import { Button, ButtonGroup } from '@urban-bot/core';
+import { WithdrawalStatusEnum, PREDICATES } from '@common_bot/shared';
 import { useTranslation } from '@common_bot/i18n';
 import type { WithdrawalEntity } from '@common_bot/api';
 
+const { isConfirmed } = PREDICATES.WITHDRAWAL_STATUSES;
+
 type Props = {
   withdrawal: WithdrawalEntity;
-  onBackClick: () => void;
+  onClickBack: () => void;
+  onClickPaid: () => void;
+  onClickRejected: () => void;
 }
 
-export const Payment = ({ withdrawal, onBackClick }: Props) => {
+export const Payment = ({
+  withdrawal, onClickBack, onClickPaid, onClickRejected,
+}: Props) => {
   const { t } = useTranslation('withdrawals');
 
   const {
@@ -57,14 +64,28 @@ export const Payment = ({ withdrawal, onBackClick }: Props) => {
     </>
   );
 
+  const paidButton = isConfirmed(status) ? [
+    <Button key="paid" onClick={onClickPaid}>
+      {t(`status.${WithdrawalStatusEnum.PAID}`)}
+    </Button>,
+  ] : [];
+
+  const rejectedButton = isConfirmed(status) ? [
+    <Button key="rejected" onClick={onClickRejected}>
+      {t(`status.${WithdrawalStatusEnum.REJECTED}`)}
+    </Button>,
+  ] : [];
+
   const backButton = [
-    <Button key="back-to-withdrawal-list" onClick={onBackClick}>
+    <Button key="back-to-withdrawal-list" onClick={onClickBack}>
       {t('buttons:back')}
     </Button>,
   ];
 
   return (
     <ButtonGroup isNewMessageEveryRender={false} title={title}>
+      {paidButton}
+      {rejectedButton}
       {backButton}
     </ButtonGroup>
   );

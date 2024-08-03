@@ -8,7 +8,7 @@ import type { ProviderProps } from './types';
 export const WithdrawalsProvider = ({
   children, status, userId, sort,
 }: ProviderProps) => {
-  const { getWithdrawals } = useApi().withdrawal;
+  const { getWithdrawals: getWithdrawalsApi } = useApi().withdrawal;
 
   const {
     data,
@@ -16,9 +16,10 @@ export const WithdrawalsProvider = ({
     isLoading: isGetWithdrawalsLoading,
     isSuccess: isGetWithdrawalsSuccess,
     isError: isGetWithdrawalsError,
+    fetch: getWithdrawals,
   } = useQuery(
     'get_withdrawals',
-    () => getWithdrawals(status, userId, sort),
+    () => getWithdrawalsApi(status, userId, sort),
   );
 
   if (!isGetWithdrawalsCalled || isGetWithdrawalsLoading) {
@@ -33,7 +34,16 @@ export const WithdrawalsProvider = ({
     const { withdrawals } = data;
 
     return (
-      <Context.Provider value={{ withdrawals }}>
+      <Context.Provider
+        value={{
+          withdrawals,
+          isGetWithdrawalsCalled,
+          isGetWithdrawalsLoading,
+          isGetWithdrawalsSuccess,
+          isGetWithdrawalsError,
+          getWithdrawals,
+        }}
+      >
         {children}
       </Context.Provider>
     );
