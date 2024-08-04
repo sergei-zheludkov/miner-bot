@@ -13,11 +13,12 @@ export const usePatchWithdrawal = () => {
     fetch: patchWithdrawals,
   } = useQuery(
     'get_withdrawals',
-    (withdrawalId: string, newStatus: string) => {
+    (withdrawalId: string, newStatus: string, commentText: string) => {
       const id = Number(withdrawalId);
       const status = newStatus as unknown as WithdrawalUpdateDto['status'];
+      const comment = commentText || undefined;
 
-      return updateWithdrawal({ id, status });
+      return updateWithdrawal({ id, status, comment });
     },
     { isLazy: true },
   );

@@ -7,6 +7,8 @@ import { useWithdrawalController } from './use-withdrawal-controller';
 import { usePatchWithdrawal } from './use-patch-withdrawal';
 import { Error } from '../../components';
 
+const { PAID, REJECTED } = WithdrawalStatusEnum;
+
 export const WithdrawalsAdmin = () => {
   const { switchToMenuAdmin } = useRouter();
   const { getWithdrawals } = useWithdrawals();
@@ -14,7 +16,6 @@ export const WithdrawalsAdmin = () => {
     withdrawal,
     withdrawals,
     handleOpenWithdrawal,
-    handleResetWithdrawal,
   } = useWithdrawalController();
 
   const {
@@ -28,8 +29,8 @@ export const WithdrawalsAdmin = () => {
   }
 
   if (withdrawal) {
-    const handleClickPaid = () => patchWithdrawals(String(withdrawal.id), WithdrawalStatusEnum.PAID);
-    const handleClickRejected = () => patchWithdrawals(String(withdrawal.id), WithdrawalStatusEnum.REJECTED);
+    const handleClickPaid = (comment: string) => () => patchWithdrawals(String(withdrawal.id), PAID, comment);
+    const handleClickRejected = (comment: string) => () => patchWithdrawals(String(withdrawal.id), REJECTED, comment);
     const handleClickBack = () => getWithdrawals();
 
     return (

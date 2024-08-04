@@ -1849,6 +1849,10 @@
               "canceled",
               "paid"
             ]
+          },
+          "comment": {
+            "type": "string",
+            "example": "Выплата проведена 22.07.2024 в 11:43"
           }
         },
         "required": [

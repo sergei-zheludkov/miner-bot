@@ -3,20 +3,38 @@ import { Button, ButtonGroup } from '@urban-bot/core';
 import { WithdrawalStatusEnum, PREDICATES } from '@common_bot/shared';
 import { useTranslation } from '@common_bot/i18n';
 import type { WithdrawalEntity } from '@common_bot/api';
+import { Comment, useComment } from '../comment';
 
 const { isConfirmed } = PREDICATES.WITHDRAWAL_STATUSES;
 
 type Props = {
   withdrawal: WithdrawalEntity;
   onClickBack: () => void;
-  onClickPaid: () => void;
-  onClickRejected: () => void;
+  onClickPaid: (comment: string) => () => void;
+  onClickRejected: (comment: string) => () => void;
 }
 
 export const Payment = ({
   withdrawal, onClickBack, onClickPaid, onClickRejected,
 }: Props) => {
   const { t } = useTranslation('withdrawals');
+  const {
+    open,
+    comment,
+    handleOpenInput,
+    handleCloseInput,
+    handleChangeComment,
+  } = useComment();
+
+  if (open) {
+    return (
+      <Comment
+        comment={comment}
+        onClickBack={handleCloseInput}
+        onChange={handleChangeComment}
+      />
+    );
+  }
 
   const {
     id,
@@ -24,17 +42,16 @@ export const Payment = ({
     amount,
     currency,
     status,
-    comment,
   } = withdrawal;
 
-  const commentComponent = comment
+  const commentText = withdrawal.comment
     ? (
       <>
         <br />
         <br />
-        {t('comment')}
-        &#32;
-        {comment}
+        {t('comment.title')}
+        :&#32;
+        {withdrawal.comment}
       </>
     )
     : null;
@@ -60,18 +77,24 @@ export const Payment = ({
       {t('status.title')}
       &#32;
       {t(`status.${status}`)}
-      {commentComponent}
+      {commentText}
     </>
   );
 
+  const commentButton = isConfirmed(status) ? [
+    <Button key="comment" onClick={handleOpenInput}>
+      {`${t('comment.title')} ${comment ? '💬' : '🗨️'}`}
+    </Button>,
+  ] : [];
+
   const paidButton = isConfirmed(status) ? [
-    <Button key="paid" onClick={onClickPaid}>
+    <Button key="paid" onClick={onClickPaid(comment)}>
       {t(`status.${WithdrawalStatusEnum.PAID}`)}
     </Button>,
   ] : [];
 
   const rejectedButton = isConfirmed(status) ? [
-    <Button key="rejected" onClick={onClickRejected}>
+    <Button key="rejected" onClick={onClickRejected(comment)}>
       {t(`status.${WithdrawalStatusEnum.REJECTED}`)}
     </Button>,
   ] : [];
@@ -84,6 +107,7 @@ export const Payment = ({
 
   return (
     <ButtonGroup isNewMessageEveryRender={false} title={title}>
+      {commentButton}
       {paidButton}
       {rejectedButton}
       {backButton}

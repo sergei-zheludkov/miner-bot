@@ -330,13 +330,13 @@ export const ru = {
     request: 'Заявка №',
     address: 'Адрес:',
     amount: 'Количество:',
-    comment: 'Комментарий:',
+    comment: {
+      title: 'Комментарий',
+      input: 'Введите комментарий',
+    },
     list: {
       title: 'Список заявок на вывод',
       empty: 'Список заявок пуст',
-    },
-    payment: {
-
     },
     address_addition: {
       message_prefix: 'Введите адрес вашего',

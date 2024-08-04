@@ -96,12 +96,12 @@ export class WithdrawalService {
     }
   }
 
-  async updateWithdrawal({ id, status }: WithdrawalUpdateDto) {
+  async updateWithdrawal({ id, status, comment }: WithdrawalUpdateDto) {
     try {
       return await this.dataSource.transaction(async (manager) => {
         const withdrawal_repository = manager.getRepository(Withdrawal);
 
-        await withdrawal_repository.update({ id }, { status });
+        await withdrawal_repository.update({ id }, { status, comment });
 
         return findOne(withdrawal_repository, id);
       });

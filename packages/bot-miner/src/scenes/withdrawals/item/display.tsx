@@ -20,13 +20,13 @@ export const Display = ({ withdrawal, onBackClick }: Props) => {
     comment,
   } = withdrawal;
 
-  const commentComponent = comment
+  const commentText = comment
     ? (
       <>
         <br />
         <br />
-        {t('comment')}
-        &#32;
+        {t('comment.title')}
+        :&#32;
         {comment}
       </>
     )
@@ -53,7 +53,7 @@ export const Display = ({ withdrawal, onBackClick }: Props) => {
       {t('status.title')}
       &#32;
       {t(`status.${status}`)}
-      {commentComponent}
+      {commentText}
     </>
   );
 

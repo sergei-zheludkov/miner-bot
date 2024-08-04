@@ -5,6 +5,7 @@
 export type WithdrawalUpdateDto = {
     id: number;
     status: WithdrawalUpdateDto.status;
+    comment?: string;
 };
 
 export namespace WithdrawalUpdateDto {
