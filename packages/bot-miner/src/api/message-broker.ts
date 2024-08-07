@@ -6,11 +6,11 @@ export class MessageBroker {
   NOTIFICATION_BASE = '/notifications';
 
   REFERRALS = {
-    NEW: `${this.NOTIFICATION_BASE}/referrals/new/`,
+    NEW: `${this.NOTIFICATION_BASE}/referrals/new`,
   };
 
-  newReferralActivated(chatId: string, callback: (params: NewReferralData) => void) {
-    expressApp.post(`${this.REFERRALS.NEW}${chatId}`, (req, res) => {
+  newReferralActivated(callback: (params: NewReferralData) => void) {
+    expressApp.post(this.REFERRALS.NEW, (req, res) => {
       const { body } = req;
 
       const referralData = getNewReferralData(body);

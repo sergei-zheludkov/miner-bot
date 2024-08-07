@@ -11,10 +11,10 @@ export class NotificationService {
     private readonly configService: ConfigService,
   ) {}
 
-  async newReferralActivated(userid: string, username: string, firstname: string) {
-    const url = `${this.configService.get('WEBHOOK_HOST_MINER')}notifications/referrals/new/${userid}`;
+  async newReferralActivated(referral_id: string, username: string, firstname: string) {
+    const url = `${this.configService.get('WEBHOOK_HOST_MINER')}notifications/referrals/new`;
 
-    const request = this.httpService.post(url, { username, firstname });
+    const request = this.httpService.post(url, { referral_id, username, firstname });
 
     const data = {
       request,
