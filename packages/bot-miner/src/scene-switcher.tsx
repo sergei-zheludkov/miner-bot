@@ -23,6 +23,9 @@ export const SceneSwitcher = () => {
       return <Error />;
 
     // ----------------------------------------MAIN MENU---------------------------------------
+    case T.MenuEnum.TASKS_USER:
+      return <Menu.Tasks.User />;
+
     case T.SceneEnum.MINING:
       return (
         <Provider.Mining>
@@ -30,7 +33,7 @@ export const SceneSwitcher = () => {
         </Provider.Mining>
       );
 
-    case T.SceneEnum.TASK_CONTROLLER:
+    case T.SceneEnum.TASK_CONTROLLER_PUBLIC:
       return (
         <Provider.Mining>
           <Scene.Tasks.Controller />
@@ -73,8 +76,11 @@ export const SceneSwitcher = () => {
       );
 
     // ----------------------------------------ADMIN MENU--------------------------------------
-    case T.MenuEnum.TASKS_CONTROL:
-      return <Menu.TasksControl />;
+    case T.MenuEnum.TASK_CREATION:
+      return <Menu.Tasks.Creation />;
+
+    case T.MenuEnum.TASKS_ADMIN:
+      return <Menu.Tasks.Admin />;
 
     case T.MenuEnum.STATISTICS:
       return <Menu.Statistics />;
@@ -110,12 +116,12 @@ export const SceneSwitcher = () => {
     case T.SceneEnum.REFERRAL_INVITATION:
       return <Scene.Referral.Invitation />;
 
-    // ------------------------------------TASKS CONTROL MENU----------------------------------
-    case T.SceneEnum.TASK_CREATE:
-      return <Scene.Tasks.Create />;
+    // ------------------------------------TASKS ADMIN CONTROLLER MENU----------------------------------
+    case T.SceneEnum.TASK_CREATION_PUBLIC:
+      return <Scene.Tasks.Creation.Public />;
 
-      // case T.SceneEnum.TASK_NOTIFICATION:
-      //   return <Scene.Tasks.Notification />;
+    case T.SceneEnum.TASK_CREATION_COMMENT:
+      return <Scene.Tasks.Creation.Comment />;
 
     // -------------------------------------SETTINGS MENU-------------------------------------
     case T.SceneEnum.SETTINGS_LANGUAGE:

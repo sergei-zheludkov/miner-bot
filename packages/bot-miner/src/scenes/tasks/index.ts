@@ -1,9 +1,4 @@
-import { Create } from './create';
+import { Creation } from './creation';
 import { Controller } from './controller';
-import { Notification } from './notification';
 
-export const Tasks = {
-  Create,
-  Controller,
-  Notification,
-};
+export const Tasks = { Creation, Controller };

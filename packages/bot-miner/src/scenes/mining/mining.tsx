@@ -11,7 +11,7 @@ const { getCryptoAmount, getMinedTokenAmount } = MATH;
 
 export const Mining = () => {
   const { t } = useTranslation('mining');
-  const { switchToMenuMain, switchToSceneTaskController, switchToSceneReferralTerms } = useRouter();
+  const { switchToMenuMain, switchToMenuTaskUser, switchToSceneReferralTerms } = useRouter();
   const { user: { who_invited_id } } = useUser();
   const {
     mining,
@@ -81,7 +81,7 @@ export const Mining = () => {
 
       const buttonComponent = [
         [
-          <Button key="tasks" onClick={switchToSceneTaskController}>
+          <Button key="tasks" onClick={switchToMenuTaskUser}>
             {t('buttons:tasks')}
           </Button>,
           <Button key="referral" onClick={switchToSceneReferralTerms}>
@@ -186,7 +186,7 @@ export const Mining = () => {
         </Button>,
       ],
       [
-        <Button key="tasks" onClick={switchToSceneTaskController}>
+        <Button key="tasks" onClick={switchToMenuTaskUser}>
           {t('buttons:tasks')}
         </Button>,
         <Button key="referral" onClick={switchToSceneReferralTerms}>

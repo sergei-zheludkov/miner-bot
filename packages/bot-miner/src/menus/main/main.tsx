@@ -13,11 +13,11 @@ export const Main = () => {
 
   const {
     switchToMenuAdmin,
+    switchToMenuTaskUser,
     switchToMenuInformation,
     switchToSceneMining,
     switchToSceneBalance,
     switchToSceneReferralTerms,
-    switchToSceneTaskController,
   } = useRouter();
 
   /* ---------- BUTTON HOOKS ---------- */
@@ -28,7 +28,7 @@ export const Main = () => {
   useText(switchToSceneMining, mining);
 
   const tasks = t('tasks');
-  useText(switchToSceneTaskController, tasks);
+  useText(switchToMenuTaskUser, tasks);
 
   const referral = t('referral');
   useText(switchToSceneReferralTerms, referral);

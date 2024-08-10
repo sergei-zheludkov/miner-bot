@@ -18,7 +18,9 @@ export const RouterProvider = ({ children }: ProviderProps) => {
   const switchToMenuSettings = () => setScene(T.MenuEnum.SETTINGS);
   const switchToMenuStatistics = () => setScene(T.MenuEnum.STATISTICS);
   const switchToMenuInformation = () => setScene(T.MenuEnum.INFORMATION);
-  const switchToMenuTasksControl = () => setScene(T.MenuEnum.TASKS_CONTROL);
+  const switchToMenuTaskAdmin = () => setScene(T.MenuEnum.TASKS_ADMIN);
+  const switchToMenuTaskUser = () => setScene(T.MenuEnum.TASKS_USER);
+  const switchToMenuTaskCreation = () => setScene(T.MenuEnum.TASK_CREATION);
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
   const switchToSceneError = () => setScene(T.SceneEnum.ERROR);
   const switchToSceneMining = () => setScene(T.SceneEnum.MINING);
@@ -26,10 +28,11 @@ export const RouterProvider = ({ children }: ProviderProps) => {
   const switchToSceneGreeting = () => setScene(T.SceneEnum.GREETING);
   const switchToSceneAccession = () => setScene(T.SceneEnum.ACCESSION);
   const switchToSceneSettingsLanguage = () => setScene(T.SceneEnum.SETTINGS_LANGUAGE);
-  const switchToSceneTaskCreate = () => setScene(T.SceneEnum.TASK_CREATE);
-  const switchToSceneTaskController = () => setScene(T.SceneEnum.TASK_CONTROLLER);
-  const switchToSceneTaskNotification = () => setScene(T.SceneEnum.TASK_NOTIFICATION);
   const switchToSceneTaskAddLimit = () => setScene(T.SceneEnum.TASK_ADD_LIMIT);
+  const switchToSceneTaskCreationPublic = () => setScene(T.SceneEnum.TASK_CREATION_PUBLIC);
+  const switchToSceneTaskCreationComment = () => setScene(T.SceneEnum.TASK_CREATION_COMMENT);
+  const switchToSceneTaskControllerPublic = () => setScene(T.SceneEnum.TASK_CONTROLLER_PUBLIC);
+  const switchToSceneTaskControllerComment = () => setScene(T.SceneEnum.TASK_CONTROLLER_COMMENT);
   const switchToSceneWithdrawalCreate = () => setScene(T.SceneEnum.WITHDRAWAL_CREATE);
   const switchToSceneWithdrawalListForUser = () => setScene(T.SceneEnum.WITHDRAWAL_LIST_FOR_USER);
   const switchToSceneWithdrawalListForAdmin = () => setScene(T.SceneEnum.WITHDRAWAL_LIST_FOR_ADMIN);
@@ -53,17 +56,20 @@ export const RouterProvider = ({ children }: ProviderProps) => {
     switchToMenuSettings,
     switchToMenuStatistics,
     switchToMenuInformation,
-    switchToMenuTasksControl,
+    switchToMenuTaskAdmin,
+    switchToMenuTaskUser,
+    switchToMenuTaskCreation,
     // -- -- -- -- -- -- -- -- --
     switchToSceneError,
     switchToSceneMining,
     switchToSceneBalance,
     switchToSceneGreeting,
     switchToSceneSettingsLanguage,
-    switchToSceneTaskCreate,
-    switchToSceneTaskController,
-    switchToSceneTaskNotification,
     switchToSceneTaskAddLimit,
+    switchToSceneTaskCreationPublic,
+    switchToSceneTaskCreationComment,
+    switchToSceneTaskControllerPublic,
+    switchToSceneTaskControllerComment,
     switchToSceneWithdrawalCreate,
     switchToSceneWithdrawalListForUser,
     switchToSceneWithdrawalListForAdmin,

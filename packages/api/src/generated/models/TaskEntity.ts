@@ -26,6 +26,7 @@ export namespace TaskEntity {
 
     export enum type {
         TG_PUBLIC = 'tg_public',
+        TG_COMMENT = 'tg_comment',
     }
 
     export enum country {

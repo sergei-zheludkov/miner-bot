@@ -11,10 +11,11 @@ export enum SceneEnum {
 
   STATISTICS_USERS = 'scene_statistics_users',
 
-  TASK_CREATE = 'scene_task_create',
-  TASK_CONTROLLER = 'scene_task_controller',
-  TASK_NOTIFICATION = 'scene_task_notification',
   TASK_ADD_LIMIT = 'scene_task_add_limit',
+  TASK_CREATION_PUBLIC = 'scene_task_creation_public',
+  TASK_CREATION_COMMENT = 'scene_task_creation_comment',
+  TASK_CONTROLLER_PUBLIC = 'scene_task_controller_public',
+  TASK_CONTROLLER_COMMENT = 'scene_task_controller_comment',
 
   USERS_CONTROLLER = 'scene_users_controller',
   USERS_PAYROLL = 'scene_users_payroll',
@@ -41,7 +42,10 @@ export enum MenuEnum {
   SETTINGS = 'settings_menu',
   STATISTICS = 'statistics_menu',
   INFORMATION = 'information_menu',
-  TASKS_CONTROL = 'tasks_control_menu',
+
+  TASKS_USER = 'tasks_user_menu',
+  TASKS_ADMIN = 'tasks_admin_menu',
+  TASK_CREATION = 'task_creation_menu',
 }
 
 export const LANGUAGES = {

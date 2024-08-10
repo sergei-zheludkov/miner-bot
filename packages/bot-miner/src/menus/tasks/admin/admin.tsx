@@ -1,17 +1,15 @@
 import React from 'react';
 import { ButtonGroup, Button, useText } from '@urban-bot/core';
 import { useTranslation } from '@common_bot/i18n';
-import { useRouter } from '../../contexts';
-import { useTasksControl } from './use-tasks-control';
+import { useRouter } from '../../../contexts';
 
-export const TasksControl = () => {
+export const Admin = () => {
   const { t } = useTranslation('buttons');
-  const { isUserAdmin } = useTasksControl();
+
   const {
     switchToMenuAdmin,
-    switchToSceneTaskCreate,
+    switchToMenuTaskCreation,
     switchToSceneTaskAddLimit,
-    // switchToSceneTaskNotification,
   } = useRouter();
 
   /* ---------- BUTTON HOOKS ---------- */
@@ -19,27 +17,20 @@ export const TasksControl = () => {
   useText(switchToMenuAdmin, back);
 
   const create_task = t('create_task');
-  useText(switchToSceneTaskCreate, create_task);
+  useText(switchToMenuTaskCreation, create_task);
 
   const add_task_limit = t('add_task_limit');
   useText(switchToSceneTaskAddLimit, add_task_limit);
-
-  // const task_notification = t('task_notification');
-  // useText(switchToSceneTaskNotification, task_notification);
-
-  const title = t(isUserAdmin ? 'admin:message' : 'admin:error');
-  // const errorText = t();
 
   return (
     <ButtonGroup
       isReplyButtons
       isResizedKeyboard
       maxColumns={2}
-      title={title}
+      title={t('tasks:admin_message')}
     >
       <Button>{create_task}</Button>
       <Button>{add_task_limit}</Button>
-      {/* <Button>{task_notification}</Button> */}
       <Button>{back}</Button>
     </ButtonGroup>
   );
