@@ -8,7 +8,6 @@ import {
   useText,
 } from '@urban-bot/core';
 import {
-  TasksEnum,
   CountriesEnum,
   PlacementEnum,
   GenderEnum,
@@ -17,20 +16,20 @@ import {
 import { useTranslation } from '@common_bot/i18n';
 import { useRouter } from '../../../contexts';
 import { QUESTION_KEYS } from './constants';
-import { useCreate } from './use-create';
+import { usePublic } from './use-public';
 
-export const Create = () => {
+export const Public = () => {
   const { t } = useTranslation('tasks');
-  const { switchToMenuTasksControl } = useRouter();
+  const { switchToMenuTaskCreation } = useRouter();
   const {
     createTask,
     isPostCalled,
     isPostSuccess,
     isPostError,
-  } = useCreate();
+  } = usePublic();
 
   const exit = t('buttons:exit');
-  useText(switchToMenuTasksControl, exit);
+  useText(switchToMenuTaskCreation, exit);
 
   const exitButton = (
     <Button key="exit-to-main-menu">
@@ -38,31 +37,8 @@ export const Create = () => {
     </Button>
   );
 
-  const typeContent = (
-    <ButtonGroup isReplyButtons isResizedKeyboard maxColumns={1} title={t('create.questions.type.message')}>
-      {/* <Button id={TasksEnum.TG_PUBLIC}> */}
-      {/*  {t(`create.buttons.${TasksEnum.TG_PUBLIC}`)} */}
-      {/* </Button> */}
-
-      <Button id={TasksEnum.TG_PUBLIC}>
-        {TasksEnum.TG_PUBLIC}
-      </Button>
-      {exitButton}
-    </ButtonGroup>
-  );
-
   const countryContent = (
     <ButtonGroup isReplyButtons isResizedKeyboard maxColumns={1} title={t('create.questions.country.message')}>
-      {/* <Button id={CountriesEnum.RUSSIA}> */}
-      {/*  {t(`country:${CountriesEnum.RUSSIA}`)} */}
-      {/* </Button> */}
-      {/* <Button id={CountriesEnum.BELARUS}> */}
-      {/*  {t(`country:${CountriesEnum.BELARUS}`)} */}
-      {/* </Button> */}
-      {/* <Button id={CountriesEnum.KAZAKHSTAN}> */}
-      {/*  {t(`country:${CountriesEnum.KAZAKHSTAN}`)} */}
-      {/* </Button> */}
-
       <Button id={CountriesEnum.RUSSIA}>
         {CountriesEnum.RUSSIA}
       </Button>
@@ -81,27 +57,11 @@ export const Create = () => {
 
   const placementContent = (
     <ButtonGroup isReplyButtons isResizedKeyboard maxColumns={1} title={t('create.questions.placement.message')}>
-      {/* <Button id={PlacementEnum.TASK_LIST}> */}
-      {/*  {t(`create.buttons.${PlacementEnum.TASK_LIST}`)} */}
-      {/* </Button> */}
-      {/* <Button id={PlacementEnum.MINING_ACTIVATION}> */}
-      {/*  {t(`create.buttons.${PlacementEnum.MINING_ACTIVATION}`)} */}
-      {/* </Button> */}
-
       <Button id={PlacementEnum.TASK_LIST}>
         {PlacementEnum.TASK_LIST}
       </Button>
       <Button id={PlacementEnum.MINING_ACTIVATION}>
         {PlacementEnum.MINING_ACTIVATION}
-      </Button>
-      {exitButton}
-    </ButtonGroup>
-  );
-
-  const currencyContent = (
-    <ButtonGroup isReplyButtons isResizedKeyboard maxColumns={1} title={t('create.questions.currency.message')}>
-      <Button id={CurrencyEnum.TON}>
-        {CurrencyEnum.TON}
       </Button>
       {exitButton}
     </ButtonGroup>
@@ -130,12 +90,6 @@ export const Create = () => {
       <Button id="0.0000002">
         0.0000002
       </Button>
-      {/* <Button id="0.000_000_3"> */}
-      {/*  0.000_000_3 */}
-      {/* </Button> */}
-      {/* <Button id="0.000_000_5"> */}
-      {/*  0.000_000_5 */}
-      {/* </Button> */}
       {exitButton}
     </ButtonGroup>
   );
@@ -185,58 +139,49 @@ export const Create = () => {
   }
 
   if (!isPostCalled) {
+    // TODO переписать с DIALOG STEP
     return (
       <Dialog onFinish={createTask}>
         <DialogStep
-          id={QUESTION_KEYS.TYPE}
-          content={typeContent}
+          id={QUESTION_KEYS.COUNTRY}
+          content={countryContent}
         >
           <DialogStep
-            id={QUESTION_KEYS.COUNTRY}
-            content={countryContent}
+            id={QUESTION_KEYS.PLACEMENT}
+            content={placementContent}
           >
             <DialogStep
-              id={QUESTION_KEYS.PLACEMENT}
-              content={placementContent}
+              id={QUESTION_KEYS.GENDER}
+              content={genderContent}
             >
               <DialogStep
-                id={QUESTION_KEYS.GENDER}
-                content={genderContent}
+                id={QUESTION_KEYS.INCREASE_MINING_RATE}
+                content={increaseMiningRateContent}
               >
                 <DialogStep
-                  id={QUESTION_KEYS.CURRENCY}
-                  content={currencyContent}
+                  id={QUESTION_KEYS.AVAILABLE_LIMIT}
+                  content={availableLimitContent}
                 >
                   <DialogStep
-                    id={QUESTION_KEYS.INCREASE_MINING_RATE}
-                    content={increaseMiningRateContent}
+                    id={QUESTION_KEYS.NAME}
+                    content={nameContent}
                   >
                     <DialogStep
-                      id={QUESTION_KEYS.AVAILABLE_LIMIT}
-                      content={availableLimitContent}
+                      id={QUESTION_KEYS.DESCRIPTION}
+                      content={descriptionContent}
                     >
                       <DialogStep
-                        id={QUESTION_KEYS.NAME}
-                        content={nameContent}
+                        id={QUESTION_KEYS.CHECK_KEY}
+                        content={checkKeyContent}
                       >
                         <DialogStep
-                          id={QUESTION_KEYS.DESCRIPTION}
-                          content={descriptionContent}
+                          id={QUESTION_KEYS.CONTACT}
+                          content={contactContent}
                         >
                           <DialogStep
-                            id={QUESTION_KEYS.CHECK_KEY}
-                            content={checkKeyContent}
-                          >
-                            <DialogStep
-                              id={QUESTION_KEYS.CONTACT}
-                              content={contactContent}
-                            >
-                              <DialogStep
-                                id={QUESTION_KEYS.URL}
-                                content={urlContent}
-                              />
-                            </DialogStep>
-                          </DialogStep>
+                            id={QUESTION_KEYS.URL}
+                            content={urlContent}
+                          />
                         </DialogStep>
                       </DialogStep>
                     </DialogStep>

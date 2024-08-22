@@ -8,7 +8,7 @@ export const Admin = () => {
   const {
     switchToMenuMain,
     switchToMenuStatistics,
-    switchToMenuTasksControl,
+    switchToMenuTaskAdmin,
     switchToSceneUsersController,
     switchToSceneWithdrawalListForAdmin,
   } = useRouter();
@@ -19,7 +19,7 @@ export const Admin = () => {
   useText(switchToMenuMain, back);
 
   const tasks_menu = t('tasks');
-  useText(switchToMenuTasksControl, tasks_menu);
+  useText(switchToMenuTaskAdmin, tasks_menu);
 
   const users_controller = t('users');
   useText(switchToSceneUsersController, users_controller);

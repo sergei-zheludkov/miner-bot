@@ -1,8 +1,9 @@
 import { useApi, useQuery, type TaskCreateDto } from '@common_bot/api';
+import { CurrencyEnum, PlacementEnum, TasksEnum } from '@common_bot/shared';
 import type { DialogAnswers } from '@urban-bot/core';
 import { QUESTION_KEYS } from './constants';
 
-export const useCreate = () => {
+export const useComment = () => {
   const { postTask: postTaskApi } = useApi().task;
   // const { switchToMenuTasksControl } = useRouter();
   const {
@@ -16,15 +17,15 @@ export const useCreate = () => {
 
   const createTask = async (answers: DialogAnswers) => {
     // Такой финт из-за кривой генерации enum в @common_bot/api
-    const type = answers[QUESTION_KEYS.TYPE] as unknown as TaskCreateDto['type'];
+    const type = TasksEnum.TG_PUBLIC as unknown as TaskCreateDto['type'];
     // Такой финт из-за кривой генерации enum в @common_bot/api
     const country = answers[QUESTION_KEYS.COUNTRY] as unknown as TaskCreateDto['country'];
     // Такой финт из-за кривой генерации enum в @common_bot/api
-    const placement = answers[QUESTION_KEYS.PLACEMENT] as unknown as TaskCreateDto['placement'];
+    const placement = PlacementEnum.TASK_LIST as unknown as TaskCreateDto['placement'];
     // Такой финт из-за кривой генерации enum в @common_bot/api
     const gender = answers[QUESTION_KEYS.GENDER] as unknown as TaskCreateDto['gender'];
     // Такой финт из-за кривой генерации enum в @common_bot/api
-    const currency = answers[QUESTION_KEYS.CURRENCY] as unknown as TaskCreateDto['currency'];
+    const currency = CurrencyEnum.TON as unknown as TaskCreateDto['currency'];
 
     await postTask({
       mining_rate: Number(answers[QUESTION_KEYS.INCREASE_MINING_RATE]).toFixed(10),

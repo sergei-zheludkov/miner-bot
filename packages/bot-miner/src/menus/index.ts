@@ -3,4 +3,5 @@ export { Admin } from './admin';
 export { Settings } from './settings';
 export { Statistics } from './statistics';
 export { Information } from './information';
-export { TasksControl } from './tasks-control';
+
+export { Tasks } from './tasks';

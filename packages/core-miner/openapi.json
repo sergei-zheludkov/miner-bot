@@ -1303,7 +1303,8 @@
           "type": {
             "type": "string",
             "enum": [
-              "tg_public"
+              "tg_public",
+              "tg_comment"
             ]
           },
           "country": {
@@ -1439,7 +1440,8 @@
           "type": {
             "type": "string",
             "enum": [
-              "tg_public"
+              "tg_public",
+              "tg_comment"
             ]
           },
           "country": {
